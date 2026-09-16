@@ -423,6 +423,13 @@ msgstr "켈트어파"
 msgid "Central American Indian languages"
 msgstr "중앙아메리카원주민어파"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "중앙유픽어"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1825,6 +1832,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
 msgstr ""
 
 #. frequency:0 iso_code_3:null

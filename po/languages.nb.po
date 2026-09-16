@@ -422,6 +422,11 @@ msgstr ""
 msgid "Central American Indian languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+msgid "Central Dusun"
+msgstr ""
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1822,6 +1827,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
 msgstr ""
 
 #. frequency:0 iso_code_3:null

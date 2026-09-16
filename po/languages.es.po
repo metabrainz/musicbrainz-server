@@ -443,6 +443,13 @@ msgstr "Lenguas celtas"
 msgid "Central American Indian languages"
 msgstr "Lenguas indígenas de Centroamérica"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "Yupik central"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1842,6 +1849,11 @@ msgstr "Nias"
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
 msgstr "Lenguas níger-cordofanas"
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396

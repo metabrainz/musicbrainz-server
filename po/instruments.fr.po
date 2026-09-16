@@ -448,7 +448,10 @@ msgid "arrabel"
 msgstr "arrabel"
 
 #: DB:instrument/name:812
-msgctxt "cone shaped west african frame-drum"
+#, fuzzy
+#| msgctxt "cone shaped west african frame-drum"
+#| msgid "ashiko"
+msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "ashiko"
 
@@ -932,7 +935,7 @@ msgstr ""
 #, fuzzy
 #| msgctxt "Brazilian Samba snare-drum"
 #| msgid "caixa"
-msgctxt "Deep Brazilian samba snare-drum"
+msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "caixa"
 
@@ -3977,6 +3980,9 @@ msgid "talking drum"
 msgstr "tama"
 
 #: DB:instrument/name:723
+#, fuzzy
+#| msgid "tamborim"
+msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "tamborim"
 
@@ -4042,7 +4048,7 @@ msgstr "tárogató"
 #, fuzzy
 #| msgctxt "Wooden keyless shawm from Catalonia"
 #| msgid "tarota"
-msgctxt "Shallow Brazilian samba snare-drum"
+msgctxt "Brazilian shallow samba snare-drum"
 msgid "tarol"
 msgstr "tarota"
 

@@ -420,6 +420,13 @@ msgstr "凱爾特語族"
 msgid "Central American Indian languages"
 msgstr "中美洲原住民諸語言"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "中阿拉斯加尤皮克語"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1819,6 +1826,11 @@ msgstr "尼亞斯語"
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
 msgstr "尼日-科爾多凡語系"
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396

@@ -445,6 +445,13 @@ msgstr "кельтские языки"
 msgid "Central American Indian languages"
 msgstr "месоамериканские языки"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "центрально-юпикский"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1844,6 +1851,11 @@ msgstr "ниасский"
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
 msgstr "нигеро-кордофанианские языки"
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396

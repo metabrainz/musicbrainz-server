@@ -463,6 +463,13 @@ msgid ""
 "b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano flute</a>."
 msgstr ""
 
+#. name:te kū
+#: DB:instrument/description:860
+msgid ""
+"Also knownas just \"kū\", mouthbow with a single string is struck with a "
+"light implement of bone or wood."
+msgstr ""
+
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -937,6 +944,13 @@ msgid "Conical bore double-reed musical instrument from Brittany."
 msgstr ""
 "Die Bombarde ist ein Blasinstrument mit doppeltem Rohrblatt aus der Familie "
 "der Kegeloboen, das in der bretonischen Musik verwendet wird."
+
+#. name:ashiko
+#: DB:instrument/description:812
+msgid ""
+"Conical goatskin frame-drum originating with the Yoruba people of West "
+"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
+msgstr ""
 
 #. name:telharmonium
 #: DB:instrument/description:125
@@ -1491,8 +1505,10 @@ msgstr ""
 #. name:tambourine
 #: DB:instrument/description:263
 msgid ""
-"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
-"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+"For the Brazilian frame-drum hit with a whisk, see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> For the old "
+"French low-pitched tenor drum called Tambourin, see <a href=\"/instrument/"
+"2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 msgstr ""
 
 #. name:cornamuse
@@ -1560,6 +1576,17 @@ msgid ""
 "a01b-769de71b82f2\">harmonium</a>.<br /> Also known as pump organ, it is "
 "large, looks like an upright piano and has pedals attached to bellows with "
 "reeds. Sound is produced by playing the keyboard."
+msgstr ""
+
+#. name:tamborim
+#: DB:instrument/description:723
+msgid ""
+"For the common framedrum with jangles, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For the old "
+"French tenor drum tambourin, see <a href=\"/instrument/2a2dec1a-"
+"e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br /> Used in Brazilian samba, it's "
+"metal, plastic or wood jangle-less frame is strung with nylon and beaten "
+"with brush or stick called Baqueta."
 msgstr ""
 
 #. name:musette de cour
@@ -3536,8 +3563,8 @@ msgstr ""
 #. name:shaken idiophone
 #: DB:instrument/description:954
 msgid ""
-"Shaken idiophone or rattle. Sound is produced by holding or containing "
-"usually small concussing parts."
+"Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
+"contains small concussing parts."
 msgstr ""
 
 #. name:Otamatone
@@ -5367,16 +5394,6 @@ msgstr ""
 "Die schwedische Stråkharpa (Talharpa) ist eine Nachfolgerin der Crwth, einer "
 "keltischen, vor allem walisischen gestrichenen Leier mit Fingerbrett."
 
-#. name:tamborim
-#: DB:instrument/description:723
-msgid "The tamborim is a small frame drum from Brazil."
-msgstr ""
-"Das Tamborim ist eine kleine Trommel aus der brasilianischen "
-"Sambapercussion. Es ist nicht zu verwechseln mit dem weiter verbreiteten "
-"Tamburin. Je nach Musikstil werden die Töne auf dem Tamborim mit den "
-"Fingern, leichten Holzstöcken (mitunter gewöhnliche Schlagzeug-Sticks) oder "
-"mit Plastikpeitschen erzeugt."
-
 #. name:taphon
 #: DB:instrument/description:669
 msgid "The taphon is a traditional barrel drum from Thailand."
@@ -6193,6 +6210,13 @@ msgid ""
 "calabash sistrum or disc rattle (n'goso m'bara)."
 msgstr ""
 
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in samba music, it is a small canister of metal or woven material, "
+"filled with beads, grains, pebbles or the like."
+msgstr ""
+
 #. name:saron wayang
 #: DB:instrument/description:1010
 msgid ""
@@ -6248,14 +6272,6 @@ msgstr ""
 msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's "
 "perform creating sound."
-msgstr ""
-
-#. name:ganzá
-#: DB:instrument/description:644
-msgid ""
-"Used in various performances (capoeira angola, caboclo, etc) and samba "
-"music, it is usually made of metal and filled with grains, pebbles or the "
-"like."
 msgstr ""
 
 #. name:kepyak
@@ -6533,13 +6549,6 @@ msgstr ""
 msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
 msgstr ""
 
-#. name:te kū
-#: DB:instrument/description:860
-msgid ""
-"also just \"kū\", a mouthbow with a single string, struck with a light "
-"implement of bone or wood."
-msgstr ""
-
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
@@ -6548,13 +6557,6 @@ msgstr ""
 "einfachste und älteste Trompeteninstrument. Das Schneckenhorn wird aus der "
 "Schale einer Meeresschnecke gefertigt, die Spitze wird bei den am weitesten "
 "verbreiteten, längs geblasenen Schnecken abgesägt."
-
-#. name:ashiko
-#: DB:instrument/description:812
-msgid ""
-"conical goatskin frame-drum originating with the Yoruba people of West "
-"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
-msgstr ""
 
 #. name:Tonette
 #: DB:instrument/description:846
@@ -6570,6 +6572,14 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid "The tamborim is a small frame drum from Brazil."
+#~ msgstr ""
+#~ "Das Tamborim ist eine kleine Trommel aus der brasilianischen "
+#~ "Sambapercussion. Es ist nicht zu verwechseln mit dem weiter verbreiteten "
+#~ "Tamburin. Je nach Musikstil werden die Töne auf dem Tamborim mit den "
+#~ "Fingern, leichten Holzstöcken (mitunter gewöhnliche Schlagzeug-Sticks) "
+#~ "oder mit Plastikpeitschen erzeugt."
 
 #~ msgid "Gankogui, iron bell"
 #~ msgstr ""

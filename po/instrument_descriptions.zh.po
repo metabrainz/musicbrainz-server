@@ -451,6 +451,17 @@ msgstr ""
 "（协奏曲）和<a href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">高"
 "音长笛</a>混淆。"
 
+#. name:te kū
+#: DB:instrument/description:860
+#, fuzzy
+#| msgid ""
+#| "also just \"kū\", a mouthbow with a single string, struck with a light "
+#| "implement of bone or wood."
+msgid ""
+"Also knownas just \"kū\", mouthbow with a single string is struck with a "
+"light implement of bone or wood."
+msgstr "简称为\"库\"，单弦口弓，使用简单的骨器或木器弹奏。"
+
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -935,6 +946,20 @@ msgstr "用于制作音乐的计算机驱动器，包括硬盘、软盘、CD 或
 #: DB:instrument/description:431
 msgid "Conical bore double-reed musical instrument from Brittany."
 msgstr "布列塔尼的锥形孔双簧乐器。"
+
+#. name:ashiko
+#: DB:instrument/description:812
+#, fuzzy
+#| msgid ""
+#| "conical goatskin frame-drum originating with the Yoruba people of West "
+#| "Africa, it is also found in Afro-Caribbean and Afro-Latin American "
+#| "cultures."
+msgid ""
+"Conical goatskin frame-drum originating with the Yoruba people of West "
+"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
+msgstr ""
+"锥形的山羊皮手鼓，源于西非的约鲁巴人，在加勒比黑人文化和拉美黑人文化中也有使"
+"用。"
 
 #. name:telharmonium
 #: DB:instrument/description:125
@@ -1562,9 +1587,15 @@ msgstr ""
 
 #. name:tambourine
 #: DB:instrument/description:263
+#, fuzzy
+#| msgid ""
+#| "For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
+#| "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgid ""
-"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
-"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+"For the Brazilian frame-drum hit with a whisk, see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> For the old "
+"French low-pitched tenor drum called Tambourin, see <a href=\"/instrument/"
+"2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 msgstr ""
 "巴西框鼓的小刷子,具体参见<a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
 "a03ac232db98\">tamborim</a><br />"
@@ -1666,6 +1697,30 @@ msgstr ""
 "琴，请参见<a href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">“和声"
 "风琴”（Harmonium）</a>。<br />它也被称为泵风琴，体积较大，外形类似于立式钢"
 "琴，并且带有与风箱相连的踏板。声音是通过弹奏键盘产生的。"
+
+#. name:tamborim
+#: DB:instrument/description:723
+#, fuzzy
+#| msgid ""
+#| "Not to be confused with the <a href=\"/instrument/4431f7b0-69a4-49ee-"
+#| "b84f-15dda19fb70c\">tambourine</a>.<br /> For the Brazilian frame-drum "
+#| "hit with a whisk see <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
+#| "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more "
+#| "snares, worn by one person and beaten by one hand, it is often combined "
+#| "with tabor pipes."
+msgid ""
+"For the common framedrum with jangles, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For the old "
+"French tenor drum tambourin, see <a href=\"/instrument/2a2dec1a-"
+"e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br /> Used in Brazilian samba, it's "
+"metal, plastic or wood jangle-less frame is strung with nylon and beaten "
+"with brush or stick called Baqueta."
+msgstr ""
+"不要与 <a href=\"/instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">手鼓"
+"（tambourine）</a> 混淆。<br /> 对于用刷子击打的巴西框鼓，请参见 <a href=\"/"
+"instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>。<br /> 侧鼓，"
+"通常带有一条或多条响弦，由一人佩戴并用一只手击打，经常与管鼓（tabor pipes）结"
+"合使用。"
 
 #. name:musette de cour
 #: DB:instrument/description:735
@@ -4049,9 +4104,13 @@ msgstr ""
 
 #. name:shaken idiophone
 #: DB:instrument/description:954
+#, fuzzy
+#| msgid ""
+#| "Shaken idiophone or rattle. Sound is produced by holding or containing "
+#| "usually small concussing parts."
 msgid ""
-"Shaken idiophone or rattle. Sound is produced by holding or containing "
-"usually small concussing parts."
+"Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
+"contains small concussing parts."
 msgstr "摇奏体鸣乐器或称摇子。声音由乐器上附带或内含的通常较小的振荡部分发出。"
 
 #. name:Otamatone
@@ -5581,11 +5640,6 @@ msgid ""
 "played in Estonia."
 msgstr "尾毛竖琴是北欧一种四弦拉弦里拉琴，在爱沙尼亚最常北演奏。"
 
-#. name:tamborim
-#: DB:instrument/description:723
-msgid "The tamborim is a small frame drum from Brazil."
-msgstr "巴西手鼓是巴西一种小型手鼓。"
-
 #. name:taphon
 #: DB:instrument/description:669
 msgid "The taphon is a traditional barrel drum from Thailand."
@@ -6447,6 +6501,13 @@ msgstr ""
 "用于神圣仪式，由金属或陶制响器制成，带有金属小片，摇动时会发出叮当声。<br/>不"
 "要与西非的calabash sistrum或n'goso m'bara混淆。"
 
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in samba music, it is a small canister of metal or woven material, "
+"filled with beads, grains, pebbles or the like."
+msgstr ""
+
 #. name:saron wayang
 #: DB:instrument/description:1010
 msgid ""
@@ -6504,14 +6565,6 @@ msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's "
 "perform creating sound."
 msgstr "用于唱片主义中，不播放黑胶唱片，而是通过DJ表演发声。"
-
-#. name:ganzá
-#: DB:instrument/description:644
-msgid ""
-"Used in various performances (capoeira angola, caboclo, etc) and samba "
-"music, it is usually made of metal and filled with grains, pebbles or the "
-"like."
-msgstr ""
 
 #. name:kepyak
 #: DB:instrument/description:998
@@ -6844,26 +6897,10 @@ msgstr "属于简单系统形态的木笛，流行于爱尔兰民间音乐"
 msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
 msgstr ""
 
-#. name:te kū
-#: DB:instrument/description:860
-msgid ""
-"also just \"kū\", a mouthbow with a single string, struck with a light "
-"implement of bone or wood."
-msgstr "简称为\"库\"，单弦口弓，使用简单的骨器或木器弹奏。"
-
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
 msgstr "海螺壳"
-
-#. name:ashiko
-#: DB:instrument/description:812
-msgid ""
-"conical goatskin frame-drum originating with the Yoruba people of West "
-"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
-msgstr ""
-"锥形的山羊皮手鼓，源于西非的约鲁巴人，在加勒比黑人文化和拉美黑人文化中也有使"
-"用。"
 
 #. name:Tonette
 #: DB:instrument/description:846
@@ -6879,6 +6916,9 @@ msgstr "越南苗族笛(苗族长笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑶笛，章卢笛的低音版"
+
+#~ msgid "The tamborim is a small frame drum from Brazil."
+#~ msgstr "巴西手鼓是巴西一种小型手鼓。"
 
 #~ msgid "Gankogui, iron bell"
 #~ msgstr "甘柯圭铃，铁铃"

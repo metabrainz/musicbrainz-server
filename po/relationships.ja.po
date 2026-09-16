@@ -2949,9 +2949,9 @@ msgid ""
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
 msgstr ""
-"これは、演奏に適した形に曲をアレンジしたアーティストを示す。 「編曲」は、"
-"コンポジションを特定のタイプのアンサンブルで演奏できる形式に変えるすべての"
-"プロセスの総称として使用される。"
+"これは、演奏に適した形に曲をアレンジしたアーティストを示す。 「編曲」は、コン"
+"ポジションを特定のタイプのアンサンブルで演奏できる形式に変えるすべてのプロセ"
+"スの総称として使用される。"
 
 #. name:chorus master
 #: DB:link_type/description:152
@@ -10199,6 +10199,12 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:1166
 msgid "school directors"
 msgstr ""
+
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "電子音楽"
 
 #: DB:link_type/name:1286
 #, fuzzy

@@ -7,10 +7,10 @@ msgstr ""
 "Last-Translator: KevinOpperman <kevin@opperman.co.za>\n"
 "Language-Team: Afrikaans <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/af/>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: af\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.7.1\n"
 
@@ -8947,6 +8947,10 @@ msgstr ""
 #. name:school director at
 #: DB:link_type/reverse_link_phrase:1166
 msgid "school directors"
+msgstr ""
+
+#: DB:link_attribute_type/name:1461
+msgid "screen music"
 msgstr ""
 
 #: DB:link_type/name:1286

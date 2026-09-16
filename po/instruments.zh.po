@@ -437,7 +437,10 @@ msgid "arrabel"
 msgstr "阿拉维尔琴"
 
 #: DB:instrument/name:812
-msgctxt "cone shaped west african frame-drum"
+#, fuzzy
+#| msgctxt "cone shaped west african frame-drum"
+#| msgid "ashiko"
+msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "阿希可鼓"
 
@@ -918,7 +921,7 @@ msgstr "芦笛"
 #, fuzzy
 #| msgctxt "Brazilian Samba snare-drum"
 #| msgid "caixa"
-msgctxt "Deep Brazilian samba snare-drum"
+msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "巴西小鼓"
 
@@ -3950,6 +3953,9 @@ msgid "talking drum"
 msgstr "对话鼓"
 
 #: DB:instrument/name:723
+#, fuzzy
+#| msgid "tamborim"
+msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "巴西手鼓"
 
@@ -4015,7 +4021,7 @@ msgstr "塔拉戈管"
 #, fuzzy
 #| msgctxt "Wooden keyless shawm from Catalonia"
 #| msgid "tarota"
-msgctxt "Shallow Brazilian samba snare-drum"
+msgctxt "Brazilian shallow samba snare-drum"
 msgid "tarol"
 msgstr "塔罗塔管"
 

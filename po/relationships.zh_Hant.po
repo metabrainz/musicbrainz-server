@@ -8,8 +8,8 @@ msgstr ""
 "PO-Revision-Date: 2026-09-11 17:14+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
-"\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
+">\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -297,7 +297,8 @@ msgstr "Discogs 網頁，關於"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
-msgstr "用於表示創作者父母的再婚配偶（繼父母），或與該配偶子女之間的繼兄弟姊妹關係。"
+msgstr ""
+"用於表示創作者父母的再婚配偶（繼父母），或與該配偶子女之間的繼兄弟姊妹關係。"
 
 #. name:instrumental
 #: DB:link_attribute_type/description:580
@@ -535,8 +536,8 @@ msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
 msgstr ""
-"表示該創作者修訂了此作品。多數情形下，這會是原作曲者在一段時間後修訂了此作品"
-"。"
+"表示該創作者修訂了此作品。多數情形下，這會是原作曲者在一段時間後修訂了此作"
+"品。"
 
 #. name:performance of
 #: DB:link_type/description:887
@@ -779,8 +780,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"表示此發行品的出版商。這與<a href=\"/doc/Label\" target=\"_blank\">廠牌</a>"
-"並<strong>不是</strong>同一個概念。"
+"表示此發行品的出版商。這與<a href=\"/doc/Label\" target=\"_blank\">廠牌</a>並"
+"<strong>不是</strong>同一個概念。"
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -788,8 +789,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"表示此作品的出版商。這與<a href=\"/doc/Label\" target=\"_blank\">廠牌</a>"
-"並<strong>不是</strong>同一個概念。"
+"表示此作品的出版商。這與<a href=\"/doc/Label\" target=\"_blank\">廠牌</a>並"
+"<strong>不是</strong>同一個概念。"
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -1030,8 +1031,8 @@ msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
 msgstr ""
-"將發行品連結到它被轉錄的地區（例如從舊磁帶轉為數位）。僅在具體地點未知時使用"
-"！"
+"將發行品連結到它被轉錄的地區（例如從舊磁帶轉為數位）。僅在具體地點未知時使"
+"用！"
 
 #. name:lacquer cut in
 #: DB:link_type/description:967
@@ -1181,7 +1182,8 @@ msgstr "將活動連結到客席表演者。客席表演者通常只在其他創
 msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
-msgstr "將活動連結到掛名主辦的廠牌或其他組織（通常寫成「廠牌 presents 活動」）。"
+msgstr ""
+"將活動連結到掛名主辦的廠牌或其他組織（通常寫成「廠牌 presents 活動」）。"
 
 #. name:conductor
 #: DB:link_type/description:806
@@ -1212,7 +1214,8 @@ msgstr "將活動連結到在其中表演的管弦樂團。"
 msgid ""
 "Links an event to its host/MC. Event hosts usually do introductions to the "
 "show or each song."
-msgstr "將活動連結到其主持人/MC。活動主持人通常會為整場演出或每首歌曲做開場介紹。"
+msgstr ""
+"將活動連結到其主持人/MC。活動主持人通常會為整場演出或每首歌曲做開場介紹。"
 
 #. name:held in
 #: DB:link_type/description:793
@@ -1584,7 +1587,8 @@ msgstr ""
 msgid ""
 "This attribute indicates a 'guest' performance where the artist in question "
 "is not usually part of the main artist (or contest jury)."
-msgstr "此屬性表示「客席」演出，即該創作者通常不是主要創作者（或比賽評審團）的成員。"
+msgstr ""
+"此屬性表示「客席」演出，即該創作者通常不是主要創作者（或比賽評審團）的成員。"
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
@@ -1600,7 +1604,8 @@ msgstr ""
 msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
-msgstr "此屬性表示具有諷刺、反諷或幽默意圖的版本。惡搞版本多數情況下會修改歌詞。"
+msgstr ""
+"此屬性表示具有諷刺、反諷或幽默意圖的版本。惡搞版本多數情況下會修改歌詞。"
 
 #. name:original
 #: DB:link_attribute_type/description:525
@@ -1738,10 +1743,10 @@ msgid ""
 "Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr ""
 "這說明廠牌更名的情況，不論是純粹出於形象考量，還是因為收購/出售/分拆。處理複"
-"雜的財務合併/分割/重組時應特別謹慎。例如，將<a href=\"/label/99a24d71-54c1-"
-"4d3f-88cc-00fbcc4fce83\">Verve</a>這一廠牌重新命名為<a href=\"/label/"
-"4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>並不合適，因"
-"為名為「Verve」的廠牌繼續存在。"
+"雜的財務合併/分割/重組時應特別謹慎。例如，將<a href=\"/label/"
+"99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a>這一廠牌重新命名為<a href=\"/"
+"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>並不合"
+"適，因為名為「Verve」的廠牌繼續存在。"
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -1782,8 +1787,8 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
-"這說明某廠牌以自己的名義重新發行另一廠牌的（部分）目錄。至少有以下三種情況"
-"：\n"
+"這說明某廠牌以自己的名義重新發行另一廠牌的（部分）目錄。至少有以下三種情"
+"況：\n"
 "<ul>\n"
 "<li>一個廠牌取得了另一廠牌旗下目錄一段時間內在特定地區的發行權。</li>\n"
 "<li>一個廠牌購買了破產廠牌旗下目錄的相關權利，或者收購廠牌（及旗下目錄）後將"
@@ -1834,8 +1839,8 @@ msgid ""
 "artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
 msgstr ""
-"這說明工程師負責確保創作者發出的聲音傳到麥克風時悅耳，沒有不必要的共振或雜訊"
-"。有時稱為聲學工程。"
+"這說明工程師負責確保創作者發出的聲音傳到麥克風時悅耳，沒有不必要的共振或雜"
+"訊。有時稱為聲學工程。"
 
 #. name:transfer
 #: DB:link_type/description:1179
@@ -1912,7 +1917,8 @@ msgid ""
 "This indicates a company who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
-msgstr "表示負責該活動平面設計/版面配置的公司，將各項內容編排成連貫且美觀的設計。"
+msgstr ""
+"表示負責該活動平面設計/版面配置的公司，將各項內容編排成連貫且美觀的設計。"
 
 #. name:artwork
 #: DB:link_type/description:1303
@@ -1943,8 +1949,8 @@ msgid ""
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
-"這表示為發行品進行設計或插圖工作的人或機構。此關聯已棄用，請使用「設計」或「"
-"插圖」（或兩者）代替。"
+"這表示為發行品進行設計或插圖工作的人或機構。此關聯已棄用，請使用「設計」或"
+"「插圖」（或兩者）代替。"
 
 #. name:design/illustration
 #: DB:link_type/description:130
@@ -2017,7 +2023,8 @@ msgid ""
 "This indicates an agency who did the graphic design for the release, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "sleeve design."
-msgstr "這表示為該發行品進行平面設計的機構，將各項內容編排成連貫且美觀的封套設計。"
+msgstr ""
+"這表示為該發行品進行平面設計的機構，將各項內容編排成連貫且美觀的封套設計。"
 
 #. name:artwork
 #: DB:link_type/description:1170
@@ -2118,7 +2125,8 @@ msgid ""
 "This indicates an artist who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
-msgstr "這表示負責該活動平面設計/版面配置的創作者，將各項內容編排成連貫且美觀的設計。"
+msgstr ""
+"這表示負責該活動平面設計/版面配置的創作者，將各項內容編排成連貫且美觀的設計。"
 
 #. name:graphic design
 #: DB:link_type/description:27
@@ -2260,8 +2268,8 @@ msgid ""
 msgstr ""
 "這表示一個錄音是多個錄音的合輯。這適用於包含多首歌曲的單一長錄音，一首連著一"
 "首，原始錄音中的音訊素材未受修改。如果音軌經過變調或彼此混接，<a href=\"/"
-"relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ 混音關聯類型</a>更合適"
-"。"
+"relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ 混音關聯類型</a>更合"
+"適。"
 
 #. name:included in
 #: DB:link_type/description:894
@@ -2300,7 +2308,8 @@ msgstr ""
 msgid ""
 "This indicates that a work contains another, pre-existing work (such as a "
 "pop song being used in a soundtrack or a jukebox musical)."
-msgstr "表示某作品包含另一個既有的作品（例如流行歌曲被用於電影配樂或點唱機音樂劇）。"
+msgstr ""
+"表示某作品包含另一個既有的作品（例如流行歌曲被用於電影配樂或點唱機音樂劇）。"
 
 #. name:parts
 #: DB:link_type/description:281
@@ -2402,14 +2411,16 @@ msgstr ""
 msgid ""
 "This indicates that the area commissioned the work. This is most common for "
 "classical works, but also exists in other genres to a degree."
-msgstr "這表示作品由地區委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
+msgstr ""
+"這表示作品由地區委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
 
 #. name:commissioned
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
 "for classical works, but also exists in other genres to a degree."
-msgstr "這表示作品由創作者委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
+msgstr ""
+"這表示作品由創作者委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
 
 #. name:misc
 #: DB:link_type/description:129 DB:link_type/description:25
@@ -2443,14 +2454,16 @@ msgstr "這表示廠牌擔任了其他關聯類型尚未涵蓋的角色。"
 msgid ""
 "This indicates that the organisation commissioned the work. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr "這表示作品由組織委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
+msgstr ""
+"這表示作品由組織委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
 
 #. name:commissioned
 #: DB:link_type/description:892
 msgid ""
 "This indicates that the place commissioned the work. This is most common for "
 "classical works, but also exists in other genres to a degree."
-msgstr "這表示作品由地點委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
+msgstr ""
+"這表示作品由地點委託創作。最常見於古典作品，但也或多或少存在於其他流派。"
 
 #. name:partial
 #: DB:link_attribute_type/description:579
@@ -2485,9 +2498,9 @@ msgid ""
 "still contain backing vocals and other sections that would not be present in "
 "a true instrumental recording."
 msgstr ""
-"表示這是該作品的卡拉OK錄音。這與純樂器錄音不同，因為它是專門用來讓人跟著唱的"
-"，所以歌詞資訊仍然相關。它可能仍包含背景人聲和其他真正的純樂器錄音中不會出現"
-"的部分。"
+"表示這是該作品的卡拉OK錄音。這與純樂器錄音不同，因為它是專門用來讓人跟著唱"
+"的，所以歌詞資訊仍然相關。它可能仍包含背景人聲和其他真正的純樂器錄音中不會出"
+"現的部分。"
 
 #. name:related to
 #: DB:link_type/description:738
@@ -2719,8 +2732,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"表示負責行銷該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠"
-"牌</a><strong>不是</strong>同一個概念。"
+"表示負責行銷該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠牌"
+"</a><strong>不是</strong>同一個概念。"
 
 #. name:printed
 #: DB:link_type/description:985
@@ -2729,8 +2742,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"表示負責印刷該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠"
-"牌</a><strong>不是</strong>同一個概念。"
+"表示負責印刷該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠牌"
+"</a><strong>不是</strong>同一個概念。"
 
 #. name:promoted
 #: DB:link_type/description:359
@@ -2749,8 +2762,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"表示負責出版該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠"
-"牌</a><strong>不是</strong>同一個概念。"
+"表示負責出版該發行品的組織。這和<a href=\"/doc/Label\" target=\"_blank\">廠牌"
+"</a><strong>不是</strong>同一個概念。"
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2764,9 +2777,9 @@ msgid ""
 "which notes in a piece of music."
 msgstr ""
 "表示負責該錄音配器的人。配器是一種特殊的編曲形式，指的是將作品改編為管弦樂團"
-"演奏的形式，同時保持音樂內容基本上不變。配器者還負責為管弦樂團、樂團、合唱團"
-"、獨奏樂器或獨唱歌手編寫樂譜。實際上，配器包括決定樂曲中每種樂器應演奏哪些音"
-"符。"
+"演奏的形式，同時保持音樂內容基本上不變。配器者還負責為管弦樂團、樂團、合唱"
+"團、獨奏樂器或獨唱歌手編寫樂譜。實際上，配器包括決定樂曲中每種樂器應演奏哪些"
+"音符。"
 
 #. name:orchestrator
 #: DB:link_type/description:40
@@ -2796,9 +2809,9 @@ msgid ""
 "which notes in a piece of music."
 msgstr ""
 "表示負責該作品配器的人。配器是一種特殊的編曲形式，指的是將作品改編為管弦樂團"
-"演奏的形式，同時保持音樂內容基本上不變。配器者還負責為管弦樂團、樂團、合唱團"
-"、獨奏樂器或獨唱歌手編寫樂譜。實際上，配器包括決定樂曲中每種樂器應演奏哪些音"
-"符。"
+"演奏的形式，同時保持音樂內容基本上不變。配器者還負責為管弦樂團、樂團、合唱"
+"團、獨奏樂器或獨唱歌手編寫樂譜。實際上，配器包括決定樂曲中每種樂器應演奏哪些"
+"音符。"
 
 #. name:compiler
 #: DB:link_type/description:48
@@ -2843,8 +2856,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"這表示為發行品壓片的壓片公司。和<a href=\"/doc/Label\" target=\"_blank\">廠"
-"牌</a><strong>不是</strong>同一概念。"
+"這表示為發行品壓片的壓片公司。和<a href=\"/doc/Label\" target=\"_blank\">廠牌"
+"</a><strong>不是</strong>同一概念。"
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -2885,7 +2898,8 @@ msgstr "表示某個發行組的名稱啟發了這個系列的名稱。"
 msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
-msgstr "表示與該發行品相關的著作權協會。著作權協會是一個代表創作者收取版稅的組織。"
+msgstr ""
+"表示與該發行品相關的著作權協會。著作權協會是一個代表創作者收取版稅的組織。"
 
 #. name:named after series
 #: DB:link_type/description:1298
@@ -2913,8 +2927,8 @@ msgid ""
 "This indicates the work is dedicated to a specific area. This is most common "
 "for classical works, but also exists in other genres to a degree."
 msgstr ""
-"表示該作品獻給某個特定的地區。最常見於古典作品，但在其他流派中也或多或少存在"
-"。"
+"表示該作品獻給某個特定的地區。最常見於古典作品，但在其他流派中也或多或少存"
+"在。"
 
 #. name:dedication
 #: DB:link_type/description:846
@@ -2993,8 +3007,8 @@ msgid ""
 "who arranges songs into a medley."
 msgstr ""
 "用來表示一首作品是其他幾首歌的組合曲。這意味著原歌曲經過重新編曲，以組合曲的"
-"形式創作出了新作品。請參閱<a href=\"/relationship/d3fd781c-5894-47e2-8c12-"
-"86cc0e2c8d08\">編曲者</a>，以署名編排這些歌曲的人。"
+"形式創作出了新作品。請參閱<a href=\"/relationship/"
+"d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">編曲者</a>，以署名編排這些歌曲的人。"
 
 #. name:mashes up
 #: DB:link_type/description:232
@@ -3332,8 +3346,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to "
 "the source recording."
 msgstr ""
-"此連結將一個<a href=\"/doc/Mix_Terminology#remix\">重混音</a>錄音與源錄音相連"
-"。"
+"此連結將一個<a href=\"/doc/Mix_Terminology#remix\">重混音</a>錄音與源錄音相"
+"連。"
 
 #. name:amazon asin
 #: DB:link_type/description:77
@@ -3392,7 +3406,8 @@ msgstr "此連結將一個廠牌與粉絲建立的網站相連。"
 msgid ""
 "This links a label to a site where the label can receive donations/"
 "patronage, such as Flattr or PayPal.me."
-msgstr "此連結將一個廠牌與可以接收捐款或贊助的網站相連，例如 Flattr 或 PayPal.me。"
+msgstr ""
+"此連結將一個廠牌與可以接收捐款或贊助的網站相連，例如 Flattr 或 PayPal.me。"
 
 #. name:ticketing
 #: DB:link_type/description:1194
@@ -3472,7 +3487,8 @@ msgstr "此連結將一個地點與粉絲建立的網站相連。"
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
-msgstr "此連結將一個地點與可以接收捐款或贊助的網站相連，例如 Flattr 或 PayPal.me。"
+msgstr ""
+"此連結將一個地點與可以接收捐款或贊助的網站相連，例如 Flattr 或 PayPal.me。"
 
 #. name:ticketing
 #: DB:link_type/description:1195
@@ -3521,8 +3537,8 @@ msgid ""
 "This links a recording to another containing official commentary for it "
 "(usually the artist talking about it)."
 msgstr ""
-"這會將一個錄音與另一個包含官方講評的錄音連結在一起（通常是創作者談論該作品）"
-"。"
+"這會將一個錄音與另一個包含官方講評的錄音連結在一起（通常是創作者談論該作"
+"品）。"
 
 #. name:programming
 #: DB:link_type/description:132
@@ -3531,8 +3547,8 @@ msgid ""
 "instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
-"這會將錄音連結到為該錄音中使用的電子樂器進行編程的創作者。在大多數情況下，「"
-"電子樂器」是合成器或鼓機。"
+"這會將錄音連結到為該錄音中使用的電子樂器進行編程的創作者。在大多數情況下，"
+"「電子樂器」是合成器或鼓機。"
 
 #. name:balance
 #: DB:link_type/description:726
@@ -3555,7 +3571,8 @@ msgstr ""
 msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr "這將錄音指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
+msgstr ""
+"這將錄音指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
 
 #. name:fanpage
 #: DB:link_type/description:1190
@@ -3587,8 +3604,8 @@ msgid ""
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
 "這將發行組連結到它所獻給的創作者。用於「謹以此專輯紀念某位創作者」這類題獻 - "
-"對於由翻唱該創作者歌曲組成的致敬專輯，請使用<a href=\"/relationship/5e2907db-"
-"49ec-4a48-9f11-dfb99d2603ff\" target=\"_blank\">致敬關聯</a>。"
+"對於由翻唱該創作者歌曲組成的致敬專輯，請使用<a href=\"/relationship/"
+"5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target=\"_blank\">致敬關聯</a>。"
 
 #. name:tribute
 #: DB:link_type/description:65
@@ -3618,7 +3635,8 @@ msgstr ""
 msgid ""
 "This links a release group to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr "這將發行組指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
+msgstr ""
+"這將發行組指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
 
 #. name:replaced by
 #: DB:link_type/description:1009
@@ -3648,8 +3666,8 @@ msgid ""
 "instruments used on the release. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
-"這會將發行品連結到為該發行品中使用的電子樂器進行編程的創作者。在大多數情況下"
-"，「電子樂器」是合成器或鼓機。"
+"這會將發行品連結到為該發行品中使用的電子樂器進行編程的創作者。在大多數情況"
+"下，「電子樂器」是合成器或鼓機。"
 
 #. name:balance
 #: DB:link_type/description:727
@@ -3672,7 +3690,8 @@ msgstr ""
 msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
-msgstr "這將發行品指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
+msgstr ""
+"這將發行品指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
 
 #. name:arranged in
 #: DB:link_type/description:863
@@ -3869,7 +3888,8 @@ msgstr "此連結將一個作品與其可用的授權條款相連。"
 msgid ""
 "This links a work to its project at a crowdfunding site like Kickstarter or "
 "Indiegogo."
-msgstr "這將作品指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
+msgstr ""
+"這將作品指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上的群眾募資專案。"
 
 #. name:arranged in
 #: DB:link_type/description:885
@@ -4166,8 +4186,8 @@ msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr ""
-"這將活動指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上相關的群眾募資專案"
-"。"
+"這將活動指向 Kickstarter 或者 Indiegogo 一類群眾募資網站上相關的群眾募資專"
+"案。"
 
 #. name:derivation
 #: DB:link_type/description:737
@@ -4517,11 +4537,11 @@ msgid ""
 "for release groups</a>."
 msgstr ""
 "這個關聯已被棄用，因為幾乎總是被誤用。要指定此發行品上的錄音包含從電影、節目"
-"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取樣"
-"，請在註釋中指出。\n"
+"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取"
+"樣，請在註釋中指出。\n"
 "<br/><br/>\n"
-"要說明該發行品是原聲帶，請使用<a href=\"/relationship/85b0a010-3237-47c7-"
-"8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
+"要說明該發行品是原聲帶，請使用<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
 
 #. name:publishing
 #: DB:link_type/description:206
@@ -4572,8 +4592,8 @@ msgid ""
 "It is also used for the writers of literary works."
 msgstr ""
 "這個關聯用於在沒有更具體資訊時，將作品連結到負責創作音樂和/或文字（歌詞、歌劇"
-"劇本等）的創作者。如果可以，應使用更具體的作曲者、作詞者和/或歌劇劇本作者類型"
-"，而非這個關聯類型。\n"
+"劇本等）的創作者。如果可以，應使用更具體的作曲者、作詞者和/或歌劇劇本作者類"
+"型，而非這個關聯類型。\n"
 "\n"
 "它也用於文學作品的作者。"
 
@@ -4593,8 +4613,8 @@ msgid ""
 "This relationship links a carillonneur to the place(s) (most commonly "
 "religious buildings) at which they are the resident carillonneur."
 msgstr ""
-"這個關聯將排鐘琴演奏者連結到他們作為駐場排鐘琴演奏者的地點（通常是宗教建築）"
-"。"
+"這個關聯將排鐘琴演奏者連結到他們作為駐場排鐘琴演奏者的地點（通常是宗教建"
+"築）。"
 
 #. name:tour
 #: DB:link_type/description:859
@@ -4645,7 +4665,8 @@ msgstr "這個關聯將一種樂器與發明或設計它的人連結起來。"
 msgid ""
 "This relationship links an organist to the place(s) (most commonly religious "
 "buildings) at which they are the resident organist."
-msgstr "這個關聯將一位管風琴家連結到他們作為駐場管風琴家的地點（通常是宗教建築）。"
+msgstr ""
+"這個關聯將一位管風琴家連結到他們作為駐場管風琴家的地點（通常是宗教建築）。"
 
 #. name:show notes
 #: DB:link_type/description:729
@@ -4664,8 +4685,8 @@ msgid ""
 "and/or act similarly to the artists they pay tribute to."
 msgstr ""
 "這一關聯指明一位創作者向其他創作者/樂團<a href=\"http://en.wikipedia.org/"
-"wiki/Tribute_act\">致敬</a>；即，主要翻唱該創作者的歌曲。有時也被稱作翻唱樂團"
-"。有些致敬創作者會使用與致敬對象相似的名稱、裝束和/或表演方式。"
+"wiki/Tribute_act\">致敬</a>；即，主要翻唱該創作者的歌曲。有時也被稱作翻唱樂"
+"團。有些致敬創作者會使用與致敬對象相似的名稱、裝束和/或表演方式。"
 
 #. name:tribute to
 #: DB:link_type/description:936
@@ -4715,8 +4736,8 @@ msgstr ""
 "這種類型的關聯描述錄音包含從電影、節目或遊戲中取樣的內容，並且該內容在給定的"
 "網址上有 IMDb 網頁。\n"
 "<br/><br/>\n"
-"要說明該錄音是原聲帶的一部分，請使用<a href=\"/relationship/85b0a010-3237-"
-"47c7-8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
+"要說明該錄音是原聲帶的一部分，請使用<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
 
 #. name:remaster
 #: DB:link_type/description:236
@@ -4769,8 +4790,8 @@ msgid ""
 msgstr ""
 "這種類型的關聯用於表示一個發行組是另一個發行組的翻唱版本，即當一位創作者演繹"
 "其他創作者的專輯時。<br/>\n"
-"有關個別歌曲，請參見<a href=\"/relationship/a3005666-a872-32c3-ad06-"
-"98af558e99b0\">錄音-作品演出關聯類型</a>。"
+"有關個別歌曲，請參見<a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">錄音-作品演出關聯類型</a>。"
 
 #. name:re‐recording
 #: DB:link_type/description:1229
@@ -4789,8 +4810,8 @@ msgstr ""
 "對自己的專輯進行新的錄音時。<br/>\n"
 "有關專輯的現場演出，請參見<a href=\"/relationship/62beff0a-679c-43f3-8fe6-"
 "f6c8ed8581e4\">現場演出關聯類型</a>。<br/>\n"
-"有關不同創作者翻唱專輯的錄音，請參見<a href=\"/relationship/cf02e524-9d5b-"
-"46b7-a88e-329737395818\">翻唱關聯類型</a>。"
+"有關不同創作者翻唱專輯的錄音，請參見<a href=\"/relationship/"
+"cf02e524-9d5b-46b7-a88e-329737395818\">翻唱關聯類型</a>。"
 
 #. name:streaming
 #: DB:link_type/description:1005
@@ -4974,8 +4995,8 @@ msgid ""
 "page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
 msgstr ""
-"此關聯類型將地點（通常是錄音室）連結到對應的<a href=\"http://vgmdb.net/\">"
-"VGMdb</a>網頁。VGMdb 是專注於收集動漫遊戲音樂的社群專案。"
+"此關聯類型將地點（通常是錄音室）連結到對應的<a href=\"http://vgmdb.net/"
+"\">VGMdb</a>網頁。VGMdb 是專注於收集動漫遊戲音樂的社群專案。"
 
 #. name:bandsintown
 #: DB:link_type/description:861
@@ -5079,8 +5100,8 @@ msgid ""
 "Flickr."
 msgstr ""
 "此關聯類型用於連結創作者的線上社群網頁。線上社群是任何成員都可以發表評論，貢"
-"獻內容的群組。創作者本人可能是或不是群組成員。例子包含論壇、LiveJournal 社群"
-"，以及 Facebook、Last.fm 和 Flickr 群組。"
+"獻內容的群組。創作者本人可能是或不是群組成員。例子包含論壇、LiveJournal 社"
+"群，以及 Facebook、Last.fm 和 Flickr 群組。"
 
 #. name:poster
 #: DB:link_type/description:808
@@ -5158,8 +5179,8 @@ msgid ""
 "in many different ways, such as \"producer\", or one that is otherwise "
 "generic, such as \"miscellaneous support\"."
 msgstr ""
-"這指定了能以多種不同方式署名的關聯任務，例如「製作人」，或者是其他通用的任務"
-"，例如「雜項支援」。"
+"這指定了能以多種不同方式署名的關聯任務，例如「製作人」，或者是其他通用的任"
+"務，例如「雜項支援」。"
 
 #. name:medium
 #: DB:link_attribute_type/description:568
@@ -5311,8 +5332,8 @@ msgid ""
 "individually (collections of songs, several sonatas or concertos published "
 "as a set, books of piano pieces, etc.)."
 msgstr ""
-"用於指示母作品並不打算作為整體表演，而僅僅是可以單獨演出的片段或作品的分組（"
-"例如歌曲合集、成組出版的奏鳴曲或協奏曲、鋼琴曲集等）。"
+"用於指示母作品並不打算作為整體表演，而僅僅是可以單獨演出的片段或作品的分組"
+"（例如歌曲合集、成組出版的奏鳴曲或協奏曲、鋼琴曲集等）。"
 
 #. name:act
 #: DB:link_attribute_type/description:1030
@@ -7671,8 +7692,8 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"是{acappella:無伴奏}{live:現場}{medley:組合曲}{partial:不完整}"
-"{instrumental:純樂器}{cover:翻唱}{karaoke:卡拉OK}{demo:示範}的錄音"
+"是{acappella:無伴奏}{live:現場}{medley:組合曲}{partial:不完整}{instrumental:"
+"純樂器}{cover:翻唱}{karaoke:卡拉OK}{demo:示範}的錄音"
 
 #. name:host
 #: DB:link_type/long_link_phrase:1287
@@ -7729,7 +7750,8 @@ msgstr "是/曾是{additional:額外}{original:原始}{eponymous:同名}成員"
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus} "
 "for"
-msgstr "是/曾是{assistant:助理}{principal:首席}{guest:客席}{emeritus:名譽}指揮，為"
+msgstr ""
+"是/曾是{assistant:助理}{principal:首席}{guest:客席}{emeritus:名譽}指揮，為"
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
@@ -9440,6 +9462,12 @@ msgstr "校長於"
 msgid "school directors"
 msgstr "校長"
 
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "電子音樂"
+
 #: DB:link_type/name:1286
 msgid "scriptwriter"
 msgstr "編劇"
@@ -10136,7 +10164,8 @@ msgstr "曾是{instrument:%|樂器}技術員，為"
 #. name:recording
 #: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
-msgstr "曾是{additional:額外}{assistant:助理}{associate:副}{co:共同}錄音工程師，為"
+msgstr ""
+"曾是{additional:額外}{assistant:助理}{associate:副}{co:共同}錄音工程師，為"
 
 #. name:audio director
 #: DB:link_type/long_link_phrase:1186 DB:link_type/long_link_phrase:1187
@@ -10530,7 +10559,8 @@ msgstr "{additional:額外}{assistant:助理}{associate:副}{co:共同}轉錄"
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}"
 "{executive:executive }engineered"
-msgstr "{additional:額外}{assistant:助理}{associate:副}{co:共同}{executive:執行}工程"
+msgstr ""
+"{additional:額外}{assistant:助理}{associate:副}{co:共同}{executive:執行}工程"
 
 #. name:producer
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
@@ -10538,7 +10568,8 @@ msgstr "{additional:額外}{assistant:助理}{associate:副}{co:共同}{executiv
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}"
 "{executive:executive }produced"
-msgstr "{additional:額外}{assistant:助理}{associate:副}{co:共同}{executive:執行}製作"
+msgstr ""
+"{additional:額外}{assistant:助理}{associate:副}{co:共同}{executive:執行}製作"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:42
@@ -11582,13 +11613,15 @@ msgstr "{entity1} 在 {entity0} 進行了{additional:額外}撰寫"
 #: DB:link_type/long_link_phrase:697
 msgid ""
 "{entity1} was {additional:additionally} {pre:pre-}{re}mastered at {entity0}"
-msgstr "{entity1} 在 {entity0} 進行了{additional:額外}{pre:預}{re:重新}母帶後製"
+msgstr ""
+"{entity1} 在 {entity0} 進行了{additional:額外}{pre:預}{re:重新}母帶後製"
 
 #. name:mastered in
 #: DB:link_type/long_link_phrase:756
 msgid ""
 "{entity1} was {additional:additionally} {pre:pre-}{re}mastered in {entity0}"
-msgstr "{entity1} 在 {entity0} 進行了{additional:額外}{pre:預}{re:重新}母帶後製"
+msgstr ""
+"{entity1} 在 {entity0} 進行了{additional:額外}{pre:預}{re:重新}母帶後製"
 
 #. name:tour in support of
 #: DB:link_type/long_link_phrase:888
