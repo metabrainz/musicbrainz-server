@@ -12,7 +12,7 @@ import * as React from 'react';
 import {PART_OF_SERIES_LINK_TYPES} from '../constants.js';
 import linkedEntities from '../linkedEntities.mjs';
 import groupRelationships from '../utility/groupRelationships.js';
-import {compareEntities} from '../utility/sortByEntityName.js';
+import sortByEntityName from '../utility/sortByEntityName.js';
 
 import EntityLink from './EntityLink.js';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
@@ -38,8 +38,9 @@ component RelatedSeries(seriesIds: ReadonlyArray<number>) {
       {l('Related series')}
     </h2>,
   ];
-  const seriesEntities = seriesIds.map(id => linkedEntities.series[id]);
-  seriesEntities.sort(compareEntities);
+  const seriesEntities = sortByEntityName(
+    seriesIds.map(id => linkedEntities.series[id]),
+  );
 
   for (const series of seriesEntities) {
     parts.push(

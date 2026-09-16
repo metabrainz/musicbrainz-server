@@ -16,7 +16,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-component PlaceMerge(form: MergeFormT, toMerge: ReadonlyArray<PlaceT>) {
+component PlaceMerge(form: MergeFormT, toMerge: Array<PlaceT>) {
   return (
     <Layout fullWidth title={l('Merge places')}>
       <div id="content">
