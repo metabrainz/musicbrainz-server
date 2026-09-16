@@ -16,7 +16,8 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 
     $mech->get_ok('/ws/js/check-login');
-    $test->mech->header_is('Cache-Control', 'no-store');
+    $test->mech->header_is('Cache-Control', 'private, no-store');
+    $test->mech->header_is('Expires', '0');
     $test->mech->header_is('Pragma', 'no-cache');
 
     my $json = JSON->new;
@@ -28,7 +29,8 @@ test all => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     $mech->get_ok('/ws/js/check-login');
-    $test->mech->header_is('Cache-Control', 'no-store');
+    $test->mech->header_is('Cache-Control', 'private, no-store');
+    $test->mech->header_is('Expires', '0');
     $test->mech->header_is('Pragma', 'no-cache');
 
     $data = $json->decode($mech->content);

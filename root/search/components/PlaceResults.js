@@ -54,6 +54,7 @@ component PlaceResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<PlaceT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -73,6 +74,7 @@ component PlaceResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

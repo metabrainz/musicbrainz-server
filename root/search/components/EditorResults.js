@@ -33,6 +33,7 @@ component EditorResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<EditorT>) {
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -42,6 +43,7 @@ component EditorResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
     </ResultsLayout>
   );

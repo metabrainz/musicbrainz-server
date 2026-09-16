@@ -109,10 +109,6 @@ const trackParser = releaseEditor.trackParser = {
       currentPosition += 1;
       data.position = currentPosition;
 
-      if (data.number === undefined) {
-        data.number = currentPosition;
-      }
-
       if (!currentTracks || !currentTracks.length) {
         return data;
       }
@@ -221,6 +217,19 @@ const trackParser = releaseEditor.trackParser = {
         }
 
         return matchedTrack;
+      }
+
+      // reuse previous length and number if not asked to override
+      if (previousTrack) {
+        if (!options.useTrackLengths && data.length === undefined) {
+          data.length = previousTrack.length();
+        }
+
+        if (!options.useTrackNumbers && data.number === undefined) {
+          data.number = previousTrack.number();
+        }
+      } else if (data.number === undefined) {
+        data.number = data.position;
       }
 
       return new fields.Track(data, medium);

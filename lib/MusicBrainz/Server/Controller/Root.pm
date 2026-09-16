@@ -426,6 +426,7 @@ sub begin : Private
         unless (
             $namespace eq 'metabrainz' ||
             $namespace eq 'oauth2' ||
+            $namespace eq 'ssssss' ||
             $private_path eq '/index' ||
             $private_path eq '/user/login' ||
             $private_path eq '/account/register'

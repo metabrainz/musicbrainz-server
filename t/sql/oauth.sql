@@ -24,4 +24,5 @@ INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token
 
 INSERT INTO editor_collection (gid, editor, name, public, type)
     VALUES ('181685d4-a23a-4140-a343-b7d15de26ff7', 11, 'editor1''s super secret collection', FALSE, 1),
-           ('906dddc8-91c8-4a1c-8237-31b6d24c988d', 14, 'æditorⅣ''s super secret collection', FALSE, 1);
+           ('906dddc8-91c8-4a1c-8237-31b6d24c988d', 14, 'æditorⅣ''s super secret collection', FALSE, 1),
+           ('933a199c-7121-4900-9beb-b42006a73f5d', 11, 'editor1''s highly public collection', TRUE, 1);

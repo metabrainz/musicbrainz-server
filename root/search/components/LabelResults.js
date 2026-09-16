@@ -55,6 +55,7 @@ component LabelResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<LabelT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -74,6 +75,7 @@ component LabelResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

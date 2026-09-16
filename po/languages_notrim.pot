@@ -5993,7 +5993,7 @@ msgstr ""
 msgid "Central Cagayan Agta"
 msgstr ""
 
-#. frequency:0 iso_code_3:dtp
+#. frequency:1 iso_code_3:dtp
 #: DB:language/name:2109
 msgid "Central Dusun"
 msgstr ""
@@ -24463,7 +24463,7 @@ msgstr ""
 msgid "Nigerian Fulfulde"
 msgstr ""
 
-#. frequency:0 iso_code_3:pcm
+#. frequency:1 iso_code_3:pcm
 #: DB:language/name:5322
 msgid "Nigerian Pidgin"
 msgstr ""

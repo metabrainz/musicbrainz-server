@@ -386,7 +386,8 @@ sub _send_response
     my ($self, $c, $response) = @_;
 
     $c->response->headers->header(
-        'Cache-Control' => 'no-store',
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
 

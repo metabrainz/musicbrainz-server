@@ -592,7 +592,11 @@ sub _art_upload {
         nonce => $nonce,
     };
 
-    $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
+    $c->res->headers->header(
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
+        'Pragma' => 'no-cache',
+    );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
 }
@@ -1029,7 +1033,8 @@ sub check_login : Chained('root') PathPart('check-login') {
 
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->headers->header(
-        'Cache-Control' => 'no-store',
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
     $c->res->status(HTTP_OK);
