@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# pXF <pxf@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-01 11:28-0500\n"
-"PO-Revision-Date: 2024-04-17 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-09-15 12:13+0000\n"
+"Last-Translator: pXF <pxf@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Hungarian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/hu/>\n"
 "Language: hu\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -225,11 +226,9 @@ msgstr ""
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:277
 #: ../root/static/scripts/release-editor/init.js:278
-#, fuzzy
-#| msgid "Releases"
 msgctxt "header"
 msgid "Add release"
-msgstr "Kiadások"
+msgstr "kiadás hozzáadása"
 
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
@@ -867,11 +866,9 @@ msgid "Edit cover art"
 msgstr ""
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
-#, fuzzy
-#| msgid "Releases"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Kiadások"
+msgstr "Eseménygrafika módosítása"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
@@ -1434,10 +1431,8 @@ msgid "Instrument"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Collections"
 msgid "Instrument type"
-msgstr "Gyüjtemény"
+msgstr "Hangszertípus"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1512,10 +1507,8 @@ msgid "Label"
 msgstr "Kiadó"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Label"
 msgid "Label area"
-msgstr "Kiadó"
+msgstr "Kiadó területe"
 
 #: ../root/label/edit_form.tt:26 ../root/edit/details/AddLabel.js:89
 #: ../root/edit/details/EditLabel.js:81
@@ -1528,10 +1521,8 @@ msgid "Label details"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Label"
 msgid "Label type"
-msgstr "Kiadó"
+msgstr "Kiadó típusa"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -1588,8 +1579,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
-#, fuzzy
-#| msgid "Log In"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Bejelentkezés"
@@ -2058,16 +2047,12 @@ msgid "Release"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Releases"
 msgid "Release country"
-msgstr "Kiadások"
+msgstr "Kiadás országa"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Releases"
 msgid "Release data quality"
-msgstr "Kiadások"
+msgstr "Kiadás adatminősége"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
