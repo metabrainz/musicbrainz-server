@@ -10451,6 +10451,12 @@ msgstr "directeur d’école à"
 msgid "school directors"
 msgstr "directeurs d’école"
 
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "musique électronique"
+
 #: DB:link_type/name:1286
 #, fuzzy
 #| msgid "writer"

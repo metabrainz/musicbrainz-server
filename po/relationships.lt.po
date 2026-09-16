@@ -9746,6 +9746,12 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "elektroninė muzika"
+
 #: DB:link_type/name:1286
 #, fuzzy
 #| msgid "writer"

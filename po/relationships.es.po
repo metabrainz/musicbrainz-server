@@ -9991,6 +9991,12 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "música electrónica"
+
 #: DB:link_type/name:1286
 #, fuzzy
 #| msgid "writer"

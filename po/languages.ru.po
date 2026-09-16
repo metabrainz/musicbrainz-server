@@ -445,6 +445,13 @@ msgstr "кельтские языки"
 msgid "Central American Indian languages"
 msgstr "месоамериканские языки"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "центрально-юпикский"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1600,6 +1607,11 @@ msgstr "малайский"
 msgid "Malayalam"
 msgstr "малаялам"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1840,6 +1852,11 @@ msgstr "ниасский"
 msgid "Niger-Kordofanian languages"
 msgstr "нигеро-кордофанианские языки"
 
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
 msgid "Nilo-Saharan languages"
@@ -2014,6 +2031,13 @@ msgstr "финикийский"
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
 msgstr "питянтятяра"
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "гаитяно-креольский"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2385,6 +2409,13 @@ msgstr "южноамериканские индейские языки"
 msgid "Southern Altai"
 msgstr "южноалтайский"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "южноалтайский"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2735,6 +2766,13 @@ msgstr "уошо"
 msgid "Welsh"
 msgstr "валлийский"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "венда"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2750,8 +2788,8 @@ msgstr "волаитта"
 msgid "Wolof"
 msgstr "волоф"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "гуронский"
 

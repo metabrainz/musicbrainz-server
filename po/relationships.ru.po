@@ -4272,8 +4272,8 @@ msgid ""
 "\">IMDb</a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
 "Связывает группу релизов саундтрека со страницей фильма, сериала или игры, к "
-"которым относится данный саундтрек, на <a href=\"http://www.imdb.com/\">"
-"IMDb</a>."
+"которым относится данный саундтрек, на <a href=\"http://www.imdb.com/"
+"\">IMDb</a>."
 
 #. name:vgmdb
 #: DB:link_type/description:992
@@ -9831,6 +9831,12 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:1166
 msgid "school directors"
 msgstr ""
+
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "get the music"
+msgid "screen music"
+msgstr "получить музыку"
 
 #: DB:link_type/name:1286
 msgid "scriptwriter"

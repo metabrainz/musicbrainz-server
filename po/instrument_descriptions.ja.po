@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-23 02:12+0000\n"
+"PO-Revision-Date: 2026-09-03 18:13+0000\n"
 "Last-Translator: Life4649 <metabrainz@fujinraijin.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -52,24 +52,24 @@ msgid ""
 msgstr ""
 "「レバブ」（およびその他の綴り）は、主に以下の3種類の弓奏／撥弦楽器の系統を指"
 "す名称である。<br /> <ul> <li>大型でネックが短い、舟形の「サリンダ」型。ここ"
-"ではカブリ・レバブ。</li> <li>小型でネックが長い、スパイクフィドルの「"
-"フーキン」型。ここではインドネシアのレバブ。</li> <li>様々なサイズとネックの"
-"長さを持つ、洋ナシ形の「クレタ島のリラ」型。ここでは本来の弓奏リュート。</"
-"li> </ul> <br /> <br /> 名称が重複しているため、多くの資料でこれらは互いに混"
-"同されている。興味深いことに、この混同は、関連はあるものの別名または類似した"
-"名前を持つ別の楽器にも及んでおり、例えば<a href=\"/instrument/0d766870-3021-"
-"47ce-bd51-78d2d2484e1b\">ギジャク</a>（スパイクフィドル）や<a href=\"/"
-"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ガイチャク</a>（舟形の楽器"
-"）がある。<br /> 現時点では、これら3つの下位分類がどのような関係にあるのか、"
-"そもそも関係があるのかどうかは不明である。<br /> <br /> ガムランで使用される"
-"スパイクフィドルについては、<a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-"
-"679a73a7c552\">インドネシアのレバブ</a>を参照。<br /> カブリ・ラバブとも呼ば"
-"れる、撥弦式の舟形のアフガニスタンの楽器については、<a href=\"/instrument/"
-"7e42e637-c7b4-422c-ad56-f7fafbd961bb\">ルバーブ</a>を参照。<br /> 中世インド"
-"の撥弦リュートについては、<a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-"
-"e19f4e4a1083\">セニ・レバブ</a>を参照。<br /> 中世ヨーロッパの洋ナシ形の"
-"フィドルについては、<a href=\"/instrument/3f7302e4-f10f-4905-8d71-"
-"ef61141da383\">レベック</a>を参照。"
+"ではカブリ・レバブ。</li> <li>小型でネックが長い、スパイクフィドルの「フーキ"
+"ン」型。ここではインドネシアのレバブ。</li> <li>様々なサイズとネックの長さを"
+"持つ、洋ナシ形の「クレタ島のリラ」型。ここでは本来の弓奏リュート。</li> </"
+"ul> <br /> <br /> 名称が重複しているため、多くの資料でこれらは互いに混同され"
+"ている。興味深いことに、この混同は、関連はあるものの別名または類似した名前を"
+"持つ別の楽器にも及んでおり、例えば<a href=\"/instrument/0d766870-3021-47ce-"
+"bd51-78d2d2484e1b\">ギジャク</a>（スパイクフィドル）や<a href=\"/instrument/"
+"d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ガイチャク</a>（舟形の楽器）がある。"
+"<br /> 現時点では、これら3つの下位分類がどのような関係にあるのか、そもそも関"
+"係があるのかどうかは不明である。<br /> <br /> ガムランで使用されるスパイク"
+"フィドルについては、<a href=\"/instrument/"
+"3dbbb5ff-103b-4260-8cf6-679a73a7c552\">インドネシアのレバブ</a>を参照。<br /"
+"> カブリ・ラバブとも呼ばれる、撥弦式の舟形のアフガニスタンの楽器については、"
+"<a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">ルバーブ</a>を参"
+"照。<br /> 中世インドの撥弦リュートについては、<a href=\"/instrument/"
+"9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">セニ・レバブ</a>を参照。<br /> 中世"
+"ヨーロッパの洋ナシ形のフィドルについては、<a href=\"/instrument/3f7302e4-"
+"f10f-4905-8d71-ef61141da383\">レベック</a>を参照。"
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -83,14 +83,14 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
-"13世紀以前のカルナータカ音楽で用いられた南インドのフレットレス・リュート。"
-"パラミツ材で作られた中空の胴に、くり抜いたヒョウタン製の副共鳴器を備える。主"
-"弦6本、ドローン弦3本、共鳴弦11～12本を持ち、硬材製のスライドブロックによって"
-"音程を変化させる。北インドの <a href=\"/instrument/b4d38ac1-7f12-437c-a61a-"
+"13世紀以前のカルナータカ音楽で用いられた南インドのフレットレス・リュート。パ"
+"ラミツ材で作られた中空の胴に、くり抜いたヒョウタン製の副共鳴器を備える。主弦6"
+"本、ドローン弦3本、共鳴弦11～12本を持ち、硬材製のスライドブロックによって音程"
+"を変化させる。北インドの <a href=\"/instrument/b4d38ac1-7f12-437c-a61a-"
 "be2796ffc559\">ヴィチトラ・ヴィーナ</a> は <a href=\"/instrument/aea9661c-"
 "cbda-4bf3-a61d-d78697472f29\">ルドラ・ヴィーナ</a> に対して、チトラ・ヴィーナ"
-"は <a href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">"
-"サラスヴァティ・ヴィーナ</a> に相当する。"
+"は <a href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">サラスヴァ"
+"ティ・ヴィーナ</a> に相当する。"
 
 #. name:kös
 #: DB:instrument/description:739
@@ -111,8 +111,8 @@ msgid ""
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
 "バレルオルガン（手回しオルガン）は、一般的に人がクランクを回すことで作動する"
-"機械式の楽器です。クランクを回すと、譜面が刻まれたバレル（円筒）が回転します"
-"。"
+"機械式の楽器です。クランクを回すと、譜面が刻まれたバレル（円筒）が回転しま"
+"す。"
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -185,10 +185,6 @@ msgstr ""
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
-#, fuzzy
-#| msgid ""
-#| "A hollowed out gourd (hue) with one to three holes, swung around creating "
-#| "a whistling, chattering sound that resembled birds"
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
@@ -247,15 +243,16 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
 msgstr ""
-"マンドリュートは北アフリカの弦楽器で、伝統的なウード弦形式を5本の金属弦に"
-"フレットがついている。"
+"マンドリュートは北アフリカの弦楽器で、伝統的なウード弦形式を5本の金属弦にフ"
+"レットがついている。"
 
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air "
 "chambers fitted with a free reed."
-msgstr "ハーモニカは、1つ以上の空気室を持ったフリーリード式気鳴楽器の総称です。"
+msgstr ""
+"ハーモニカは、1つ以上の空気室を持ったフリーリード式気鳴楽器の総称です。"
 
 #. name:bowed piano
 #: DB:instrument/description:504
@@ -266,7 +263,8 @@ msgstr "弓状の弦を持つピアノであり、ナイロン繊維などが使
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "A pipe organ, such as the Wurlitzer, meant to accompany early films."
-msgstr "ウーリッツァーなどのパイプオルガンであり、初期映画の劇伴のために作られた。"
+msgstr ""
+"ウーリッツァーなどのパイプオルガンであり、初期映画の劇伴のために作られた。"
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -275,8 +273,8 @@ msgid ""
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
 msgstr ""
-"プリペアド・ピアノとは、弦の間や上、あるいはハンマーやダンパーの上に物体（"
-"プリペアレーション）を配置することで、音色に変化を加えたピアノのことです。"
+"プリペアド・ピアノとは、弦の間や上、あるいはハンマーやダンパーの上に物体（プ"
+"リペアレーション）を配置することで、音色に変化を加えたピアノのことです。"
 
 #. name:pūpakapaka
 #: DB:instrument/description:861
@@ -310,8 +308,8 @@ msgid ""
 "actually a string instrument."
 msgstr ""
 "水琴窟は、水が滴り落ちる音で音楽を生み出す日本庭園の装飾品の一種です。弦楽器"
-"ではないものの音色の類似性から琴の名がつけられ、英訳も琴(Japanese zither)か"
-"ら\"Japanese water zither\"とされています。"
+"ではないものの音色の類似性から琴の名がつけられ、英訳も琴(Japanese zither)から"
+"\"Japanese water zither\"とされています。"
 
 #. name:talkbox
 #: DB:instrument/description:453
@@ -402,8 +400,8 @@ msgid ""
 "Also know and \"flat-top\", it is a hollow-body acoustic guitar strung with "
 "steel strings."
 msgstr ""
-"「フラットトップ」とも呼ばれる、スチール弦を張った中空ボディの"
-"アコースティックギターです。"
+"「フラットトップ」とも呼ばれる、スチール弦を張った中空ボディのアコースティッ"
+"クギターです。"
 
 #. name:cello
 #: DB:instrument/description:60
@@ -440,8 +438,8 @@ msgid ""
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
 msgstr ""
-"タンブリーカ・アンサンブル全体の起源となった、ビセルニカに似ている楽器であり"
-"、「ダンギュビカ」または「クテレフカ」とも呼ばれます。この長いネックを持つ"
+"タンブリーカ・アンサンブル全体の起源となった、ビセルニカに似ている楽器であ"
+"り、「ダンギュビカ」または「クテレフカ」とも呼ばれます。この長いネックを持つ"
 "ピックド・リュートは、2組の二重弦を備え、ソロで演奏される。"
 
 #. name:repeater
@@ -471,14 +469,21 @@ msgid ""
 "b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano flute</a>."
 msgstr ""
 
+#. name:te kū
+#: DB:instrument/description:860
+msgid ""
+"Also knownas just \"kū\", mouthbow with a single string is struck with a "
+"light implement of bone or wood."
+msgstr ""
+
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
 "Alt, alto or contralto member of the viol family. Not to be confused with "
 "the Viola of the violin family, known as \"Alto\" in French."
 msgstr ""
-"ヴィオラ属のアルトまたはコントラルトに属する楽器。ヴァイオリン属のヴィオラ"
-"(フランス語: \"Alto\")としばしば混同される。"
+"ヴィオラ属のアルトまたはコントラルトに属する楽器。ヴァイオリン属のヴィオラ(フ"
+"ランス語: \"Alto\")としばしば混同される。"
 
 #. name:bandora
 #: DB:instrument/description:488
@@ -530,8 +535,8 @@ msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr ""
-"アーチトップ・ギターとは、特徴的なアーチ状のトップを持つスチール弦の(セミ)"
-"アコースティック・ギターであり、特にジャズ奏者の間で人気があります。"
+"アーチトップ・ギターとは、特徴的なアーチ状のトップを持つスチール弦の(セミ)ア"
+"コースティック・ギターであり、特にジャズ奏者の間で人気があります。"
 
 #. name:clavioline
 #: DB:instrument/description:815
@@ -563,7 +568,8 @@ msgstr ""
 #: DB:instrument/description:1070
 msgid ""
 "An octave lower than the charango, it is the largest member of the family."
-msgstr "チャランゴより1オクターブ低い音域を持ち、この楽器群の中で最も大きなものです。"
+msgstr ""
+"チャランゴより1オクターブ低い音域を持ち、この楽器群の中で最も大きなものです。"
 
 #. name:natural horn
 #: DB:instrument/description:522
@@ -572,8 +578,8 @@ msgid ""
 "flared bell. Bugles, posthorns and hunting horns are all natural horns."
 msgstr ""
 "現代のホルンの祖先にあたる楽器で、らせん状に巻かれた管と、大きく広がったベル"
-"で構成されています。ビューグル、ポストホーン、狩猟用ホルンがナチュラル・"
-"ホルンに分類されます。"
+"で構成されています。ビューグル、ポストホーン、狩猟用ホルンがナチュラル・ホル"
+"ンに分類されます。"
 
 #. name:natural trumpet
 #: DB:instrument/description:913
@@ -659,7 +665,8 @@ msgstr ""
 msgid ""
 "Baroque string instrument sized between the viola and cello, it typically "
 "has five strings."
-msgstr "ヴィオラとチェロの中間の大きさのバロック時代の弦楽器で、通常は5本の弦を持つ。"
+msgstr ""
+"ヴィオラとチェロの中間の大きさのバロック時代の弦楽器で、通常は5本の弦を持つ。"
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -686,10 +693,10 @@ msgid ""
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
 msgstr ""
-"ベースとは、楽器の分類として一般的かつ汎用的な表記です。最も一般的なのは"
-"エレキベースとダブルベース（別名: コントラバス, アコースティック・"
-"アップライト・ベース, ウッドベース）です。どの楽器を指しているか分かっている"
-"場合は、正しい楽器名をご使用ください。"
+"ベースとは、楽器の分類として一般的かつ汎用的な表記です。最も一般的なのはエレ"
+"キベースとダブルベース（別名: コントラバス, アコースティック・アップライト・"
+"ベース, ウッドベース）です。どの楽器を指しているか分かっている場合は、正しい"
+"楽器名をご使用ください。"
 
 #. name:daruan
 #: DB:instrument/description:546
@@ -716,9 +723,9 @@ msgid ""
 "for the acoustic one, use <a href=\"/instrument/15861569-249d-4b24-8ce4-"
 "d0b001b1f978\">acoustic bass guitar</a>."
 msgstr ""
-"ギター属の低音楽器。電子楽器派生については <a href=\"/instrument/0b9d87fa-"
-"93fa-4956-8b6a -a419566cc915\">エレクトリック・ベースギター</a>、"
-"アコースティックタイプの場合は <a href=\"/instrument/15861569-249d-4b24-8ce4-"
+"ギター属の低音楽器。電子楽器派生については <a href=\"/instrument/"
+"0b9d87fa-93fa-4956-8b6a -a419566cc915\">エレクトリック・ベースギター</a>、ア"
+"コースティックタイプの場合は <a href=\"/instrument/15861569-249d-4b24-8ce4-"
 "d0b001b1f978\">アコースティック・ベースギター</a> を使用してください。"
 
 #. name:bicycle bell
@@ -810,8 +817,8 @@ msgstr ""
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)."
 msgstr ""
-"4人の奏者（ヴァイオリン2人、ヴィオラ1人、チェロ1人）からなる室内楽"
-"アンサンブル。"
+"4人の奏者（ヴァイオリン2人、ヴィオラ1人、チェロ1人）からなる室内楽アンサンブ"
+"ル。"
 
 #. name:piano trio
 #: DB:instrument/description:911
@@ -821,7 +828,8 @@ msgstr "3人の奏者（ピアノ、ヴァイオリン、チェロ）による�
 #. name:string trio
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)."
-msgstr "3人の奏者（ヴァイオリン、ヴィオラ、チェロ）からなる室内楽アンサンブル。"
+msgstr ""
+"3人の奏者（ヴァイオリン、ヴィオラ、チェロ）からなる室内楽アンサンブル。"
 
 #. name:piano duo
 #: DB:instrument/description:1024
@@ -927,13 +935,20 @@ msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
 msgstr ""
-"音楽制作に使用されるコンピュータドライブ。ハードディスク、フロッピーディスク"
-"、CDなど、あらゆる種類を指す。"
+"音楽制作に使用されるコンピュータドライブ。ハードディスク、フロッピーディス"
+"ク、CDなど、あらゆる種類を指す。"
 
 #. name:bombarde
 #: DB:instrument/description:431
 msgid "Conical bore double-reed musical instrument from Brittany."
 msgstr "ブルターニュ地方発祥の、円錐形の管を持つダブルリードの楽器。"
+
+#. name:ashiko
+#: DB:instrument/description:812
+msgid ""
+"Conical goatskin frame-drum originating with the Yoruba people of West "
+"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
+msgstr ""
 
 #. name:telharmonium
 #: DB:instrument/description:125
@@ -1462,8 +1477,10 @@ msgstr ""
 #. name:tambourine
 #: DB:instrument/description:263
 msgid ""
-"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
-"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+"For the Brazilian frame-drum hit with a whisk, see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> For the old "
+"French low-pitched tenor drum called Tambourin, see <a href=\"/instrument/"
+"2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 msgstr ""
 
 #. name:cornamuse
@@ -1531,6 +1548,17 @@ msgid ""
 "a01b-769de71b82f2\">harmonium</a>.<br /> Also known as pump organ, it is "
 "large, looks like an upright piano and has pedals attached to bellows with "
 "reeds. Sound is produced by playing the keyboard."
+msgstr ""
+
+#. name:tamborim
+#: DB:instrument/description:723
+msgid ""
+"For the common framedrum with jangles, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For the old "
+"French tenor drum tambourin, see <a href=\"/instrument/2a2dec1a-"
+"e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br /> Used in Brazilian samba, it's "
+"metal, plastic or wood jangle-less frame is strung with nylon and beaten "
+"with brush or stick called Baqueta."
 msgstr ""
 
 #. name:musette de cour
@@ -1737,11 +1765,6 @@ msgid ""
 "of each scale and often several sets in each.<br /> Gamelan is an integrated "
 "part of Indonesian culture, is used in important traditions and throughout "
 "Indonesian life."
-msgstr ""
-
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
 msgstr ""
 
 #. name:fiddle
@@ -2578,16 +2601,12 @@ msgstr ""
 
 #. name:English flageolet
 #: DB:instrument/description:844
-#, fuzzy
-#| msgid ""
-#| "working to improve on its design, the English flageolet had 6 finger "
-#| "holes in front and one thumb hole in the back."
 msgid ""
 "Meant as an improvement on the flageolet design, the English flageolet had "
 "six finger holes in the front and one thumb hole in the back."
 msgstr ""
-"デザインの改善より、英国式フラジオレットでは正面に6つの指穴、背面に1つの親指"
-"穴を持つようになった。"
+"フラジオレットの改良型として考案されたイングリッシュ・フラジオレットは、前面"
+"に6つの指穴、背面に1つの親指穴を備えていた。"
 
 #. name:gemshorn
 #: DB:instrument/description:868
@@ -2648,14 +2667,12 @@ msgstr ""
 
 #. name:aman khuur
 #: DB:instrument/description:809
-#, fuzzy
-#| msgid ""
-#| "there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
 msgid ""
 "Mongolian mouth harp. There are two types: temür/tömör khuur (steel) and "
 "khulsan khuur (bamboo)."
 msgstr ""
-"２種類存在する: temür/tömör khuur (スチール製) and khulsan khuur (竹製)"
+"モンゴルの口琴。テムル・ホール／トゥムル・ホール（鉄製）と、フルサン・ホール"
+"（竹製）の2種類が存在する。"
 
 #. name:oval spinet
 #: DB:instrument/description:879
@@ -3080,6 +3097,13 @@ msgid ""
 "string while pulling it."
 msgstr ""
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -3287,11 +3311,6 @@ msgstr ""
 
 #. name:orphica
 #: DB:instrument/description:842
-#, fuzzy
-#| msgid ""
-#| "portable piano with shoulder strap invented in 1795, it is a descendant "
-#| "of the Baroque Bauchladenspinett and a sort of early precursor of the "
-#| "keytar"
 msgid ""
 "Portable piano with shoulder strap invented in 1795, it is a descendant of "
 "the Baroque Bauchladenspinett and a sort of early precursor of the keytar."
@@ -3366,10 +3385,6 @@ msgstr ""
 
 #. name:banjolin
 #: DB:instrument/description:831
-#, fuzzy
-#| msgid ""
-#| "reinvented several times in different lands, it combines banjo body and "
-#| "neck of mandolin, it is tuned like it and the violin."
 msgid ""
 "Reinvented several times in different lands, it combines banjo body and neck "
 "of mandolin, it is tuned like it and the violin."
@@ -3486,8 +3501,8 @@ msgstr ""
 #. name:shaken idiophone
 #: DB:instrument/description:954
 msgid ""
-"Shaken idiophone or rattle. Sound is produced by holding or containing "
-"usually small concussing parts."
+"Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
+"contains small concussing parts."
 msgstr ""
 
 #. name:Otamatone
@@ -3564,16 +3579,12 @@ msgstr ""
 
 #. name:härjedalspipa
 #: DB:instrument/description:818
-#, fuzzy
-#| msgid ""
-#| "six holed fipple flute used traditionally in pastoral settings like its "
-#| "cousin the spilåpipa."
 msgid ""
 "Six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
 msgstr ""
-"spilåpipa のような牧歌的な設定で伝統的に使用される6つの穴の開いたフィップルフ"
-"ルート。"
+"スピロピーパ（spilåpipa）の同系統の楽器であり、同様に伝統的に田園風景・牧歌的"
+"な場面で使用されてきた6つ穴のフィップル・フルート。"
 
 #. name:donso ngɔni
 #: DB:instrument/description:776
@@ -3648,8 +3659,8 @@ msgid ""
 "Small fretted hybrid instrument with a banjo body and a ukulele neck, "
 "popular in the 1920-30."
 msgstr ""
-"1920-30年に人気のバンジョーボディとウクレレネックを備えた小型フレットの"
-"ハイブリッド楽器。"
+"1920-30年に人気のバンジョーボディとウクレレネックを備えた小型フレットのハイブ"
+"リッド楽器。"
 
 #. name:piano spinet
 #: DB:instrument/description:798
@@ -3886,13 +3897,6 @@ msgstr ""
 #. name:Xaphoon
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
-msgstr ""
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
 msgstr ""
 
 #. name:ajaeng
@@ -4744,13 +4748,6 @@ msgid ""
 "made of goatskin and is attached to the body using pegs."
 msgstr ""
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -4911,11 +4908,6 @@ msgstr ""
 msgid ""
 "The talharpa is a four-stringed bowed lyre from northern Europe, mostly "
 "played in Estonia."
-msgstr ""
-
-#. name:tamborim
-#: DB:instrument/description:723
-msgid "The tamborim is a small frame drum from Brazil."
 msgstr ""
 
 #. name:taphon
@@ -5344,6 +5336,14 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -5394,6 +5394,13 @@ msgid ""
 "strings."
 msgstr ""
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -5427,8 +5434,6 @@ msgstr ""
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
-#, fuzzy
-#| msgid "used for folksongs, particularly by young girls."
 msgid "Used for folk songs, particularly by young girls."
 msgstr "特に若い女の子がフォークソングで使用する。"
 
@@ -5444,6 +5449,13 @@ msgstr ""
 msgid ""
 "Used for simple ornamentation, it has thick small metal bars suspended above "
 "resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
 msgstr ""
 
 #. name:Saraswati veena
@@ -5593,6 +5605,14 @@ msgid ""
 "straight sided drums, both heads same size. </li> </ul>"
 msgstr ""
 
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
+
 #. name:krap phuang
 #: DB:instrument/description:951
 msgid ""
@@ -5615,6 +5635,13 @@ msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
 "which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)."
+msgstr ""
+
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in samba music, it is a small canister of metal or woven material, "
+"filled with beads, grains, pebbles or the like."
 msgstr ""
 
 #. name:saron wayang
@@ -5672,14 +5699,6 @@ msgstr ""
 msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's "
 "perform creating sound."
-msgstr ""
-
-#. name:ganzá
-#: DB:instrument/description:644
-msgid ""
-"Used in various performances (capoeira angola, caboclo, etc) and samba "
-"music, it is usually made of metal and filled with grains, pebbles or the "
-"like."
 msgstr ""
 
 #. name:kepyak
@@ -5765,11 +5784,6 @@ msgstr ""
 
 #. name:analog synthesizer
 #: DB:instrument/description:813
-#, fuzzy
-#| msgid ""
-#| "using analogue circuits and techniques to produce sound electronically, "
-#| "the first types where created in the 1920's with thermionic valves and "
-#| "other electromechanical machineries."
 msgid ""
 "Using analogue circuits and techniques to produce sound electronically, the "
 "first types where created in the 1920's with thermionic valves and other "
@@ -5920,10 +5934,6 @@ msgstr ""
 
 #. name:wind synthesizer
 #: DB:instrument/description:560
-#, fuzzy
-#| msgid ""
-#| "wind synthesizer or wind controller, it is connected to a midi controller "
-#| "and is played like a wind instrument."
 msgid ""
 "Wind synthesizer or wind controller, it is connected to a MIDI controller "
 "and is played like a wind instrument."
@@ -5969,23 +5979,9 @@ msgstr "アイルランド民謡で人気のシンプルシステムタイプの
 msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
 msgstr ""
 
-#. name:te kū
-#: DB:instrument/description:860
-msgid ""
-"also just \"kū\", a mouthbow with a single string, struck with a light "
-"implement of bone or wood."
-msgstr ""
-
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
-msgstr ""
-
-#. name:ashiko
-#: DB:instrument/description:812
-msgid ""
-"conical goatskin frame-drum originating with the Yoruba people of West "
-"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
 msgstr ""
 
 #. name:Tonette
