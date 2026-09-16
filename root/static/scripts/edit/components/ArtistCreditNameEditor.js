@@ -14,12 +14,14 @@ import type {
   ActionT as AutocompleteActionT,
 } from '../../common/components/Autocomplete2/types.js';
 import clean from '../../common/utility/clean.js';
+import subfieldErrors from '../utility/subfieldErrors.js';
 
 import type {
   ActionT,
   ArtistCreditNameStateT,
 } from './ArtistCreditEditor/types.js';
 import {getJoinPhrase} from './ArtistCreditEditor/utilities.js';
+import {FieldErrorsList} from './FieldErrors.js';
 
 component _ArtistCreditNameEditor(
   allowMoveDown: boolean,
@@ -152,82 +154,93 @@ component _ArtistCreditNameEditor(
     }
   }
 
+  const errors = subfieldErrors(artistCreditName);
+
   return (
-    <tr>
-      {artistCreditName.removed ? (
-        <td className="removed-ac-name" colSpan={3}>
-          {lp('[removed]', 'artist credit name')}
-        </td>
-      ) : (
-        <>
-          <td>
-            <Autocomplete2
-              dispatch={artistDispatch}
-              state={artistCreditName.artist}
-            />
-          </td>
-          <td>
-            <input
-              id={'ac-' + artistCreditEditorHtmlId + '-credited-as-' +
-                  String(index)}
-              onBlur={handleNameBlur}
-              onChange={handleNameChange}
-              type="text"
-              value={artistCreditName.field.name.value}
-            />
-          </td>
-          <td>
-            <input
-              id={'ac-' + artistCreditEditorHtmlId + '-join-phrase-' +
-                  String(index)}
-              onBlur={handleJoinPhraseBlur}
-              onChange={handleJoinPhraseChange}
-              type="text"
-              value={getJoinPhrase(artistCreditName)}
-            />
-          </td>
-        </>
-      )}
-      <td>
-        {showMoveButtons ? (
-          <button
-            className="icon move-down"
-            disabled={!allowMoveDown}
-            onClick={handleMoveDown}
-            title={lp('Move artist credit down', 'interactive')}
-            type="button"
-          />
-        ) : null}
-      </td>
-      <td>
-        {showMoveButtons ? (
-          <button
-            className="icon move-up"
-            disabled={!allowMoveUp}
-            onClick={handleMoveUp}
-            title={lp('Move artist credit up', 'interactive')}
-            type="button"
-          />
-        ) : null}
-      </td>
-      <td className="align-right">
+    <>
+      <tr>
         {artistCreditName.removed ? (
-          <button
-            className="icon undo"
-            onClick={handleUndo}
-            title={lp('Undo artist credit removal', 'interactive')}
-            type="button"
-          />
-        ) : allowRemoval ? (
-          <button
-            className="icon remove-item remove-artist-credit"
-            onClick={handleRemove}
-            title={lp('Remove artist credit', 'interactive')}
-            type="button"
-          />
-        ) : null}
-      </td>
-    </tr>
+          <td className="removed-ac-name" colSpan={3}>
+            {lp('[removed]', 'artist credit name')}
+          </td>
+        ) : (
+          <>
+            <td>
+              <Autocomplete2
+                dispatch={artistDispatch}
+                state={artistCreditName.artist}
+              />
+            </td>
+            <td>
+              <input
+                id={'ac-' + artistCreditEditorHtmlId + '-credited-as-' +
+                    String(index)}
+                onBlur={handleNameBlur}
+                onChange={handleNameChange}
+                type="text"
+                value={artistCreditName.field.name.value}
+              />
+            </td>
+            <td>
+              <input
+                id={'ac-' + artistCreditEditorHtmlId + '-join-phrase-' +
+                    String(index)}
+                onBlur={handleJoinPhraseBlur}
+                onChange={handleJoinPhraseChange}
+                type="text"
+                value={getJoinPhrase(artistCreditName)}
+              />
+            </td>
+          </>
+        )}
+        <td>
+          {showMoveButtons ? (
+            <button
+              className="icon move-down"
+              disabled={!allowMoveDown}
+              onClick={handleMoveDown}
+              title={lp('Move artist credit down', 'interactive')}
+              type="button"
+            />
+          ) : null}
+        </td>
+        <td>
+          {showMoveButtons ? (
+            <button
+              className="icon move-up"
+              disabled={!allowMoveUp}
+              onClick={handleMoveUp}
+              title={lp('Move artist credit up', 'interactive')}
+              type="button"
+            />
+          ) : null}
+        </td>
+        <td className="align-right">
+          {artistCreditName.removed ? (
+            <button
+              className="icon undo"
+              onClick={handleUndo}
+              title={lp('Undo artist credit removal', 'interactive')}
+              type="button"
+            />
+          ) : allowRemoval ? (
+            <button
+              className="icon remove-item remove-artist-credit"
+              onClick={handleRemove}
+              title={lp('Remove artist credit', 'interactive')}
+              type="button"
+            />
+          ) : null}
+        </td>
+      </tr>
+      {errors.length ? (
+        <tr>
+          <td colSpan={6}>
+            <FieldErrorsList errors={errors} hasHtmlErrors={false} />
+          </td>
+        </tr>
+      ) : null}
+    </>
   );
 }
 
