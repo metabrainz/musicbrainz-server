@@ -316,6 +316,9 @@ msgid "afoxé"
 msgstr "אפוקסה"
 
 #: DB:instrument/name:487
+#, fuzzy
+#| msgid "agogô"
+msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr "אגוגו"
 
@@ -398,6 +401,14 @@ msgstr "אנטרה"
 msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr "אנויל"
+
+#: DB:instrument/name:583
+#, fuzzy
+#| msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+#| msgid "viola da gamba"
+msgctxt "Three-toned samba whistle"
+msgid "apito de samba"
+msgstr "כּוֹנֶרֶת בֶּרֶךְ"
 
 #: DB:instrument/name:507
 msgid "archlute"
@@ -637,6 +648,11 @@ msgstr "קרן בסט"
 #: DB:instrument/name:5
 msgid "bassoon"
 msgstr "בסון"
+
+#: DB:instrument/name:1218
+msgctxt "Brazilian samba drum ensemble"
+msgid "bateria"
+msgstr ""
 
 #: DB:instrument/name:483
 msgid "bawu"
@@ -913,7 +929,10 @@ msgid "cabrette"
 msgstr ""
 
 #: DB:instrument/name:903
-msgctxt "Brazilian Samba snare-drum"
+#, fuzzy
+#| msgctxt "Brazilian Samba snare-drum"
+#| msgid "caixa"
+msgctxt "Deep Brazilian samba snare-drum"
 msgid "caixa"
 msgstr "כאיקסה"
 
@@ -945,7 +964,10 @@ msgid "castanets"
 msgstr "עַרְמוֹנִיּוֹת"
 
 #: DB:instrument/name:524
-msgctxt "Small four-stringed Portugesian lute"
+#, fuzzy
+#| msgctxt "Small four-stringed Portugesian lute"
+#| msgid "cavaquinho"
+msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr "קואקווינו"
 
@@ -1775,6 +1797,9 @@ msgid "gamelan"
 msgstr "גמלאן"
 
 #: DB:instrument/name:383
+#, fuzzy
+#| msgid "gankogui"
+msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr "גרנקוגיו"
 
@@ -3473,10 +3498,6 @@ msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
 msgstr "סלואנג"
 
-#: DB:instrument/name:583
-msgid "samba whistle"
-msgstr "חליל סמבה"
-
 #: DB:instrument/name:830
 #, fuzzy
 #| msgctxt "solo serbo-croatian plucked lute"
@@ -4044,6 +4065,14 @@ msgstr "טאר"
 #: DB:instrument/name:440
 msgid "taragot"
 msgstr "טארגוט"
+
+#: DB:instrument/name:1219
+#, fuzzy
+#| msgctxt "Wooden keyless shawm from Catalonia"
+#| msgid "tarota"
+msgctxt "Shallow Brazilian samba snare-drum"
+msgid "tarol"
+msgstr "טרוטה"
 
 #: DB:instrument/name:870
 msgctxt "Wooden keyless shawm from Catalonia"
@@ -4859,6 +4888,9 @@ msgstr "זאק"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "זומארה"
+
+#~ msgid "samba whistle"
+#~ msgstr "חליל סמבה"
 
 #~ msgid "Tibetan water drum"
 #~ msgstr "תוף מים טיבטי"

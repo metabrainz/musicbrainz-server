@@ -1606,6 +1606,11 @@ msgstr "马来语"
 msgid "Malayalam"
 msgstr "马拉雅拉姆文"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -2021,6 +2026,13 @@ msgstr "腓尼基文"
 msgid "Pitjantjatjara"
 msgstr "皮詹加加拉语"
 
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "海地克里奥尔语"
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2391,6 +2403,13 @@ msgstr "南美洲土著诸语言"
 msgid "Southern Altai"
 msgstr "南阿尔泰语"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "南阿尔泰语"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2741,6 +2760,13 @@ msgstr "瓦肖语"
 msgid "Welsh"
 msgstr "威尔士语"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "文达语"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2756,8 +2782,8 @@ msgstr "瓦拉莫语"
 msgid "Wolof"
 msgstr "沃洛夫语"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "怀安多特语"
 

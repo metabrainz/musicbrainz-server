@@ -319,6 +319,7 @@ msgid "afoxé"
 msgstr ""
 
 #: DB:instrument/name:487
+msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr ""
 
@@ -397,6 +398,11 @@ msgstr "antara"
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
+msgstr ""
+
+#: DB:instrument/name:583
+msgctxt "Three-toned samba whistle"
+msgid "apito de samba"
 msgstr ""
 
 #: DB:instrument/name:507
@@ -634,6 +640,11 @@ msgstr "rożek basetowy"
 #: DB:instrument/name:5
 msgid "bassoon"
 msgstr "fagot"
+
+#: DB:instrument/name:1218
+msgctxt "Brazilian samba drum ensemble"
+msgid "bateria"
+msgstr ""
 
 #: DB:instrument/name:483
 msgid "bawu"
@@ -896,7 +907,7 @@ msgid "cabrette"
 msgstr ""
 
 #: DB:instrument/name:903
-msgctxt "Brazilian Samba snare-drum"
+msgctxt "Deep Brazilian samba snare-drum"
 msgid "caixa"
 msgstr ""
 
@@ -928,7 +939,7 @@ msgid "castanets"
 msgstr ""
 
 #: DB:instrument/name:524
-msgctxt "Small four-stringed Portugesian lute"
+msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr ""
 
@@ -1739,6 +1750,7 @@ msgid "gamelan"
 msgstr ""
 
 #: DB:instrument/name:383
+msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr ""
 
@@ -3421,10 +3433,6 @@ msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
 msgstr ""
 
-#: DB:instrument/name:583
-msgid "samba whistle"
-msgstr ""
-
 #: DB:instrument/name:830
 msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
@@ -3982,6 +3990,11 @@ msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"
+msgstr ""
+
+#: DB:instrument/name:1219
+msgctxt "Shallow Brazilian samba snare-drum"
+msgid "tarol"
 msgstr ""
 
 #: DB:instrument/name:870
