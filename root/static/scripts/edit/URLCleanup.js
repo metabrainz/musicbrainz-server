@@ -3704,8 +3704,8 @@ export const CLEANUPS: CleanupEntries = {
       const m = /^(?:https?:\/\/)?(?:[^/]+\.)?kashinavi\.com\/(.*)$/.exec(url);
       if (m) {
         let tail = m[1];
-        tail = tail.replace(/^(song_view\.html\?\d+).*$/, '$1');
-        tail = tail.replace(/^(artist\.html\?).*(artist=[a-zA-Z0-9]+).*$/, '$1$2');
+        tail = tail.replace(/^(?:lyrics\/|song_view\.html\?)(\d+).*$/, 'lyrics/$1/');
+        tail = tail.replace(/^(?:artist\/|artist\.html\?.*artist=)([a-zA-Z0-9]+).*$/, 'artist/$1/');
         url = 'https://kashinavi.com/' + tail;
       }
       return url;
@@ -3717,12 +3717,12 @@ export const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: /^artist\.html\?artist=[a-zA-Z0-9]+$/.test(tail),
+              result: /^artist\/[a-zA-Z0-9]+\/$/.test(tail),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
-              result: /^song_view\.html\?\d+$/.test(tail),
+              result: /^lyrics\/\d+\/$/.test(tail),
               target: ERROR_TARGETS.ENTITY,
             };
         }
