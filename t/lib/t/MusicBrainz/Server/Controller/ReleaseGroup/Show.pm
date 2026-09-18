@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -107,6 +108,40 @@ $mech->content_contains('/release_group/merge_queue?add-to-merge=1',
 $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/edits',
     'has a link to view editing history for the release group');
 
+};
+
+test 'Robots meta tag is outputted for a release group linked to a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The release group page HTML does not contain the noindex meta tag',
+    );
+
+    ok(
+        defined $c->sql->select_single_value(<<~'SQL'),
+            SELECT 1
+              FROM artist_credit_name acn
+              JOIN release_group r ON r.artist_credit = acn.artist_credit
+             WHERE r.gid = '7c3218d7-75e0-4e8c-971f-f097b6c308c5'
+               AND acn.artist = 7
+            SQL
+        'The release group is credited to Kate Bush (artist ID 7)',
+    );
+
+    note('We set noindex on Kate Bush');
+    $c->sql->do('INSERT INTO artist_noindex (artist, editor) VALUES (7, 1)');
+
+    $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5');
+    $mech->content_contains(
+        '<meta content="noindex" name="robots"',
+        'The release group page HTML contains the noindex meta tag',
+    );
 };
 
 1;

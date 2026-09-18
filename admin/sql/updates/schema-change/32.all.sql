@@ -3,6 +3,7 @@
 -- 20260602-new-sitemaps-indexes.sql
 -- 20260623-mbs-12379.sql
 -- 20260723-mbs-14386.sql
+-- 20260818-mbs-14414.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -54,5 +55,16 @@ CREATE OR REPLACE VIEW series_series AS
     JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '8fe04b66-fe39-40ce-a28f-76b816d3f55a')
     LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = 788 AND latv.link = l.id)
     ORDER BY series, link_order;
+
+--------------------------------------------------------------------------------
+SELECT '20260818-mbs-14414.sql';
+
+CREATE TABLE artist_noindex (
+    artist INTEGER NOT NULL,
+    editor INTEGER NOT NULL
+);
+
+ALTER TABLE artist_noindex
+    ADD CONSTRAINT artist_noindex_pkey PRIMARY KEY (artist);
 
 COMMIT;

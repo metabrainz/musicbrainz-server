@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Recording::Show;
 use strict;
 use warnings;
 
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -237,6 +238,40 @@ test 'Embedded JSON-LD' => sub {
             'name' => q(The World's Greatest),
         },
     };
+};
+
+test 'Robots meta tag is outputted for a recording linked to a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The recording page HTML does not contain the noindex meta tag',
+    );
+
+    ok(
+        defined $c->sql->select_single_value(<<~'SQL'),
+            SELECT 1
+              FROM artist_credit_name acn
+              JOIN recording r ON r.artist_credit = acn.artist_credit
+             WHERE r.gid = '54b9d183-7dab-42ba-94a3-7388a66604b8'
+               AND acn.artist = 7
+            SQL
+        'The recording is credited to Kate Bush (artist ID 7)',
+    );
+
+    note('We set noindex on Kate Bush');
+    $c->sql->do('INSERT INTO artist_noindex (artist, editor) VALUES (7, 1)');
+
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+    $mech->content_contains(
+        '<meta content="noindex" name="robots"',
+        'The recording page HTML contains the noindex meta tag',
+    );
 };
 
 1;

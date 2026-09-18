@@ -34,6 +34,7 @@ DROP TABLE artist_gid_redirect;
 DROP TABLE artist_ipi;
 DROP TABLE artist_isni;
 DROP TABLE artist_meta;
+DROP TABLE artist_noindex;
 DROP TABLE artist_rating_raw;
 DROP TABLE artist_release;
 DROP TABLE artist_release_group;
