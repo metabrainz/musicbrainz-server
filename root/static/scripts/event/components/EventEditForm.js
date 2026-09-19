@@ -13,6 +13,8 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
@@ -233,6 +235,7 @@ component EventEditForm(
   const $c = React.useContext(SanitizedCatalystContext);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const typeOptions = {
     grouped: false as const,

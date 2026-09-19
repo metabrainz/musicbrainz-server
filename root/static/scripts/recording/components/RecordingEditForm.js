@@ -14,6 +14,8 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {RecordingFormT} from '../../../../recording/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
@@ -383,6 +385,7 @@ component RecordingEditForm(
   ), [$c]);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
