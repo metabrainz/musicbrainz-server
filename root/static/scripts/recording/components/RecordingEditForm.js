@@ -31,6 +31,7 @@ import {
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import {FieldErrorsList} from '../../edit/components/FieldErrors.js';
 import FormRow from '../../edit/components/FormRow.js';
 import FormRowArtistCredit
   from '../../edit/components/FormRowArtistCredit.js';
@@ -118,6 +119,7 @@ type StateT = {
   readonly form: RecordingFormT,
   readonly guessCaseOptions: GuessCaseOptionsStateT,
   readonly isGuessCaseOptionsOpen: boolean,
+  readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
   readonly relationshipEditor: RelationshipEditorStateT,
   readonly shownBubble: string,
@@ -126,6 +128,7 @@ type StateT = {
 type CreateInitialStatePropsT = {
   readonly $c: SanitizedCatalystContextT,
   readonly form: RecordingFormT,
+  readonly usedByTracks: boolean,
 };
 
 function updateArtistCreditState(
@@ -203,6 +206,7 @@ function updateNoteFieldErrors(
 function createInitialState({
   $c,
   form,
+  usedByTracks,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityData($c);
   const actionName = $c.action.name;
@@ -213,7 +217,15 @@ function createInitialState({
   const nameFieldCtx = formCtx.get('field', 'name');
   updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
-  updateLengthFieldErrors(lengthFieldCtx);
+  let lengthErrors: ReadonlyArray<string> = [];
+  if (usedByTracks) {
+    lengthErrors = form.field.length.errors;
+    lengthFieldCtx.set('has_errors', false);
+    lengthFieldCtx.set('pendingErrors', []);
+    lengthFieldCtx.set('errors', []);
+  } else {
+    updateLengthFieldErrors(lengthFieldCtx);
+  }
   formCtx
     .update('field', 'isrcs', (isrcCtx) => {
       isrcCtx.set(createIsrcState(isrcCtx.read()));
@@ -236,6 +248,7 @@ function createInitialState({
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
+    lengthErrors,
     recording,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
       formName: form.name,
@@ -362,7 +375,7 @@ component RecordingEditForm(
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    {$c, form: initialForm},
+    {$c, form: initialForm, usedByTracks},
     createInitialState,
   );
 
@@ -499,15 +512,7 @@ component RecordingEditForm(
             rowRef={commentFieldRef}
             uncontrolled
           />
-          {(!usedByTracks || state.form.field.length.has_errors) ? (
-            <FormRowTextLong
-              field={state.form.field.length}
-              label={addColonText(l('Length'))}
-              onChange={handleLengthChange}
-              onFocus={handleLengthFocus}
-              rowRef={lengthFieldRef}
-            />
-          ) : (
+          {usedByTracks ? (
             <FormRow>
               <label>{addColonText(l('Length'))}</label>
               {exp.l(
@@ -518,8 +523,19 @@ component RecordingEditForm(
                   recording_length: formatTrackLength(state.recording.length),
                 },
               )}
+              <FieldErrorsList
+                errors={state.lengthErrors}
+                hasHtmlErrors={false}
+              />
             </FormRow>
-
+          ) : (
+            <FormRowTextLong
+              field={state.form.field.length}
+              label={addColonText(l('Length'))}
+              onChange={handleLengthChange}
+              onFocus={handleLengthFocus}
+              rowRef={lengthFieldRef}
+            />
           )}
           <FormRowCheckbox
             field={state.form.field.video}
