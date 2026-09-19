@@ -237,7 +237,7 @@ function createInitialState({
   updateNoteFieldErrors(actionName, editNoteFieldCtx);
 
   formCtx.set('field', 'artist_credit', createArtistCreditState({
-    artistCredit: $c.stash.artist_credit,
+    artistsById: $c.stash.artist_credit_artists,
     entity: recording,
     formName: form.name,
     htmlId: 'source',
