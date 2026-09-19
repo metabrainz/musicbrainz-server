@@ -13,7 +13,6 @@ import * as ReactDOMClient from 'react-dom/client';
 
 import '../../common/entity.js';
 
-import {createArtistObject} from '../../common/entity2.js';
 import {
   artistCreditsAreEqual,
   reduceArtistCredit,
@@ -26,6 +25,7 @@ import {
   incompleteArtistCreditFromState,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditEditor, {
+  artistCreditFromField,
   createInitialState as createArtistCreditEditorState,
   reducer as artistCreditEditorReducer,
 } from './ArtistCreditEditor.js';
@@ -145,31 +145,17 @@ export const FormRowArtistCredit = ({
 
 export function initializeArtistCredit(formName) {
   const {
-    artist_credit: initialArtistCredit,
+    artist_credit_artists: artistsById,
     artist_credit_field: artistCreditField,
   } = getCatalystContext().stash;
   const source = MB.getSourceEntityInstance() ?? {name: ''};
   source.uniqueID = 'source';
-  source.artistCredit = ko.observable({
-    ...(initialArtistCredit ?? {}),
-    names: (initialArtistCredit?.names ?? []).map((name) => {
-      let artist = name.artist;
-      if (!artist.id) {
-        artist = {
-          ...createArtistObject({name: name.name ?? ''}),
-          ...name.artist,
-        };
-      }
-      return {
-        artist,
-        joinPhrase: name.joinPhrase ?? '',
-        name: name.name ?? '',
-      };
-    }),
-  });
+  source.artistCredit = ko.observable(
+    artistCreditFromField(artistCreditField, artistsById),
+  );
 
   const initialState = createArtistCreditEditorState({
-    artistCredit: initialArtistCredit,
+    artistsById,
     entity: source,
     formName,
     htmlId: 'source',
