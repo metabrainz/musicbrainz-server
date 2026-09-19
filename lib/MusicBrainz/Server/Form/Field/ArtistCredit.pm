@@ -68,7 +68,7 @@ around 'validate_field' => sub {
                   { artist => $name }));
             $has_credit_errors = 1;
         }
-        elsif (!$artist_id)
+        else
         {
             $credit->add_error(l('Please add an artist name for each credit.'));
             $has_credit_errors = 1;
