@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
-use Storable qw( dclone );
 use Text::Trim qw( );
 extends 'HTML::FormHandler::Field::Compound';
 
@@ -113,36 +112,15 @@ around 'value' => sub {
     return clean_submitted_artist_credits($ret);
 };
 
-sub to_artist_credit_json {
+sub artists_by_id_json {
     my $self = shift;
-    my $result = $self->result;
-    my $names = [];
 
-    if (defined $result) {
-        if ($result->input) {
-            $names = dclone($result->input->{names});
+    my $artists = $self->form->ctx->model('Artist')->get_by_ids(
+        map { $_->field('artist')->field('id')->fif }
+        $self->field('names')->fields,
+    );
 
-        } elsif ($result->value) {
-            $names = dclone($result->value->{names});
-        }
-    }
-
-    if (!$names || scalar @$names == 0) {
-        $names = [{}];
-    }
-
-    my $c = $self->form->ctx;
-
-    my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
-    for my $name (@$names) {
-        my $id = $name->{artist}{id};
-        my $artist = defined $id ? $artists->{$id} : undef;
-        $name->{artist} = $artist->TO_JSON if $artist;
-        $name->{joinPhrase} = delete $name->{join_phrase};
-        $name->{name} = $artist->name if $artist && !$name->{name};
-    }
-
-    return {names => $names};
+    return { map { $_ => $artists->{$_}->TO_JSON } keys %$artists };
 }
 
 sub build_localize_meth {
@@ -153,7 +131,7 @@ sub stash_field {
     my ($self) = @_;
 
     $self->form->ctx->stash(
-        artist_credit => $self->to_artist_credit_json,
+        artist_credit_artists => $self->artists_by_id_json,
         artist_credit_field => form_or_field_to_json($self),
     );
 }

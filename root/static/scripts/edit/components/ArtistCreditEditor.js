@@ -74,6 +74,37 @@ function createArtistCreditNameField(
   });
 }
 
+export function artistCreditFromField(
+  field: ArtistCreditFieldT | StateT,
+  artistsById?: ?{readonly [id: string]: ArtistT},
+): IncompleteArtistCreditT {
+  return {
+    names: field.field.names.field.map((name) => {
+      const {
+        artist: artistField,
+        join_phrase: joinPhraseField,
+        name: creditedNameField,
+      } = name.field;
+      const artistId = artistField.field.id.value;
+      const artistName = artistField.field.name.value;
+      const creditedName = creditedNameField.value;
+      let artist = null;
+      if (nonEmpty(artistName) || nonEmpty(creditedName)) {
+        artist = (
+          nonEmpty(artistId)
+            ? artistsById?.[String(artistId)]
+            : null
+        ) ?? createArtistObject({name: artistName});
+      }
+      return {
+        artist,
+        joinPhrase: joinPhraseField.value,
+        name: creditedName,
+      };
+    }),
+  };
+}
+
 function setPendingFieldErrors(
   fieldCtx: CowContext<AnyFieldT>,
   pendingErrors: ReadonlyArray<string>,
@@ -570,6 +601,7 @@ function createInitialNamesState(
 export function createInitialState(
   initialState: {
     readonly artistCredit?: ArtistCreditT,
+    readonly artistsById?: ?{readonly [id: string]: ArtistT},
     readonly entity?: ArtistCreditableT,
     readonly formName?: string,
     /*
@@ -588,6 +620,7 @@ export function createInitialState(
 ): StateT {
   const {
     artistCredit: passedArtistCredit,
+    artistsById,
     entity,
     formName,
     htmlId: passedHtmlId,
@@ -595,8 +628,9 @@ export function createInitialState(
     isOpen = false,
   } = initialState;
   // Consider enforcing AC once we use Flow everywhere
-  const artistCredit: ?ArtistCreditT =
-    passedArtistCredit ?? ko.unwrap(entity?.artistCredit);
+  const artistCredit: ?IncompleteArtistCreditT = initialField
+    ? artistCreditFromField(initialField, artistsById)
+    : (passedArtistCredit ?? ko.unwrap(entity?.artistCredit));
 
   invariant(artistCredit);
 

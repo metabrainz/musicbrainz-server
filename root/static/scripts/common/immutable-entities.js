@@ -9,7 +9,10 @@
 
 import {VARTIST_GID} from './constants.js';
 
-const reduceName = (memo: string, x: ArtistCreditNameT): string => (
+const reduceName = (
+  memo: string,
+  x: IncompleteArtistCreditNameT,
+): string => (
   memo +
   (nonEmpty(x.name)
     ? x.name
@@ -47,7 +50,7 @@ export const reduceArtistCredit =
  * join phrase is omitted from the returned string.
  */
 export function reduceArtistCreditNames(
-  names: ReadonlyArray<ArtistCreditNameT>,
+  names: ReadonlyArray<IncompleteArtistCreditNameT>,
   dropFinalJoinPhrase?: boolean = false,
 ): string {
   let s = names.reduce(reduceName, '');
