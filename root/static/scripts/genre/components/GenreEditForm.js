@@ -14,6 +14,8 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
@@ -159,6 +161,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
