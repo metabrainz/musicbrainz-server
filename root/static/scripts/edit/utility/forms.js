@@ -10,6 +10,7 @@
 import type {CowContext} from 'mutate-cow';
 import mutate from 'mutate-cow';
 
+import {arraysEqual} from '../../common/utility/arrays.js';
 import isBlank from '../../common/utility/isBlank.js';
 import {
   createInitialState as createExternalLinksEditorState,
@@ -71,19 +72,32 @@ export type CommonEntityEditFormActionT =
     };
 /* eslint-enable ft-flow/sort-keys */
 
+export function setPendingFieldErrors(
+  fieldCtx: CowContext<AnyFieldT>,
+  pendingErrors: ReadonlyArray<string>,
+): void {
+  const field = fieldCtx.read();
+  const unfixedErrors = field.errors.filter(
+    (error) => pendingErrors.includes(error),
+  );
+  if (unfixedErrors.length !== field.errors.length) {
+    fieldCtx.set('errors', unfixedErrors);
+  }
+  if (!arraysEqual(field.pendingErrors ?? [], pendingErrors)) {
+    fieldCtx.set('pendingErrors', pendingErrors);
+  }
+  fieldCtx.set('has_errors', pendingErrors.length > 0);
+}
+
 export function updateRequiredNameFieldErrors(
   nameFieldCtx: CowContext<FieldT<string | null>>,
 ): void {
-  if (isBlank(nameFieldCtx.get('value').read())) {
-    nameFieldCtx.set('has_errors', true);
-    nameFieldCtx.set('pendingErrors', [
-      l('Required field.'),
-    ]);
-  } else {
-    nameFieldCtx.set('has_errors', false);
-    nameFieldCtx.set('pendingErrors', []);
-    nameFieldCtx.set('errors', []);
-  }
+  setPendingFieldErrors(
+    nameFieldCtx,
+    isBlank(nameFieldCtx.get('value').read())
+      ? [l('Required field.')]
+      : [],
+  );
 }
 
 function runNameAction(
@@ -148,21 +162,17 @@ export function updateEditNoteFieldErrors(
   requiredEditNoteMessage?: string | null,
 ): void {
   const editNote = editNoteFieldCtx.get('value').read();
+  let pendingErrors: ReadonlyArray<string> = [];
   if (isInvalidEditNote(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
+    pendingErrors = [
       l(`Your edit note seems to have no actual content.
          Please provide a note that will be helpful to
          your fellow editors!`),
-    ]);
+    ];
   } else if (nonEmpty(requiredEditNoteMessage) && empty(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [requiredEditNoteMessage]);
-  } else {
-    editNoteFieldCtx.set('has_errors', false);
-    editNoteFieldCtx.set('pendingErrors', []);
-    editNoteFieldCtx.set('errors', []);
+    pendingErrors = [requiredEditNoteMessage];
   }
+  setPendingFieldErrors(editNoteFieldCtx, pendingErrors);
 }
 
 export function createCommonEntityEditFormState({$c, form}: {
