@@ -70,11 +70,8 @@ import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import RelationshipEditor
-  from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
@@ -275,9 +272,6 @@ component RecordingEditForm(
   >(dispatch, 'update-artist-credit');
   const isrcDispatch =
     useChildDispatch<IsrcActionT, _>(dispatch, 'update-isrcs');
-  const relationshipEditorDispatch = useChildDispatch<
-    RelationshipEditorActionT, _,
-  >(dispatch, 'update-relationship-editor');
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -427,8 +421,8 @@ component RecordingEditForm(
           />
         </fieldset>
 
-        <RelationshipEditor
-          dispatch={relationshipEditorDispatch}
+        <RelationshipEditorFieldset
+          dispatch={dispatch}
           formName={state.form.name}
           state={state.relationshipEditor}
         />
