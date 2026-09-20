@@ -41,6 +41,7 @@ import {
   createInitialState as createGuessCaseOptionsState,
 } from '../components/GuessCaseOptions.js';
 
+import isInvalidEditNote from './isInvalidEditNote.js';
 import {hasSubfieldErrors} from './subfieldErrors.js';
 
 export type CommonEntityEditFormStateT = {
@@ -52,6 +53,10 @@ export type CommonEntityEditFormStateT = {
 
 /* eslint-disable ft-flow/sort-keys */
 export type CommonEntityEditFormActionT =
+  | {
+      readonly type: 'update-edit-note',
+      readonly editNote: string,
+    }
   | {
       readonly type: 'update-external-links-editor',
       readonly action: LinksEditorActionT,
@@ -138,6 +143,28 @@ export function getEditFormErrors(state: Readonly<{
   };
 }
 
+export function updateEditNoteFieldErrors(
+  editNoteFieldCtx: CowContext<FieldT<string>>,
+  requiredEditNoteMessage?: string | null,
+): void {
+  const editNote = editNoteFieldCtx.get('value').read();
+  if (isInvalidEditNote(editNote)) {
+    editNoteFieldCtx.set('has_errors', true);
+    editNoteFieldCtx.set('pendingErrors', [
+      l(`Your edit note seems to have no actual content.
+         Please provide a note that will be helpful to
+         your fellow editors!`),
+    ]);
+  } else if (nonEmpty(requiredEditNoteMessage) && empty(editNote)) {
+    editNoteFieldCtx.set('has_errors', true);
+    editNoteFieldCtx.set('pendingErrors', [requiredEditNoteMessage]);
+  } else {
+    editNoteFieldCtx.set('has_errors', false);
+    editNoteFieldCtx.set('pendingErrors', []);
+    editNoteFieldCtx.set('errors', []);
+  }
+}
+
 export function createCommonEntityEditFormState({$c, form}: {
   readonly $c: SanitizedCatalystContextT,
   readonly form: FormT<{...}>,
@@ -156,12 +183,24 @@ export function createCommonEntityEditFormState({$c, form}: {
 export function runCommonEntityEditFormActions(
   stateCtx: CowContext<Readonly<{
     ...CommonEntityEditFormStateT,
-    form: FormT<{readonly name: FieldT<string | null>, ...}>,
+    form: FormT<{
+      readonly edit_note: FieldT<string>,
+      readonly name: FieldT<string | null>,
+      ...
+    }>,
+    requiredEditNoteMessage?: string | null,
     ...
   }>>,
   action: CommonEntityEditFormActionT,
 ): void {
   match (action) {
+    {type: 'update-edit-note', const editNote} => {
+      const {requiredEditNoteMessage} = stateCtx.read();
+      stateCtx.update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
+        editNoteFieldCtx.set('value', editNote);
+        updateEditNoteFieldErrors(editNoteFieldCtx, requiredEditNoteMessage);
+      });
+    }
     {type: 'update-external-links-editor', const action} => {
       stateCtx.set('externalLinksEditor', externalLinksEditorReducer(
         stateCtx.read().externalLinksEditor,
