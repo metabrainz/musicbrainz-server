@@ -110,7 +110,7 @@ export function setPendingFieldErrors(
   fieldCtx.set('has_errors', pendingErrors.length > 0);
 }
 
-export function updateRequiredNameFieldErrors(
+function updateRequiredNameFieldErrors(
   nameFieldCtx: CowContext<FieldT<string | null>>,
 ): void {
   setPendingFieldErrors(
@@ -178,7 +178,7 @@ function getEditFormErrors(state: Readonly<{
   };
 }
 
-export function updateEditNoteFieldErrors(
+function updateEditNoteFieldErrors(
   editNoteFieldCtx: CowContext<FieldT<string>>,
   requiredEditNoteMessage?: string | null,
 ): void {
@@ -196,16 +196,27 @@ export function updateEditNoteFieldErrors(
   setPendingFieldErrors(editNoteFieldCtx, pendingErrors);
 }
 
-export function createCommonEntityEditFormState({$c, form}: {
+export function createCommonEntityEditFormState({
+  $c,
+  formCtx,
+  requiredEditNoteMessage,
+}: {
   readonly $c: SanitizedCatalystContextT,
-  readonly form: FormT<{...}>,
+  readonly formCtx: CowContext<CommonEntityEditFormT>,
+  readonly requiredEditNoteMessage?: string | null,
 }): CommonEntityEditFormStateT {
+  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
+  updateEditNoteFieldErrors(
+    formCtx.get('field', 'edit_note'),
+    requiredEditNoteMessage,
+  );
+
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
-      formName: form.name,
+      formName: formCtx.get('name').read(),
       seededRelationships: $c.stash.seeded_relationships,
     }),
   };
