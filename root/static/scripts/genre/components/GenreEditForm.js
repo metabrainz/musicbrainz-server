@@ -35,6 +35,7 @@ import {
   createCommonEntityEditFormState,
   getEditFormErrors,
   runCommonEntityEditFormActions,
+  updateEditNoteFieldErrors,
 } from '../../edit/utility/forms.js';
 import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import updateRequiredNameFieldErrors
@@ -70,6 +71,7 @@ function createInitialState({
 }) {
   const formCtx = mutate(form);
   updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
+  updateEditNoteFieldErrors(formCtx.get('field', 'edit_note'));
   return {
     ...createCommonEntityEditFormState({$c, form}),
     form: formCtx.final(),
@@ -109,6 +111,15 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     RelationshipEditorActionT, _,
   >(dispatch, 'update-relationship-editor');
 
+  const handleEditNoteChange = React.useCallback((
+    event: SyntheticEvent<HTMLTextAreaElement>,
+  ) => {
+    dispatch({
+      editNote: event.currentTarget.value,
+      type: 'update-edit-note',
+    });
+  }, [dispatch]);
+
   const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
@@ -147,7 +158,11 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           dispatch={dispatch}
           state={state.externalLinksEditor}
         />
-        <EnterEditNote field={state.form.field.edit_note} />
+        <EnterEditNote
+          controlled
+          field={state.form.field.edit_note}
+          onChange={handleEditNoteChange}
+        />
         <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
     </form>
