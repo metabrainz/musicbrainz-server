@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2026-09-11 13:00+0000\n"
+"PO-Revision-Date: 2026-09-20 19:13+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
@@ -322,7 +322,7 @@ msgstr ""
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
-msgstr "具有相同名稱和消歧義的實體已經存在。您必須輸入獨一無二的消歧義註釋。"
+msgstr "具有相同名稱和消歧義的實體已經存在。您必須輸入獨一無二的消歧義說明。"
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
@@ -338,7 +338,7 @@ msgstr "發生錯誤： "
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/components/Annotation.js:39
 msgid "Annotation"
-msgstr "註釋"
+msgstr "註解"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Applied edit count of editor"
@@ -455,7 +455,7 @@ msgstr "創作者地區"
 
 #: ../root/artist/edit_form.tt:12
 msgid "Artist details"
-msgstr "創作者詳情"
+msgstr "創作者詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Artist type"
@@ -1587,7 +1587,7 @@ msgstr "廠牌代碼"
 
 #: ../root/label/edit_form.tt:8
 msgid "Label details"
-msgstr "廠牌詳情"
+msgstr "廠牌詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Label type"
@@ -1607,7 +1607,7 @@ msgstr "語言"
 
 #: ../root/layout.tt:151 ../root/layout/components/Footer.js:102
 msgid "Last replication packet received at {datetime}"
-msgstr "上次收到複製封包的時間：{datetime}"
+msgstr "上次收到複寫封包的時間：{datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:34
 #: ../root/recording/edit_form.tt:37 ../root/release/edit/tracklist.tt:164
@@ -1856,7 +1856,7 @@ msgstr "此發行品沒有媒介能附加所給的 CD 目錄，因為音軌數�
 #: ../root/edit/details/historic/MergeReleases.js:51
 #: ../root/user/ReportUser.js:109
 msgid "Note"
-msgstr "備註"
+msgstr "注意"
 
 #: ../root/edit/search_macros.tt:265
 msgid ""
@@ -1934,7 +1934,7 @@ msgstr "地點"
 
 #: ../root/place/edit_form.tt:12
 msgid "Place details"
-msgstr "地點詳情"
+msgstr "地點詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Place type"
@@ -2048,7 +2048,7 @@ msgstr "錄音"
 
 #: ../root/recording/edit_form.tt:23
 msgid "Recording details"
-msgstr "錄音詳情"
+msgstr "錄音詳細資訊"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
@@ -2169,7 +2169,7 @@ msgstr "發行組"
 
 #: ../root/release_group/edit_form.tt:10
 msgid "Release group details"
-msgstr "發行組詳情"
+msgstr "發行組詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Release group primary type"
@@ -2409,7 +2409,7 @@ msgstr "系列"
 
 #: ../root/series/edit_form.tt:8
 msgid "Series details"
-msgstr "系列詳情"
+msgstr "系列詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Series type"
@@ -2453,7 +2453,7 @@ msgstr ""
 msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
-msgstr "您輸入的文字過長！請縮短它，必要時可以將完整文字輸入註釋中以供參考。"
+msgstr "您輸入的文字過長！請縮短它，必要時可以將完整文字輸入註解中以供參考。"
 
 #: ../root/components/forms.tt:151 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:61 ../root/edit/details/AddArea.js:43
@@ -2644,7 +2644,7 @@ msgstr ""
 msgid ""
 "The {doc|annotation} field functions like a miniature wiki. It’s fine to "
 "leave it empty."
-msgstr "{doc|註釋} 欄位的功能類似於小型 wiki。留空也沒有關係。"
+msgstr "{doc|註解} 欄位的功能類似於小型 wiki。留空也沒有關係。"
 
 #: ../root/artist/edit_form.tt:113
 msgid ""
@@ -2928,8 +2928,8 @@ msgid ""
 "point you’re making, you should never enter promotional text or other "
 "artist- or label‐owned text into the annotation."
 msgstr ""
-"這則註釋將以開放授權（{url|CC BY-NC-SA 3.0}）發布，因此不應包含您無權以該授權"
-"發布的文字。您可以引用來源以佐證自己的論點，但絕不應在註釋中輸入宣傳文字，或"
+"這則註解將以開放授權（{url|CC BY-NC-SA 3.0}）發布，因此不應包含您無權以該授權"
+"發布的文字。您可以引用來源以佐證自己的論點，但絕不應在註解中輸入宣傳文字，或"
 "其他由創作者或廠牌擁有的文字。"
 
 #: ../root/artist/edit_form.tt:41
@@ -2969,15 +2969,14 @@ msgstr "此實體將由此次修改新增。"
 msgid ""
 "This field is not a place to store general background information about the "
 "release. That kind of information should go in the annotation field."
-msgstr ""
-"這個欄位不是用來存放發行品一般背景資訊的地方，那類資訊應該填在註釋欄位。"
+msgstr "這個欄位不是用來存放發行品一般背景資訊的地方，那類資訊應該填在註解欄位。"
 
 #: ../root/artist/edit_form.tt:92 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
 msgid ""
 "This field is not a place to store general background information. That kind "
 "of information should go in an {doc|annotation}."
-msgstr "這個欄位不是用來存放一般背景資訊的地方，那類資訊應該填在{doc|註釋}裡。"
+msgstr "這個欄位不是用來存放一般背景資訊的地方，那類資訊應該填在{doc|註解}裡。"
 
 #: ../root/artist/edit_credit.tt:10
 msgid ""
@@ -3447,7 +3446,7 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:10
 msgid "Work details"
-msgstr "作品詳情"
+msgstr "作品詳細資訊"
 
 #: ../root/edit/search_macros.tt:480 ../root/edit/details/EditWork.js:69
 #: ../root/static/scripts/release/components/WorkTypeSelect.js:51
@@ -3498,7 +3497,7 @@ msgstr "您必須登入才能使用此選項。"
 
 #: ../root/components/common-macros.tt:453
 msgid "You must enter a disambiguation comment for this entity."
-msgstr "您必須為此實體輸入消歧義註釋。"
+msgstr "您必須為此實體輸入消歧義說明。"
 
 #: ../root/release/edit/tracklist.tt:496
 msgid ""
@@ -3645,7 +3644,7 @@ msgstr "最早關閉優先"
 
 #: ../root/edit/search_macros.tt:20
 msgid "edits"
-msgstr "修改"
+msgstr "剪輯版"
 
 #: ../root/components/forms.tt:175 ../root/components/forms.tt:200
 #: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:466
@@ -3703,7 +3702,7 @@ msgstr "包括修改作者以外的人"
 
 #: ../root/edit/search_macros.tt:419
 msgid "includes"
-msgstr "包括"
+msgstr "包含"
 
 #: ../root/components/common-macros.tt:122
 #: ../root/components/common-macros.tt:185
@@ -4212,21 +4211,21 @@ msgstr "此合併策略不適用於您選擇的發行品。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
-msgstr "註釋修訂版 ID 必須為正整數"
+msgstr "註解修訂版 ID 必須為正整數"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
 msgid "Found no annotation with ID “{id}”."
-msgstr "找不到 ID 為「{id}」的註釋。"
+msgstr "找不到 ID 為「{id}」的註解。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr "ID 為「{id}」的註釋未關聯到此實體。"
+msgstr "ID 為「{id}」的註解未關聯到此實體。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
-msgstr "新舊註釋 ID 必須是相異的正整數。"
+msgstr "新舊註解 ID 必須是相異的正整數。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:129
 #, perl-brace-format
@@ -4474,7 +4473,7 @@ msgstr "新增地區別名"
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add area annotation"
-msgstr "新增地區註釋"
+msgstr "新增地區註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
@@ -4514,7 +4513,7 @@ msgstr "新增創作者別名"
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add artist annotation"
-msgstr "新增創作者註釋"
+msgstr "新增創作者註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 msgctxt "edit type"
@@ -4579,7 +4578,7 @@ msgstr "新增活動別名"
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add event annotation"
-msgstr "新增活動註釋"
+msgstr "新增活動註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 msgctxt "singular, edit type"
@@ -4639,7 +4638,7 @@ msgstr "新增流派別名"
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add genre annotation"
-msgstr "新增流派註釋"
+msgstr "新增流派註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 msgctxt "edit type"
@@ -4693,7 +4692,7 @@ msgstr "新增發行品"
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add release annotation"
-msgstr "新增發行品註釋"
+msgstr "新增發行品註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:12
 msgctxt "edit type"
@@ -4830,7 +4829,7 @@ msgstr "新增樂器別名"
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add instrument annotation"
-msgstr "新增樂器註釋"
+msgstr "新增樂器註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 msgctxt "edit type"
@@ -4870,7 +4869,7 @@ msgstr "新增廠牌別名"
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add label annotation"
-msgstr "新增廠牌註釋"
+msgstr "新增廠牌註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 msgctxt "edit type"
@@ -4926,7 +4925,7 @@ msgstr "新增地點別名"
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add place annotation"
-msgstr "新增地點註釋"
+msgstr "新增地點註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 msgctxt "edit type"
@@ -4966,7 +4965,7 @@ msgstr "新增錄音別名"
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add recording annotation"
-msgstr "新增錄音註釋"
+msgstr "新增錄音註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 msgctxt "edit type"
@@ -5155,7 +5154,7 @@ msgstr "新增發行組別名"
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add release group annotation"
-msgstr "新增發行組註釋"
+msgstr "新增發行組註解"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 msgctxt "edit type"
@@ -5248,7 +5247,7 @@ msgstr "新增系列別名"
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add series annotation"
-msgstr "新增系列註釋"
+msgstr "新增系列註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 msgctxt "edit type"
@@ -5342,7 +5341,7 @@ msgstr "新增作品別名"
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add work annotation"
-msgstr "新增作品註釋"
+msgstr "新增作品註解"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
 msgctxt "edit type"
@@ -6589,15 +6588,15 @@ msgstr "未驗證的電子郵件地址"
 #: ../root/annotation/AnnotationComparison.js:37
 #: ../root/edit/details/AddAnnotation.js:59
 msgid "Annotation comparison"
-msgstr "註釋比較"
+msgstr "註解比較"
 
 #: ../root/annotation/AnnotationComparison.js:41
 msgid "Old annotation"
-msgstr "舊註釋"
+msgstr "舊註解"
 
 #: ../root/annotation/AnnotationComparison.js:50
 msgid "New annotation"
-msgstr "新註釋"
+msgstr "新註解"
 
 #: ../root/annotation/AnnotationComparison.js:63
 msgid ""
@@ -6609,12 +6608,12 @@ msgstr ""
 
 #: ../root/annotation/AnnotationComparison.js:79
 msgid "View annotation history."
-msgstr "檢視註釋歷史。"
+msgstr "檢視註解歷史。"
 
 #: ../root/annotation/AnnotationHistory.js:33
 #: ../root/annotation/AnnotationHistory.js:35
 msgid "Annotation history"
-msgstr "註釋歷史"
+msgstr "註解歷史"
 
 #: ../root/annotation/AnnotationHistory.js:47
 msgid "Compare versions"
@@ -6622,13 +6621,13 @@ msgstr "比較不同版本"
 
 #: ../root/annotation/AnnotationHistory.js:55
 msgid "This entity has no annotation history."
-msgstr "此實體沒有註釋歷史。"
+msgstr "此實體沒有註解歷史。"
 
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
 msgctxt "header"
 msgid "Edit annotation"
-msgstr "修改註釋"
+msgstr "修改註解"
 
 #: ../root/annotation/EditAnnotation.js:43
 msgid ""
@@ -6659,11 +6658,11 @@ msgstr "預覽"
 
 #: ../root/annotation/EditAnnotation.js:89
 msgid "Annotation formatting"
-msgstr "註釋格式"
+msgstr "註解格式"
 
 #: ../root/annotation/EditAnnotation.js:91
 msgid "Annotations support a limited set of wiki formatting options:"
-msgstr "註釋支援一部分維基的格式選項："
+msgstr "註解支援一部分維基的格式選項："
 
 #: ../root/annotation/EditAnnotation.js:96
 msgid "Emphasis:"
@@ -6712,8 +6711,8 @@ msgid ""
 msgstr ""
 "方括號 [] 用於建立超連結，如果您不希望它們被轉換為超連結，您必須使用等價的 "
 "HTML 編碼（<code>&amp;#91;</code>對應 [）和（<code>&amp;#93;</code>對應 ]）。"
-"例如：如果您想要在註釋內使用 [未知]，您必須輸入「<code>&amp;#91;未知&amp;#93;"
-"</code>」，這樣才能按照您的意願顯示。"
+"例如：如果您想要在註解內使用 [未知]，您必須輸入「<code>&amp;#91;未"
+"知&amp;#93;</code>」，這樣才能按照您的意願顯示。"
 
 #: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
 #: ../root/components/EntityTabs.js:25
@@ -8025,7 +8024,7 @@ msgstr "作為「{credit}」"
 msgid ""
 "Only the first {n} results can be returned. If you cannot find what you are "
 "looking for, please try a more precise search."
-msgstr ""
+msgstr "只能回傳前 {n} 個結果。如果沒有找到所需的結果，請嘗試更精確的搜尋。"
 
 #: ../root/components/RelationshipsTable.js:286
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
@@ -8476,7 +8475,7 @@ msgstr "我的投票："
 
 #: ../root/edit/EditIndex.js:126
 msgid "You are not currently able to vote on this edit. ({url|Details})"
-msgstr "您目前無法對此修改進行投票。（{url|詳情}）"
+msgstr "您目前無法對此修改進行投票。（{url|詳細資訊}）"
 
 #: ../root/edit/EditIndex.js:141 ../root/edit/EditIndex.js:161
 #: ../root/edit/components/EditSummary.js:87
@@ -8762,7 +8761,7 @@ msgstr "新增修改備註"
 
 #: ../root/edit/components/EditNotes.js:72
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
-msgstr "您目前無法向此修改新增備註。（{url|詳情}）"
+msgstr "您目前無法向此修改新增備註。（{url|詳細資訊}）"
 
 #: ../root/edit/components/EditSidebar.js:42
 msgid "Opened:"
@@ -8928,7 +8927,7 @@ msgstr "文字"
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:31
 #: ../root/static/scripts/common/components/Annotation.js:43
 msgid "This annotation is empty."
-msgstr "此註釋為空。"
+msgstr "此註解為空。"
 
 #: ../root/edit/details/AddAnnotation.js:67
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:39
@@ -9683,7 +9682,7 @@ msgstr "狀態"
 
 #: ../root/elections/ElectionTable/ElectionTableRows.js:52
 msgid "View details"
-msgstr "檢視詳情"
+msgstr "檢視詳細資訊"
 
 #: ../root/elections/ElectionTable/index.js:19
 #: ../root/layout/components/sidebar/EventSidebar.js:109
@@ -10863,17 +10862,17 @@ msgstr "管理員"
 #: ../root/static/scripts/common/components/Annotation.js:85
 msgctxt "interactive"
 msgid "Edit annotation"
-msgstr "修改註釋"
+msgstr "修改註解"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:32
 msgctxt "interactive"
 msgid "Add annotation"
-msgstr "新增註釋"
+msgstr "新增註解"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:38
 #: ../root/static/scripts/common/components/Annotation.js:79
 msgid "View annotation history"
-msgstr "檢視註釋歷史"
+msgstr "檢視註解歷史"
 
 #: ../root/layout/components/sidebar/AreaSidebar.js:54
 msgid "Area information"
@@ -11416,7 +11415,7 @@ msgstr "錯誤"
 
 #: ../root/main/error/components/ErrorInfo.js:30
 msgid "(No details about this error are available)"
-msgstr "（沒有關於此錯誤的詳情）"
+msgstr "（沒有關於此錯誤的詳細資訊）"
 
 #: ../root/main/index.js:34
 msgid "MusicBrainz - the open music encyclopedia"
@@ -12091,75 +12090,75 @@ msgstr "沒有發行品有標記為「正面」的封面圖，無法設定封面
 
 #: ../root/report/AnnotationsArtists.js:28
 msgid "This report lists artists with annotations."
-msgstr "此報告列出附有註釋的創作者。"
+msgstr "此報告列出附有註解的創作者。"
 
 #: ../root/report/AnnotationsArtists.js:33
 msgid "Artist annotations"
-msgstr "創作者註釋"
+msgstr "創作者註解"
 
 #: ../root/report/AnnotationsEvents.js:28
 msgid "This report lists events with annotations."
-msgstr "此報告列出附有註釋的活動。"
+msgstr "此報告列出附有註解的活動。"
 
 #: ../root/report/AnnotationsEvents.js:33
 msgid "Event annotations"
-msgstr "活動註釋"
+msgstr "活動註解"
 
 #: ../root/report/AnnotationsLabels.js:28
 msgid "This report lists labels with annotations."
-msgstr "此報告列出附有註釋的廠牌。"
+msgstr "此報告列出附有註解的廠牌。"
 
 #: ../root/report/AnnotationsLabels.js:33
 msgid "Label annotations"
-msgstr "廠牌註釋"
+msgstr "廠牌註解"
 
 #: ../root/report/AnnotationsPlaces.js:28
 msgid "This report lists places with annotations."
-msgstr "此報告列出附有註釋的地點。"
+msgstr "此報告列出附有註解的地點。"
 
 #: ../root/report/AnnotationsPlaces.js:33
 msgid "Place annotations"
-msgstr "地點註釋"
+msgstr "地點註解"
 
 #: ../root/report/AnnotationsRecordings.js:29
 msgid "This report lists recordings with annotations."
-msgstr "此報告列出附有註釋的錄音。"
+msgstr "此報告列出附有註解的錄音。"
 
 #: ../root/report/AnnotationsRecordings.js:34
 msgid "Recording annotations"
-msgstr "錄音註釋"
+msgstr "錄音註解"
 
 #: ../root/report/AnnotationsReleaseGroups.js:29
 msgid "This report lists release groups with annotations."
-msgstr "此報告列出附有註釋的發行組。"
+msgstr "此報告列出附有註解的發行組。"
 
 #: ../root/report/AnnotationsReleaseGroups.js:34
 msgid "Release group annotations"
-msgstr "發行組註釋"
+msgstr "發行組註解"
 
 #: ../root/report/AnnotationsReleases.js:28
 msgid "This report lists releases with annotations."
-msgstr "此報告列出附有註釋的發行品。"
+msgstr "此報告列出附有註解的發行品。"
 
 #: ../root/report/AnnotationsReleases.js:33
 msgid "Release annotations"
-msgstr "發行品註釋"
+msgstr "發行品註解"
 
 #: ../root/report/AnnotationsSeries.js:28
 msgid "This report lists series with annotations."
-msgstr "此報告列出附有註釋的系列。"
+msgstr "此報告列出附有註解的系列。"
 
 #: ../root/report/AnnotationsSeries.js:33
 msgid "Series annotations"
-msgstr "系列註釋"
+msgstr "系列註解"
 
 #: ../root/report/AnnotationsWorks.js:28
 msgid "This report lists works with annotations."
-msgstr "此報告列出附有註釋的作品。"
+msgstr "此報告列出附有註解的作品。"
 
 #: ../root/report/AnnotationsWorks.js:33
 msgid "Work annotations"
-msgstr "作品註釋"
+msgstr "作品註解"
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:25
 msgid ""
@@ -12179,12 +12178,12 @@ msgstr "具有可疑的連接詞字尾的創作者署名"
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr "此報告列出名稱中可能含有消歧義註釋（而非填在消歧義欄位）的創作者。"
+msgstr "此報告列出名稱中可能含有消歧義說明（而非填在消歧義欄位）的創作者。"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:31
 #: ../root/report/ReportsIndex.js:77
 msgid "Artists containing disambiguation comments in their name"
-msgstr "名稱中包含消歧義註釋的創作者"
+msgstr "名稱中包含消歧義說明的創作者"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:25
 msgid ""
@@ -12607,8 +12606,8 @@ msgid ""
 msgstr ""
 "此報告旨在找出名稱非常相似的創作者。如果兩位創作者其實是同一位，請合併（記得"
 "{how_to_write_edit_notes|撰寫修改備註}並提出證據）。如果是不同的創作者，請為"
-"他們加上{disambiguation_comment|消歧義註釋}（一組名稱相似的創作者都有消歧義註"
-"釋後，就不會再出現在這裡）。"
+"他們加上{disambiguation_comment|消歧義說明}（一組名稱相似的創作者都有消歧義說"
+"明後，就不會再出現在這裡）。"
 
 #: ../root/report/DuplicateArtists.js:56 ../root/report/ReportsIndex.js:64
 msgid "Possibly duplicate artists"
@@ -12726,7 +12725,7 @@ msgstr ""
 "此報告列出名稱和創作者非常相似的發行組。如果發行組中的發行品應該被分組在一起"
 "（請參見 {url|指南}），則可以合併。如果不應該分組在一起，但可以根據發行組類型"
 "進行區分，例如當一位創作者有同名的專輯和單曲時，則通常不需要更改任何內容。在"
-"其他情況下，消歧義註釋可能會有所幫助。"
+"其他情況下，消歧義說明可能會有所幫助。"
 
 #: ../root/report/DuplicateReleaseGroups.js:51
 #: ../root/report/ReportsIndex.js:239
@@ -13646,15 +13645,15 @@ msgstr "看起來像是合作的創作者"
 
 #: ../root/report/ReportsIndex.js:100
 msgid "Artists with annotations"
-msgstr "有註釋的創作者"
+msgstr "有註解的創作者"
 
 #: ../root/report/ReportsIndex.js:139
 msgid "Events with annotations"
-msgstr "有註釋的活動"
+msgstr "有註解的活動"
 
 #: ../root/report/ReportsIndex.js:194
 msgid "Labels with annotations"
-msgstr "有註釋的廠牌"
+msgstr "有註解的廠牌"
 
 #: ../root/report/ReportsIndex.js:211 ../root/report/SetInDifferentRg.js:37
 msgid "Release groups that might need to be merged"
@@ -13662,7 +13661,7 @@ msgstr "可能需要合併的發行組"
 
 #: ../root/report/ReportsIndex.js:243
 msgid "Release groups with annotations"
-msgstr "有註釋的發行組"
+msgstr "有註解的發行組"
 
 #: ../root/report/ReportsIndex.js:280
 msgid "Releases which have unexpected Amazon URLs"
@@ -13726,7 +13725,7 @@ msgstr "有名稱的單媒介發行品"
 
 #: ../root/report/ReportsIndex.js:438
 msgid "Releases with annotations"
-msgstr "有註釋的發行品"
+msgstr "有註解的發行品"
 
 #: ../root/report/ReportsIndex.js:470 ../root/report/ShouldNotHaveDiscIds.js:33
 msgid "Releases that have disc IDs, but shouldn’t"
@@ -13739,7 +13738,7 @@ msgstr "有節目說明連結的非廣播發行品"
 
 #: ../root/report/ReportsIndex.js:543
 msgid "Recordings with annotations"
-msgstr "有註釋的錄音"
+msgstr "有註解的錄音"
 
 #: ../root/report/ReportsIndex.js:580
 msgid "Recordings with dates in the future"
@@ -13757,11 +13756,11 @@ msgstr "有影片關聯的非影片錄音"
 
 #: ../root/report/ReportsIndex.js:605
 msgid "Places with annotations"
-msgstr "有註釋的地點"
+msgstr "有註解的地點"
 
 #: ../root/report/ReportsIndex.js:618
 msgid "Series with annotations"
-msgstr "有註釋的系列"
+msgstr "有註解的系列"
 
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
@@ -13770,7 +13769,7 @@ msgstr "含有重複項目的系列"
 
 #: ../root/report/ReportsIndex.js:639
 msgid "Works with annotations"
-msgstr "有註釋的作品"
+msgstr "有註解的作品"
 
 #: ../root/report/ReportsIndex.js:643 ../root/report/WorkSameTypeAsParent.js:36
 msgid "Works with the same type as their parent"
@@ -14082,7 +14081,7 @@ msgid ""
 "annotation. If something is marked as “sub-optimal”, consider checking if a "
 "better way to store that data has been added in the meantime."
 msgstr ""
-"如果您在這些註釋中看到可以用關聯表示的內容，請新增關聯並移除該部分註釋。如果"
+"如果您在這些註解中看到可以用關聯表示的內容，請新增關聯並移除該部分註解。如果"
 "某些內容被標記為「不理想」，請考慮檢查是否有更好的方法來儲存該資料。"
 
 #: ../root/report/hooks/useAnnotationColumns.js:34
@@ -14395,7 +14394,7 @@ msgstr "當我新增時自動訂閱"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:296
 msgid "Alias details"
-msgstr "別名詳情"
+msgstr "別名詳細資訊"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:303
 msgid "Alias name:"
@@ -14438,7 +14437,7 @@ msgstr[0] "… 和其他 {place_count} 個"
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr "未設定類型"
+msgstr "未分類"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -14498,7 +14497,7 @@ msgstr "顯示更多…"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:192
 msgid "Collection details"
-msgstr "收藏詳情"
+msgstr "收藏詳細資訊"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:212
 msgid "Allow other users to see this collection"
@@ -14590,19 +14589,19 @@ msgstr "（無變更日誌）"
 
 #: ../root/static/scripts/common/components/Annotation.js:71
 msgid "Annotation last modified by {user} on {date}."
-msgstr "註釋最後由 {user} 修改於 {date}。"
+msgstr "註解最後由 {user} 修改於 {date}。"
 
 #: ../root/static/scripts/common/components/Annotation.js:90
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on "
 "{date}. {current|View current revision}."
 msgstr ""
-"這是此註釋的 {history|舊修訂版}，由 {user} 在 {date} 修改。{current|檢視目前"
+"這是此註解的 {history|舊修訂版}，由 {user} 在 {date} 修改。{current|檢視目前"
 "修訂版}。"
 
 #: ../root/static/scripts/common/components/Annotation.js:102
 msgid "Annotation last modified on {date}."
-msgstr "註釋最後被修改於 {date}。"
+msgstr "註解最後被修改於 {date}。"
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:35
 msgid "This artist credit has {edit_search|open edits}."
@@ -15275,10 +15274,8 @@ msgstr "開始於："
 
 #: ../root/static/scripts/edit/MB/reltypeslist.js:18
 #: ../root/static/scripts/edit/MB/reltypeslist.js:25
-#, fuzzy
-#| msgid "show less"
 msgid "less"
-msgstr "顯示更少"
+msgstr "更少"
 
 #: ../root/static/scripts/edit/URLCleanup.js:390
 msgid ""
@@ -15493,7 +15490,7 @@ msgstr "請連結到 TikTok 個人檔案，而非影片。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6670
 msgid "This is not a profile, but a Twitter documentation page."
-msgstr "這不是個人資料頁，而是一個 Twitter 說明文件網頁。"
+msgstr "這不是個人檔案，而是一個 Twitter 說明文件網頁。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6684
 msgid "Please link to Twitter profiles, not tweets."
@@ -15907,7 +15904,7 @@ msgstr "如果離開此網頁，您的所有更改將會遺失。"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:299
 msgid "Event details"
-msgstr "活動詳情"
+msgstr "活動詳細資訊"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:324
 msgid "This event was cancelled."
@@ -16587,7 +16584,7 @@ msgid ""
 "the annotation field below, and keep the main code “{main_digits}” only in "
 "the barcode field."
 msgstr ""
-"然而，它以附加碼結尾。請將其作為「{annotation_text}」新增到下面的註釋欄位，並"
+"然而，它以附加碼結尾。請將其作為「{annotation_text}」新增到下面的註解欄位，並"
 "僅在條碼欄位中保留主碼「{main_digits}」。"
 
 #: ../root/static/scripts/release-editor/validation.js:258
@@ -16756,7 +16753,7 @@ msgstr "新增歌詞語言"
 #: ../root/static/scripts/voting.js:21
 msgctxt "interactive"
 msgid "Remove note"
-msgstr "移除修改備註"
+msgstr "移除備註"
 
 #: ../root/static/scripts/work/edit.js:349
 msgctxt "interactive"
@@ -17072,7 +17069,7 @@ msgstr "網址資訊"
 
 #: ../root/url/UrlIndex.js:19
 msgid "URL details"
-msgstr "網址詳情"
+msgstr "網址詳細資訊"
 
 #: ../root/user/ContactUser.js:44
 msgid "Subject:"
@@ -17506,7 +17503,7 @@ msgstr "尚未登入"
 #: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:321
 #: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
-msgstr "{count}（{url|瀏覽清單}）"
+msgstr "{count}（{url|檢視清單}）"
 
 #: ../root/user/UserProfile.js:333
 msgid "Homepage:"
@@ -17536,7 +17533,7 @@ msgstr "語言"
 #: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:831
 #: ../root/user/UserProfile.js:852
 msgid "{count} ({view_url|view})"
-msgstr "{count}（{view_url|瀏覽}）"
+msgstr "{count}（{view_url|檢視}）"
 
 #: ../root/user/UserProfile.js:570
 msgid "Edits"
@@ -17587,7 +17584,7 @@ msgstr "此表格顯示了此編輯者投票的摘要。"
 
 #: ../root/user/UserProfile.js:685
 msgid "Votes ({view_url|view})"
-msgstr "投票（{view_url|瀏覽}）"
+msgstr "投票（{view_url|檢視}）"
 
 #: ../root/user/UserProfile.js:693
 msgid "Last 28 days"

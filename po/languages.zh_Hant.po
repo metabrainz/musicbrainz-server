@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-09-11 13:01+0000\n"
+"PO-Revision-Date: 2026-09-20 19:14+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/languages/zh_Hant/>\n"
@@ -118,7 +118,7 @@ msgstr "阿帕契諸語言"
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "阿拉伯文"
+msgstr "阿拉伯語"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
@@ -143,7 +143,7 @@ msgstr "半摩揭陀語"
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "亞美尼亞文"
+msgstr "亞美尼亞語"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
@@ -188,7 +188,7 @@ msgstr "阿瓦爾語"
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "阿維斯陀文"
+msgstr "阿維斯陀語"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
@@ -213,7 +213,7 @@ msgstr "柏古語"
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"
-msgstr "峇里文"
+msgstr "峇里語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43
@@ -288,7 +288,7 @@ msgstr "本巴語"
 #. frequency:1 iso_code_3:ben
 #: DB:language/name:47
 msgid "Bengali"
-msgstr "孟加拉文"
+msgstr "孟加拉語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:48
@@ -358,7 +358,7 @@ msgstr "布阿穆語"
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "布吉斯文"
+msgstr "布吉斯語"
 
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
@@ -422,10 +422,8 @@ msgstr "中美洲原住民諸語言"
 
 #. frequency:1 iso_code_3:dtp
 #: DB:language/name:2109
-#, fuzzy
-#| msgid "Central Yupik"
 msgid "Central Dusun"
-msgstr "中阿拉斯加尤皮克語"
+msgstr "中部杜順語"
 
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
@@ -460,7 +458,7 @@ msgstr "車臣語"
 #. frequency:1 iso_code_3:chr
 #: DB:language/name:82
 msgid "Cherokee"
-msgstr "切羅基文"
+msgstr "切羅基語"
 
 #. frequency:1 iso_code_3:chy
 #: DB:language/name:85
@@ -530,7 +528,7 @@ msgstr "古敘利亞語"
 #. frequency:1 iso_code_3:cop
 #: DB:language/name:87
 msgid "Coptic"
-msgstr "科普特文"
+msgstr "科普特語"
 
 #. frequency:1 iso_code_3:cor
 #: DB:language/name:88
@@ -865,7 +863,7 @@ msgstr "吉茲語"
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
 msgid "Georgian"
-msgstr "喬治亞文"
+msgstr "喬治亞語"
 
 #. frequency:2 iso_code_3:deu
 #: DB:language/name:145
@@ -915,7 +913,7 @@ msgstr "哥倫打洛語"
 #. frequency:1 iso_code_3:got
 #: DB:language/name:156
 msgid "Gothic"
-msgstr "哥德文"
+msgstr "哥德語"
 
 #. frequency:1 iso_code_3:grb
 #: DB:language/name:157
@@ -925,7 +923,7 @@ msgstr "格列博語"
 #. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
-msgstr "希臘文"
+msgstr "希臘語"
 
 #. frequency:1 iso_code_3:grc
 #: DB:language/name:158
@@ -955,7 +953,7 @@ msgstr "瓜拉尼語"
 #. frequency:1 iso_code_3:guj
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr "古吉拉特文"
+msgstr "古吉拉特語"
 
 #. frequency:1 iso_code_3:gnn
 #: DB:language/name:2511
@@ -1000,7 +998,7 @@ msgstr "夏威夷語"
 #. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr "希伯來文"
+msgstr "希伯來語"
 
 #. frequency:1 iso_code_3:her
 #: DB:language/name:168
@@ -1170,12 +1168,12 @@ msgstr "牙買加克里奧爾英語"
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
-msgstr "日文"
+msgstr "日語"
 
 #. frequency:1 iso_code_3:jav
 #: DB:language/name:196
 msgid "Javanese"
-msgstr "爪哇文"
+msgstr "爪哇語"
 
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
@@ -1225,7 +1223,7 @@ msgstr "坎巴語"
 #. frequency:1 iso_code_3:kan
 #: DB:language/name:206
 msgid "Kannada"
-msgstr "卡納達文"
+msgstr "卡納達語"
 
 #. frequency:1 iso_code_3:kau
 #: DB:language/name:209
@@ -1355,7 +1353,7 @@ msgstr "孔卡尼語"
 #. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
-msgstr "韓文"
+msgstr "韓語"
 
 #. frequency:1 iso_code_3:kos
 #: DB:language/name:225
@@ -1365,7 +1363,7 @@ msgstr "科斯拉伊語"
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
-msgstr "克佩勒文"
+msgstr "克佩勒語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
@@ -1445,12 +1443,12 @@ msgstr "陸達雅克諸語言"
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
 msgid "Lao"
-msgstr "寮文"
+msgstr "寮語"
 
 #. frequency:1 iso_code_3:lat
 #: DB:language/name:238
 msgid "Latin"
-msgstr "拉丁文"
+msgstr "拉丁語"
 
 #. frequency:1 iso_code_3:lav
 #: DB:language/name:239
@@ -1580,7 +1578,7 @@ msgstr "馬來語"
 #. frequency:1 iso_code_3:mal
 #: DB:language/name:260
 msgid "Malayalam"
-msgstr "馬拉雅拉姆文"
+msgstr "馬拉雅拉姆語"
 
 #. frequency:1 iso_code_3:pqm
 #: DB:language/name:5515
@@ -1675,7 +1673,7 @@ msgstr "瑪雅語系"
 #. frequency:1 iso_code_3:men
 #: DB:language/name:269
 msgid "Mende"
-msgstr "門德文"
+msgstr "門德語"
 
 #. frequency:1 iso_code_3:mic
 #: DB:language/name:271
@@ -1735,7 +1733,7 @@ msgstr "芒戈語"
 #. frequency:1 iso_code_3:mon
 #: DB:language/name:282
 msgid "Mongolian"
-msgstr "蒙古文"
+msgstr "蒙古語"
 
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
@@ -1830,7 +1828,7 @@ msgstr "尼日-科爾多凡語系"
 #. frequency:1 iso_code_3:pcm
 #: DB:language/name:5322
 msgid "Nigerian Pidgin"
-msgstr ""
+msgstr "奈及利亞皮欽語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
@@ -1920,7 +1918,7 @@ msgstr "奧傑布瓦語"
 #. frequency:1 iso_code_3:ori
 #: DB:language/name:320
 msgid "Oriya"
-msgstr "奧里亞文"
+msgstr "奧里亞語"
 
 #. frequency:1 iso_code_3:orm
 #: DB:language/name:321
@@ -2000,7 +1998,7 @@ msgstr "菲律賓諸語言"
 #. frequency:0 iso_code_3:phn
 #: DB:language/name:336
 msgid "Phoenician"
-msgstr "腓尼基文"
+msgstr "腓尼基語"
 
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
@@ -2295,7 +2293,7 @@ msgstr "信德語"
 #. frequency:1 iso_code_3:sin
 #: DB:language/name:373
 msgid "Sinhala"
-msgstr "僧伽羅文"
+msgstr "僧伽羅語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:375
@@ -2415,7 +2413,7 @@ msgstr "蘇美語"
 #. frequency:1 iso_code_3:sun
 #: DB:language/name:399
 msgid "Sundanese"
-msgstr "巽他文"
+msgstr "巽他語"
 
 #. frequency:1 iso_code_3:sus
 #: DB:language/name:400
@@ -2445,7 +2443,7 @@ msgstr "瑞典語"
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
-msgstr "敘利亞文"
+msgstr "敘利亞語"
 
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
@@ -2455,7 +2453,7 @@ msgstr "施盧赫語"
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
 msgid "Tagalog"
-msgstr "他加祿文"
+msgstr "他加祿語"
 
 #. frequency:1 iso_code_3:tah
 #: DB:language/name:405
@@ -2480,7 +2478,7 @@ msgstr "塔馬奇克語"
 #. frequency:1 iso_code_3:tam
 #: DB:language/name:407
 msgid "Tamil"
-msgstr "坦米爾文"
+msgstr "坦米爾語"
 
 #. frequency:1 iso_code_3:tat
 #: DB:language/name:408
@@ -2490,7 +2488,7 @@ msgstr "韃靼語"
 #. frequency:1 iso_code_3:tel
 #: DB:language/name:409
 msgid "Telugu"
-msgstr "泰盧固文"
+msgstr "泰盧固語"
 
 #. frequency:1 iso_code_3:ter
 #: DB:language/name:411
@@ -2505,12 +2503,12 @@ msgstr "德頓語"
 #. frequency:1 iso_code_3:tha
 #: DB:language/name:415
 msgid "Thai"
-msgstr "泰文"
+msgstr "泰語"
 
 #. frequency:1 iso_code_3:bod
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr "藏文"
+msgstr "藏語"
 
 #. frequency:1 iso_code_3:tig
 #: DB:language/name:417
@@ -2625,7 +2623,7 @@ msgstr "烏德穆爾特語"
 #. frequency:0 iso_code_3:uga
 #: DB:language/name:439
 msgid "Ugaritic"
-msgstr "烏加里特文"
+msgstr "烏加里特語"
 
 #. frequency:1 iso_code_3:uig
 #: DB:language/name:440
@@ -2670,7 +2668,7 @@ msgstr "烏茲別克語"
 #. frequency:1 iso_code_3:vai
 #: DB:language/name:446
 msgid "Vai"
-msgstr "瓦伊文"
+msgstr "瓦伊語"
 
 #. frequency:1 iso_code_3:ven
 #: DB:language/name:447
