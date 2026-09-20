@@ -21,13 +21,8 @@ import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
-  runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
@@ -38,6 +33,7 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
+  updateRequiredNameFieldErrors,
 } from '../../edit/utility/forms.js';
 import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import useChildDispatch from '../../edit/utility/useChildDispatch.js';
@@ -47,25 +43,19 @@ import ExternalLinksEditorFieldset
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditor
+  from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
 
-/* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | CommonEntityEditFormActionT
-  | {readonly type: 'update-name', readonly action: NameActionT}
   | {readonly type: 'show-all-pending-errors'};
-/* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   ...CommonEntityEditFormStateT,
   readonly form: GenreFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
 };
 
 function createInitialState({
@@ -75,41 +65,19 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: GenreFormT,
 }) {
+  const formCtx = mutate(form);
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateRequiredNameFieldErrors(nameFieldCtx);
+
   return {
     ...createCommonEntityEditFormState({$c, form}),
-    form,
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
+    form: formCtx.final(),
   };
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   match (action) {
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .set('form', 'field', 'name', nameState.field)
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-      if (action.type === 'set-name') {
-        newStateCtx.set(
-          'relationshipEditor',
-          relationshipEditorReducer(state.relationshipEditor, {
-            changes: {name: action.name},
-            entityType: state.relationshipEditor.entity.entityType,
-            type: 'update-entity',
-          }),
-        );
-      }
-    }
     {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(newStateCtx.get('form'));
     }

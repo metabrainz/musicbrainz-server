@@ -18,7 +18,6 @@ import useContainingDialogEscape
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
@@ -28,16 +27,11 @@ import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
-  runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
@@ -48,6 +42,7 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
+  updateRequiredNameFieldErrors,
 } from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
@@ -62,9 +57,8 @@ import ExternalLinksEditorFieldset
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditor
+  from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
@@ -80,15 +74,12 @@ type ActionT =
   | {
       readonly type: 'update-date-range',
       readonly action: DateRangeFieldsetActionT,
-    }
-  | {readonly type: 'update-name', readonly action: NameActionT};
+    };
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   ...CommonEntityEditFormStateT,
   readonly form: EventFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
   readonly showTypeBubble: boolean,
 };
 
@@ -99,11 +90,13 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: EventFormT,
 }) {
+  const formCtx = mutate(form);
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateRequiredNameFieldErrors(nameFieldCtx);
+
   return {
     ...createCommonEntityEditFormState({$c, form}),
-    form,
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
+    form: formCtx.final(),
     showTypeBubble: false,
   };
 }
@@ -118,43 +111,6 @@ function reducer(state: StateT, action: ActionT): StateT {
         newStateCtx.get('form', 'field', 'period'),
         action,
       );
-    }
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          if (isBlank(nameState.field.value)) {
-            nameFieldCtx.set('has_errors', true);
-            nameFieldCtx.set('pendingErrors', [
-              l('Required field.'),
-            ]);
-          } else {
-            nameFieldCtx.set('has_errors', false);
-            nameFieldCtx.set('pendingErrors', []);
-            nameFieldCtx.set('errors', []);
-          }
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-      if (action.type === 'set-name') {
-        newStateCtx.set(
-          'relationshipEditor',
-          relationshipEditorReducer(state.relationshipEditor, {
-            changes: {name: action.name},
-            entityType: state.relationshipEditor.entity.entityType,
-            type: 'update-entity',
-          }),
-        );
-      }
     }
     {type: 'toggle-type-bubble'} => {
       newStateCtx.set('showTypeBubble', true);
