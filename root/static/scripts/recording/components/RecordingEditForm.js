@@ -20,7 +20,6 @@ import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
-import isBlank from '../../common/utility/isBlank.js';
 import {
   createInitialState as createArtistCreditState,
   reducer as runArtistCreditReducer,
@@ -41,7 +40,6 @@ import FormRowArtistCredit
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
-  runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextList, {
   type ActionT as IsrcActionT,
@@ -49,10 +47,6 @@ import FormRowTextList, {
   runReducer as runIsrcReducer,
 } from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
@@ -63,6 +57,7 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
+  updateRequiredNameFieldErrors,
 } from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
@@ -79,9 +74,8 @@ import ExternalLinksEditorFieldset
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditor
+  from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
@@ -94,7 +88,6 @@ type ActionT =
   | {readonly type: 'toggle-bubble', readonly bubble: string}
   | {readonly type: 'update-edit-note', readonly editNote: string}
   | {readonly type: 'update-length', readonly length: string}
-  | {readonly type: 'update-name', readonly action: NameActionT}
   | {
       readonly type: 'update-artist-credit',
       readonly action: ArtistCreditActionT,
@@ -106,8 +99,6 @@ type StateT = {
   ...CommonEntityEditFormStateT,
   readonly actionName: string,
   readonly form: RecordingFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
   readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
   readonly shownBubble: string,
@@ -147,21 +138,6 @@ function updateIsrcFieldErrors(
       valueFieldCtx.set('pendingErrors', []);
       valueFieldCtx.set('errors', []);
     }
-  }
-}
-
-function updateNameFieldErrors(
-  nameFieldCtx: CowContext<FieldT<string | null>>,
-) {
-  if (isBlank(nameFieldCtx.get('value').read())) {
-    nameFieldCtx.set('has_errors', true);
-    nameFieldCtx.set('pendingErrors', [
-      l('Required field.'),
-    ]);
-  } else {
-    nameFieldCtx.set('has_errors', false);
-    nameFieldCtx.set('pendingErrors', []);
-    nameFieldCtx.set('errors', []);
   }
 }
 
@@ -218,7 +194,7 @@ function createInitialState({
   const formCtx = mutate(form);
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
-  updateNameFieldErrors(nameFieldCtx);
+  updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
   let lengthErrors: ReadonlyArray<string> = [];
   if (usedByTracks) {
@@ -249,8 +225,6 @@ function createInitialState({
     ...createCommonEntityEditFormState({$c, form}),
     actionName,
     form: formCtx.final(),
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
     lengthErrors,
     recording,
     shownBubble: '',
@@ -274,34 +248,6 @@ function reducer(state: StateT, action: ActionT): StateT {
           lengthFieldCtx.set('value', length);
           updateLengthFieldErrors(lengthFieldCtx);
         });
-    }
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          updateNameFieldErrors(nameFieldCtx);
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-      if (action.type === 'set-name') {
-        newStateCtx.set(
-          'relationshipEditor',
-          relationshipEditorReducer(state.relationshipEditor, {
-            changes: {name: action.name},
-            entityType: state.relationshipEditor.entity.entityType,
-            type: 'update-entity',
-          }),
-        );
-      }
     }
     {type: 'update-isrcs', const action} => {
       const isrcStateCtx = mutate(state.form.field.isrcs);
