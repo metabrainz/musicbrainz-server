@@ -1,11 +1,12 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
 # DenilsonSama <denilsongomesdesouza1@gmail.com>, 2026.
 # joao_over9k <joaorspaiva@hotmail.com>, 2026.
+# Kolesteraw <leonaribas00@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-09-04 22:13+0000\n"
-"Last-Translator: joao_over9k <joaorspaiva@hotmail.com>\n"
+"PO-Revision-Date: 2026-09-20 04:13+0000\n"
+"Last-Translator: Kolesteraw <leonaribas00@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.9\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -328,6 +329,9 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"Um CD que contêm áudio e dados na mesma seção. Os dados normalmente estão na "
+"primeira faixa, que terá que ser pulado em vários reprodutores de áudio. "
+"Relativamente comum em CDs antigos de vídeo game."
 
 #. name:Enhanced CD
 #: DB:medium_format/description:42
@@ -337,6 +341,9 @@ msgid ""
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
 msgstr ""
+"Um CD que contêm duas seções, uma com áudio e uma com dados. Como eles são "
+"propriamente separados, reprodutores de áudio não irão tentar reproduzir a "
+"seção de dados e não fará parte do ID do disco do CD."
 
 #. name:DJ-mix
 #: DB:release_group_secondary_type/description:8
