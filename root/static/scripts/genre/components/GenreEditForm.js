@@ -21,7 +21,7 @@ import FormRowNameWithGuessCase
   from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {
   type CommonEntityEditFormActionT,
@@ -129,10 +129,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 }
 
 export default (
-  hydrate<React.PropsOf<GenreEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<GenreEditForm>>(
     'div.genre-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<GenreEditForm>>(
-      GenreEditForm,
-    ),
+    GenreEditForm,
   ) as component(...React.PropsOf<GenreEditForm>)
 );

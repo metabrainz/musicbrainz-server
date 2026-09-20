@@ -12,14 +12,13 @@ import $ from 'jquery';
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import hydrate from '../../../../utility/hydrate.js';
 import {
   PART_OF_SERIES_LINK_TYPE_IDS,
 } from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isBlank from '../../common/utility/isBlank.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {
   type InitialStateArgsT,
@@ -192,15 +191,9 @@ component _SeriesRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedSeriesRelationshipEditor:
-  component(...PropsT) =
-    withLoadedTypeInfoForRelationshipEditor<PropsT>(
-      _SeriesRelationshipEditor,
-    );
-
-const SeriesRelationshipEditor = hydrate<PropsT>(
+const SeriesRelationshipEditor = hydrateRelationshipEditorForm<PropsT>(
   'div.relationship-editor',
-  NonHydratedSeriesRelationshipEditor,
+  _SeriesRelationshipEditor,
 ) as component(...PropsT);
 
 export default SeriesRelationshipEditor;
