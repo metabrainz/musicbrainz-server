@@ -63,6 +63,8 @@ import {
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import isValidIsrc from '../../edit/utility/isValidIsrc.js';
+import setPendingFieldErrors
+  from '../../edit/utility/setPendingFieldErrors.js';
 import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from '../../edit/utility/updateRequiredNameFieldErrors.js';
@@ -127,15 +129,10 @@ function updateIsrcFieldErrors(
     const value = valueFieldCtx.get('value').read();
     const isInvalid = !empty(value) && !isValidIsrc(value);
 
-    valueFieldCtx.set('has_errors', isInvalid);
-    if (isInvalid) {
-      valueFieldCtx.set('pendingErrors', [
-        l('This is not a valid ISRC.'),
-      ]);
-    } else {
-      valueFieldCtx.set('pendingErrors', []);
-      valueFieldCtx.set('errors', []);
-    }
+    setPendingFieldErrors(
+      valueFieldCtx,
+      isInvalid ? [l('This is not a valid ISRC.')] : [],
+    );
   }
 }
 
@@ -143,16 +140,12 @@ function updateLengthFieldErrors(
   lengthFieldCtx: CowContext<FieldT<string | null>>,
 ) {
   const length = lengthFieldCtx.get('value').read();
-  if (length && isInvalidLength(length)) {
-    lengthFieldCtx.set('has_errors', true);
-    lengthFieldCtx.set('pendingErrors', [
-      l('Not a valid time. Must be in the format MM:SS'),
-    ]);
-  } else {
-    lengthFieldCtx.set('has_errors', false);
-    lengthFieldCtx.set('pendingErrors', []);
-    lengthFieldCtx.set('errors', []);
-  }
+  setPendingFieldErrors(
+    lengthFieldCtx,
+    length && isInvalidLength(length)
+      ? [l('Not a valid time. Must be in the format MM:SS')]
+      : [],
+  );
 }
 
 function createInitialState({
@@ -175,9 +168,7 @@ function createInitialState({
   let lengthErrors: ReadonlyArray<string> = [];
   if (usedByTracks) {
     lengthErrors = form.field.length.errors;
-    lengthFieldCtx.set('has_errors', false);
-    lengthFieldCtx.set('pendingErrors', []);
-    lengthFieldCtx.set('errors', []);
+    setPendingFieldErrors(lengthFieldCtx, []);
   } else {
     updateLengthFieldErrors(lengthFieldCtx);
   }

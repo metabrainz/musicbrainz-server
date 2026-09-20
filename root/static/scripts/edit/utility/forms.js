@@ -41,6 +41,7 @@ import {
 } from '../components/GuessCaseOptions.js';
 
 import isInvalidEditNote from './isInvalidEditNote.js';
+import setPendingFieldErrors from './setPendingFieldErrors.js';
 import {hasSubfieldErrors} from './subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from './updateRequiredNameFieldErrors.js';
@@ -123,21 +124,17 @@ export function updateEditNoteFieldErrors(
   requiredEditNoteMessage?: string | null,
 ): void {
   const editNote = editNoteFieldCtx.get('value').read();
+  let pendingErrors: ReadonlyArray<string> = [];
   if (isInvalidEditNote(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
+    pendingErrors = [
       l(`Your edit note seems to have no actual content.
          Please provide a note that will be helpful to
          your fellow editors!`),
-    ]);
+    ];
   } else if (nonEmpty(requiredEditNoteMessage) && empty(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [requiredEditNoteMessage]);
-  } else {
-    editNoteFieldCtx.set('has_errors', false);
-    editNoteFieldCtx.set('pendingErrors', []);
-    editNoteFieldCtx.set('errors', []);
+    pendingErrors = [requiredEditNoteMessage];
   }
+  setPendingFieldErrors(editNoteFieldCtx, pendingErrors);
 }
 
 export function createCommonEntityEditFormState({$c, form}: {
