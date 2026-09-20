@@ -58,6 +58,12 @@ import {
 } from '../../edit/components/withLoadedTypeInfo.js';
 import useFormSubmitHandler
   from '../../edit/hooks/useFormSubmitHandler.js';
+import {
+  type CommonEntityEditFormActionT,
+  type CommonEntityEditFormStateT,
+  createCommonEntityEditFormState,
+  runCommonEntityEditFormActions,
+} from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
@@ -71,29 +77,18 @@ import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
 import {
-  createInitialState as createExternalLinksEditorState,
-  reducer as externalLinksEditorReducer,
-} from '../../external-links-editor/state.js';
-import type {
-  LinksEditorActionT,
-  LinksEditorStateT,
-} from '../../external-links-editor/types.js';
-import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
 import RelationshipEditor, {
-  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
   reducer as relationshipEditorReducer,
 } from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorStateT,
-} from '../../relationship-editor/types.js';
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | CommonEntityEditFormActionT
   | {readonly type: 'guess-feat'}
   | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-bubble', readonly bubble: string}
@@ -104,26 +99,17 @@ type ActionT =
       readonly type: 'update-artist-credit',
       readonly action: ArtistCreditActionT,
     }
-  | {
-      readonly type: 'update-external-links-editor',
-      readonly action: LinksEditorActionT,
-    }
-  | {
-      readonly type: 'update-relationship-editor',
-      readonly action: RelationshipEditorActionT,
-    }
   | {readonly type: 'update-isrcs', readonly action: IsrcActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
+  ...CommonEntityEditFormStateT,
   readonly actionName: string,
-  readonly externalLinksEditor: LinksEditorStateT,
   readonly form: RecordingFormT,
   readonly guessCaseOptions: GuessCaseOptionsStateT,
   readonly isGuessCaseOptionsOpen: boolean,
   readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
-  readonly relationshipEditor: RelationshipEditorStateT,
   readonly shownBubble: string,
 };
 
@@ -260,17 +246,13 @@ function createInitialState({
   }));
 
   return {
+    ...createCommonEntityEditFormState({$c, form}),
     actionName,
-    externalLinksEditor: createExternalLinksEditorState($c),
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     lengthErrors,
     recording,
-    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
-      formName: form.name,
-      seededRelationships: $c.stash.seeded_relationships,
-    }),
     shownBubble: '',
   };
 }
@@ -359,17 +341,8 @@ function reducer(state: StateT, action: ActionT): StateT {
         });
       }
     }
-    {type: 'update-external-links-editor', const action} => {
-      newStateCtx.set(
-        'externalLinksEditor',
-        externalLinksEditorReducer(state.externalLinksEditor, action),
-      );
-    }
-    {type: 'update-relationship-editor', const action} => {
-      newStateCtx.set(
-        'relationshipEditor',
-        relationshipEditorReducer(state.relationshipEditor, action),
-      );
+    _ as action => {
+      runCommonEntityEditFormActions(newStateCtx, action);
     }
   }
   return newStateCtx.final();
