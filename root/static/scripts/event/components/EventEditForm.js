@@ -36,13 +36,10 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
-  updateEditNoteFieldErrors,
   useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
-import updateRequiredNameFieldErrors
-  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
@@ -80,13 +77,8 @@ function createInitialState({
   readonly form: EventFormT,
 }) {
   const formCtx = mutate(form);
-  const nameFieldCtx = formCtx.get('field', 'name');
-  updateRequiredNameFieldErrors(nameFieldCtx);
-  const editNoteFieldCtx = formCtx.get('field', 'edit_note');
-  updateEditNoteFieldErrors(editNoteFieldCtx);
-
   return {
-    ...createCommonEntityEditFormState({$c, form}),
+    ...createCommonEntityEditFormState({$c, formCtx}),
     form: formCtx.final(),
     showTypeBubble: false,
   };

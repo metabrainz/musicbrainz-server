@@ -28,11 +28,8 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
-  updateEditNoteFieldErrors,
   useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
-import updateRequiredNameFieldErrors
-  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -57,10 +54,8 @@ function createInitialState({
   readonly form: GenreFormT,
 }) {
   const formCtx = mutate(form);
-  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
-  updateEditNoteFieldErrors(formCtx.get('field', 'edit_note'));
   return {
-    ...createCommonEntityEditFormState({$c, form}),
+    ...createCommonEntityEditFormState({$c, formCtx}),
     form: formCtx.final(),
   };
 }
