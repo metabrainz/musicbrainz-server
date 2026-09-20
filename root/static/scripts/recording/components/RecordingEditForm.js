@@ -40,7 +40,6 @@ import FormRowArtistCredit
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
-  runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextList, {
   type ActionT as IsrcActionT,
@@ -48,10 +47,6 @@ import FormRowTextList, {
   runReducer as runIsrcReducer,
 } from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
@@ -95,7 +90,6 @@ type ActionT =
   | {readonly type: 'toggle-bubble', readonly bubble: string}
   | {readonly type: 'update-edit-note', readonly editNote: string}
   | {readonly type: 'update-length', readonly length: string}
-  | {readonly type: 'update-name', readonly action: NameActionT}
   | {
       readonly type: 'update-artist-credit',
       readonly action: ArtistCreditActionT,
@@ -107,8 +101,6 @@ type StateT = {
   ...CommonEntityEditFormStateT,
   readonly actionName: string,
   readonly form: RecordingFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
   readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
   readonly shownBubble: string,
@@ -235,8 +227,6 @@ function createInitialState({
     ...createCommonEntityEditFormState({$c, form}),
     actionName,
     form: formCtx.final(),
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
     lengthErrors,
     recording,
     shownBubble: '',
@@ -260,23 +250,6 @@ function reducer(state: StateT, action: ActionT): StateT {
           lengthFieldCtx.set('value', length);
           updateLengthFieldErrors(lengthFieldCtx);
         });
-    }
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          updateRequiredNameFieldErrors(nameFieldCtx);
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
     }
     {type: 'update-isrcs', const action} => {
       const isrcStateCtx = mutate(state.form.field.isrcs);
