@@ -19,6 +19,9 @@ import type {
   LinksEditorStateT,
 } from '../../external-links-editor/types.js';
 import {
+  hasErrorsOnNewOrChangedLinks,
+} from '../../external-links-editor/validation.js';
+import {
   loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
   reducer as relationshipEditorReducer,
 } from '../../relationship-editor/components/RelationshipEditor.js';
@@ -37,6 +40,7 @@ import {
   createInitialState as createGuessCaseOptionsState,
 } from '../components/GuessCaseOptions.js';
 
+import {hasSubfieldErrors} from './subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from './updateRequiredNameFieldErrors.js';
 
@@ -87,6 +91,26 @@ function runNameAction(
     })
     .set('guessCaseOptions', nameState.guessCaseOptions)
     .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
+}
+
+export function getEditFormErrors(state: Readonly<{
+  ...CommonEntityEditFormStateT,
+  form: FormOrAnyFieldT,
+  ...
+}>): {
+  readonly hasErrors: boolean,
+  readonly hasVisibleErrors: boolean,
+} {
+  const hasLinkErrors =
+    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
+  return {
+    hasErrors:
+      hasSubfieldErrors(state.form, /* includePending = */ true) ||
+      hasLinkErrors,
+    hasVisibleErrors:
+      hasSubfieldErrors(state.form, /* includePending = */ false) ||
+      hasLinkErrors,
+  };
 }
 
 export function createCommonEntityEditFormState({$c, form}: {

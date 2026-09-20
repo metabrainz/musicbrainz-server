@@ -41,23 +41,18 @@ import {
   type CommonEntityEditFormActionT,
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
+  getEditFormErrors,
   runCommonEntityEditFormActions,
 } from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
-import {
-  applyAllPendingErrors,
-  hasSubfieldErrors,
-} from '../../edit/utility/subfieldErrors.js';
+import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import {
-  hasErrorsOnNewOrChangedLinks,
-} from '../../external-links-editor/validation.js';
 import RelationshipEditor
   from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
@@ -215,14 +210,7 @@ component EventEditForm(
     dispatch({time: event.currentTarget.value, type: 'set-time'});
   }, [dispatch]);
 
-  const hasLinkErrors =
-    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
-  const hasErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ true) ||
-    hasLinkErrors;
-  const hasVisibleErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ false) ||
-    hasLinkErrors;
+  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
 
   const eventEntity: EventT = getSourceEntityData($c, 'event');
 
