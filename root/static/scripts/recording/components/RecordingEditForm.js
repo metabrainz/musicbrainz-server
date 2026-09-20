@@ -58,10 +58,10 @@ import {
   createCommonEntityEditFormState,
   getEditFormErrors,
   runCommonEntityEditFormActions,
+  updateEditNoteFieldErrors,
   updateRequiredNameFieldErrors,
 } from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
-import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import isValidIsrc from '../../edit/utility/isValidIsrc.js';
 import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
@@ -81,7 +81,6 @@ type ActionT =
   | {readonly type: 'guess-feat'}
   | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-bubble', readonly bubble: string}
-  | {readonly type: 'update-edit-note', readonly editNote: string}
   | {readonly type: 'update-length', readonly length: string}
   | {
       readonly type: 'update-artist-credit',
@@ -92,10 +91,10 @@ type ActionT =
 
 type StateT = {
   ...CommonEntityEditFormStateT,
-  readonly actionName: string,
   readonly form: RecordingFormT,
   readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
+  readonly requiredEditNoteMessage: string | null,
   readonly shownBubble: string,
 };
 
@@ -152,38 +151,16 @@ function updateLengthFieldErrors(
   }
 }
 
-function updateNoteFieldErrors(
-  actionName: string,
-  editNoteFieldCtx: CowContext<FieldT<string>>,
-) {
-  const editNote = editNoteFieldCtx.get('value').read();
-  if (isInvalidEditNote(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
-      l(`Your edit note seems to have no actual content.
-         Please provide a note that will be helpful to
-         your fellow editors!`),
-    ]);
-  } else if (actionName === 'create' && empty(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
-      l(`You must provide an edit note when adding
-         a standalone recording`),
-    ]);
-  } else {
-    editNoteFieldCtx.set('has_errors', false);
-    editNoteFieldCtx.set('pendingErrors', []);
-    editNoteFieldCtx.set('errors', []);
-  }
-}
-
 function createInitialState({
   $c,
   form,
   usedByTracks,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityData($c);
-  const actionName = $c.action.name;
+  const requiredEditNoteMessage = $c.action.name === 'create'
+    ? l(`You must provide an edit note when adding
+         a standalone recording`)
+    : null;
   invariant(recording && recording.entityType === 'recording');
 
   const formCtx = mutate(form);
@@ -206,7 +183,7 @@ function createInitialState({
       updateIsrcFieldErrors(isrcCtx);
     });
   const editNoteFieldCtx = formCtx.get('field', 'edit_note');
-  updateNoteFieldErrors(actionName, editNoteFieldCtx);
+  updateEditNoteFieldErrors(editNoteFieldCtx, requiredEditNoteMessage);
 
   formCtx.set('field', 'artist_credit', createArtistCreditState({
     artistsById: $c.stash.artist_credit_artists,
@@ -218,10 +195,10 @@ function createInitialState({
 
   return {
     ...createCommonEntityEditFormState({$c, form}),
-    actionName,
     form: formCtx.final(),
     lengthErrors,
     recording,
+    requiredEditNoteMessage,
     shownBubble: '',
   };
 }
@@ -230,13 +207,6 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
 
   match (action) {
-    {type: 'update-edit-note', const editNote} => {
-      newStateCtx
-        .update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
-          editNoteFieldCtx.set('value', editNote);
-          updateNoteFieldErrors(state.actionName, editNoteFieldCtx);
-        });
-    }
     {type: 'update-length', const length} => {
       newStateCtx
         .update('form', 'field', 'length', (lengthFieldCtx) => {
