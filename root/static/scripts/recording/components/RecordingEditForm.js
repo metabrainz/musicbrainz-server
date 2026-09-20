@@ -52,8 +52,6 @@ import {
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
   setPendingFieldErrors,
-  updateEditNoteFieldErrors,
-  updateRequiredNameFieldErrors,
   useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
@@ -145,9 +143,6 @@ function createInitialState({
   invariant(recording && recording.entityType === 'recording');
 
   const formCtx = mutate(form);
-  // $FlowExpectedError[incompatible-call]
-  const nameFieldCtx = formCtx.get('field', 'name');
-  updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
   let lengthErrors: ReadonlyArray<string> = [];
   if (usedByTracks) {
@@ -161,9 +156,6 @@ function createInitialState({
       isrcCtx.set(createIsrcState(isrcCtx.read()));
       updateIsrcFieldErrors(isrcCtx);
     });
-  const editNoteFieldCtx = formCtx.get('field', 'edit_note');
-  updateEditNoteFieldErrors(editNoteFieldCtx, requiredEditNoteMessage);
-
   formCtx.set('field', 'artist_credit', createArtistCreditState({
     artistsById: $c.stash.artist_credit_artists,
     entity: recording,
@@ -173,7 +165,11 @@ function createInitialState({
   }));
 
   return {
-    ...createCommonEntityEditFormState({$c, form}),
+    ...createCommonEntityEditFormState({
+      $c,
+      formCtx,
+      requiredEditNoteMessage,
+    }),
     form: formCtx.final(),
     lengthErrors,
     recording,

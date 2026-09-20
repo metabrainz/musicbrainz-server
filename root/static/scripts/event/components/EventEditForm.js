@@ -36,8 +36,6 @@ import {
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
   runCommonEntityEditFormActions,
-  updateEditNoteFieldErrors,
-  updateRequiredNameFieldErrors,
   useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
@@ -76,13 +74,8 @@ function createInitialState({
   readonly form: EventFormT,
 }) {
   const formCtx = mutate(form);
-  const nameFieldCtx = formCtx.get('field', 'name');
-  updateRequiredNameFieldErrors(nameFieldCtx);
-  const editNoteFieldCtx = formCtx.get('field', 'edit_note');
-  updateEditNoteFieldErrors(editNoteFieldCtx);
-
   return {
-    ...createCommonEntityEditFormState({$c, form}),
+    ...createCommonEntityEditFormState({$c, formCtx}),
     form: formCtx.final(),
     showTypeBubble: false,
   };
