@@ -26,7 +26,6 @@ import {createArtistObject} from '../../common/entity2.js';
 import {
   reduceArtistCreditNames,
 } from '../../common/immutable-entities.js';
-import {arraysEqual} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {localStorage} from '../../common/utility/storage.js';
@@ -35,6 +34,7 @@ import {
   createField,
   createRepeatableField,
 } from '../utility/createField.js';
+import {setPendingFieldErrors} from '../utility/forms.js';
 import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
 import type {
@@ -103,23 +103,6 @@ export function artistCreditFromField(
       };
     }),
   };
-}
-
-function setPendingFieldErrors(
-  fieldCtx: CowContext<AnyFieldT>,
-  pendingErrors: ReadonlyArray<string>,
-): void {
-  const field = fieldCtx.read();
-  const unfixedErrors = field.errors.filter(
-    (error) => pendingErrors.includes(error),
-  );
-  if (unfixedErrors.length !== field.errors.length) {
-    fieldCtx.set('errors', unfixedErrors);
-  }
-  if (!arraysEqual(field.pendingErrors ?? [], pendingErrors)) {
-    fieldCtx.set('pendingErrors', pendingErrors);
-  }
-  fieldCtx.set('has_errors', pendingErrors.length > 0);
 }
 
 /*
