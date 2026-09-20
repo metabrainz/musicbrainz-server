@@ -44,7 +44,7 @@ import FormRowTextList, {
 } from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {
   type CommonEntityEditFormActionT,
@@ -558,10 +558,8 @@ component RecordingEditForm(
 }
 
 export default (
-  hydrate<React.PropsOf<RecordingEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<RecordingEditForm>>(
     'div.recording-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<RecordingEditForm>>(
-      RecordingEditForm,
-    ),
+    RecordingEditForm,
   ) as component(...React.PropsOf<RecordingEditForm>)
 );
