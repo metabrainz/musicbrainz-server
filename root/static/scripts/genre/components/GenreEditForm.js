@@ -14,9 +14,10 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowNameWithGuessCase, {
@@ -32,6 +33,7 @@ import {
   type CommonEntityEditFormActionT,
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
+  getEditFormErrors,
   runCommonEntityEditFormActions,
   updateRequiredNameFieldErrors,
 } from '../../edit/utility/forms.js';
@@ -40,9 +42,6 @@ import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import {
-  hasErrorsOnNewOrChangedLinks,
-} from '../../external-links-editor/validation.js';
 import RelationshipEditor
   from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
@@ -92,6 +91,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -105,10 +105,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     RelationshipEditorActionT, _,
   >(dispatch, 'update-relationship-editor');
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired ||
-    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
+  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
 
@@ -147,7 +144,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           state={state.externalLinksEditor}
         />
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit errorsExist={hasErrors} form={state.form} />
+        <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
     </form>
   );
