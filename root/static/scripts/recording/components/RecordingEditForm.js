@@ -14,9 +14,6 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {RecordingFormT} from '../../../../recording/types.js';
 import Bubble from '../../common/components/Bubble.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
@@ -38,9 +35,8 @@ import FormRow from '../../edit/components/FormRow.js';
 import FormRowArtistCredit
   from '../../edit/components/FormRowArtistCredit.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextList, {
   type ActionT as IsrcActionT,
   createInitialState as createIsrcState,
@@ -50,22 +46,19 @@ import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
 import {
   type CommonEntityEditFormActionT,
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
-  getEditFormErrors,
   runCommonEntityEditFormActions,
   setPendingFieldErrors,
   updateEditNoteFieldErrors,
   updateRequiredNameFieldErrors,
+  useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import isValidIsrc from '../../edit/utility/isValidIsrc.js';
-import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
@@ -77,7 +70,6 @@ import RelationshipEditorFieldset
 type ActionT =
   | CommonEntityEditFormActionT
   | {readonly type: 'guess-feat'}
-  | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-bubble', readonly bubble: string}
   | {readonly type: 'update-length', readonly length: string}
   | {
@@ -215,9 +207,6 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'toggle-bubble', const bubble} => {
       newStateCtx.set('shownBubble', bubble);
     }
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
-    }
     {type: 'update-artist-credit', const action} => {
       updateArtistCreditState(newStateCtx, action);
     }
@@ -256,31 +245,24 @@ component RecordingEditForm(
     $c.stash.current_isrcs || []
   ), [$c]);
 
-  useFormUnloadWarning();
-  useContainingDialogEscape();
-
   const [state, dispatch] = React.useReducer(
     reducer,
     {$c, form: initialForm, usedByTracks},
     createInitialState,
   );
 
-  const nameDispatch =
-    useChildDispatch<NameActionT, _>(dispatch, 'update-name');
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
+
   const artistCreditEditorDispatch = useChildDispatch<
     ArtistCreditActionT, _,
   >(dispatch, 'update-artist-credit');
   const isrcDispatch =
     useChildDispatch<IsrcActionT, _>(dispatch, 'update-isrcs');
-
-  const handleEditNoteChange = React.useCallback((
-    event: SyntheticEvent<HTMLTextAreaElement>,
-  ) => {
-    dispatch({
-      editNote: event.currentTarget.value,
-      type: 'update-edit-note',
-    });
-  }, [dispatch]);
 
   function handleArtistFocus() {
     dispatch({bubble: 'artist', type: 'toggle-bubble'});
@@ -318,10 +300,6 @@ component RecordingEditForm(
   function handleNameFocus() {
     dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
-
-  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const nameFieldRef = React.useRef<HTMLDivElement | null>(null);
   const artistFieldRef = React.useRef<HTMLDivElement | null>(null);
