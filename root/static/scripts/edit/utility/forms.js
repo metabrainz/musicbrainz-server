@@ -9,7 +9,11 @@
 
 import type {CowContext} from 'mutate-cow';
 import mutate from 'mutate-cow';
+import {useCallback} from 'react';
 
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
+import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {arraysEqual} from '../../common/utility/arrays.js';
 import isBlank from '../../common/utility/isBlank.js';
 import {
@@ -41,9 +45,11 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../components/GuessCaseOptions.js';
+import useFormSubmitHandler from '../hooks/useFormSubmitHandler.js';
 
 import isInvalidEditNote from './isInvalidEditNote.js';
-import {hasSubfieldErrors} from './subfieldErrors.js';
+import {applyAllPendingErrors, hasSubfieldErrors} from './subfieldErrors.js';
+import useChildDispatch from './useChildDispatch.js';
 
 export type CommonEntityEditFormStateT = {
   readonly externalLinksEditor: LinksEditorStateT,
@@ -52,8 +58,15 @@ export type CommonEntityEditFormStateT = {
   readonly relationshipEditor: RelationshipEditorStateT,
 };
 
+type CommonEntityEditFormT = FormT<{
+  readonly [fieldName: string]: AnyFieldT,
+  readonly edit_note: FieldT<string>,
+  readonly name: FieldT<string | null>,
+}>;
+
 /* eslint-disable ft-flow/sort-keys */
 export type CommonEntityEditFormActionT =
+  | {readonly type: 'show-all-pending-errors'}
   | {
       readonly type: 'update-edit-note',
       readonly editNote: string,
@@ -71,6 +84,14 @@ export type CommonEntityEditFormActionT =
       readonly action: RelationshipEditorActionT,
     };
 /* eslint-enable ft-flow/sort-keys */
+
+type CommonEntityEditFormHooksT = {
+  readonly handleEditNoteChange:
+    (SyntheticEvent<HTMLTextAreaElement>) => void,
+  readonly handleSubmit: (SyntheticEvent<HTMLFormElement>) => void,
+  readonly hasVisibleErrors: boolean,
+  readonly nameDispatch: (FormRowNameWithGuessCaseActionT) => void,
+};
 
 export function setPendingFieldErrors(
   fieldCtx: CowContext<AnyFieldT>,
@@ -137,7 +158,7 @@ function runNameAction(
   }
 }
 
-export function getEditFormErrors(state: Readonly<{
+function getEditFormErrors(state: Readonly<{
   ...CommonEntityEditFormStateT,
   form: FormOrAnyFieldT,
   ...
@@ -193,17 +214,16 @@ export function createCommonEntityEditFormState({$c, form}: {
 export function runCommonEntityEditFormActions(
   stateCtx: CowContext<Readonly<{
     ...CommonEntityEditFormStateT,
-    form: FormT<{
-      readonly edit_note: FieldT<string>,
-      readonly name: FieldT<string | null>,
-      ...
-    }>,
+    form: CommonEntityEditFormT,
     requiredEditNoteMessage?: string | null,
     ...
   }>>,
   action: CommonEntityEditFormActionT,
 ): void {
   match (action) {
+    {type: 'show-all-pending-errors'} => {
+      applyAllPendingErrors(stateCtx.get('form'));
+    }
     {type: 'update-edit-note', const editNote} => {
       const {requiredEditNoteMessage} = stateCtx.read();
       stateCtx.update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
@@ -227,4 +247,39 @@ export function runCommonEntityEditFormActions(
       ));
     }
   }
+}
+
+export function useCommonEntityEditForm(
+  state: Readonly<{
+    ...CommonEntityEditFormStateT,
+    form: FormOrAnyFieldT,
+    ...
+  }>,
+  dispatch: (CommonEntityEditFormActionT) => void,
+): CommonEntityEditFormHooksT {
+  useFormUnloadWarning();
+  useContainingDialogEscape();
+
+  const nameDispatch = useChildDispatch<
+    FormRowNameWithGuessCaseActionT, _,
+  >(dispatch, 'update-name');
+  const handleEditNoteChange = useCallback((
+    event: SyntheticEvent<HTMLTextAreaElement>,
+  ) => {
+    dispatch({
+      editNote: event.currentTarget.value,
+      type: 'update-edit-note',
+    });
+  }, [dispatch]);
+
+  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
+
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
+
+  return {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  };
 }
