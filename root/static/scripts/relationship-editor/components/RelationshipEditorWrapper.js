@@ -14,12 +14,14 @@ import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import useEntityNameFromField from '../hooks/useEntityNameFromField.js';
+import type {RelationshipEditorActionT} from '../types/actions.js';
 
-import RelationshipEditor, {
+import {
   type InitialStateArgsT,
   loadOrCreateInitialState,
   reducer,
 } from './RelationshipEditor.js';
+import RelationshipEditorFieldset from './RelationshipEditorFieldset.js';
 
 /*
  * Wraps the relationship editor component to provide it with state and
@@ -47,9 +49,18 @@ component _RelationshipEditorWrapper(...props: PropsT) {
     dispatch,
   );
 
+  const relationshipEditorFieldsetDispatch = React.useCallback((
+    action: {
+      readonly action: RelationshipEditorActionT,
+      readonly type: 'update-relationship-editor',
+    },
+  ) => {
+    dispatch(action.action);
+  }, [dispatch]);
+
   return (
-    <RelationshipEditor
-      dispatch={dispatch}
+    <RelationshipEditorFieldset
+      dispatch={relationshipEditorFieldsetDispatch}
       formName={props.formName}
       state={state}
     />
