@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import getUnicodeUrl
   from '../../external-links-editor/utility/getUnicodeUrl.js';
@@ -78,15 +77,9 @@ component _UrlRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedUrlRelationshipEditor:
-  component(...PropsT) =
-    withLoadedTypeInfoForRelationshipEditor<PropsT>(
-      _UrlRelationshipEditor,
-    );
-
-const UrlRelationshipEditor = hydrate<PropsT>(
+const UrlRelationshipEditor = hydrateRelationshipEditorForm<PropsT>(
   'div.relationship-editor',
-  NonHydratedUrlRelationshipEditor,
+  _UrlRelationshipEditor,
 ) as component(...PropsT);
 
 export default UrlRelationshipEditor;

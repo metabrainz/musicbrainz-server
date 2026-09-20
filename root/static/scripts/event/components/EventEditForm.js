@@ -29,7 +29,7 @@ import FormRowText from '../../edit/components/FormRowText.js';
 import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {
   type CommonEntityEditFormActionT,
@@ -340,10 +340,8 @@ component EventEditForm(
 }
 
 export default (
-  hydrate<React.PropsOf<EventEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<EventEditForm>>(
     'div.event-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<EventEditForm>>(
-      EventEditForm,
-    ),
+    EventEditForm,
   ) as component(...React.PropsOf<EventEditForm>)
 );

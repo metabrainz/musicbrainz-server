@@ -16,7 +16,6 @@ import {
   onConflictUseGivenValue,
 } from 'weight-balanced-tree/update';
 
-import hydrate from '../../../../utility/hydrate.js';
 import {expect} from '../../../../utility/invariant.js';
 import LoginMessage from '../../common/components/LoginMessage.js';
 import {
@@ -55,7 +54,7 @@ import sleep from '../../common/utility/sleep.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {createField} from '../../edit/utility/createField.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
@@ -1902,15 +1901,10 @@ component _ReleaseRelationshipEditor() {
   );
 }
 
-const NonHydratedReleaseRelationshipEditor =
-  withLoadedTypeInfoForRelationshipEditor<{}>(
-    _ReleaseRelationshipEditor,
-    ['language', 'work_type'],
-  );
-
-const ReleaseRelationshipEditor = hydrate<{}>(
+const ReleaseRelationshipEditor = hydrateRelationshipEditorForm<{}>(
   'div.release-relationship-editor',
-  NonHydratedReleaseRelationshipEditor,
+  _ReleaseRelationshipEditor,
+  ['language', 'work_type'],
 ) as component();
 
 export default ReleaseRelationshipEditor;
