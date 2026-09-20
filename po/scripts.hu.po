@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-09-15 12:13+0000\n"
+"PO-Revision-Date: 2026-09-17 18:13+0000\n"
 "Last-Translator: pXF <pxf@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Hungarian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/hu/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
-msgstr ""
+msgstr "Afaka"
 
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
@@ -33,7 +33,7 @@ msgstr "Örmény"
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
-msgstr ""
+msgstr "Avesztai"
 
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
