@@ -105,7 +105,7 @@
             <td colspan="5" class="checkbox">
               <label>
                 <input type="checkbox" class="video-checkbox" data-bind="checked: video" />
-                [% l('Video') %]
+                [% l('This recording is a video.') %]
               </label>
             </td>
           </tr>
