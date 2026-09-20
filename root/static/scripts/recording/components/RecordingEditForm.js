@@ -75,9 +75,16 @@ import type {
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import {
-  NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
-} from '../../relationship-editor/components/RelationshipEditorWrapper.js';
+import RelationshipEditor, {
+  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
+  reducer as relationshipEditorReducer,
+} from '../../relationship-editor/components/RelationshipEditor.js';
+import type {
+  RelationshipEditorStateT,
+} from '../../relationship-editor/types.js';
+import type {
+  RelationshipEditorActionT,
+} from '../../relationship-editor/types/actions.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
@@ -95,6 +102,10 @@ type ActionT =
       readonly type: 'update-external-links-editor',
       readonly action: LinksEditorActionT,
     }
+  | {
+      readonly type: 'update-relationship-editor',
+      readonly action: RelationshipEditorActionT,
+    }
   | {readonly type: 'update-isrcs', readonly action: IsrcActionT};
 /* eslint-enable ft-flow/sort-keys */
 
@@ -106,6 +117,7 @@ type StateT = {
   readonly guessCaseOptions: GuessCaseOptionsStateT,
   readonly isGuessCaseOptionsOpen: boolean,
   readonly recording: RecordingT,
+  readonly relationshipEditor: RelationshipEditorStateT,
   readonly shownBubble: string,
 };
 
@@ -227,6 +239,10 @@ function createInitialState({
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     recording,
+    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
+      formName: form.name,
+      seededRelationships: $c.stash.seeded_relationships,
+    }),
     shownBubble: '',
   };
 }
@@ -265,6 +281,17 @@ function reducer(state: StateT, action: ActionT): StateT {
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
+
+      if (action.type === 'set-name') {
+        newStateCtx.set(
+          'relationshipEditor',
+          relationshipEditorReducer(state.relationshipEditor, {
+            changes: {name: action.name},
+            entityType: state.relationshipEditor.entity.entityType,
+            type: 'update-entity',
+          }),
+        );
+      }
     }
     {type: 'update-isrcs', const action} => {
       const isrcStateCtx = mutate(state.form.field.isrcs);
@@ -319,6 +346,12 @@ function reducer(state: StateT, action: ActionT): StateT {
         externalLinksEditorReducer(state.externalLinksEditor, action),
       );
     }
+    {type: 'update-relationship-editor', const action} => {
+      newStateCtx.set(
+        'relationshipEditor',
+        relationshipEditorReducer(state.relationshipEditor, action),
+      );
+    }
   }
   return newStateCtx.final();
 }
@@ -354,6 +387,13 @@ component RecordingEditForm(
   const isrcDispatch = React.useCallback((action: IsrcActionT) => {
     dispatch({action, type: 'update-isrcs'});
   }, [dispatch]);
+
+  const relationshipEditorDispatch = React.useCallback(
+    (action: RelationshipEditorActionT) => {
+      dispatch({action, type: 'update-relationship-editor'});
+    },
+    [dispatch],
+  );
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -515,9 +555,10 @@ component RecordingEditForm(
           />
         </fieldset>
 
-        <RelationshipEditorWrapper
+        <RelationshipEditor
+          dispatch={relationshipEditorDispatch}
           formName={state.form.name}
-          seededRelationships={$c.stash.seeded_relationships}
+          state={state.relationshipEditor}
         />
 
         <ExternalLinksEditorFieldset
