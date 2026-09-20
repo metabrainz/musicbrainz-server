@@ -34,6 +34,7 @@ import {
 import useFormSubmitHandler
   from '../../edit/hooks/useFormSubmitHandler.js';
 import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
+import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -157,15 +158,11 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     createInitialState,
   );
 
-  const nameDispatch = React.useCallback((action: NameActionT) => {
-    dispatch({action, type: 'update-name'});
-  }, [dispatch]);
-
-  const relationshipEditorDispatch = React.useCallback((
-    action: RelationshipEditorActionT,
-  ) => {
-    dispatch({action, type: 'update-relationship-editor'});
-  }, [dispatch]);
+  const nameDispatch =
+    useChildDispatch<NameActionT, _>(dispatch, 'update-name');
+  const relationshipEditorDispatch = useChildDispatch<
+    RelationshipEditorActionT, _,
+  >(dispatch, 'update-relationship-editor');
 
   const missingRequired = isBlank(state.form.field.name.value);
 
