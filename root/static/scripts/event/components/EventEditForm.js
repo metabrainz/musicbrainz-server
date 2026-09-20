@@ -13,9 +13,6 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import DateRangeFieldset, {
@@ -25,9 +22,8 @@ import DateRangeFieldset, {
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
@@ -35,19 +31,16 @@ import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
 import {
   type CommonEntityEditFormActionT,
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
-  getEditFormErrors,
   runCommonEntityEditFormActions,
   updateEditNoteFieldErrors,
+  useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
-import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import useChildDispatch from '../../edit/utility/useChildDispatch.js';
@@ -66,7 +59,6 @@ type ActionT =
   | {readonly type: 'set-setlist', readonly setlist: string}
   | {readonly type: 'set-time', readonly time: string}
   | {readonly type: 'set-type', readonly type_id: string}
-  | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-type-bubble'}
   | {
       readonly type: 'update-date-range',
@@ -146,9 +138,6 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'set-type', const type_id} => {
       fieldCtx.set('type_id', 'value', type_id);
     }
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
-    }
     _ as action => {
       runCommonEntityEditFormActions(newStateCtx, action);
     }
@@ -165,9 +154,6 @@ component EventEditForm(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
-  useFormUnloadWarning();
-  useContainingDialogEscape();
-
   const typeOptions = {
     grouped: false as const,
     options: eventTypes,
@@ -179,8 +165,13 @@ component EventEditForm(
     createInitialState,
   );
 
-  const nameDispatch =
-    useChildDispatch<NameActionT, _>(dispatch, 'update-name');
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
+
   const dateRangeDispatch = useChildDispatch<
     DateRangeFieldsetActionT, _,
   >(dispatch, 'update-date-range');
@@ -207,20 +198,7 @@ component EventEditForm(
     dispatch({time: event.currentTarget.value, type: 'set-time'});
   }, [dispatch]);
 
-  const handleEditNoteChange = React.useCallback((
-    event: SyntheticEvent<HTMLTextAreaElement>,
-  ) => {
-    dispatch({
-      editNote: event.currentTarget.value,
-      type: 'update-edit-note',
-    });
-  }, [dispatch]);
-
-  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
-
   const eventEntity: EventT = getSourceEntityData($c, 'event');
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const typeSelectRef = React.useRef<HTMLDivElement | null>(null);
 

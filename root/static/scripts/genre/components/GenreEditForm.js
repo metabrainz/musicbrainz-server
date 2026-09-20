@@ -14,33 +14,25 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
 import {
   type CommonEntityEditFormActionT,
   type CommonEntityEditFormStateT,
   createCommonEntityEditFormState,
-  getEditFormErrors,
   runCommonEntityEditFormActions,
   updateEditNoteFieldErrors,
+  useCommonEntityEditForm,
 } from '../../edit/utility/forms.js';
-import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import updateRequiredNameFieldErrors
   from '../../edit/utility/updateRequiredNameFieldErrors.js';
-import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -50,9 +42,7 @@ import syncEntityNameToRelationshipEditor
   // eslint-disable-next-line @stylistic/max-len
   from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
-type ActionT =
-  | CommonEntityEditFormActionT
-  | {readonly type: 'show-all-pending-errors'};
+type ActionT = CommonEntityEditFormActionT;
 
 type StateT = {
   ...CommonEntityEditFormStateT,
@@ -78,9 +68,6 @@ function createInitialState({
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   match (action) {
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
-    }
     _ as action => {
       runCommonEntityEditFormActions(newStateCtx, action);
     }
@@ -93,32 +80,20 @@ function reducer(state: StateT, action: ActionT): StateT {
 component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
 
-  useFormUnloadWarning();
-  useContainingDialogEscape();
-
   const [state, dispatch] = React.useReducer(
     reducer,
     {$c, form: initialForm},
     createInitialState,
   );
 
-  const nameDispatch =
-    useChildDispatch<NameActionT, _>(dispatch, 'update-name');
-
-  const handleEditNoteChange = React.useCallback((
-    event: SyntheticEvent<HTMLTextAreaElement>,
-  ) => {
-    dispatch({
-      editNote: event.currentTarget.value,
-      type: 'update-edit-note',
-    });
-  }, [dispatch]);
-
-  const {hasErrors, hasVisibleErrors} = getEditFormErrors(state);
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <form
