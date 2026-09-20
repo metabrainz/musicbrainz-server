@@ -43,11 +43,8 @@ import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import RelationshipEditor
-  from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
 
 type ActionT =
   | CommonEntityEditFormActionT
@@ -104,9 +101,6 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const nameDispatch =
     useChildDispatch<NameActionT, _>(dispatch, 'update-name');
-  const relationshipEditorDispatch = useChildDispatch<
-    RelationshipEditorActionT, _,
-  >(dispatch, 'update-relationship-editor');
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -146,8 +140,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
             uncontrolled
           />
         </fieldset>
-        <RelationshipEditor
-          dispatch={relationshipEditorDispatch}
+        <RelationshipEditorFieldset
+          dispatch={dispatch}
           formName={state.form.name}
           state={state.relationshipEditor}
         />
