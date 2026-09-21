@@ -36,6 +36,11 @@ Omitted when the variable is unset.
 
 The running code version: C<< <GIT_SHA>@<GIT_BRANCH> >>.
 
+=item C<X-MB-Web-Server>
+
+The public deployment domain, from C<< DBDefs->WEB_SERVER >> (e.g.
+C<musicbrainz.org>, C<beta.musicbrainz.org>, C<localhost:5000>).
+
 =back
 
 =head1 X-ACCEL-REDIRECT
@@ -65,11 +70,13 @@ configuration by adding the following directives:
         proxy_set_header X-MB-Container  $upstream_http_x_mb_container;
         proxy_set_header X-MB-Node       $upstream_http_x_mb_node;
         proxy_set_header X-MB-Version    $upstream_http_x_mb_version;
+        proxy_set_header X-MB-Web-Server $upstream_http_x_mb_web_server;
 
         # Defensively prevent leaking the tags back to the client.
         proxy_hide_header X-MB-Container;
         proxy_hide_header X-MB-Node;
         proxy_hide_header X-MB-Version;
+        proxy_hide_header X-MB-Web-Server;
     }
 
 Note that C<proxy_set_header> with an empty value omits the field.
@@ -110,6 +117,9 @@ sub build_search_request_headers {
 
     # The running code version.
     push @headers, ('X-MB-Version', DBDefs->GIT_SHA . '@' . DBDefs->GIT_BRANCH);
+
+    # The public deployment domain (e.g. musicbrainz.org, beta.musicbrainz.org).
+    push @headers, ('X-MB-Web-Server', DBDefs->WEB_SERVER);
 
     return @headers;
 }

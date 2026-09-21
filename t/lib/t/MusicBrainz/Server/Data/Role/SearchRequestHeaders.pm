@@ -56,4 +56,10 @@ test 'X-MB-Node is skipped when MUSICBRAINZ_NODE_NAME is unset' => sub {
         'X-MB-Node is skipped when MUSICBRAINZ_NODE_NAME is unset');
 };
 
+test 'X-MB-Web-Server is emitted from DBDefs->WEB_SERVER' => sub {
+    my $headers = build_headers();
+    is($headers->{'X-MB-Web-Server'}, DBDefs->WEB_SERVER,
+        'X-MB-Web-Server comes from WEB_SERVER');
+};
+
 1;
