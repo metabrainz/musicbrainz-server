@@ -8,7 +8,9 @@ use LWP::UserAgent::Mockable;
 use Test::More;
 use Test::Routine;
 
-with 't::Mechanize';
+use DBDefs;
+
+with 't::Mechanize', 't::Context';
 
 test 'MBS-14455: WS/2 search is filtered on depth' => sub {
     my $test = shift;
@@ -59,6 +61,25 @@ test 'MBS-14455: WS/2 search is filtered on depth' => sub {
         'First page of WS/2 search still counts uncapped total hits');
 
     LWP::UserAgent::Mockable->finished;
+};
+
+test 'MBS-14470: WS/2 search sets X-MB-* headers alongside X-Accel-Redirect' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    no warnings 'redefine';
+    local *DBDefs::SEARCH_X_ACCEL_REDIRECT = sub { 1 };
+    local *DBDefs::SEARCH_SERVER = sub { 'search.example:8983/solr' };
+
+    $mech->default_header('Accept' => 'application/xml');
+    $mech->get('/ws/2/artist?query=love');
+
+    is($mech->status, HTTP_OK, 'search request succeeds');
+    ok(defined $mech->res->header('X-Accel-Redirect'),
+        'response carries X-Accel-Redirect');
+    is($mech->res->header('X-MB-Version'),
+        DBDefs->GIT_SHA . '@' . DBDefs->GIT_BRANCH,
+        'response carries X-MB-Version');
 };
 
 1;

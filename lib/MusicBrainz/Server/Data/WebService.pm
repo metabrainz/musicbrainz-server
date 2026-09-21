@@ -12,6 +12,7 @@ use Readonly;
 use URI::Escape qw( uri_escape_utf8 );
 
 with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::SearchRequestHeaders';
 
 Readonly my $RELEASE_ATTR_SECTION_STATUS_START => 100;
 
@@ -24,7 +25,7 @@ sub escape_query {
 # Return the complete XML document, or a redirect for x-accel-redirect handling.
 sub xml_search
 {
-    my ($self, $resource, $args) = @_;
+    my ($self, $resource, $args, %tags) = @_;
 
     my $query = '';
     my $offset = 0;
@@ -240,11 +241,16 @@ sub xml_search
         "rows=$limit&wt=$format&start=$offset" .
         '&q=' . uri_escape_utf8($query);
 
+    my @headers = $self->build_search_request_headers(%tags);
+
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
-        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext };
+        return {
+            redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext,
+            tag_headers  => \@headers,
+        };
     } else {
         my $url = DBDefs->SEARCH_SCHEME . '://' . DBDefs->SEARCH_SERVER . $url_ext;
-        my $response = $self->c->lwp->get($url);
+        my $response = $self->c->lwp->get($url, @headers);
         if ( $response->is_success )
         {
             return { xml => $response->decoded_content };
