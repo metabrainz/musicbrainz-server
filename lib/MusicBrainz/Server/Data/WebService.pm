@@ -241,6 +241,7 @@ sub xml_search
         "rows=$limit&wt=$format&start=$offset" .
         '&q=' . uri_escape_utf8($query);
 
+    # Build HTTP X-MB-* headers from key/value pair tags.
     my @headers = $self->build_search_request_headers(%tags);
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {

@@ -80,6 +80,10 @@ test 'MBS-14470: WS/2 search sets X-MB-* headers alongside X-Accel-Redirect' => 
     is($mech->res->header('X-MB-Version'),
         DBDefs->GIT_SHA . '@' . DBDefs->GIT_BRANCH,
         'response carries X-MB-Version');
+    is($mech->res->header('X-MB-Endpoint'), '/ws/2',
+        'response carries X-MB-Endpoint: /ws/2');
+    ok(defined $mech->res->header('X-MB-Container'),
+        'response carries X-MB-Container');
 };
 
 1;

@@ -31,7 +31,11 @@ test 'xml_search issues the direct Solr request' => sub {
     });
 
     my $ws = MusicBrainz::Server::Data::WebService->new(c => $c);
-    my $result = $ws->xml_search('artist', { query => 'love', fmt => 'xml' });
+    my $result = $ws->xml_search(
+        'artist',
+        { query => 'love', fmt => 'xml' },
+        source_endpoint => '/ws/2',
+    );
 
     LWP::UserAgent::Mockable->finished;
 
@@ -47,7 +51,11 @@ test 'xml_search returns tag_headers on the X-Accel-Redirect path' => sub {
     local *DBDefs::SEARCH_X_ACCEL_REDIRECT = sub { 1 };
 
     my $ws = MusicBrainz::Server::Data::WebService->new(c => $c);
-    my $result = $ws->xml_search('artist', { query => 'love', fmt => 'xml' });
+    my $result = $ws->xml_search(
+        'artist',
+        { query => 'love', fmt => 'xml' },
+        source_endpoint => '/ws/2',
+    );
 
     ok(exists $result->{redirect_url}, 'redirect path returns a redirect_url');
     ok(exists $result->{tag_headers}, 'redirect path returns tag_headers');
@@ -56,6 +64,8 @@ test 'xml_search returns tag_headers on the X-Accel-Redirect path' => sub {
     is($headers{'X-MB-Version'},
         DBDefs->GIT_SHA . '@' . DBDefs->GIT_BRANCH,
         'tag_headers include X-MB-Version');
+    is($headers{'X-MB-Endpoint'}, '/ws/2',
+        'tag_headers include X-MB-Endpoint: /ws/2');
 };
 
 1;

@@ -26,6 +26,42 @@ such as HAProxy can capture each with C<req.hdr(...)> directly.
 The container hosting this process, from L<Sys::Hostname/hostname> (inside
 Docker this is typically the container identifier). Always emitted.
 
+=item C<X-MB-Endpoint>
+
+The originating public endpoint, supplied by the call site via the mandatory
+C<source_endpoint> tag. One of the following, each corresponding to the
+MusicBrainz Server feature that issued the search:
+
+=over
+
+=item * C</search> — search page
+
+See L<MusicBrainz::Server::Controller::Search>
+
+=item * C</taglookup> — tag lookup page
+
+See L<MusicBrainz::Server::Controller::TagLookup>
+
+=item * C</ws/js> — field autocomplete / relationship editor
+
+See L<MusicBrainz::Server::Controller::WS::js::Role::Autocompletion>
+
+=item * C</ws/js/medium> — release editor's add-medium dialog, existing-medium tab
+
+See C<medium_search> in L<MusicBrainz::Server::Controller::WS::js>
+
+=item * C</ws/js/cdstub> — release editor's add-medium dialog, import-cd-stub tab
+
+See C<cdstub_search> in L<MusicBrainz::Server::Controller::WS::js>
+
+=item * C</ws/2> — web service v2 search API
+
+See L<MusicBrainz::Server::ControllerBase::WS::2>
+
+=back
+
+Every caller must supply C<source_endpoint> explicitly; there is no default.
+
 =item C<X-MB-Node>
 
 The Docker host node running the container, taken from the C<MUSICBRAINZ_NODE_NAME>
@@ -42,6 +78,10 @@ The public deployment domain, from C<< DBDefs->WEB_SERVER >> (e.g.
 C<musicbrainz.org>, C<beta.musicbrainz.org>, C<localhost:5000>).
 
 =back
+
+The indexed/C<dismax> vs advanced/C<edismax> search mode is intentionally
+NOT tagged as it is redundant with the URL path, ending with either
+C<basic>|C<select> or C<advanced>, in the request sent to Solr.
 
 =head1 X-ACCEL-REDIRECT
 
@@ -68,12 +108,14 @@ configuration by adding the following directives:
 
         # Copy the tags from the application response onto the Solr request.
         proxy_set_header X-MB-Container  $upstream_http_x_mb_container;
+        proxy_set_header X-MB-Endpoint   $upstream_http_x_mb_endpoint;
         proxy_set_header X-MB-Node       $upstream_http_x_mb_node;
         proxy_set_header X-MB-Version    $upstream_http_x_mb_version;
         proxy_set_header X-MB-Web-Server $upstream_http_x_mb_web_server;
 
         # Defensively prevent leaking the tags back to the client.
         proxy_hide_header X-MB-Container;
+        proxy_hide_header X-MB-Endpoint;
         proxy_hide_header X-MB-Node;
         proxy_hide_header X-MB-Version;
         proxy_hide_header X-MB-Web-Server;
@@ -96,6 +138,7 @@ References:
 # Assemble the X-MB-* header list for a search-server request.
 #
 # Values sourced centrally (code version, ...) are filled in here.
+# %tags may carry per-call-site values (e.g. the originating endpoint).
 #
 # Returns a flat list suitable for both:
 #   $ua->get($url, @headers)
@@ -108,6 +151,13 @@ sub build_search_request_headers {
     # The container hosting this process. Sys::Hostname::hostname returns the
     # container's hostname (typically its identifier) inside Docker.
     push @headers, ('X-MB-Container', hostname());
+
+    # The originating public endpoint (e.g. /search, /ws/2), supplied by the
+    # call site via the mandatory source_endpoint tag.
+    my $endpoint = $tags{source_endpoint};
+    die 'build_search_request_headers requires a non-empty source_endpoint'
+        unless defined $endpoint && $endpoint ne '';
+    push @headers, ('X-MB-Endpoint', $endpoint);
 
     # The Docker host node running the container, injected by the deployment
     # via the MUSICBRAINZ_NODE_NAME environment variable. Omitted when not set.

@@ -602,6 +602,7 @@ sub load_data {
         1,       # items per page
         1,       # paging offset
         0,       # advanced search
+        source_endpoint => '/search',
     );
 
     LWP::UserAgent::Mockable->finished;
