@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-09-11 13:00+0000\n"
+"PO-Revision-Date: 2026-09-20 19:13+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hant/>\n"
@@ -422,9 +422,6 @@ msgid "arrabel"
 msgstr "阿拉維爾琴"
 
 #: DB:instrument/name:812
-#, fuzzy
-#| msgctxt "cone shaped west african frame-drum"
-#| msgid "ashiko"
 msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "阿希可鼓"
@@ -903,9 +900,6 @@ msgid "cabrette"
 msgstr "卡布雷特風笛"
 
 #: DB:instrument/name:903
-#, fuzzy
-#| msgctxt "Deep Brazilian samba snare-drum"
-#| msgid "caixa"
 msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "巴西小鼓"
@@ -3925,8 +3919,6 @@ msgid "talking drum"
 msgstr "說話鼓"
 
 #: DB:instrument/name:723
-#, fuzzy
-#| msgid "tamborim"
 msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "巴西手鼓"
@@ -3990,9 +3982,6 @@ msgid "taragot"
 msgstr "塔拉戈管"
 
 #: DB:instrument/name:1219
-#, fuzzy
-#| msgctxt "Shallow Brazilian samba snare-drum"
-#| msgid "tarol"
 msgctxt "Brazilian shallow samba snare-drum"
 msgid "tarol"
 msgstr "巴西淺筒小鼓"

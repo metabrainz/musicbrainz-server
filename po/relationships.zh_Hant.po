@@ -5,11 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-09-11 17:14+0000\n"
+"PO-Revision-Date: 2026-09-20 19:14+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
-">\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
+"\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,10 +73,10 @@ msgid ""
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "社群網路網頁是創作者自己在<a href=\"https://en.wikipedia.org/wiki/"
-"Social_networking_service\" target=\"_blank\">社群網路</a>上的個人資料網頁，"
-"只有他們（或他們的管理人員）才能發布內容。其他人可以建立自己的個人資料並與創"
-"作者互動，例如透過新增他們為朋友或評論他們發布的內容。例子包括 Facebook 網頁"
-"與個人資料、Last.fm 使用者，以及 Twitter、Instagram 和 Flickr 帳號。"
+"Social_networking_service\" target=\"_blank\">社群網路</a>上的個人檔案網頁，"
+"只有他們（或他們的管理人員）才能發布內容。其他人可以建立自己的個人檔案並與創"
+"作者互動，例如透過加他們為好友或在他們發布的內容底下留言。例子包括 Facebook "
+"網頁與個人檔案、Last.fm 使用者，以及 Twitter、Instagram 和 Flickr 帳號。"
 
 #. name:social network
 #: DB:link_type/description:783
@@ -1717,8 +1717,8 @@ msgid ""
 "production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
 msgstr ""
-"這記載的是發行品隨附內頁註釋（一般在封套上）的作者。儘管絕大多數情況下內頁註"
-"釋只包括演職人員資訊和製作相關資料，有時也會包括一段簡介或文字（文章）。此關"
+"這記載的是發行品隨附內頁介紹（一般在封套上）的作者。儘管絕大多數情況下內頁介"
+"紹只包括演職人員資訊和製作相關資料，有時也會包括一段簡介或文字（文章）。此關"
 "聯類型應用於後一情況。"
 
 #. name:graphic design
@@ -3441,7 +3441,7 @@ msgstr ""
 #. name:soundcloud
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr "此連結將一個廠牌與該廠牌在 SoundCloud 上的個人資料網頁相連。"
+msgstr "此連結將一個廠牌與該廠牌在 SoundCloud 上的個人檔案網頁相連。"
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3450,7 +3450,7 @@ msgid ""
 "or Indiegogo."
 msgstr ""
 "此連結將一個廠牌與該廠牌在群眾募資網站（如 Kickstarter 或 Indiegogo）上的個人"
-"資料網頁相連。"
+"檔案網頁相連。"
 
 #. name:composer-in-residence
 #: DB:link_type/description:937
@@ -3504,7 +3504,7 @@ msgstr "此連結將一個地點與該地點在 YouTube 上的頻道相連。"
 #. name:soundcloud
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr "此連結將一個地點與該地點在 SoundCloud 上的個人資料網頁相連。"
+msgstr "此連結將一個地點與該地點在 SoundCloud 上的個人檔案網頁相連。"
 
 #. name:crowdfunding
 #: DB:link_type/description:909
@@ -3513,7 +3513,7 @@ msgid ""
 "Indiegogo."
 msgstr ""
 "此連結將一個地點與該地點在群眾募資網站（如 Kickstarter 或 Indiegogo）上的個人"
-"資料網頁相連。"
+"檔案網頁相連。"
 
 #. name:rescheduled as
 #: DB:link_type/description:836
@@ -3836,7 +3836,7 @@ msgid ""
 "page (such as for a specific tour, or for compiling a classical catalogue) "
 "at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
-"這將系列連結到其在群眾募資網站（如 Kickstarter 或 Indiegogo）上的個人資料網頁"
+"這將系列連結到其在群眾募資網站（如 Kickstarter 或 Indiegogo）上的個人檔案網頁"
 "（例如音樂節）或專案網頁（例如特定巡演或編纂古典音樂目錄的專案）。"
 
 #. name:IMDb
@@ -4067,7 +4067,7 @@ msgstr ""
 #. name:soundcloud
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
-msgstr "此連結將一位創作者與該創作者在 SoundCloud 上的個人資料網頁相連。"
+msgstr "此連結將一位創作者與該創作者在 SoundCloud 上的個人檔案網頁相連。"
 
 #. name:BBC Music page
 #: DB:link_type/description:190
@@ -4095,7 +4095,7 @@ msgid ""
 "Kickstarter or Indiegogo."
 msgstr ""
 "這個關聯將一位創作者與其在像 Kickstarter 或 Indiegogo 的群眾募資網站上的個人"
-"資料連結起來。"
+"檔案連結起來。"
 
 #. name:is person
 #: DB:link_type/description:108
@@ -4537,11 +4537,11 @@ msgid ""
 "for release groups</a>."
 msgstr ""
 "這個關聯已被棄用，因為幾乎總是被誤用。要指定此發行品上的錄音包含從電影、節目"
-"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取"
-"樣，請在註釋中指出。\n"
+"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取樣"
+"，請在註解中指出。\n"
 "<br/><br/>\n"
-"要說明該發行品是原聲帶，請使用<a href=\"/relationship/"
-"85b0a010-3237-47c7-8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
+"要說明該發行品是原聲帶，請使用<a href=\"/relationship/85b0a010-3237-47c7-"
+"8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
 
 #. name:publishing
 #: DB:link_type/description:206
@@ -5099,9 +5099,9 @@ msgid ""
 "include forums, LiveJournal communities and groups on Facebook, Last.fm and "
 "Flickr."
 msgstr ""
-"此關聯類型用於連結創作者的線上社群網頁。線上社群是任何成員都可以發表評論，貢"
-"獻內容的群組。創作者本人可能是或不是群組成員。例子包含論壇、LiveJournal 社"
-"群，以及 Facebook、Last.fm 和 Flickr 群組。"
+"此關聯類型用於連結創作者的線上社群網頁。線上社群是任何成員都可以留言、貢獻內"
+"容的群組。創作者本人可能是或不是群組成員。例子包含論壇、LiveJournal 社群，以"
+"及 Facebook、Last.fm 和 Flickr 群組。"
 
 #. name:poster
 #: DB:link_type/description:808
@@ -5170,7 +5170,7 @@ msgstr "這種類型的關聯將樂器連結到它們的來源地區。"
 msgid ""
 "This should be used when an artist is credited in liner notes or a similar "
 "source as performing a solo part."
-msgstr "當創作者在內頁註釋或類似來源中被署名為演奏獨奏部分時使用。"
+msgstr "當創作者在專輯內頁或類似來源中被署名為演奏獨奏部分時使用。"
 
 #. name:task
 #: DB:link_attribute_type/description:1150
@@ -6457,7 +6457,7 @@ msgstr "剪輯師"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr "修改"
+msgstr "剪輯版"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
@@ -7377,7 +7377,7 @@ msgstr "收錄作品"
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
-msgstr "包括"
+msgstr "包含"
 
 #. name:influenced by
 #: DB:link_type/name:1097 DB:link_type/link_phrase:1097
@@ -7930,7 +7930,7 @@ msgstr "授權方"
 
 #: DB:link_type/name:24
 msgid "liner notes"
-msgstr "內頁註釋"
+msgstr "內頁介紹"
 
 #: DB:link_attribute_type/name:578
 msgid "live"
@@ -9463,10 +9463,8 @@ msgid "school directors"
 msgstr "校長"
 
 #: DB:link_attribute_type/name:1461
-#, fuzzy
-#| msgid "electronic music"
 msgid "screen music"
-msgstr "電子音樂"
+msgstr "影視配樂"
 
 #: DB:link_type/name:1286
 msgid "scriptwriter"
@@ -10756,12 +10754,12 @@ msgstr "{additional:額外}歌劇劇本撰寫地點"
 #. name:liner notes
 #: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
-msgstr "{additional:額外}內頁註釋{translator:譯者}"
+msgstr "{additional:額外}內頁介紹{translator:譯者}"
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
 msgid "{additional} liner notes {translator} for"
-msgstr "{additional:額外}內頁註釋{translator:譯者}，為"
+msgstr "{additional:額外}內頁介紹{translator:譯者}，為"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
@@ -11722,7 +11720,7 @@ msgstr "{translated:翻譯}{parody:惡搞}版本"
 #. name:liner notes
 #: DB:link_type/long_link_phrase:24
 msgid "{translator:translated|wrote} {additional} liner notes for"
-msgstr "{translator:翻譯|撰寫}{additional:額外}內頁註釋，為"
+msgstr "{translator:翻譯|撰寫}{additional:額外}內頁介紹，為"
 
 #. name:free streaming
 #: DB:link_type/long_link_phrase:268 DB:link_type/long_link_phrase:85

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-09-11 13:01+0000\n"
+"PO-Revision-Date: 2026-09-20 19:14+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hant/>\n"
@@ -269,7 +269,7 @@ msgstr "按發行組類型"
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
 msgid "No type"
-msgstr "未設定類型"
+msgstr "未分類"
 
 #: ../root/statistics/Images.js:182
 msgid "By release status"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-09-15 12:13+0000\n"
+"PO-Revision-Date: 2026-09-17 18:13+0000\n"
 "Last-Translator: pXF <pxf@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Hungarian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/hu/>\n"
@@ -190,7 +190,7 @@ msgstr "Avar"
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr ""
+msgstr "Avesztai"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
