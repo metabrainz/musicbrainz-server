@@ -3,6 +3,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use DBDefs;
+use Sys::Hostname qw( hostname );
 
 =head1 NAME
 
@@ -19,6 +20,17 @@ such as HAProxy can capture each with C<req.hdr(...)> directly.
 =head1 HEADERS
 
 =over
+
+=item C<X-MB-Container>
+
+The container hosting this process, from L<Sys::Hostname/hostname> (inside
+Docker this is typically the container identifier). Always emitted.
+
+=item C<X-MB-Node>
+
+The Docker host node running the container, taken from the C<MUSICBRAINZ_NODE_NAME>
+environment variable, which must be injected by the deployment environment.
+Omitted when the variable is unset.
 
 =item C<X-MB-Version>
 
@@ -50,9 +62,13 @@ configuration by adding the following directives:
         # ... existing proxy_pass to the search server ...
 
         # Copy the tags from the application response onto the Solr request.
-        proxy_set_header X-MB-Version $upstream_http_x_mb_version;
+        proxy_set_header X-MB-Container  $upstream_http_x_mb_container;
+        proxy_set_header X-MB-Node       $upstream_http_x_mb_node;
+        proxy_set_header X-MB-Version    $upstream_http_x_mb_version;
 
         # Defensively prevent leaking the tags back to the client.
+        proxy_hide_header X-MB-Container;
+        proxy_hide_header X-MB-Node;
         proxy_hide_header X-MB-Version;
     }
 
@@ -81,6 +97,16 @@ sub build_search_request_headers {
     my ($self, %tags) = @_;
 
     my @headers;
+
+    # The container hosting this process. Sys::Hostname::hostname returns the
+    # container's hostname (typically its identifier) inside Docker.
+    push @headers, ('X-MB-Container', hostname());
+
+    # The Docker host node running the container, injected by the deployment
+    # via the MUSICBRAINZ_NODE_NAME environment variable. Omitted when not set.
+    my $node = $ENV{MUSICBRAINZ_NODE_NAME};
+    push @headers, ('X-MB-Node', $node)
+        if defined $node && $node ne '';
 
     # The running code version.
     push @headers, ('X-MB-Version', DBDefs->GIT_SHA . '@' . DBDefs->GIT_BRANCH);
