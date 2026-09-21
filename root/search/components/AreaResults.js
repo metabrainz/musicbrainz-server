@@ -52,6 +52,7 @@ component AreaResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<AreaT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -70,6 +71,7 @@ component AreaResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isLocationEditor($c.user) ? (
         <p>

@@ -13,7 +13,7 @@ declare module 'pg-cursor' {
   import type {Connection, PgResultSet, Submittable} from 'pg';
 
   declare type CursorQueryConfig = {
-    +rowMode?: 'array',
+    readonly rowMode?: 'array',
   };
 
   declare class Cursor<R> implements Submittable {

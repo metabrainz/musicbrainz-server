@@ -105,7 +105,7 @@ sub release_group_browse : Private
         $c->detach('not_found') unless ($artist);
 
         # Allows requesting only "official" releases with 'website-default'
-        my $show_all = $c->stash->{release_group_status} eq 'website-default'
+        my $show_all = ($c->stash->{release_group_status} // '') eq 'website-default'
                        ? 0
                        : 1;
         my @tmp = $c->model('ReleaseGroup')->find_by_artist(

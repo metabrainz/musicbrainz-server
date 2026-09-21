@@ -1,5 +1,9 @@
-// flow-typed signature: e6e6768618776352dd676f63502aea4d
-// flow-typed version: 40e7dfcbd5/streams/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the same directory of this source tree.
+ */
 
 type TextEncodeOptions = { options?: boolean, ... };
 

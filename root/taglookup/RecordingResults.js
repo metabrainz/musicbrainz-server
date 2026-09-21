@@ -23,6 +23,7 @@ component TagLookupRecordingResults(...props: {
         pager={props.pager}
         query={props.query}
         results={props.results}
+        uncappedTotalHits={props.uncappedTotalHits}
       />
       {manifest('common/components/TaggerIcon', {async: true})}
     </TagLookupResults>

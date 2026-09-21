@@ -43,6 +43,7 @@ export component ArtistResultsInline(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: InlineResultsPropsT<ArtistT>) {
   return (
     <PaginatedSearchResults
@@ -63,6 +64,7 @@ export component ArtistResultsInline(...{
       pager={pager}
       query={query}
       results={results}
+      uncappedTotalHits={uncappedTotalHits}
     />
   );
 }
@@ -73,6 +75,7 @@ component ArtistResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<ArtistT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -81,6 +84,7 @@ component ArtistResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

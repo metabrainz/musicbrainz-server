@@ -247,6 +247,12 @@
       target: "document.querySelector('#discid-attachment select').selectedOptions[0].textContent",
       value: '8JrTc74BBFV.d2LEmUkPiYMk6Ww-',
     },
+    // Visit the tracklist so we can submit the edits (see MBS-14192).
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
     {
       command: 'click',
       target: "xpath=//a[@href='#edit-note']",

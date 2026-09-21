@@ -22,5 +22,9 @@ declare module 'fast-diff' {
       b: string,
   ): Array<FastEditDiff>;
 
-  declare module.exports: typeof diff & {+DELETE: -1, +EQUAL: 0, +INSERT: 1};
+  declare module.exports: typeof diff & {
+    readonly DELETE: -1,
+    readonly EQUAL: 0,
+    readonly INSERT: 1,
+  };
 }

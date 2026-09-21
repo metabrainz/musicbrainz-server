@@ -126,7 +126,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
-      value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
+      value: 'This is a redirect link. Please follow your link and add the link it redirects to instead.',
     },
     {
       command: 'click',

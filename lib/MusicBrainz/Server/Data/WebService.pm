@@ -41,6 +41,18 @@ sub xml_search
 
     $limit = 25 if ($limit < 1 || $limit > 100);
 
+    if (defined DBDefs->MAX_SEARCH_RESULTS) {
+        my $depth = $offset + $limit;
+        if ($depth > DBDefs->MAX_SEARCH_RESULTS) {
+            return {
+                error => 'Must retrieve at most ' .
+                    DBDefs->MAX_SEARCH_RESULTS .
+                    " search results, not $depth.",
+                code  => HTTP_BAD_REQUEST,
+            };
+        }
+    }
+
     if (defined $args->{query} && $args->{query} ne '')
     {
         if (ref($args->{query})) {

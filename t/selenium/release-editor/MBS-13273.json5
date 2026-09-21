@@ -12,6 +12,12 @@
       target: 'css=button[type=submit]',
       value: '',
     },
+    // Visit the tracklist so we can submit the edits (see MBS-14192).
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
     {
       command: 'click',
       target: 'css=a[href="#edit-note"]',

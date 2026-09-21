@@ -512,6 +512,19 @@ msgstr ""
 "href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">flauto soprano</"
 "a> traverso (da concerto) a imboccatura laterale."
 
+#. name:te kū
+#: DB:instrument/description:860
+#, fuzzy
+#| msgid ""
+#| "also just \"kū\", a mouthbow with a single string, struck with a light "
+#| "implement of bone or wood."
+msgid ""
+"Also knownas just \"kū\", mouthbow with a single string is struck with a "
+"light implement of bone or wood."
+msgstr ""
+"Chiamato anche solo \"kū\", è un arco a bocca con una sola corda, percosso "
+"con un pezzo leggero di osso o legno."
+
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -1072,6 +1085,21 @@ msgstr ""
 #: DB:instrument/description:431
 msgid "Conical bore double-reed musical instrument from Brittany."
 msgstr "Strumento ad ancia doppia e a sezione conica di origine bretone."
+
+#. name:ashiko
+#: DB:instrument/description:812
+#, fuzzy
+#| msgid ""
+#| "conical goatskin frame-drum originating with the Yoruba people of West "
+#| "Africa, it is also found in Afro-Caribbean and Afro-Latin American "
+#| "cultures."
+msgid ""
+"Conical goatskin frame-drum originating with the Yoruba people of West "
+"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
+msgstr ""
+"Tamburo a cornice conico in pelle di capra proveniente dagli yoruba "
+"dell'Africa occidentale; si trova anche nelle culture afro-caraibiche e afro-"
+"latinoamericane."
 
 #. name:telharmonium
 #: DB:instrument/description:125
@@ -1789,9 +1817,15 @@ msgstr ""
 
 #. name:tambourine
 #: DB:instrument/description:263
+#, fuzzy
+#| msgid ""
+#| "For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
+#| "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgid ""
-"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
-"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+"For the Brazilian frame-drum hit with a whisk, see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> For the old "
+"French low-pitched tenor drum called Tambourin, see <a href=\"/instrument/"
+"2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 msgstr ""
 "Per il tamburo a cornice brasiliano colpito con una frusta, vedi <a href=\"/"
 "instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
@@ -1901,6 +1935,31 @@ msgstr ""
 "a01b-769de71b82f2\">armonium</a>.<br /> Conosciuto anche come organo ad "
 "ance, è grande, simile a un pianoforte verticale e ha pedali collegati a un "
 "mantice con ance. Il suono è prodotto suonando la tastiera."
+
+#. name:tamborim
+#: DB:instrument/description:723
+#, fuzzy
+#| msgid ""
+#| "Not to be confused with the <a href=\"/instrument/4431f7b0-69a4-49ee-"
+#| "b84f-15dda19fb70c\">tambourine</a>.<br /> For the Brazilian frame-drum "
+#| "hit with a whisk see <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
+#| "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more "
+#| "snares, worn by one person and beaten by one hand, it is often combined "
+#| "with tabor pipes."
+msgid ""
+"For the common framedrum with jangles, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For the old "
+"French tenor drum tambourin, see <a href=\"/instrument/2a2dec1a-"
+"e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br /> Used in Brazilian samba, it's "
+"metal, plastic or wood jangle-less frame is strung with nylon and beaten "
+"with brush or stick called Baqueta."
+msgstr ""
+"Da non confondere con il <a href=\"/instrument/4431f7b0-69a4-49ee-"
+"b84f-15dda19fb70c\">tamburello</a>.<br /> Per il tamburo a cornice "
+"brasiliano colpito con una frusta, vedi <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Rullante, spesso "
+"con uno o più fili, imbracciato da una persona e percosso con una mano, si "
+"accompagna spesso con flauti."
 
 #. name:musette de cour
 #: DB:instrument/description:735
@@ -2215,11 +2274,6 @@ msgstr ""
 "ognuna.<br /> Il gamelan forma parte integrante della cultura indonesiana, è "
 "usato in occasione di importanti tradizioni e in ogni parte della vita "
 "indonesiana."
-
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "Campana di ferro"
 
 #. name:fiddle
 #: DB:instrument/description:61
@@ -4061,6 +4115,13 @@ msgstr ""
 "strumento è tenuto sotto l'ascella e suonato pizzicando la corda e tirando "
 "il pezzo di bambù."
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -4600,9 +4661,13 @@ msgstr ""
 
 #. name:shaken idiophone
 #: DB:instrument/description:954
+#, fuzzy
+#| msgid ""
+#| "Shaken idiophone or rattle. Sound is produced by holding or containing "
+#| "usually small concussing parts."
 msgid ""
-"Shaken idiophone or rattle. Sound is produced by holding or containing "
-"usually small concussing parts."
+"Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
+"contains small concussing parts."
 msgstr ""
 "Detti anche sonagli, producono suono tramite lo scontrarsi di piccoli "
 "oggetti contenuti nello strumento."
@@ -5111,15 +5176,6 @@ msgstr ""
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr ""
 "Strumento della famiglia dei legni cromatico, ad ancia singola e senza tasti."
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr ""
-"Campana singola o multipla usata nella musica samba e con origine nella "
-"musica tradizionale yoruba."
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -6164,15 +6220,6 @@ msgstr ""
 "cassa è un cilindro allungato con estremità affusolate. La punta è "
 "realizzata in pelle di capra ed è fissata al corpo tramite dei pioli."
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-"Fischietto a tre toni usato nella musica samba e in altri generi musicali "
-"brasiliani."
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -6369,11 +6416,6 @@ msgid ""
 msgstr ""
 "Lira ad arco a quattro corde proveniente dall'Europa settentrionale, suonata "
 "principalmente in Estonia."
-
-#. name:tamborim
-#: DB:instrument/description:723
-msgid "The tamborim is a small frame drum from Brazil."
-msgstr "Piccolo tamburo a cornice brasiliano."
 
 #. name:taphon
 #: DB:instrument/description:669
@@ -6926,6 +6968,14 @@ msgstr ""
 "cui annunciare guerre, accogliere persone e annunciare la semina della "
 "kumara (patata dolce)."
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -6995,6 +7045,13 @@ msgid ""
 msgstr ""
 "Piccolo liuto con 5 ordini di 10 corde usato dai quechua e dagli aymara."
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -7060,6 +7117,13 @@ msgstr ""
 "Usato per semplice abbellimento, ha sbarre in metallo piccole e spesse "
 "sospese su canne risonanti; è il membro di tono più acuto della famiglia dei "
 "gendèr."
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
+msgstr ""
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -7260,6 +7324,14 @@ msgstr ""
 "diverse.</li> <li>Il set balinese con due coppie di tamburi dai fianchi "
 "dritti e punte di dimensione uguale. </li> </ul>"
 
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
+
 #. name:krap phuang
 #: DB:instrument/description:951
 msgid ""
@@ -7294,6 +7366,20 @@ msgstr ""
 "in metallo che tintinnano quando vengono agitati. <br/> Da non confondere "
 "con il sistro in zucca a fiasco dell'Africa occidentale, detto anche "
 "sonaglio a disco (n'goso m'bara)."
+
+#. name:ganzá
+#: DB:instrument/description:644
+#, fuzzy
+#| msgid ""
+#| "Used in various performances (capoeira angola, caboclo, etc) and samba "
+#| "music, it is usually made of metal and filled with grains, pebbles or the "
+#| "like."
+msgid ""
+"Used in samba music, it is a small canister of metal or woven material, "
+"filled with beads, grains, pebbles or the like."
+msgstr ""
+"Usata in varie esibizioni (capoeira angola, caboclo, ecc.) e nella musica "
+"samba, è solitamente in metallo e riempita con cereali, ciottoli o simili."
 
 #. name:saron wayang
 #: DB:instrument/description:1010
@@ -7367,16 +7453,6 @@ msgid ""
 msgstr ""
 "Usato nel turntablism, non è limitato alla riproduzione di dischi in vinile, "
 "bensì i DJ vi si esibiscono creando suoni."
-
-#. name:ganzá
-#: DB:instrument/description:644
-msgid ""
-"Used in various performances (capoeira angola, caboclo, etc) and samba "
-"music, it is usually made of metal and filled with grains, pebbles or the "
-"like."
-msgstr ""
-"Usata in varie esibizioni (capoeira angola, caboclo, ecc.) e nella musica "
-"samba, è solitamente in metallo e riempita con cereali, ciottoli o simili."
 
 #. name:kepyak
 #: DB:instrument/description:998
@@ -7747,29 +7823,10 @@ msgstr ""
 msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
 msgstr "Cetera spagnola a pizzico, è suonata anche nella diaspora spagnola."
 
-#. name:te kū
-#: DB:instrument/description:860
-msgid ""
-"also just \"kū\", a mouthbow with a single string, struck with a light "
-"implement of bone or wood."
-msgstr ""
-"Chiamato anche solo \"kū\", è un arco a bocca con una sola corda, percosso "
-"con un pezzo leggero di osso o legno."
-
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
 msgstr "Guscio di conchiglia"
-
-#. name:ashiko
-#: DB:instrument/description:812
-msgid ""
-"conical goatskin frame-drum originating with the Yoruba people of West "
-"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
-msgstr ""
-"Tamburo a cornice conico in pelle di capra proveniente dagli yoruba "
-"dell'Africa occidentale; si trova anche nelle culture afro-caraibiche e afro-"
-"latinoamericane."
 
 #. name:Tonette
 #: DB:instrument/description:846
@@ -7787,6 +7844,26 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid "The tamborim is a small frame drum from Brazil."
+#~ msgstr "Piccolo tamburo a cornice brasiliano."
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "Campana di ferro"
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr ""
+#~ "Campana singola o multipla usata nella musica samba e con origine nella "
+#~ "musica tradizionale yoruba."
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr ""
+#~ "Fischietto a tre toni usato nella musica samba e in altri generi musicali "
+#~ "brasiliani."
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

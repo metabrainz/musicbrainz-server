@@ -1,5 +1,9 @@
-// flow-typed signature: b876b0c754b533b8b6d83f6166e66d8e
-// flow-typed version: 84d934abce/html/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the same directory of this source tree.
+ */
 
 /* DataTransfer */
 
@@ -49,8 +53,8 @@ declare type DOMStringMap = { [key: string]: string, ... };
 
 declare class DOMStringList {
   @@iterator(): Iterator<string>;
-  +[key: number]: string;
-  +length: number;
+  readonly [key: number]: string;
+  readonly length: number;
   item(number): string | null;
   contains(string): boolean;
 }
@@ -73,12 +77,12 @@ declare class EventSource extends EventTarget {
     url: string,
     configuration?: { withCredentials: boolean, ... }
   ): void;
-  +CLOSED: 2;
-  +CONNECTING: 0;
-  +OPEN: 1;
-  +readyState: 0 | 1 | 2;
-  +url: string;
-  +withCredentials: boolean;
+  readonly CLOSED: 2;
+  readonly CONNECTING: 0;
+  readonly OPEN: 1;
+  readonly readyState: 0 | 1 | 2;
+  readonly url: string;
+  readonly withCredentials: boolean;
   onerror: () => void;
   onmessage: MessageEventListener;
   onopen: () => void;
@@ -99,11 +103,11 @@ declare class ErrorEvent extends Event {
       ...
     }
   ): void;
-  +message: string;
-  +filename: string;
-  +lineno: number;
-  +colno: number;
-  +error: any;
+  readonly message: string;
+  readonly filename: string;
+  readonly lineno: number;
+  readonly colno: number;
+  readonly error: any;
 }
 
 // https://html.spec.whatwg.org/multipage/web-messaging.html#broadcasting-to-other-browsing-contexts
@@ -140,8 +144,8 @@ type ToggleEvent$Init = {
 
 declare class ToggleEvent extends Event {
   constructor(type: ToggleEventTypes, eventInit?: ToggleEvent$Init): void;
-  +oldState: string;
-  +newState: string;
+  readonly oldState: string;
+  readonly newState: string;
 }
 
 // TODO: HTMLDocument
@@ -254,9 +258,9 @@ declare class HTMLElement extends Element {
   translate: boolean;
   popover: '' | 'auto' | 'manual' | 'hint';
 
-  +popoverVisibilityState: 'hidden' | 'showing';
+  readonly popoverVisibilityState: 'hidden' | 'showing';
 
-  +popoverInvoker: HTMLElement | null;
+  readonly popoverInvoker: HTMLElement | null;
 }
 
 declare class HTMLSlotElement extends HTMLElement {
@@ -269,8 +273,8 @@ declare class HTMLTableElement extends HTMLElement {
   caption: HTMLTableCaptionElement | null;
   tHead: HTMLTableSectionElement | null;
   tFoot: HTMLTableSectionElement | null;
-  +tBodies: HTMLCollection<HTMLTableSectionElement>;
-  +rows: HTMLCollection<HTMLTableRowElement>;
+  readonly tBodies: HTMLCollection<HTMLTableSectionElement>;
+  readonly rows: HTMLCollection<HTMLTableRowElement>;
   createTHead(): HTMLTableSectionElement;
   deleteTHead(): void;
   createTFoot(): HTMLTableSectionElement;
@@ -292,7 +296,7 @@ declare class HTMLTableColElement extends HTMLElement {
 
 declare class HTMLTableSectionElement extends HTMLElement {
   tagName: 'THEAD' | 'TFOOT' | 'TBODY';
-  +rows: HTMLCollection<HTMLTableRowElement>;
+  readonly rows: HTMLCollection<HTMLTableRowElement>;
   insertRow(index?: number): HTMLTableRowElement;
   deleteRow(index: number): void;
 }
@@ -301,15 +305,15 @@ declare class HTMLTableCellElement extends HTMLElement {
   tagName: 'TD' | 'TH';
   colSpan: number;
   rowSpan: number;
-  +cellIndex: number;
+  readonly cellIndex: number;
 }
 
 declare class HTMLTableRowElement extends HTMLElement {
   tagName: 'TR';
   align: 'left' | 'right' | 'center';
-  +rowIndex: number;
-  +sectionRowIndex: number;
-  +cells: HTMLCollection<HTMLTableCellElement>;
+  readonly rowIndex: number;
+  readonly sectionRowIndex: number;
+  readonly cells: HTMLCollection<HTMLTableCellElement>;
   deleteCell(index: number): void;
   insertCell(index?: number): HTMLTableCellElement;
 }

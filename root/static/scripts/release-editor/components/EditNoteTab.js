@@ -24,6 +24,7 @@ type ReleaseEditorFormT = FormT<{
 }>;
 
 component EditNoteTab(
+  addingWithoutVisitingTracklist?: boolean = false,
   editPreviews?: ReadonlyArray<EditPreviewT> = [],
   editsExist?: boolean = false,
   errorsExist?: boolean = false,
@@ -48,6 +49,27 @@ component EditNoteTab(
             {l(`Some errors were detected in the data you’ve entered.
                 Click on the highlighted tabs and correct any visible
                 errors.`)}
+          </p>
+        </div>
+      ) : null}
+
+      {addingWithoutVisitingTracklist ? (
+        <div className="warning">
+          <p>
+            {exp.l(`You didn’t visit the tracklist tab. When adding
+                a release, please check that the tracks follow the
+                MusicBrainz style guidelines for
+                {titles_style|titles} and
+                {credits_style|artist credits}.`, {
+              titles_style: {
+                href: '/doc/Style/Titles',
+                target: '_blank',
+              },
+              credits_style: {
+                href: '/doc/Style/Artist_Credits',
+                target: '_blank',
+              },
+            })}
           </p>
         </div>
       ) : null}

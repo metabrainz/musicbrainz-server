@@ -1,9 +1,9 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
-# vacuousVersifier <olive@vacuous.me>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"PO-Revision-Date: 2026-08-14 22:12+0000\n"
 "Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
 "Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/tok/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -27,17 +27,17 @@ msgstr "toki Alapi"
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
-msgstr ""
+msgstr "toki Ajewen"
 
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
-msgstr ""
+msgstr "toki Awetan"
 
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
-msgstr ""
+msgstr "toki Pasa Pali"
 
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
@@ -232,7 +232,7 @@ msgstr ""
 #. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
-msgstr "toki Elena"
+msgstr "toki Elin"
 
 #. frequency:3 iso_code:Gujr
 #: DB:script/name:52
@@ -271,8 +271,9 @@ msgstr ""
 
 #. frequency:4 iso_code:Hebr
 #: DB:script/name:11
+#, fuzzy
 msgid "Hebrew"
-msgstr "toki Iwisi"
+msgstr "sitelen Alepe"
 
 #. frequency:3 iso_code:Hira
 #: DB:script/name:83

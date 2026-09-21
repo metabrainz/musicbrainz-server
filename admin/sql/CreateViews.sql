@@ -93,7 +93,7 @@ CREATE OR REPLACE VIEW series_series AS
     FROM l_series_series lss
     JOIN series s ON s.id = lss.entity1
     JOIN link l ON l.id = lss.link
-    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '8da75c99-46ff-373c-9d31-276ca8fa8cc3')
+    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '8fe04b66-fe39-40ce-a28f-76b816d3f55a')
     LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = 788 AND latv.link = l.id)
     ORDER BY series, link_order;
 

@@ -45,11 +45,11 @@ declare module '@floating-ui/react' {
   declare export type Strategy = 'absolute' | 'fixed';
 
   // eslint-disable-next-line no-unused-vars
-  declare export type Coords = {+[key in Axis]: number};
+  declare export type Coords = {readonly [key in Axis]: number};
   // eslint-disable-next-line no-unused-vars
-  declare export type Dimensions = {+[key in Length]: number};
+  declare export type Dimensions = {readonly [key in Length]: number};
   // eslint-disable-next-line no-unused-vars
-  declare export type SideObject = {+[key in Side]: number};
+  declare export type SideObject = {readonly [key in Side]: number};
 
   declare export type ClientRectObject = Rect & SideObject;
   declare export type Padding = number | Partial<SideObject>;
@@ -65,7 +65,7 @@ declare module '@floating-ui/react' {
   declare export type RootBoundary = 'viewport' | 'document' | Rect;
 
   declare export interface VirtualElement {
-    +contextElement?: Element,
+    readonly contextElement?: Element,
     getBoundingClientRect(): ClientRectObject,
   }
 
@@ -73,16 +73,16 @@ declare module '@floating-ui/react' {
   declare export type FloatingElement = HTMLElement;
 
   declare export interface Elements {
-    +floating: FloatingElement,
-    +reference: ReferenceElement,
+    readonly floating: FloatingElement,
+    readonly reference: ReferenceElement,
   }
 
   declare export type MiddlewareState = Readonly<{
     ...Coords,
-    +elements: Elements,
-    +initialPlacement: Placement,
-    +placement: Placement,
-    +strategy: Strategy,
+    readonly elements: Elements,
+    readonly initialPlacement: Placement,
+    readonly placement: Placement,
+    readonly strategy: Strategy,
     ...
   }>;
 
@@ -90,23 +90,23 @@ declare module '@floating-ui/react' {
 
   declare export type MiddlewareReturn = Readonly<{
     ...Partial<Coords>,
-    +data?: {+[key: string]: unknown},
+    readonly data?: {readonly [key: string]: unknown},
   }>;
 
   declare export interface Middleware {
-    +fn: (state: MiddlewareState) =>
+    readonly fn: (state: MiddlewareState) =>
       | Promise<MiddlewareReturn>
       | MiddlewareReturn,
-    +name: string,
-    +options?: unknown,
+    readonly name: string,
+    readonly options?: unknown,
   }
 
   declare export type DetectOverflowOptions = Partial<{
-    +altBoundary: boolean,
-    +boundary: Boundary,
-    +elementContext: ElementContext,
-    +padding: Padding,
-    +rootBoundary: RootBoundary,
+    readonly altBoundary: boolean,
+    readonly boundary: Boundary,
+    readonly elementContext: ElementContext,
+    readonly padding: Padding,
+    readonly rootBoundary: RootBoundary,
   }>;
 
   declare export type ElementProps = {...};
@@ -117,11 +117,11 @@ declare module '@floating-ui/react' {
    * arrow()
    */
   declare export type ArrowOptions = {
-    +element:
+    readonly element:
       | Element
       | null
       | {current: Element | null},
-    +padding?: Padding,
+    readonly padding?: Padding,
   };
 
   declare export function arrow(
@@ -137,11 +137,11 @@ declare module '@floating-ui/react' {
    * autoUpdate()
    */
   export type AutoUpdateOptions = Partial<{
-    +ancestorResize: boolean,
-    +ancestorScroll: boolean,
-    +animationFrame: boolean,
-    +elementResize: boolean,
-    +layoutShift: boolean,
+    readonly ancestorResize: boolean,
+    readonly ancestorScroll: boolean,
+    readonly animationFrame: boolean,
+    readonly elementResize: boolean,
+    readonly layoutShift: boolean,
   }>;
 
   declare export function autoUpdate(
@@ -157,9 +157,9 @@ declare module '@floating-ui/react' {
   declare export type OffsetOptions =
     | number
     | {
-        +alignmentAxis?: number | null,
-        +crossAxis?: number,
-        +mainAxis?: number,
+        readonly alignmentAxis?: number | null,
+        readonly crossAxis?: number,
+        readonly mainAxis?: number,
       };
 
   declare export function offset(OffsetOptions): Middleware;
@@ -230,10 +230,10 @@ declare module '@floating-ui/react' {
     context: FloatingContext,
     floatingStyles: {...},
     refs: {
-      +floating: {current: HTMLElement | null},
-      +reference: {current: ReferenceElement | null},
-      +setFloating: (node: HTMLElement | null) => void,
-      +setReference: (node: ReferenceElement | null) => void,
+      readonly floating: {current: HTMLElement | null},
+      readonly reference: {current: ReferenceElement | null},
+      readonly setFloating: (node: HTMLElement | null) => void,
+      readonly setReference: (node: ReferenceElement | null) => void,
     },
   }
 
@@ -255,10 +255,10 @@ declare module '@floating-ui/react' {
    * useInteractions()
    */
   declare export type UseInteractionsReturn = {
-    +getFloatingProps: (
+    readonly getFloatingProps: (
       userProps?: ReactDOM$HTMLElementProps,
     ) => ReactDOM$HTMLElementProps,
-    +getReferenceProps: (
+    readonly getReferenceProps: (
       userProps?: ReactDOM$HTMLElementProps,
     ) => ReactDOM$HTMLElementProps,
     ...
@@ -272,22 +272,22 @@ declare module '@floating-ui/react' {
    * useMergeRefs()
    */
   declare export function useMergeRefs<Instance>(
-    refs: ReadonlyArray<{-current: Instance} | void>,
+    refs: ReadonlyArray<{writeonly current: Instance} | void>,
   ): ((Instance | null) => unknown);
 
   /*
    * FloatingArrow
    */
   declare export type FloatingArrowProps = {
-    +context: FloatingContext,
-    +d?: string,
-    +fill?: string,
-    +height?: number,
-    +staticOffset?: string | number | null,
-    +stroke?: string,
-    +strokeWidth?: number,
-    +tipRadius?: number,
-    +width?: number,
+    readonly context: FloatingContext,
+    readonly d?: string,
+    readonly fill?: string,
+    readonly height?: number,
+    readonly staticOffset?: string | number | null,
+    readonly stroke?: string,
+    readonly strokeWidth?: number,
+    readonly tipRadius?: number,
+    readonly width?: number,
   };
 
   declare export const FloatingArrow:
@@ -297,12 +297,12 @@ declare module '@floating-ui/react' {
    * FloatingFocusManager
    */
   declare export type FloatingFocusManagerProps = {
-    +children: React.Node,
-    +closeOnFocusOut?: boolean,
-    +context: FloatingContext,
-    +initialFocus?: number | {current: HTMLElement | null},
-    +modal?: boolean,
-    +returnFocus?: boolean,
+    readonly children: React.Node,
+    readonly closeOnFocusOut?: boolean,
+    readonly context: FloatingContext,
+    readonly initialFocus?: number | {current: HTMLElement | null},
+    readonly modal?: boolean,
+    readonly returnFocus?: boolean,
   };
 
   declare export const FloatingFocusManager:
@@ -312,8 +312,8 @@ declare module '@floating-ui/react' {
    * FloatingNode
    */
   declare export type FloatingNodeProps = {
-    +children: React.Node,
-    +id?: string,
+    readonly children: React.Node,
+    readonly id?: string,
   };
 
   declare export const FloatingNode:
@@ -323,10 +323,10 @@ declare module '@floating-ui/react' {
    * FloatingOverlay
    */
   declare export type FloatingOverlayProps = {
-    +children: React.Node,
-    +className?: string,
-    +lockScroll?: boolean,
-    +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => unknown,
+    readonly children: React.Node,
+    readonly className?: string,
+    readonly lockScroll?: boolean,
+    readonly onClick?: (SyntheticMouseEvent<HTMLDivElement>) => unknown,
   };
 
   declare export const FloatingOverlay:
@@ -336,8 +336,8 @@ declare module '@floating-ui/react' {
    * FloatingPortal
    */
   declare export type FloatingPortalProps = {
-    +children: React.Node,
-    +id?: string,
+    readonly children: React.Node,
+    readonly id?: string,
   };
 
   declare export const FloatingPortal:
@@ -347,7 +347,7 @@ declare module '@floating-ui/react' {
    * FloatingTree
    */
   declare export type FloatingTreeProps = {
-    +children: React.Node,
+    readonly children: React.Node,
   };
 
   declare export const FloatingTree:

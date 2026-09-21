@@ -68,6 +68,7 @@ component EventResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<EventT>) {
   const $c = React.useContext(CatalystContext);
   const buildResult = getResultBuilder(results
@@ -90,6 +91,7 @@ component EventResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

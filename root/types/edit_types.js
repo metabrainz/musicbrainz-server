@@ -906,7 +906,7 @@ declare type EditRelationshipAttributeEditT = Readonly<{
     readonly original_name: string,
     readonly parent?: CompT<LinkAttrTypeT | null>,
   },
-  + edit_type: EDIT_RELATIONSHIP_ATTRIBUTE_T,
+  readonly edit_type: EDIT_RELATIONSHIP_ATTRIBUTE_T,
 }>;
 
 declare type EditRelationshipTypeEditDisplayAttributeT = {

@@ -437,6 +437,13 @@ msgstr "języki celtyckie"
 msgid "Central American Indian languages"
 msgstr "języki Indian środkowoamerykańskich"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Okinawan"
+msgid "Central Dusun"
+msgstr "okinawski"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1602,6 +1609,11 @@ msgstr "malajski"
 msgid "Malayalam"
 msgstr "malajalam"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1842,6 +1854,11 @@ msgstr "nias"
 msgid "Niger-Kordofanian languages"
 msgstr "języki nigero-kordofańskie"
 
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
 msgid "Nilo-Saharan languages"
@@ -2016,6 +2033,13 @@ msgstr "fenicki"
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
 msgstr "pitjantjatjara"
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "kreolski haitański"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2389,6 +2413,13 @@ msgstr "języki Indian południowoamerykańskich"
 msgid "Southern Altai"
 msgstr "ałtajski południowy"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "ałtajski południowy"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2739,6 +2770,13 @@ msgstr "washo"
 msgid "Welsh"
 msgstr "walijski"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "venda"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2754,8 +2792,8 @@ msgstr "wolaita"
 msgid "Wolof"
 msgstr "wolof"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "huroński wendat"
 

@@ -1,18 +1,18 @@
 // @flow strict
 
 declare module 'react-table' {
-  declare export type CellRenderProps<+D, +V> = {
-    +cell: Cell<V>,
-    +column: ColumnInstance,
-    +row: Row<D>,
+  declare export type CellRenderProps<out D, out V> = {
+    readonly cell: Cell<V>,
+    readonly column: ColumnInstance,
+    readonly row: Row<D>,
   };
 
   declare export type HeaderProps<D> = Readonly<{
     ...UseTableInstance<D>,
-    +column: ColumnInstance,
+    readonly column: ColumnInstance,
   }>;
 
-  declare export type ColumnOptions<-D, V> = {
+  declare export type ColumnOptions<in D, V> = {
     /*
      * react-table also allows `accessor` to be a string, but we
      * intentionally require an accessor function. For one, it's more type-
@@ -21,18 +21,18 @@ declare module 'react-table' {
      * that `D` is invariant in `keyof D`, so we wouldn't be able to make
      * `D` contravariant above.
      */
-    +accessor?: (D) => V,
-    +Cell?: component(...CellRenderProps<D, V>),
-    +Header?: component() | React.Node,
-    +id?: string,
+    readonly accessor?: (D) => V,
+    readonly Cell?: component(...CellRenderProps<D, V>),
+    readonly Header?: component() | React.Node,
+    readonly id?: string,
     ...
   };
 
-  declare export type ColumnOptionsNoValue<-D> = {
-    +accessor?: (D) => unknown,
-    +Cell?: component(...CellRenderProps<D, empty>),
-    +Header?: component() | React.Node,
-    +id?: string,
+  declare export type ColumnOptionsNoValue<in D> = {
+    readonly accessor?: (D) => unknown,
+    readonly Cell?: component(...CellRenderProps<D, empty>),
+    readonly Header?: component() | React.Node,
+    readonly id?: string,
     ...
   };
 
@@ -52,45 +52,46 @@ declare module 'react-table' {
     Partial<Readonly<{...ReactDOM$tbodyProps, key?: string}>>;
 
   declare export type ColumnInstance = {
-    +cellProps?: TdElementProps,
-    +getCellProps: (props?: TdElementProps) => TdElementProps,
-    +getHeaderProps: (props?: ThElementProps) => ThElementProps,
+    readonly cellProps?: TdElementProps,
+    readonly getCellProps: (props?: TdElementProps) => TdElementProps,
+    readonly getHeaderProps: (props?: ThElementProps) => ThElementProps,
     // Not actually part of react-table but our own expansion of it
-    +headerProps?: ThElementProps,
-    +render: (type: 'Header' | string, props?: {...}) => React.Node,
+    readonly headerProps?: ThElementProps,
+    readonly render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
   declare export type HeaderGroup = Readonly<{
     ...Readonly<ColumnInstance>,
-    +getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
-    +headers: ReadonlyArray<ColumnInstance>,
+    readonly getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
+    readonly headers: ReadonlyArray<ColumnInstance>,
   }>;
 
-  declare export type Cell<+V> = {
-    +column: ColumnInstance,
-    +getCellProps: (props?: TdElementProps) => TdElementProps,
-    +render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
-    +value: V,
+  declare export type Cell<out V> = {
+    readonly column: ColumnInstance,
+    readonly getCellProps: (props?: TdElementProps) => TdElementProps,
+    readonly render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
+    readonly value: V,
   };
 
-  declare export type Row<+D> = {
-    +cells: ReadonlyArray<Cell<unknown>>,
-    +getRowProps: (props?: TrElementProps) => TrElementProps,
-    +index: number,
-    +original: D,
+  declare export type Row<out D> = {
+    readonly cells: ReadonlyArray<Cell<unknown>>,
+    readonly getRowProps: (props?: TrElementProps) => TrElementProps,
+    readonly index: number,
+    readonly original: D,
   };
 
   declare export type UseTableInstance<D> = {
-    +getTableBodyProps: (props?: TbodyElementProps) => TbodyElementProps,
-    +getTableProps: (props?: TableElementProps) => TableElementProps,
-    +headerGroups: ReadonlyArray<HeaderGroup>,
-    +prepareRow: (row: Row<D>) => void,
-    +rows: ReadonlyArray<Row<D>>,
+    readonly getTableBodyProps:
+      (props?: TbodyElementProps) => TbodyElementProps,
+    readonly getTableProps: (props?: TableElementProps) => TableElementProps,
+    readonly headerGroups: ReadonlyArray<HeaderGroup>,
+    readonly prepareRow: (row: Row<D>) => void,
+    readonly rows: ReadonlyArray<Row<D>>,
   };
 
   declare export type UseTableOptions<D> = {
-    +columns: ReadonlyArray<ColumnOptionsNoValue<D>>,
-    +data: ReadonlyArray<D>,
+    readonly columns: ReadonlyArray<ColumnOptionsNoValue<D>>,
+    readonly data: ReadonlyArray<D>,
   };
 
   /*

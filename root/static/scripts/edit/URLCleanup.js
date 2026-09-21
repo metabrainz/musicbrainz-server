@@ -1949,13 +1949,13 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(
-        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/\d+).*$/,
+        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/[\w\d-]+).*$/,
         'https://www.boomplay.com/$1',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/\d+$/.exec(url);
+      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/[\w\d-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -2895,7 +2895,7 @@ export const CLEANUPS: CleanupEntries = {
        */
       url = url.replace(new RegExp(
         '([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|' +
-        'focus_composer|fref|hc_location|pnref|qsefr|ref|' +
+        'focus_composer|fref|hc_location|pnref|qsefr|ref|locale|mibextid|' +
         'ref_dashboard_filter|ref_page_id|ref_type|refsrc|rf|' +
         'sid_reminder|sk|tab|viewas)=([^?&]*)',
         'g',
@@ -2917,6 +2917,23 @@ export const CLEANUPS: CleanupEntries = {
       if (/https:\/\/www\.facebook\.com\/search\//.test(url)) {
         return {
           error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      if (/https:\/\/www\.facebook\.com\/share\//.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
           result: false,
           target: ERROR_TARGETS.URL,
         };
@@ -3875,6 +3892,7 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z-]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/a\/(?:[a-z]+\/)?([0-9]+)(?:[/?#].*)?$/, 'https://www.librarything.com/a/$1');
       return url;
     },
     validate(url, id) {
@@ -3884,7 +3902,7 @@ export const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'author',
+              result: prefix === 'author' || prefix === 'a',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
@@ -5206,12 +5224,32 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'pinterest': {
-    hostname: 'pinterest.com',
-    match: [/^(https?:\/\/)?([^/]+\.)?pinterest\.com\//i],
+    hostname: ['pinterest.com', 'pin.it'],
+    match: [/^(https?:\/\/)?([^/]+\.)?(pinterest\.com|pin\.it)\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?pinterest\.com\/([^?#]*[^/?#])\/*(?:[?#].*)?$/, 'https://www.pinterest.com/$1/');
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, '/');
+    },
+    validate(url) {
+      if (/pin\.it\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      return {result: true};
     },
   },
   'pixiv': {

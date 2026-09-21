@@ -421,6 +421,11 @@ msgstr ""
 msgid "Central American Indian languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+msgid "Central Dusun"
+msgstr ""
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -1576,6 +1581,11 @@ msgstr ""
 msgid "Malayalam"
 msgstr ""
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1816,6 +1826,11 @@ msgstr ""
 msgid "Niger-Kordofanian languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
 msgid "Nilo-Saharan languages"
@@ -1989,6 +2004,11 @@ msgstr ""
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
+msgstr ""
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+msgid "Plains Cree"
 msgstr ""
 
 #. frequency:1 iso_code_3:pon
@@ -2361,6 +2381,11 @@ msgstr ""
 msgid "Southern Altai"
 msgstr ""
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+msgid "Southern East Cree"
+msgstr ""
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2711,6 +2736,11 @@ msgstr ""
 msgid "Welsh"
 msgstr "Валлійська"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2726,8 +2756,8 @@ msgstr ""
 msgid "Wolof"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

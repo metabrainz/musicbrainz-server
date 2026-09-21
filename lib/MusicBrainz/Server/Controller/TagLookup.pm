@@ -232,6 +232,7 @@ sub index : Path('')
             pager => serialize_pager($c->stash->{pager}),
             query => $c->stash->{query},
             results => to_json_array($c->stash->{results}),
+            uncappedTotalHits => $c->stash->{uncapped_total_hits},
         },
     );
 }
