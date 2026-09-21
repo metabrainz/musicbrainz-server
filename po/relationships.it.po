@@ -10269,6 +10269,12 @@ msgstr "dirigente scolastico presso"
 msgid "school directors"
 msgstr "dirigenti scolastici"
 
+#: DB:link_attribute_type/name:1461
+#, fuzzy
+#| msgid "electronic music"
+msgid "screen music"
+msgstr "musica elettronica"
+
 #: DB:link_type/name:1286
 msgid "scriptwriter"
 msgstr "sceneggiatore"
@@ -12420,7 +12426,8 @@ msgstr "{entity1} è stata prodotta {additional:in aggiunta} a {entity0}"
 #. name:programmed at
 #: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
 msgid "{entity1} was {additional:additionally} programmed at {entity0}"
-msgstr "{entity1} è stata programmata {additional:in aggiunta} presso {entity0}"
+msgstr ""
+"{entity1} è stata programmata {additional:in aggiunta} presso {entity0}"
 
 #. name:programmed in
 #: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308

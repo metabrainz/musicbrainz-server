@@ -1,9 +1,9 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
-# NorwayFun <temuri.doghonadze@gmail.com>, 2025.
+# NorwayFun <temuri.doghonadze@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-06-20 08:20+0000\n"
+"PO-Revision-Date: 2026-08-20 11:12+0000\n"
 "Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ka/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -417,6 +417,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:66
 msgid "Central American Indian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+msgid "Central Dusun"
 msgstr ""
 
 #. frequency:1 iso_code_3:ryu
@@ -1574,6 +1579,11 @@ msgstr ""
 msgid "Malayalam"
 msgstr ""
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1752,7 +1762,7 @@ msgstr ""
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294
 msgid "Nauru"
-msgstr ""
+msgstr "ნაურუ"
 
 #. frequency:1 iso_code_3:nav
 #: DB:language/name:295
@@ -1812,6 +1822,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
 msgstr ""
 
 #. frequency:0 iso_code_3:null
@@ -1987,6 +2002,11 @@ msgstr ""
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
+msgstr ""
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+msgid "Plains Cree"
 msgstr ""
 
 #. frequency:1 iso_code_3:pon
@@ -2359,6 +2379,11 @@ msgstr ""
 msgid "Southern Altai"
 msgstr ""
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+msgid "Southern East Cree"
+msgstr ""
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2517,7 +2542,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tkl
 #: DB:language/name:420
 msgid "Tokelau"
-msgstr ""
+msgstr "ტოკელაუ"
 
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
@@ -2577,7 +2602,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tvl
 #: DB:language/name:435
 msgid "Tuvalu"
-msgstr ""
+msgstr "ტუვალუ"
 
 #. frequency:1 iso_code_3:tyv
 #: DB:language/name:437
@@ -2709,6 +2734,11 @@ msgstr ""
 msgid "Welsh"
 msgstr ""
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2724,8 +2754,8 @@ msgstr ""
 msgid "Wolof"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

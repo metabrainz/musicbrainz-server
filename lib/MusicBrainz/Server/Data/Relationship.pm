@@ -94,7 +94,12 @@ sub _new_from_row
 
     my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
     # XXX MASSIVE MASSIVE HACK.
-    weaken($rel->{$weaken}) if $obj;
+    # Avoid ref cycles that can't be garbage collected:
+    # ($obj -> relationships -> $rel -> entity0/entity1/source -> $obj).
+    if ($obj) {
+        weaken($rel->{$weaken});
+        weaken($rel->{source});
+    }
 
     return $rel;
 }

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-01 18:39+0000\n"
+"PO-Revision-Date: 2026-08-20 11:12+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -888,7 +888,7 @@ msgid ""
 "Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
 msgstr ""
-"Met de overstap op SOLR krijgt onze oude zoekserver een flinke upgrade. Het "
+"Met de overstap op Solr krijgt onze oude zoekserver een flinke upgrade. Het "
 "wordt onder andere mogelijk om indices bijna direct bij te werken."
 
 #: DB:statistics.statistic_event/title:2013-10-14
@@ -1034,10 +1034,10 @@ msgid ""
 "users are suggested to just run their own Docker setup for MusicBrainz "
 "(which the Virtual Machine already did behind the scenes)."
 msgstr ""
-"Omdat de virtuele machine toch vaak achterliep bij de actuele data en het "
-"uitgeven van nieuwe versies veel tijd kostte, is het VM-project stopgezet en "
-"worden gebruikers aangeraden om MusicBrainz zelf via Docker te draaien (iets "
-"wat de virtuele machine achter de schermen al deed)."
+"Omdat de virtuele machine toch vaak achterliep bij de actuele gegevens en "
+"het uitgeven van nieuwe versies veel tijd kostte, is het VM-project "
+"stopgezet en worden gebruikers aangeraden om MusicBrainz zelf via Docker te "
+"draaien (iets wat de virtuele machine achter de schermen al deed)."
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -1045,7 +1045,7 @@ msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "Solr-based search server deployed"
-msgstr "Op SOLR gebaseerde zoekserver geïmplementeerd"
+msgstr "Op Solr gebaseerde zoekserver geïmplementeerd"
 
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
