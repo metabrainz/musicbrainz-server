@@ -240,6 +240,7 @@ export const FAVICON_CLASSES: {
   'stage48.net': 'stage48',
   'steamdb.info': 'steamdb',
   'stereo-ve-mono.com': 'stereo-ve-mono',
+  'subvert.com': 'subvert',
   'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',

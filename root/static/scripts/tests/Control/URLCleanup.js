@@ -6231,6 +6231,42 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://stereo-ve-mono.com/1825',
   },
+  // Subvert
+  {
+                     input_url: 'https://subvert.fm/draconium?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.subvert.fm/draconium',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://www.subvert.fm/nullpolitik#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.subvert.fm/nullpolitik',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://www.subvert.fm/nullpolitik/nullpolitik#foobar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://www.subvert.fm/nullpolitik/nullpolitik',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://subvert.fm/nullpolitik/tracks/himmel',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.subvert.fm/nullpolitik/tracks/himmel',
+       only_valid_entity_types: ['release', 'recording'],
+  },
+  {
+                     input_url: 'https://www.subvert.fm/draconium/tracks/legends',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.subvert.fm/draconium/tracks/legends',
+       only_valid_entity_types: ['release', 'recording'],
+  },
   // Target
   {
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',

@@ -6134,6 +6134,51 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },
   },
+  'subvert': {
+    hostname: ['subvert.fm'],
+    match: [/^^(?:https:\/\/)?(?:www\.)?subvert\.fm/i],
+    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingfree],
+    clean(url) {
+      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)(?:[^\/]+)?$/, 'https://www.subvert.fm/$1');
+      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)\/(track\/)?([^?#\/]+)(?:[^\/]+)?$/, 'https://www.subvert.fm/$1/$2$3');
+      return url;
+    },
+    validate(url, id) {
+      const isArtist = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)$/.test(url);
+      const isTrack = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)\/(track\/)([^?#\/]+)$/.test(url);
+      const isAlbum = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)\/([^?#\/]+)$/.test(url);
+      if (isAlbum || isTrack || isArtist) {
+        switch (id) {
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.downloadfree.recording:
+            return {
+              result: isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            }
+          case LINK_TYPES.streamingfree.release:
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.downloadfree.release:
+            return {
+              result: isAlbum || isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            }
+          case LINK_TYPES.streamingfree.label:
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.downloadfree.label:
+          case LINK_TYPES.streamingfree.artist:
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.downloadfree.artist:
+            return {
+              result: isArtist,
+              target: ERROR_TARGETS.ENTITY,
+            }
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'target': {
     hostname: 'target.com',
     match: [/^(https?:\/\/)?((intl|www)\.)?target\.com\/(b|p)/i],
