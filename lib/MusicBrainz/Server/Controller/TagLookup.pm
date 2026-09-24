@@ -177,7 +177,8 @@ sub external : Private
     $c->controller('Search')->do_external_search($c,
                                                  query    => join(' ', @search_modifiers),
                                                  type     => $type,
-                                                 advanced => 1);
+                                                 advanced => 1,
+                                                 source_endpoint => '/taglookup');
 }
 
 sub not_found : Private

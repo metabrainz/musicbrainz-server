@@ -15,7 +15,7 @@ our @EXPORT_OK = qw(
 Readonly my $retry_timeout => 25;
 
 sub get_chunked_with_retry {
-    my ($ua, $url) = @_;
+    my ($ua, $url, @headers) = @_;
 
     my $retries_remaining = 5;
     my @start_time = gettimeofday;
@@ -25,7 +25,7 @@ sub get_chunked_with_retry {
         --$retries_remaining > 0 &&
         tv_interval(\@start_time) < $retry_timeout
     ) {
-        $response = $ua->get($url);
+        $response = $ua->get($url, @headers);
 
         log_error {
             "Failed to get $url in get_chunked_with_retry:\n" .

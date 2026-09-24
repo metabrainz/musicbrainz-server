@@ -192,11 +192,17 @@ sub _search
 {
     my ($self, $c, $entity) = @_;
 
-    my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search(
+        $entity, $c->stash->{args}, source_endpoint => '/ws/2');
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT && exists $result->{redirect_url}) {
         $c->res->headers->header(
             'X-Accel-Redirect' => $result->{redirect_url},
         );
+        # The search request is issued by nginx on the X-Accel redirect, so
+        # attach the X-MB-* tags to the response for nginx to forward to Solr.
+        if (my $tag_headers = $result->{tag_headers}) {
+            $c->res->headers->header(@$tag_headers);
+        }
     } else {
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         if (exists $result->{xml})

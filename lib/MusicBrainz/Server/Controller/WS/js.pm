@@ -262,7 +262,9 @@ sub disc_search {
 
     $query = join(' AND ', @query);
 
-    my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
+    my $source_endpoint = $type eq 'release' ? '/ws/js/medium' : '/ws/js/cdstub';
+    my $response = $c->model('Search')->external_search(
+        $type, $query, $limit, $page, 1, source_endpoint => $source_endpoint);
     my @output;
 
     if ($response->{pager})
