@@ -6139,13 +6139,13 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(?:https:\/\/)?(?:www\.)?subvert\.fm/i],
     restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingfree],
     clean(url) {
-      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)(?:[^/]+)?$/, 'https://www.subvert.fm/$1');
-      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)\/(track\/)?([^?#/]+)(?:[^/]+)?$/, 'https://www.subvert.fm/$1/$2$3');
+      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)(?:[^/]+)?(?:\/)?$/, 'https://www.subvert.fm/$1');
+      url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)\/(tracks\/)?([^?#/]+)(?:[^/]+)?(?:\/)?$/, 'https://www.subvert.fm/$1/$2$3');
       return url;
     },
     validate(url, id) {
       const isArtist = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)$/.test(url);
-      const isTrack = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)\/(track\/)([^?#/]+)$/.test(url);
+      const isTrack = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)\/(tracks\/)([^?#/]+)$/.test(url);
       const isAlbum = /^https:\/\/www\.subvert\.fm\/([a-z-\d]+)\/([^?#/]+)$/.test(url);
       if (isAlbum || isTrack || isArtist) {
         switch (id) {
