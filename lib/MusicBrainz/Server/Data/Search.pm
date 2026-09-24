@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Search;
 
+use builtin qw( refaddr );
 use Carp;
 use Try::Tiny;
 use Moose;
@@ -9,6 +10,7 @@ use JSON;
 use Sql;
 use Data::Dumper;
 use Data::Page;
+use List::AllUtils qw( uniq_by );
 use URI::Escape qw( uri_escape_utf8 );
 use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::Annotation;
@@ -973,6 +975,15 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             my @areas = grep { defined $_ } map { $_->area } @entities;
+            $self->c->model('Area')->load_ids(@areas);
+            $self->c->model('Area')->load_containment(@areas);
+        }
+
+        if ($type eq 'artist')
+        {
+            my @entities = map { $_->entity } @results;
+            my @areas = uniq_by { refaddr $_ } grep { defined $_ }
+                map { ($_->area, $_->begin_area, $_->end_area) } @entities;
             $self->c->model('Area')->load_ids(@areas);
             $self->c->model('Area')->load_containment(@areas);
         }
