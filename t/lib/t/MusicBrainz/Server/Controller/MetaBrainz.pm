@@ -249,6 +249,22 @@ test 'Webhooks returns 400 for unknown event types' => sub {
          'error message mentions unknown event type');
 };
 
+test 'Webhooks returns 400 for invalid user IDs' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    for my $event (qw( user.created user.updated user.deleted )) {
+        my $res = $mech->request(_make_webhook_request(
+            event => $event,
+            payload => { user_id => -1 },
+        ));
+
+        is($res->code, HTTP_BAD_REQUEST, 'webhook response is 400');
+        like($res->content, qr/Invalid user_id/,
+             "$event error message mentions an invalid user_id");
+    }
+};
+
 test 'The user.created webhook can insert an editor' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -367,7 +383,7 @@ test 'The user.updated webhook errors if neither the old or new values match' =>
         },
     ));
 
-    is($res->code, HTTP_INTERNAL_SERVER_ERROR, 'webhook response is 500');
+    is($res->code, HTTP_BAD_REQUEST, 'webhook response is 400');
 
     my $content = decode_json($res->content);
     is($content->{status}, 'error', 'response contains an error');
@@ -426,7 +442,7 @@ test 'The user.updated webhook rejects an invalid username' => sub {
         },
     ));
 
-    is($res->code, HTTP_INTERNAL_SERVER_ERROR, 'webhook response is 500');
+    is($res->code, HTTP_BAD_REQUEST, 'webhook response is 400');
 
     my $editor = $c->model('Editor')->get_by_id(1);
     is($editor->name, 'new_editor', 'editor name is unchanged');
@@ -514,10 +530,15 @@ test 'The user.updated webhook errors on an empty update' => sub {
         },
     ));
 
-    is($res->code, HTTP_INTERNAL_SERVER_ERROR, 'webhook response is 500');
+    is($res->code, HTTP_BAD_REQUEST, 'webhook response is 400');
 
     my $content = decode_json($res->content);
     is($content->{status}, 'error', 'response contains an error');
+    is(
+        $content->{message},
+        'Malformed user.updated payload (no updates?)',
+        'response error mentions no updates',
+    );
 };
 
 test 'The user.updated webhook ignores nonexistent or deleted users' => sub {
