@@ -29,7 +29,7 @@ component ReleaseMerge(
   badRecordingMerges?: BadRecordingMergesT,
   form: MergeReleasesFormT,
   mediums: ReadonlyArray<MediumT>,
-  toMerge: ReadonlyArray<ReleaseT>,
+  toMerge: Array<ReleaseT>,
 ) {
   return (
     <Layout fullWidth title={l('Merge releases')}>
