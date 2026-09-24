@@ -6155,14 +6155,14 @@ export const CLEANUPS: CleanupEntries = {
             return {
               result: isTrack,
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
           case LINK_TYPES.streamingfree.release:
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.downloadfree.release:
             return {
               result: isAlbum || isTrack,
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
           case LINK_TYPES.streamingfree.label:
           case LINK_TYPES.downloadpurchase.label:
           case LINK_TYPES.downloadfree.label:
@@ -6172,7 +6172,7 @@ export const CLEANUPS: CleanupEntries = {
             return {
               result: isArtist,
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
         }
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
