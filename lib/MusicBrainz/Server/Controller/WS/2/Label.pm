@@ -69,7 +69,7 @@ sub label_toplevel {
         my @releases;
         for my $label (@labels) {
             my $opts = $stash->store($label);
-            my @results = $c->model('Release')->find_by_label(
+            my @results = $c->model('Release')->find_by_label_fast(
                 $label->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
             $opts->{releases} = $self->make_list(@results);
             push @releases, @{ $opts->{releases}{items} };
