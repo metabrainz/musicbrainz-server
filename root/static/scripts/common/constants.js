@@ -270,6 +270,7 @@ export const FAVICON_CLASSES: {
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vk.gy': 'vkgy',
+  'vk.ru': 'vk',
   'vkdb.jp': 'vkdb',
   'vndb.org': 'vndb',
   'vocadb.net': 'vocadb',

@@ -7048,11 +7048,11 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.socialnetwork],
   },
   'vk': {
-    hostname: 'vk.com',
-    match: [/^(https?:\/\/)?([^/]+\.)?vk\.com\/(?!(?:artist|audio|music|video))/i],
+    hostname: ['vk.com', 'vk.ru'],
+    match: [/^(https?:\/\/)?([^/]+\.)?(?:vk\.com|vk\.ru)\/(?!(?:artist|audio|music|video))/i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?vk\.com/, 'https://vk.com');
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?vk\.(?:com|ru)/, 'https://vk.ru');
     },
   },
   'vkdb': {
@@ -7113,23 +7113,23 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'vkmusic': {
-    hostname: 'vk.com',
-    match: [/^(https?:\/\/)?([^/]+\.)?vk\.com\/(?:artist|audio|music|video)/i],
+    hostname: ['vk.com', 'vk.ru'],
+    match: [/^(https?:\/\/)?([^/]+\.)?(?:vk\.com|vk\.ru)\/(?:artist|audio|music|video)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?vk\.com/, 'https://vk.com');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?vk\.(?:com|ru)/, 'https://vk.ru');
       // Remove 'ref' and 'from' parameters
       url = url.replace(/([&?])(?:from|ref)=[^?&]*/g, '$1');
       // Ensure the first parameter left uses ? not to break the URL
       url = url.replace(/([&?])&+/, '$1');
       url = url.replace(/[&?]$/, '');
-      url = url.replace(/^https:\/\/vk\.com\/(?:artist\/\w+\?z|audio\?act)=audio_playlist-(\d+_\d+).*$/, 'https://vk.com/music/album/-$1');
-      url = url.replace(/^https:\/\/vk\.com\/artist\/\w+\?z=video-(\d+_\d+).*$/, 'https://vk.com/video-$1');
-      url = url.replace(/^https:\/\/vk\.com\/((?:audio|video|music\/album\/)-\d+_\d+).*$/, 'https://vk.com/$1');
+      url = url.replace(/^https:\/\/vk\.ru\/(?:artist\/\w+\?z|audio\?act)=audio_playlist-(\d+_\d+).*$/, 'https://vk.ru/music/album/-$1');
+      url = url.replace(/^https:\/\/vk\.ru\/artist\/\w+\?z=video-(\d+_\d+).*$/, 'https://vk.ru/video-$1');
+      url = url.replace(/^https:\/\/vk\.ru\/((?:audio|video|music\/album\/)-\d+_\d+).*$/, 'https://vk.ru/$1');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/vk\.com\/(?:(artist)\/\w+|(audio|video)-\d+_\d+|(music\/album)\/-\d+_\d+)$/.exec(url);
+      const m = /^https:\/\/vk\.ru\/(?:(artist)\/\w+|(audio|video)-\d+_\d+|(music\/album)\/-\d+_\d+)$/.exec(url);
       if (m) {
         const prefix = m[1] || m[2] || m[3];
         switch (id) {
