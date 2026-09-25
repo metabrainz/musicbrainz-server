@@ -281,6 +281,7 @@ export const FAVICON_CLASSES: {
   'worldcat.org': 'worldcat',
   'www.amazon': 'amazon',
   'www.livenation.': 'livenation',
+  'www.subvert.fm': 'subvert',
   'www.ticketmaster.': 'ticketmaster',
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
