@@ -6137,7 +6137,13 @@ export const CLEANUPS: CleanupEntries = {
   'subvert': {
     hostname: ['subvert.fm'],
     match: [/^(?:https:\/\/)?(?:www\.)?subvert\.fm/i],
-    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingfree],
+    restrict: [
+      multiple(LINK_TYPES.downloadfree, LINK_TYPES.streamingfree),
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingfree),
+      LINK_TYPES.downloadfree,
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.streamingfree,
+    ],
     clean(url) {
       url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)(?:[^/]+)?(?:\/)?$/, 'https://www.subvert.fm/$1');
       url = url.replace(/^(?:https:\/\/)?(?:www\.)?subvert\.fm\/([a-z-\d]+)\/(tracks\/)?([^?#/]+)(?:[^/]+)?(?:\/)?$/, 'https://www.subvert.fm/$1/$2$3');

@@ -6235,11 +6235,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
   {
                      input_url: 'https://subvert.fm/draconium?foo=bar',
              input_entity_type: 'artist',
+       input_relationship_type: 'streamingfree',
 limited_link_type_combinations: [
-                                  ['downloadpurchase', 'streamingfree'],
                                   ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingfree'],
                                   'downloadfree',
-                                  'downloadpurchase'
+                                  'downloadpurchase',
+                                  'streamingfree',
                                 ],
             expected_clean_url: 'https://www.subvert.fm/draconium',
        only_valid_entity_types: ['artist', 'label'],
@@ -6247,11 +6249,13 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://www.subvert.fm/nullpolitik#',
              input_entity_type: 'artist',
+       input_relationship_type: 'downloadpurchase',
 limited_link_type_combinations: [
-                                  ['downloadpurchase', 'streamingfree'],
                                   ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingfree'],
                                   'downloadfree',
-                                  'downloadpurchase'
+                                  'downloadpurchase',
+                                  'streamingfree',
                                 ],
             expected_clean_url: 'https://www.subvert.fm/nullpolitik',
        only_valid_entity_types: ['artist', 'label'],
@@ -6259,11 +6263,13 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://www.subvert.fm/nullpolitik/nullpolitik#foobar',
              input_entity_type: 'release',
+       input_relationship_type: 'downloadfree',
 limited_link_type_combinations: [
-                                  ['downloadpurchase', 'streamingfree'],
                                   ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingfree'],
                                   'downloadfree',
-                                  'downloadpurchase'
+                                  'downloadpurchase',
+                                  'streamingfree',
                                 ],
             expected_clean_url: 'https://www.subvert.fm/nullpolitik/nullpolitik',
        only_valid_entity_types: ['release'],
@@ -6271,11 +6277,13 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://subvert.fm/nullpolitik/tracks/himmel',
              input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
 limited_link_type_combinations: [
-                                  ['downloadpurchase', 'streamingfree'],
                                   ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingfree'],
                                   'downloadfree',
-                                  'downloadpurchase'
+                                  'downloadpurchase',
+                                  'streamingfree',
                                 ],
             expected_clean_url: 'https://www.subvert.fm/nullpolitik/tracks/himmel',
        only_valid_entity_types: ['release', 'recording'],
@@ -6283,11 +6291,13 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://www.subvert.fm/draconium/tracks/legends',
              input_entity_type: 'recording',
+       input_relationship_type: 'downloadfree',
 limited_link_type_combinations: [
-                                  ['downloadpurchase', 'streamingfree'],
                                   ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingfree'],
                                   'downloadfree',
-                                  'downloadpurchase'
+                                  'downloadpurchase',
+                                  'streamingfree',
                                 ],
             expected_clean_url: 'https://www.subvert.fm/draconium/tracks/legends',
        only_valid_entity_types: ['release', 'recording'],
