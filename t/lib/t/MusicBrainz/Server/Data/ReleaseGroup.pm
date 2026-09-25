@@ -51,6 +51,12 @@ is( scalar(@$rgs), 1 );
 ok( (grep { $_->id == 5 } @$rgs), 'found release group 5' );
 ok( (grep { $_->id == 4 } @$rgs) == 0, 'did not find release group 4');
 
+($rgs, $hits) = $rg_data->find_by_tribute_artist(3, 1, 100, 0);
+is( $hits, 1 );
+is( scalar(@$rgs), 1 );
+ok( (grep { $_->id == 6 } @$rgs), 'found release group 6' );
+ok( (grep { $_->id == 4 } @$rgs) == 0, 'did not find release group 4');
+
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
 my $release = $release_data->get_by_id(1);
 isnt( $release, undef );

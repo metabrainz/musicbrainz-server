@@ -161,6 +161,7 @@ component FilterForm(
   form: FilterFormT,
   showAllReleaseGroups: boolean = false,
   showVAReleaseGroups: boolean = false,
+  showTributeReleaseGroups: boolean = false,
 ) {
   return (
     <div id="filter">
@@ -419,6 +420,10 @@ component FilterForm(
 
             {showVAReleaseGroups
               ? <input name="va" type="hidden" value="1" />
+              : null}
+
+            {showTributeReleaseGroups
+              ? <input name="tribute" type="hidden" value="1" />
               : null}
 
             <tr>
