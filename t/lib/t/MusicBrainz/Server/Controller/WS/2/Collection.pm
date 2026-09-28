@@ -88,6 +88,7 @@ test 'collection lookup' => sub {
     </collection>
     <collection id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30" type="Area" entity-type="area">
       <name>public area collection</name>
+      <description>awesome regions of space</description>
       <editor>the-anti-kuno</editor>
       <area-list count="1" />
     </collection>
@@ -221,6 +222,7 @@ test 'collection lookup' => sub {
   <collection-list count="12">
     <collection id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30" type="Area" entity-type="area">
       <name>public area collection</name>
+      <description>awesome regions of space</description>
       <editor>the-anti-kuno</editor>
       <area-list count="1" />
     </collection>
@@ -416,6 +418,7 @@ test 'browsing by area' => sub {
   <collection-list count="1">
     <collection entity-type="area" type="Area" id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30">
       <name>public area collection</name>
+      <description>awesome regions of space</description>
       <editor>the-anti-kuno</editor>
       <area-list count="1" />
     </collection>

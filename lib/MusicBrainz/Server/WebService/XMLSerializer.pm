@@ -252,6 +252,8 @@ sub _serialize_collection
     }
 
     $col_node->appendTextChild('name', $collection->name);
+    $col_node->appendTextChild('description', $collection->description)
+        if non_empty($collection->description);
     $col_node->appendTextChild('editor', $collection->editor->name);
 
     my $props = $ENTITIES{$entity_type};
