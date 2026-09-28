@@ -124,6 +124,12 @@ sub remove : Local Edit
     my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
     $c->stash->{release_cdtoc_count} = $cdtoc_count;
 
+    # For proper display of the Cover Art tab
+    if ($release->may_have_cover_art) {
+        my $artwork_count = $c->model('CoverArt')->find_count_by_release($release->id);
+        $c->stash->{release_artwork_count} = $artwork_count;
+    }
+
     $self->edit_action($c,
         form        => 'Confirm',
         form_args   => { requires_edit_note => 1 },
