@@ -22,6 +22,7 @@ const URL_AGGREGATORS = [
   'ampl.ink',
   'amu.se',
   'artist.link',
+  'artists.landr.com',
   'band.link',
   'beacons.ai',
   'bfan.link',
