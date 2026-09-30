@@ -626,12 +626,7 @@ export function reducer(
       let relationshipsToMerge;
       updateLink(ctx, duplicateOf.link, existingLinkCtx => {
         const existingRelationships = existingLinkCtx.read().relationships;
-        const existingRelationshipTypeIds =
-          new Set(existingRelationships.map(r => r.linkTypeID));
-        relationshipsToMerge = duplicate.relationships.filter(
-          r => r.linkTypeID == null ||
-            !existingRelationshipTypeIds.has(r.linkTypeID),
-        );
+        relationshipsToMerge = duplicate.relationships;
         existingLinkCtx.set(
           'relationships',
           existingRelationships.concat(relationshipsToMerge),

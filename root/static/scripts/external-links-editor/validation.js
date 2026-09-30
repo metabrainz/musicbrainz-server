@@ -10,6 +10,7 @@
 import type {CowContext} from 'mutate-cow';
 import * as tree from 'weight-balanced-tree';
 
+import areDatesEqual from '../common/utility/areDatesEqual.js';
 import isObjectEmpty from '../common/utility/isObjectEmpty.js';
 import * as URLCleanup from '../edit/URLCleanup.js';
 import isLinkAggregator from '../edit/utility/isLinkAggregator.js';
@@ -356,7 +357,10 @@ function getRelationshipError(
     }
     return (
       relationship.id !== other.id &&
-      relationship.linkTypeID === other.linkTypeID
+      relationship.linkTypeID === other.linkTypeID &&
+      areDatesEqual(relationship.beginDate, other.beginDate) &&
+      areDatesEqual(relationship.endDate, other.endDate) &&
+      relationship.ended === other.ended
     );
   };
 
