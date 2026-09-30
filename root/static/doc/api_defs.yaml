@@ -1,0 +1,946 @@
+openapi: 3.0.3
+info:
+  title: MusicBrainz API
+  description: |
+    This describes the current (2.0) version of the MusicBrainz API.
+
+    For requests that require authentication, you can authenticate using HTTP Digest, with the same username and password used to access the main `https://musicbrainz.org` website.
+  contact:
+    email: support@metabrainz.org
+  version: '2.0'
+  license:
+    name: GPL-2.0-or-later
+    url: https://spdx.org/licenses/GPL-2.0-or-later.html
+servers:
+  - url: https://musicbrainz.org/ws/2
+  - url: https://beta.musicbrainz.org/ws/2
+tags:
+  - name: recording
+    description: Requests for recordings
+    externalDocs:
+      description: Recording documentation
+      url: https://musicbrainz.org/doc/Recording
+  - name: release
+    description: Requests for releases
+    externalDocs:
+      description: Release documentation
+      url: https://musicbrainz.org/doc/Release
+  - name: artist
+    description: Requests for artists
+    externalDocs:
+      description: Artist documentation
+      url: https://musicbrainz.org/doc/Artist
+security: []
+paths:
+  /artist/{artist_mbid}:
+    get:
+      tags:
+        - artist
+      summary: Get data for one artist by its MBID
+      description: |
+        An artist lookup request allows you to request data for one artist
+        based on its MBID. This is meant to get data for the artist itself;
+        if you want data about its releases, for example, you probably want
+        a release browse request.
+      operationId: ArtistLookup
+      parameters:
+        - name: artist_mbid
+          in: path
+          description: MBID of the artist
+          required: true
+          schema:
+            $ref: '#/components/schemas/MBID'
+          example: b7ffd2af-418f-4be2-bdd1-22f8b48613da
+        - name: inc
+          in: query
+          style: spaceDelimited
+          description: |
+            Allows requesting additional data for the returned entity.
+            For details on each option, see the table below.
+
+            | value | Description | Requirements |
+            | ----- | ----------- | ------------ |
+            | aliases | Returns any aliases for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |
+            | annotation | Loads the latest annotation for the artist (but not for other entities included in the response). | |
+            | area-rels | Returns any relationships between this artist and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |
+            | artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recordings**, inc=**recording-rels**, inc=**releases**, inc=**release-rels**, inc=**release-groups** or inc=**release-group-rels** |
+            | artist-rels | Returns any relationships between this artist and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |
+            | discids | Loads the associated disc IDs for any mediums returned with the request. | inc=**releases**+**media** |
+            | event-rels | Returns any relationships between this artist and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |
+            | genres | Returns any genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. | |
+            | instrument-rels | Returns any relationships between this artist and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |
+            | isrcs | Loads the ISRCs for any recordings returned with the request. | ?inc=**recordings** |
+            | label-rels | Returns any relationships between this artist and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |
+            | media | Loads the mediums for any releases returned with the request. Without this, only the basic information for the releases will be returned, without tracklists. | ?inc=**releases** |
+            | place-rels | Returns any relationships between this artist and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |
+            | ratings | Returns the community rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |
+            | recordings | Returns a sample of up to 25 recordings which have this artist in the artist credit. If you need more than 25 results, send a *recording* browse request using this artist's MBID. | |
+            | recording-rels | Returns any relationships between this artist and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |
+            | releases | Returns a sample of up to 25 releases which have this artist in the artist credit. If you need more than 25 results, send a *release* browse request using this artist's MBID. | |
+            | release-rels | Returns any relationships between this artist and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |
+            | release-groups | Returns a sample of up to 25 release groups which have this artist in the artist credit. If you need more than 25 results, send a *release-group* browse request using this artist's MBID. | |
+            | release-group-rels | Returns any relationships between this artist and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |
+            | series-rels | Returns any relationships between this artist and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |
+            | tags | Returns any tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |
+            | url-rels | Returns any relationships between this artist and any URLs - that is, external links for this artist. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |
+            | user-genres | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |
+            | user-ratings | Returns the requesting user's rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |
+            | user-tags | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |
+            | works | Returns a sample of up to 25 works related to this artist (either with a relationship, such as composer or lyricist, or because the artist is in the artist credit of a recording of the work). If you need more than 25 results, send a *work* browse request using this artist's MBID. | |
+            | work-rels | Returns any relationships between this artist and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |
+            | various-artists | Returns a sample of up to 25 releases where the artist appears on one of the tracks, but not in the artist credit for the release itself. Overrides the default for *releases*. | ?inc=**releases** |
+          required: false
+          schema:
+            type: array
+            items:
+              enum:
+                - aliases
+                - annotation
+                - area-rels
+                - artist-credits
+                - artist-rels
+                - discids
+                - event-rels
+                - genres
+                - instrument-rels
+                - isrcs
+                - label-rels
+                - media
+                - place-rels
+                - ratings
+                - recordings
+                - recording-rels
+                - releases
+                - release-rels
+                - release-groups
+                - release-group-rels
+                - series-rels
+                - tags
+                - url-rels
+                - user-genres
+                - user-ratings
+                - user-tags
+                - works
+                - work-rels
+                - various-artists
+            example:
+              - aliases
+              - artist-rels
+              - artist-credits
+              - genres
+              - releases
+              - ratings
+        - $ref: '#/components/parameters/Format'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistJson'
+              examples:
+                basicGroup:
+                  summary: Minimal response (no ?inc) for a group
+                  value:
+                    id: b7ffd2af-418f-4be2-bdd1-22f8b48613da
+                    name: Nine Inch Nails
+                    sort-name: Nine Inch Nails
+                    gender-id: null
+                    gender: null
+                    type-id: e431f5f6-b5d2-343d-8b36-72607fffb74b
+                    type: Group
+                    disambiguation: ''
+                    country: US
+                    area:
+                      id: 489ce91b-6658-3307-9877-795b68554c98
+                      name: United States
+                      sort-name: United States
+                      type-id: null
+                      type: null
+                      disambiguation: ''
+                      iso-3166-1-codes:
+                        - US
+                    begin-area:
+                      id: 7b2ca1e7-e7f6-4155-881d-c660a45c11e8
+                      name: Cleveland
+                      sort-name: Cleveland
+                      type-id: null
+                      type: null
+                      disambiguation: ''
+                    end-area: null
+                    life-span:
+                      begin: '1988'
+                      end: null
+                      ended: false
+                    ipis: []
+                    isnis:
+                      - '0000000121493471'
+                basicPerson:
+                  summary: Minimal response (no ?inc) for a person
+                  value:
+                    id: 6cb79cb2-9087-44d4-828b-5c6fdff2c957
+                    name: Gary Numan
+                    sort-name: Numan, Gary
+                    gender-id: 36d3d30a-839d-3eda-8cb3-29be4384e4a9
+                    gender: Male
+                    type-id: b6e035f4-3ce9-331c-97df-83397230b0df
+                    type: Person
+                    disambiguation: ''
+                    country: GB
+                    area:
+                      id: 8a754a16-0027-3a29-b6d7-2b40ea0481ed
+                      name: United Kingdom
+                      sort-name: United Kingdom
+                      type-id: null
+                      type: null
+                      disambiguation: ''
+                      iso-3166-1-codes:
+                        - GB
+                    begin-area:
+                      id: 8147ca78-c199-4083-a9a9-971f0d13e071
+                      name: Hammersmith
+                      sort-name: Hammersmith
+                      disambiguation: ''
+                      type-id: null
+                      type: null
+                    end-area: null
+                    life-span:
+                      begin: '1958-03-08'
+                      end: null
+                      ended: false
+                    ipis:
+                      - '00047044790'
+                      - '00047044888'
+                    isnis:
+                      - '0000000078396325'
+            application/xml:
+              examples:
+                basicGroup:
+                  summary: Minimal response (no ?inc) for a group
+                  value: |
+                    <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+                      <artist id="b7ffd2af-418f-4be2-bdd1-22f8b48613da" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                        <name>Nine Inch Nails</name>
+                        <sort-name>Nine Inch Nails</sort-name>
+                        <isni-list>
+                          <isni>0000000121493471</isni>
+                        </isni-list>
+                        <country>US</country>
+                        <area id="489ce91b-6658-3307-9877-795b68554c98">
+                          <name>United States</name>
+                          <sort-name>United States</sort-name>
+                          <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                          </iso-3166-1-code-list>
+                        </area>
+                        <begin-area id="7b2ca1e7-e7f6-4155-881d-c660a45c11e8">
+                          <name>Cleveland</name>
+                          <sort-name>Cleveland</sort-name>
+                        </begin-area>
+                        <life-span>
+                          <begin>1988</begin>
+                        </life-span>
+                      </artist>
+                    </metadata>
+                basicPerson:
+                  summary: Minimal response (no ?inc) for a person
+                  value: |
+                    <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+                      <artist id="6cb79cb2-9087-44d4-828b-5c6fdff2c957" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                        <name>Gary Numan</name>
+                        <sort-name>Numan, Gary</sort-name>
+                        <ipi>00047044790</ipi>
+                        <ipi-list>
+                          <ipi>00047044790</ipi>
+                        <ipi>00047044888</ipi>
+                        </ipi-list>
+                        <isni-list>
+                          <isni>0000000078396325</isni>
+                        </isni-list>
+                        <gender id="36d3d30a-839d-3eda-8cb3-29be4384e4a9">Male</gender>
+                        <country>GB</country>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                          <name>United Kingdom</name>
+                          <sort-name>United Kingdom</sort-name>
+                          <iso-3166-1-code-list>
+                            <iso-3166-1-code>GB</iso-3166-1-code>
+                          </iso-3166-1-code-list>
+                        </area>
+                        <begin-area id="8147ca78-c199-4083-a9a9-971f0d13e071">
+                          <name>Hammersmith</name>
+                          <sort-name>Hammersmith</sort-name>
+                        </begin-area>
+                        <life-span>
+                          <begin>1958-03-08</begin>
+                        </life-span>
+                      </artist>
+                    </metadata>
+        '400':
+          description: Invalid query supplied
+        '401':
+          description: |
+            Tried to access data that requires authentication
+            while logged out
+        '404':
+          description: Artist not found
+  /artist:
+    get:
+      tags:
+        - artist
+      summary: Browse artists based on some other entity related to them
+      description: |
+        An artist browse request allows you to find all artists directly linked
+        to another entity, by passing the MBID of said entity.
+        Only one entity parameter can be used to browse by at a time.
+      operationId: ArtistBrowse
+      parameters:
+        - name: area
+          in: query
+          description: |
+            The MBID of an area. Will return all artists whose main area,
+            begin area or end area is either the given area or a part of it
+            (for example, passing France will show any artists set to Paris).
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: collection
+          in: query
+          description: |
+            The MBID of an artist collection. Will return all artists
+            which are part of the collection.
+
+            If the collection is not public you will need to authenticate to prove
+            you have access to it (that is, you are the collection owner
+            or a collaborator on it).
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: recording
+          in: query
+          description: |
+            The MBID of a recording. Will return all artists present
+            on the artist credit of the recording.
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: release
+          in: query
+          description: |
+            The MBID of a release group. Will return all artists present
+            on the artist credit of the release or any of its tracks.
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: release-group
+          in: query
+          description: |
+            The MBID of a release group. Will return all artists present
+            on the artist credit of the release group.
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: work
+          in: query
+          description: |
+            The MBID of a work. Will return all artists linked to the work
+            with relationships (such as composers and lyricists), plus all artists
+            present on the artist credits of any recordings of the work.
+          required: false
+          schema:
+            $ref: '#/components/schemas/MBID'
+        - name: inc
+          in: query
+          style: spaceDelimited
+          description: |
+            Allows requesting additional data for the returned entity.
+            For details on each option, see the table below.
+
+            | value | Description | Requirements |
+            | ----- | ----------- | ------------ |
+            | aliases | Returns any aliases for the returned artists. | |
+            | annotation | Loads the latest annotation for the returned artists. | |
+            | area-rels | Returns any relationships between the returned artists and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |
+            | artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recording-rels**, inc=**release-rels** or inc=**release-group-rels** |
+            | artist-rels | Returns any relationships between the returned artists and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |
+            | event-rels | Returns any relationships between the returned artists and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |
+            | genres | Returns any genre tags for the returned artists, with their community score. | |
+            | instrument-rels | Returns any relationships between the returned artists and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |
+            | label-rels | Returns any relationships between the returned artists and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |
+            | place-rels | Returns any relationships between the returned artists and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |
+            | ratings | Returns the community rating for the returned artists. | |
+            | recording-rels | Returns any relationships between the returned artists and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |
+            | release-rels | Returns any relationships between the returned artists and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |
+            | release-group-rels | Returns any relationships between the returned artists and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |
+            | series-rels | Returns any relationships between the returned artists and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |
+            | tags | Returns any tags for the returned artists, with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |
+            | url-rels | Returns any relationships between the returned artists and any URLs - that is, external links for the artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |
+            | user-genres | Returns the requesting user's genre tags for the returned artists. | Authentication |
+            | user-ratings | Returns the requesting user's rating for the returned artists. | Authentication |
+            | user-tags | Returns the requesting user's genre tags for the returned artists. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |
+            | work-rels | Returns any relationships between the returned artists and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |
+          required: false
+          schema:
+            type: array
+            items:
+              enum:
+                - aliases
+                - annotation
+                - area-rels
+                - artist-credits
+                - artist-rels
+                - event-rels
+                - genres
+                - instrument-rels
+                - label-rels
+                - place-rels
+                - ratings
+                - recording-rels
+                - release-rels
+                - release-group-rels
+                - series-rels
+                - tags
+                - url-rels
+                - user-genres
+                - user-ratings
+                - user-tags
+                - work-rels
+        - $ref: '#/components/parameters/Format'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid query supplied
+        '404':
+          description: Provided related entity not found
+  /artist?:
+    get:
+      tags:
+        - artist
+      summary: Search artists based on search criteria
+      description: |
+        An artist search request allows you to search for artists based on
+        some conditions. Searches always return the same specific set of data
+        and are mostly meant to help you find the MBID for the artist you want,
+        so you can do any more specific queries using it.
+      operationId: ArtistSearch
+      parameters:
+        - name: query
+          in: query
+          description: |
+            A Lucene search query; indicates what you are actually searching for.
+            It supports the full [Lucene search syntax](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description).
+
+            For details on each of the main fields you can search, see the table
+            below. For a behind-the-scenes list of all fields in the API, see
+            [our Solr schema](https://github.com/metabrainz/mbsssss/blob/production/artist/conf/schema.xml).
+
+            | Field | Description |
+            | ----- | ----------- |
+            | alias | (Part of) any alias attached to the artist (diacritics are ignored) |
+            | area | (Part of) the name of the artist's main associated area |
+            | arid | The artist's MBID |
+            | artist | (Part of) the artist's name (diacritics are ignored) |
+            | artistaccent | (Part of) the artist's name (with the specified diacritics) |
+            | begin | The artist's begin date in ISO 8601 format (e.g. "1980-01-22") |
+            | beginarea | (Part of) the name of the artist's begin area |
+            | comment | (Part of) the artist's disambiguation comment |
+            | country | The 2-letter code (ISO 3166-1 alpha-2) for the artist's main associated country |
+            | end | The artist's end date in ISO 8601 format (e.g. "1980-01-22") |
+            | endarea | (Part of) the name of the artist's end area |
+            | ended | A boolean flag (true/false) indicating whether or not the artist has ended (a band is dissolved, or a person is deceased) |
+            | gender | The artist's gender (“male”, “female”, “non-binary” or “not applicable”) |
+            | ipi | An IPI code associated with the artist |
+            | isni | An ISNI code associated with the artist |
+            | primary_alias | (Part of) any primary alias attached to the artist (diacritics are ignored) |
+            | sortname | (Part of) the artist's sort name |
+            | tag | (Part of) a tag attached to the artist |
+            | type | The artist's type (“person”, “group”, etc.) |
+
+            You can combine multiple fields with ' AND ' (space, AND, space).
+
+            To search specifically for unset fields, use `-search_field:*`.
+            For example, “type:person AND -gender:*” will return artists set
+            as type Person but without a gender set.
+
+            If you don't specify a field and just enter bare terms (“Nirvana”),
+            they will be searched for in the alias, artist and sortname fields.
+            Keep in mind that when searching with bare terms you will need to
+            [escape any Lucene special characters](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Escaping_Special_Characters).
+
+            Queries are represented as a simple free-text string due to current
+            OpenAPI limitations; you will need to construct your query string
+            by hand, such as “area:France AND type:group”.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Dismax'
+        - $ref: '#/components/parameters/Format'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid query supplied
+components:
+  schemas:
+    MBID:
+      type: string
+      format: uuid
+    Format:
+      type: string
+      enum:
+        - json
+        - xml
+    ArtistJson:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The MBID for the artist.
+        name:
+          type: string
+          description: The artist name.
+        sort-name:
+          type: string
+          description: The artist sort name.
+        disambiguation:
+          type: string
+          description: The disambiguation comment for the artist.
+        type:
+          type: string
+          description: The name for the artist type for the artist.
+          nullable: true
+        type-id:
+          type: string
+          format: uuid
+          description: The MBID for the artist type for the artist.
+          nullable: true
+        gender:
+          type: string
+          description: The name for the gender for the artist.
+          nullable: true
+        gender-id:
+          type: string
+          format: uuid
+          description: The MBID for the gender for the artist.
+          nullable: true
+        country:
+          type: string
+          description: |
+            The first [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code
+            for the artist's main area, if any. Compatibility field,
+            prefer area instead.
+          nullable: true
+        area:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The MBID for the area.
+            name:
+              type: string
+              description: The area name.
+            sort-name:
+              type: string
+              description: The area sort name (same as the name).
+            disambiguation:
+              type: string
+              description: The disambiguation comment for the area.
+            type:
+              type: string
+              description: The name for the area type for the area.
+              nullable: true
+            type-id:
+              type: string
+              format: uuid
+              description: The MBID for the area type for the area.
+              nullable: true
+            iso-3166-1-codes:
+              type: array
+              description: |
+                The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-2-codes:
+              type: array
+              description: |
+                The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-3-codes:
+              type: array
+              description: |
+                The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+                for the area.
+              items:
+                type: string
+          required:
+            - id
+            - name
+            - sort-name
+            - disambiguation
+            - type-id
+            - type
+          nullable: true
+          description: The main area for the artist.
+        begin-area:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The MBID for the area.
+            name:
+              type: string
+              description: The area name.
+            sort-name:
+              type: string
+              description: The area sort name (same as the name).
+            disambiguation:
+              type: string
+              description: The disambiguation comment for the area.
+            type:
+              type: string
+              description: The name for the area type for the area.
+              nullable: true
+            type-id:
+              type: string
+              format: uuid
+              description: The MBID for the area type for the area.
+              nullable: true
+            iso-3166-1-codes:
+              type: array
+              description: |
+                The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-2-codes:
+              type: array
+              description: |
+                The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-3-codes:
+              type: array
+              description: |
+                The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+                for the area.
+              items:
+                type: string
+          required:
+            - id
+            - name
+            - sort-name
+            - disambiguation
+            - type-id
+            - type
+          nullable: true
+          description: The begin area for the artist.
+        end-area:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The MBID for the area.
+            name:
+              type: string
+              description: The area name.
+            sort-name:
+              type: string
+              description: The area sort name (same as the name).
+            disambiguation:
+              type: string
+              description: The disambiguation comment for the area.
+            type:
+              type: string
+              description: The name for the area type for the area.
+              nullable: true
+            type-id:
+              type: string
+              format: uuid
+              description: The MBID for the area type for the area.
+              nullable: true
+            iso-3166-1-codes:
+              type: array
+              description: |
+                The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-2-codes:
+              type: array
+              description: |
+                The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+                for the area.
+              items:
+                type: string
+            iso-3166-3-codes:
+              type: array
+              description: |
+                The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+                for the area.
+              items:
+                type: string
+          required:
+            - id
+            - name
+            - sort-name
+            - disambiguation
+            - type-id
+            - type
+          nullable: true
+          description: The end area for the artist.
+        life-span:
+          type: object
+          properties:
+            begin:
+              type: string
+              description: |
+                The begin date for the artist
+                (formation for groups, birth for people).
+              nullable: true
+            end:
+              type: string
+              description: |
+                The end date for the artist
+                (dissolution for groups, death for people).
+              nullable: true
+            ended:
+              type: boolean
+              description: |
+                Whether the artist has ended
+                (dissolution for groups, death for people).
+                Can be set without `end` if the date is unknown.
+          required:
+            - begin
+            - end
+            - ended
+        ipis:
+          type: array
+          description: The IPI codes for the artist.
+          items:
+            type: string
+        isnis:
+          type: array
+          description: The ISNI codes for the artist.
+          items:
+            type: string
+        aliases:
+          type: array
+          description: The aliases for the artist.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The alias name.
+              sort-name:
+                type: string
+                description: The alias sort name.
+              type:
+                type: string
+                description: The name for the alias type for the alias.
+                nullable: true
+              type-id:
+                type: string
+                format: uuid
+                description: The MBID for the alias type for the alias.
+                nullable: true
+              locale:
+                type: string
+                description: |
+                  The locale for the alias. Possible options follow
+                  [DateTime::Locale](https://metacpan.org/pod/DateTime::Locale::Catalog).
+                nullable: true
+              primary:
+                type: boolean
+                description: |
+                  Whether the alias is marked as the primary one for its locale
+                  (that is, the one to pick if you are only using one).
+                  Set to null if there is no locale.
+                nullable: true
+              begin:
+                type: string
+                description: |
+                  The begin date for the alias (when it started applying).
+                nullable: true
+              end:
+                type: string
+                description: |
+                  The end date for the alias (when it stopped applying).
+                nullable: true
+              ended:
+                type: boolean
+                description: |
+                  Whether the alias no longer applies.
+                  Can be set without `end` if the date is unknown.
+        annotation:
+          type: string
+          description: |
+            The [annotation](https://musicbrainz.org/doc/Annotation)
+            for the artist, if any.
+          nullable: true
+        genres:
+          type: array
+          description: |
+            Any [genre tags](https://musicbrainz.org/genres) for the artist
+            which have been upvoted by the community more times
+            than they have been downvoted.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The MBID for the genre.
+              name:
+                type: string
+                description: The genre name.
+              disambiguation:
+                type: string
+                description: The disambiguation comment for the genre.
+              count:
+                type: integer
+                description: |
+                  The community voting value for the genre tag
+                  (upvotes - downvotes).
+        user-genres:
+          type: array
+          description: |
+            Any [genre tags](https://musicbrainz.org/genres) for the artist
+            upvoted by the authenticated user.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The MBID for the genre.
+              name:
+                type: string
+                description: The genre name.
+              disambiguation:
+                type: string
+                description: The disambiguation comment for the genre.
+        tags:
+          type: array
+          description: |
+            Any folksonomy tags (including genre tags) for the artist
+            which have been upvoted by the community more times
+            than they have been downvoted.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The tag name.
+              count:
+                type: integer
+                description: |
+                  The community voting value for the tag (upvotes - downvotes).
+        user-tags:
+          type: array
+          description: |
+            Any folksonomy tags (including genre tags) for the artist
+            upvoted by the authenticated user.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The tag name.
+        rating:
+          type: object
+          properties:
+            value:
+              type: number
+              description: The average community rating for the artist (0-5).
+              nullable: true
+            votes-count:
+              type: integer
+              description: The number of community ratings for the artist.
+        user-rating:
+          type: object
+          properties:
+            value:
+              type: number
+              description: |
+                The rating for the artist (0-5) by the authenticated user.
+              nullable: true
+      required:
+        - area
+        - begin-area
+        - country
+        - disambiguation
+        - end-area
+        - gender-id
+        - gender
+        - id
+        - ipis
+        - isnis
+        - life-span
+        - name
+        - sort-name
+        - type-id
+        - type
+    Limit:
+      type: integer
+      minimum: 1
+      maximum: 100
+    TrueOrFalse:
+      type: boolean
+      enum:
+        - true
+        - false
+  parameters:
+    Format:
+      name: fmt
+      in: query
+      description: |
+        The desired format of the response (JSON or XML). Default is XML.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Format'
+    Limit:
+      name: limit
+      in: query
+      description: |
+        The maximum number of results per page (1 to 100, defaults to 25).
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+    Offset:
+      name: offset
+      in: query
+      description: How many entities to skip (used to page through results).
+      required: false
+      schema:
+        type: integer
+    Dismax:
+      name: dismax
+      in: query
+      description: |
+        If set to "true", switches the Solr query parser from the default edismax
+        parser (equivalent to the "advanced query syntax" method
+        on the MusicBrainz website) to a simpler 
+        [dismax](https://solr.apache.org/guide/7_0/the-dismax-query-parser.html)
+        parser, which will escape certain special query syntax characters
+        by default for ease of use (equivalent to the plain "indexed search"
+        method on the website).
+
+        Keep in mind that this will ignore any specified fields in the query.
+
+        Defaults to "false".
+      required: false
+      schema:
+        $ref: '#/components/schemas/TrueOrFalse'

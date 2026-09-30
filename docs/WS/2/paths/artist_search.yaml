@@ -1,0 +1,69 @@
+get:
+  tags:
+    - artist
+  summary: Search artists based on search criteria
+  description: |
+    An artist search request allows you to search for artists based on
+    some conditions. Searches always return the same specific set of data
+    and are mostly meant to help you find the MBID for the artist you want,
+    so you can do any more specific queries using it.
+  operationId: ArtistSearch
+  parameters:
+    - name: query
+      in: query
+      description: |
+        A Lucene search query; indicates what you are actually searching for.
+        It supports the full [Lucene search syntax](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description).
+
+        For details on each of the main fields you can search, see the table
+        below. For a behind-the-scenes list of all fields in the API, see
+        [our Solr schema](https://github.com/metabrainz/mbsssss/blob/production/artist/conf/schema.xml).
+        
+        | Field | Description |
+        | ----- | ----------- |
+        | alias | (Part of) any alias attached to the artist (diacritics are ignored) |
+        | area | (Part of) the name of the artist's main associated area |
+        | arid | The artist's MBID |
+        | artist | (Part of) the artist's name (diacritics are ignored) |
+        | artistaccent | (Part of) the artist's name (with the specified diacritics) |
+        | begin | The artist's begin date in ISO 8601 format (e.g. "1980-01-22") |
+        | beginarea | (Part of) the name of the artist's begin area |
+        | comment | (Part of) the artist's disambiguation comment |
+        | country | The 2-letter code (ISO 3166-1 alpha-2) for the artist's main associated country |
+        | end | The artist's end date in ISO 8601 format (e.g. "1980-01-22") |
+        | endarea | (Part of) the name of the artist's end area |
+        | ended | A boolean flag (true/false) indicating whether or not the artist has ended (a band is dissolved, or a person is deceased) |
+        | gender | The artist's gender (“male”, “female”, “non-binary” or “not applicable”) |
+        | ipi | An IPI code associated with the artist |
+        | isni | An ISNI code associated with the artist |
+        | primary_alias | (Part of) any primary alias attached to the artist (diacritics are ignored) |
+        | sortname | (Part of) the artist's sort name |
+        | tag | (Part of) a tag attached to the artist |
+        | type | The artist's type (“person”, “group”, etc.) |
+
+        You can combine multiple fields with ' AND ' (space, AND, space).
+
+        To search specifically for unset fields, use `-search_field:*`.
+        For example, “type:person AND -gender:*” will return artists set
+        as type Person but without a gender set.
+
+        If you don't specify a field and just enter bare terms (“Nirvana”),
+        they will be searched for in the alias, artist and sortname fields.
+        Keep in mind that when searching with bare terms you will need to
+        [escape any Lucene special characters](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Escaping_Special_Characters).
+
+        Queries are represented as a simple free-text string due to current
+        OpenAPI limitations; you will need to construct your query string
+        by hand, such as “area:France AND type:group”.
+      required: true
+      schema:
+        type: string
+    - $ref: '../parameters/index.yaml#/Dismax'
+    - $ref: '../parameters/index.yaml#/Format'
+    - $ref: '../parameters/index.yaml#/Limit'
+    - $ref: '../parameters/index.yaml#/Offset'
+  responses:
+    '200':
+      description: Successful operation
+    '400':
+      description: Invalid query supplied

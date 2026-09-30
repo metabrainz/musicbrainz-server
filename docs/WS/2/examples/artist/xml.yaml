@@ -1,0 +1,62 @@
+ArtistXml:
+  examples:
+    basicGroup:
+      summary: Minimal response (no ?inc) for a group
+      value: |
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+          <artist id="b7ffd2af-418f-4be2-bdd1-22f8b48613da" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>Nine Inch Nails</name>
+            <sort-name>Nine Inch Nails</sort-name>
+            <isni-list>
+              <isni>0000000121493471</isni>
+            </isni-list>
+            <country>US</country>
+            <area id="489ce91b-6658-3307-9877-795b68554c98">
+              <name>United States</name>
+              <sort-name>United States</sort-name>
+              <iso-3166-1-code-list>
+                <iso-3166-1-code>US</iso-3166-1-code>
+              </iso-3166-1-code-list>
+            </area>
+            <begin-area id="7b2ca1e7-e7f6-4155-881d-c660a45c11e8">
+              <name>Cleveland</name>
+              <sort-name>Cleveland</sort-name>
+            </begin-area>
+            <life-span>
+              <begin>1988</begin>
+            </life-span>
+          </artist>
+        </metadata>
+    basicPerson:
+      summary: Minimal response (no ?inc) for a person
+      value: |
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+          <artist id="6cb79cb2-9087-44d4-828b-5c6fdff2c957" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>Gary Numan</name>
+            <sort-name>Numan, Gary</sort-name>
+            <ipi>00047044790</ipi>
+            <ipi-list>
+              <ipi>00047044790</ipi>
+            <ipi>00047044888</ipi>
+            </ipi-list>
+            <isni-list>
+              <isni>0000000078396325</isni>
+            </isni-list>
+            <gender id="36d3d30a-839d-3eda-8cb3-29be4384e4a9">Male</gender>
+            <country>GB</country>
+            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+              <name>United Kingdom</name>
+              <sort-name>United Kingdom</sort-name>
+              <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+              </iso-3166-1-code-list>
+            </area>
+            <begin-area id="8147ca78-c199-4083-a9a9-971f0d13e071">
+              <name>Hammersmith</name>
+              <sort-name>Hammersmith</sort-name>
+            </begin-area>
+            <life-span>
+              <begin>1958-03-08</begin>
+            </life-span>
+          </artist>
+        </metadata>

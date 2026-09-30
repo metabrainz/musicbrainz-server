@@ -1,0 +1,41 @@
+Dismax:
+  name: dismax
+  in: query
+  description: |
+    If set to "true", switches the Solr query parser from the default edismax
+    parser (equivalent to the "advanced query syntax" method
+    on the MusicBrainz website) to a simpler 
+    [dismax](https://solr.apache.org/guide/7_0/the-dismax-query-parser.html)
+    parser, which will escape certain special query syntax characters
+    by default for ease of use (equivalent to the plain "indexed search"
+    method on the website).
+
+    Keep in mind that this will ignore any specified fields in the query.
+    
+    Defaults to "false".
+  required: false
+  schema:
+    $ref: '../schemas/index.yaml#/TrueOrFalse'
+Format:
+  name: fmt
+  in: query
+  description: |
+    The desired format of the response (JSON or XML). Default is XML.
+  required: false
+  schema:
+    $ref: '../schemas/index.yaml#/Format'
+Limit:
+  name: limit
+  in: query
+  description: |
+    The maximum number of results per page (1 to 100, defaults to 25).
+  required: false
+  schema:
+    $ref: '../schemas/index.yaml#/Limit'
+Offset:
+  name: offset
+  in: query
+  description: How many entities to skip (used to page through results).
+  required: false
+  schema:
+    type: integer
