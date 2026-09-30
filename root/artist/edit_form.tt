@@ -95,7 +95,7 @@
       </p>
     </div>
 
-    [%- type_bubble(form.field('type_id'), artist_types) -%]
+    [%- type_bubble(form.field('type_id'), artist_types, 'Style/Artist#Type') -%]
 
     <div class="bubble" id="gender-bubble">
       <p>

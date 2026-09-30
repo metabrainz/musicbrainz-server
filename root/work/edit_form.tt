@@ -126,7 +126,7 @@
       </p>
     </div>
 
-    [%- type_bubble(form.field('type_id'), work_types) -%]
+    [%- type_bubble(form.field('type_id'), work_types, 'Style/Work#Type') -%]
 
     <div class="bubble" id="languages-bubble">
       <p>
