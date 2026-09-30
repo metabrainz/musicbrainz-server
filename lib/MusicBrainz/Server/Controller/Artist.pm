@@ -186,27 +186,36 @@ sub show : PathPart('') Chained('load')
     my $has_extra = $c->model('ReleaseGroup')->has_by_artist($artist->id, 1);
     my $has_va = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 0);
     my $has_va_extra = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 1);
+    my $has_tribute = $c->model('ReleaseGroup')->has_by_tribute_artist($artist->id, 0);
+    my $has_tribute_extra = $c->model('ReleaseGroup')->has_by_tribute_artist($artist->id, 1);
 
     my $including_all_statuses;
+    my $showing_tribute_only;
     my $showing_va_only;
     my $want_va_only = $c->req->query_params->{va};
     my $want_all_statuses = $c->req->query_params->{all};
+    my $want_tribute = $c->req->query_params->{tribute};
 
-    my $has_release_groups = $has_default || $has_extra || $has_va || $has_va_extra;
-    my $force_release_groups = $want_va_only || $want_all_statuses;
+    my $has_release_groups = $has_default || $has_extra || $has_va || $has_va_extra || $has_tribute;
+    my $force_release_groups = $want_va_only || $want_all_statuses || $want_tribute;
 
     my $make_attempt = sub {
-        my ($all, $va) = @_;
-        my $method = $va ? 'find_by_track_artist' : 'find_by_artist';
+        my ($all, $va, $tribute) = @_;
+        my $method = $tribute ? 'find_by_tribute_artist' : $va ? 'find_by_track_artist' : 'find_by_artist';
         return $self->_load_paged($c, sub {
-            if (!$all && !$va) {
+            # va and tribute are mutually exclusive
+            if (!$all && !$va && !$tribute) {
                 return ([], 0) unless $has_default;
-            } elsif ($all && !$va) {
+            } elsif ($all && !$va && !$tribute) {
                 return ([], 0) unless ($has_default || $has_extra);
             } elsif (!$all && $va) {
                 return ([], 0) unless $has_va;
             } elsif ($all && $va) {
                 return ([], 0) unless ($has_va || $has_va_extra);
+            } elsif (!$all && $tribute) {
+                return ([], 0) unless $has_tribute;
+            } elsif ($all && $tribute) {
+                return ([], 0) unless ($has_tribute || $has_tribute_extra);
             }
             return $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $all, shift, shift, filter => \%filter);
         });
@@ -230,15 +239,18 @@ sub show : PathPart('') Chained('load')
 
         my @attempts = grep {
             ($_->[0] || !$want_all_statuses) &&
-            ($_->[1] || !$want_va_only)
-        } ([0,0], [1,0], [0,1], [1,1]);
+            ($_->[1] || !$want_va_only) &&
+            ($_->[2] || !$want_tribute)
+        } ([0,0,0], [1,0,0], [0,1,0], [1,1,0], [0,0,1], [1,0,1]);
 
         for my $attempt (@attempts) {
             my $all = $attempt->[0];
             my $va = $attempt->[1];
-            $release_groups = $make_attempt->($all, $va);
+            my $tribute = $attempt->[2];
+            $release_groups = $make_attempt->($all, $va, $tribute);
             $including_all_statuses = $all;
             $showing_va_only = $va;
+            $showing_tribute_only = $tribute;
             # If filtering, only make one attempt
             # otherwise, attempt until we find RGs or exhaust the possibilities
             if (scalar @$release_groups || %filter) {
@@ -359,6 +371,8 @@ sub show : PathPart('') Chained('load')
             hasDefault => boolean_to_json($has_default),
             hasExtra => boolean_to_json($has_extra),
             hasFilter => boolean_to_json($has_filter),
+            hasTribute => boolean_to_json($has_tribute),
+            hasTributeExtra => boolean_to_json($has_tribute_extra),
             hasVariousArtists => boolean_to_json($has_va),
             hasVariousArtistsExtra => boolean_to_json($has_va_extra),
             includingAllStatuses => boolean_to_json($including_all_statuses),
@@ -372,6 +386,7 @@ sub show : PathPart('') Chained('load')
             releaseGroups => to_json_array($release_groups),
             renamedFrom       => to_json_array(\@renamed_from),
             renamedInto       => to_json_array(\@renamed_into),
+            showingTributeOnly        => boolean_to_json($showing_tribute_only),
             showingVariousArtistsOnly => boolean_to_json($showing_va_only),
             wikipediaExtract => to_json_object($c->stash->{wikipedia_extract}),
         },

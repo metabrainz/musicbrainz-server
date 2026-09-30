@@ -42,6 +42,9 @@ component FooterSwitch(
   hasVariousArtistsExtra: boolean,
   includingAllStatuses: boolean,
   showingVariousArtistsOnly: boolean,
+  hasTribute: boolean,
+  hasTributeExtra: boolean,
+  showingTributeOnly: boolean,
 ) {
   const artistLink = $c.req.uri;
 
@@ -50,12 +53,14 @@ component FooterSwitch(
     showAll: boolean,
     showVA: boolean,
     showAllVA: boolean,
+    showTribute: boolean,
+    showAllTribute: boolean,
   ) {
     const links = [];
     if (showDefault) {
       links.push(
         <a
-          href={uriWith(artistLink, {all: 0, va: 0})}
+          href={uriWith(artistLink, {all: 0, tribute: 0, va: 0})}
           key="show-default"
         >
           {l('Show official release groups')}
@@ -65,7 +70,7 @@ component FooterSwitch(
     if (showAll) {
       links.push(
         <a
-          href={uriWith(artistLink, {all: 1, va: 0})}
+          href={uriWith(artistLink, {all: 1, tribute: 0, va: 0})}
           key="show-all"
         >
           {l('Show all release groups')}
@@ -75,7 +80,7 @@ component FooterSwitch(
     if (showVA) {
       links.push(
         <a
-          href={uriWith(artistLink, {all: 0, va: 1})}
+          href={uriWith(artistLink, {all: 0, tribute: 0, va: 1})}
           key="show-va"
         >
           {l('Show official various artist release groups')}
@@ -85,10 +90,30 @@ component FooterSwitch(
     if (showAllVA) {
       links.push(
         <a
-          href={uriWith(artistLink, {all: 1, va: 1})}
+          href={uriWith(artistLink, {all: 1, tribute: 0, va: 1})}
           key="show-all-va"
         >
           {l('Show all various artist release groups')}
+        </a>,
+      );
+    }
+    if (showTribute) {
+      links.push(
+        <a
+          href={uriWith(artistLink, {all: 0, tribute: 1, va: 0})}
+          key="show-tribute"
+        >
+          {l('Show official tribute release groups')}
+        </a>,
+      );
+    }
+    if (showAllTribute) {
+      links.push(
+        <a
+          href={uriWith(artistLink, {all: 1, tribute: 1, va: 0})}
+          key="show-tribute"
+        >
+          {l('Show all tribute release groups')}
         </a>,
       );
     }
@@ -126,7 +151,14 @@ component FooterSwitch(
             ? l('Showing all release groups for various artists')
             : l(`This artist does not have any various artists
                  release groups`)}
-          {buildLinks(hasDefault, hasExtra, hasVariousArtists, false)}
+          {buildLinks(
+            hasDefault,
+            hasExtra,
+            hasVariousArtists,
+            false,
+            hasTribute,
+            hasTributeExtra,
+          )}
         </p>
       </>
     ) : showingVariousArtistsOnly ? (
@@ -138,7 +170,54 @@ component FooterSwitch(
         ) : null}
         <p>
           {l('Showing official release groups for various artists')}
-          {buildLinks(hasDefault, hasExtra, false, hasVariousArtistsExtra)}
+          {buildLinks(
+            hasDefault,
+            hasExtra,
+            hasVariousArtists,
+            hasVariousArtistsExtra,
+            false,
+            hasTributeExtra,
+          )}
+        </p>
+      </>
+    ) : showingTributeOnly && includingAllStatuses ? (
+      <>
+        {(!hasDefault && !hasExtra && !hasTribute) ? (
+          <p>
+            {l('This artist only has unofficial tribute release groups.')}
+          </p>
+        ) : null}
+        <p>
+          {(hasTribute || hasTributeExtra)
+            ? l('Showing all tribute release groups')
+            : l('This artist does not have any tribute release groups')}
+          {buildLinks(
+            hasDefault,
+            hasExtra,
+            hasVariousArtists,
+            hasVariousArtistsExtra,
+            hasTribute,
+            false,
+          )}
+        </p>
+      </>
+    ) : showingTributeOnly ? (
+      <>
+        {(!hasDefault && !hasExtra) ? (
+          <p>
+            {l('This artist only has tribute release groups.')}
+          </p>
+        ) : null}
+        <p>
+          {l('Showing official tribute release groups')}
+          {buildLinks(
+            hasDefault,
+            hasExtra,
+            hasVariousArtists,
+            hasVariousArtistsExtra,
+            false,
+            hasTributeExtra,
+          )}
         </p>
       </>
     ) : includingAllStatuses ? (
@@ -155,6 +234,8 @@ component FooterSwitch(
             false,
             hasVariousArtists,
             hasVariousArtistsExtra,
+            hasTribute,
+            hasTributeExtra,
           )}
         </p>
       </>
@@ -166,6 +247,8 @@ component FooterSwitch(
           hasExtra,
           hasVariousArtists,
           hasVariousArtistsExtra,
+          hasTribute,
+          hasTributeExtra,
         )}
       </p>
     )
@@ -259,6 +342,7 @@ component ArtistIndex(
         ajaxFormUrl={ajaxFilterFormUrl}
         initialFilterForm={filterForm}
         showAllReleaseGroups={footerSwitchProps.includingAllStatuses}
+        showTributeReleaseGroups={footerSwitchProps.showingTributeOnly}
         showVAReleaseGroups={footerSwitchProps.showingVariousArtistsOnly}
       />
 

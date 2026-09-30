@@ -65,3 +65,18 @@ INSERT INTO medium (id, gid, release, track_count, position)
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
     VALUES (6, 'c0bc3e2c-a22a-40fd-818d-ca0e470b9c02', 'Track on recording', 3, 6, 1, 1, 1),
            (7, '0db74133-476a-4a60-b749-a92db4959a83', 'Track on recording', 3, 7, 1, 1, 1);
+
+-- Tribute release group
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (4, '8c57c4f6-c423-4592-ada2-b076d031cce9', 'Name', 'Name', 'Artist 4');
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (4, 'Name', 2, '8c57c4f6-c423-4592-ada2-b076d031cce9');
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+    VALUES (4, 4, 'Name', 0, '');
+    
+INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (6, '19247d8c-11c8-4eaf-9f32-fdb8ddb553c7', 'Tribute release', 4);
+    
+INSERT INTO link (id, link_type, attribute_count) VALUES (6, 65,  0);
+    
+INSERT INTO l_artist_release_group (id, link, entity0, entity1) VALUES (1, 6, 3, 6);

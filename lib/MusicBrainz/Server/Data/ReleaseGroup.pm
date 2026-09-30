@@ -1039,6 +1039,87 @@ sub series_ordering {
     return $a->entity0->first_release_date <=> $b->entity0->first_release_date;
 }
 
+sub find_by_tribute_artist {
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
+
+    push @$conditions, q(link_type.name = 'tribute');
+    push @$conditions, 'l_artist_release_group.entity0 = ?';
+    # Show only RGs with official/withdrawn releases by default,
+    # plus all-status-less ones so people fix the status
+    unless ($show_all) {
+        push @$conditions, q{(EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND (release.status = '1' OR release.status = '5')) OR
+                            NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL))};
+       }
+    push @$params, $artist_id;
+
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ',
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rgm.release_count,
+                    rgm.rating_count,
+                    rgm.rating,
+                    rg.name COLLATE musicbrainz AS name_collate,
+                    array(
+                      SELECT child_order FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY child_order ASC
+                    ) secondary_types,
+                    rgpt.child_order
+                 FROM ' . $self->_table . '
+                    JOIN l_artist_release_group ON rg.id = l_artist_release_group.entity1
+                    JOIN link ON l_artist_release_group.link = link.id
+                    JOIN link_type ON link.link_type = link_type.id
+                    LEFT JOIN release_group_primary_type rgpt
+                        ON rgpt.id = rg.type
+                     ' . join(' ', @$extra_joins) . '
+                 WHERE ' . join(' AND ', @$conditions) . '
+                 ORDER BY
+                    rgpt.child_order, secondary_types,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rg.name COLLATE musicbrainz';
+    $self->query_to_list_limited(
+        $query,
+        $params,
+        $limit,
+        $offset,
+        sub {
+            my ($model, $row) = @_;
+            my $rg = $model->_new_from_row($row);
+            $rg->rating($row->{rating}) if defined $row->{rating};
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
+            $rg->release_count($row->{release_count} || 0);
+            return $rg;
+        },
+    );
+}
+
+sub has_by_tribute_artist {
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    my $status_condition = $self->pick_status_condition($query_extra_only);
+
+    my $query ="
+        SELECT EXISTS (
+            SELECT 1
+            FROM release_group rg
+            JOIN l_artist_release_group ON rg.id = l_artist_release_group.entity1
+            JOIN link ON l_artist_release_group.link = link.id
+            JOIN link_type ON link.link_type = link_type.id
+            WHERE link_type.name = 'tribute'
+            AND l_artist_release_group.entity0 = ?
+            $status_condition
+        )";
+    $self->sql->select_single_value($query, $artist_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
