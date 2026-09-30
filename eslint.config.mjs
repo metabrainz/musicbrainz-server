@@ -1054,6 +1054,7 @@ export default [
       'root/static/scripts/common/linkedEntities.mjs',
       'root/static/scripts/common/utility/catalyst.js',
       'root/static/scripts/common/utility/createFastObjectCloneFunction.js',
+      'root/static/scripts/edit/components/AddEntityDialog.js',
       'root/static/scripts/edit/components/ArtistCreditEditor.js',
       'root/static/scripts/edit/components/ArtistCreditEditor/utilities.js',
       'root/static/scripts/edit/components/Multiselect.js',
