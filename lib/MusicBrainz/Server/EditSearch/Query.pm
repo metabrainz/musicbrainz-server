@@ -32,6 +32,7 @@ use MusicBrainz::Server::EditSearch::Predicate::WorkType;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
 use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseStatus;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteContent;
@@ -65,6 +66,7 @@ my %field_map = (
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
     label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
     release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
+    release_status => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseStatus',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
     editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
     applied_edits => 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits',

@@ -307,6 +307,7 @@ sub search : Path('/search/edits')
         rg_secondary_types => [ $c->model('ReleaseGroupSecondaryType')->get_all ],
         series_types => [ $c->model('SeriesType')->get_all ],
         work_types => [ $c->model('WorkType')->get_all ],
+        release_statuses => [ $c->model('ReleaseStatus')->get_all ],
     );
     return unless %{ $c->req->query_params };
 
