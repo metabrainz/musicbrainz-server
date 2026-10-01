@@ -36,6 +36,7 @@ export default [
       'root/static/scripts/common/DBDefs.mjs',
       'root/static/scripts/supported-browser-check.js',
       'root/static/scripts/tests/typeInfo.js',
+      'root/types/global_js_dbdefs.js',
       'root/utility/babel-node/register.mjs',
       't/selenium.js',
       'babel.config.cjs',

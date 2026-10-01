@@ -18,6 +18,7 @@
 /root/static/scripts/common/DBDefs.js
 /root/static/scripts/common/DBDefs.mjs
 /root/static/scripts/tests/typeInfo.js
+/root/types/global_js_dbdefs.js
 /blib
 /junit_output*
 /lib/DBDefs.pm
