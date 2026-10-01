@@ -40,6 +40,12 @@ has 'summary' => (
     default => 0,
 );
 
+has 'lock_timeout' => (
+    is => 'ro',
+    isa => 'Str',
+    default => '30s',
+);
+
 my %action_name = (
     $STATUS_OPEN => 'open',
     $STATUS_APPLIED => 'applied',
@@ -122,10 +128,14 @@ sub _process_edit
 {
     my ($self, $edit_id) = @_;
 
+    $self->c->sql->select_single_value(
+        q{SELECT set_config('lock_timeout', ?, TRUE)},
+        $self->lock_timeout,
+    );
     my $edit = $self->c->model('Edit')->get_by_id_and_lock($edit_id);
 
     if (!defined $edit) {
-        $self->log->warning("Can't load data and/or get exclusive lock for edit #$edit_id\n");
+        $self->log->warning("Can't load data for edit #$edit_id\n");
         return undef;
     }
 

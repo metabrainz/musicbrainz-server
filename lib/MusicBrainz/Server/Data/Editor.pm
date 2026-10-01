@@ -862,43 +862,73 @@ sub hard_delete_if_unreferenced {
 sub cancel_edits_and_votes {
     my ($self, $editor) = @_;
 
-    # Cancel any open edits the editor still has
-    # We want to cancel the latest edits first, to make sure
-    # no conflicts happen that make some cancelling fail and all
-    # entities that should be autoremoved do get removed
-    my $own_edit_ids = $self->sql->select_single_column_array(
-            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC, id DESC',
-            $editor->id, $STATUS_OPEN);
-    my $own_edits = $self->c->model('Edit')->get_by_ids(@$own_edit_ids);
+    # Cancel any open edits the editor still has. We want to cancel the
+    # latest edits first, to make sure no conflicts happen that make some
+    # cancelling fail and all entities that should be autoremoved do get
+    # removed.
+    #
+    # However, the `$locked_edits` query must run in ascending order to avoid
+    # voting deadlocks, since `Data::Vote::enter_votes` also acquires its
+    # locks in ascending order. So canceling "latest edits first" happens
+    # via sorting them in Perl.
+    #
+    # We also want to override any Yes/No votes on open edits with Abstain
+    # to avoid pre-deletion vandalism. These are fetched in the same
+    # `$locked_edits` query to ensure all locks are acquired up front
+    # (again avoiding deadlocks, albeit unlikely, where a voter's submission
+    # spans both sets of edits).
 
-    for my $edit_id (@$own_edit_ids) {
+    my $locked_edits = $self->sql->select_list_of_hashes(
+        <<~'SQL',
+        SELECT id,
+               extract(epoch FROM open_time) AS open_time,
+               (editor = $1) AS is_own_edit
+        FROM edit
+        WHERE status = $2
+        AND (
+            editor = $1
+            OR EXISTS (
+                SELECT 1 FROM vote
+                WHERE vote.edit = edit.id
+                AND vote.editor = $1
+                AND vote.vote IN ($3, $4)
+                AND vote.superseded = FALSE
+            )
+        )
+        ORDER BY id
+        FOR NO KEY UPDATE
+        SQL
+        $editor->id, $STATUS_OPEN, $VOTE_YES, $VOTE_NO,
+    );
+
+    my @own_edit_ids = (
+        map { $_->{id} }
+        reverse sort {
+            $a->{open_time} <=> $b->{open_time} ||
+            $a->{id} <=> $b->{id}
+        }
+        grep { $_->{is_own_edit} }
+        @$locked_edits,
+    );
+    my $own_edits = $self->c->model('Edit')->get_by_ids(@own_edit_ids);
+
+    for my $edit_id (@own_edit_ids) {
         $self->c->model('Edit')->cancel($own_edits->{$edit_id});
     }
 
-    # Override any Yes/No votes on open edits with Abstain
-    # to avoid pre-deletion vandalism
-    my $voted_open_edit_ids = $self->sql->select_single_column_array(
-            'SELECT edit.id
-             FROM edit
-             JOIN vote
-               ON edit.id = vote.edit
-             WHERE edit.status = ?
-               AND vote.editor = ?
-               AND vote.vote IN (?, ?)
-               AND vote.superseded = FALSE
-            ORDER BY open_time DESC',
-            $STATUS_OPEN, $editor->id, $VOTE_YES, $VOTE_NO);
-
-    for my $edit_id (@$voted_open_edit_ids) {
-        $self->c->model('Vote')->enter_votes(
-            $editor,
-            [{
-                vote    => $VOTE_ABSTAIN,
-                edit_id => $edit_id,
-            }],
-            (override_privs => 1),
-        );
-    }
+    my @voted_open_edit_ids = (
+        map { $_->{id} }
+        grep { !$_->{is_own_edit} }
+        @$locked_edits,
+    );
+    $self->c->model('Vote')->enter_votes(
+        $editor,
+        [map +{
+            vote    => $VOTE_ABSTAIN,
+            edit_id => $_,
+        }, @voted_open_edit_ids],
+        (override_privs => 1),
+    );
 }
 
 sub subscription_summary {
