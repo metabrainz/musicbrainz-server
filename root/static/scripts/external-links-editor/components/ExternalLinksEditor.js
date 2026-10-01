@@ -245,8 +245,8 @@ component ExternalLinksEditor(
   const submissionInProgress = React.useRef(false);
 
   React.useEffect(() => {
-    const handleSubmission = () => {
-      if (!submissionInProgress.current) {
+    const handleSubmission = (event: Event) => {
+      if (!submissionInProgress.current && !event.defaultPrevented) {
         submissionInProgress.current = true;
         prepareExternalLinksHtmlFormSubmission(state);
       }
