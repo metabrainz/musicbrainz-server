@@ -12,22 +12,26 @@ import $ from 'jquery';
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import hydrate from '../../../../utility/hydrate.js';
 import {
   PART_OF_SERIES_LINK_TYPE_IDS,
 } from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isBlank from '../../common/utility/isBlank.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import RelationshipEditor, {
+import {
   type InitialStateArgsT,
   loadOrCreateInitialState,
   reducer,
 } from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
 import useEntityNameFromField
   from '../../relationship-editor/hooks/useEntityNameFromField.js';
+import type {
+  RelationshipEditorActionT,
+} from '../../relationship-editor/types/actions.js';
 import {
   findLinkTypeGroup,
   findLinkTypeGroups,
@@ -169,24 +173,27 @@ component _SeriesRelationshipEditor(...props: PropsT) {
     };
   });
 
+  const relationshipEditorFieldsetDispatch = React.useCallback((
+    action: {
+      readonly action: RelationshipEditorActionT,
+      readonly type: 'update-relationship-editor',
+    },
+  ) => {
+    dispatch(action.action);
+  }, [dispatch]);
+
   return (
-    <RelationshipEditor
-      dispatch={dispatch}
+    <RelationshipEditorFieldset
+      dispatch={relationshipEditorFieldsetDispatch}
       formName={props.formName}
       state={state}
     />
   );
 }
 
-const NonHydratedSeriesRelationshipEditor:
-  component(...PropsT) =
-    withLoadedTypeInfoForRelationshipEditor<PropsT>(
-      _SeriesRelationshipEditor,
-    );
-
-const SeriesRelationshipEditor = hydrate<PropsT>(
+const SeriesRelationshipEditor = hydrateRelationshipEditorForm<PropsT>(
   'div.relationship-editor',
-  NonHydratedSeriesRelationshipEditor,
+  _SeriesRelationshipEditor,
 ) as component(...PropsT);
 
 export default SeriesRelationshipEditor;

@@ -627,32 +627,25 @@ component RelationshipEditor(
   ]);
 
   return (
-    <fieldset id="relationship-editor">
-      <legend>
-        {l('Relationships')}
-      </legend>
+    <>
+      {error ? (
+        <ErrorMessage error={error.stack} />
+      ) : null}
 
-      <div className="relationship-editor-fieldset-content">
-        {error ? (
-          <ErrorMessage error={error.stack} />
-        ) : null}
-
-
-        <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
-          <RelationshipTargetTypeGroups
-            dialogLocation={state.dialogLocation}
-            dispatch={dispatch}
-            releaseHasUnloadedTracks={false}
-            source={state.entity}
-            targetTypeGroups={findTargetTypeGroups(
-              state.relationshipsBySource,
-              state.entity,
-            )}
-            track={null}
-          />
-        </RelationshipSourceGroupsContext.Provider>
-      </div>
-    </fieldset>
+      <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
+        <RelationshipTargetTypeGroups
+          dialogLocation={state.dialogLocation}
+          dispatch={dispatch}
+          releaseHasUnloadedTracks={false}
+          source={state.entity}
+          targetTypeGroups={findTargetTypeGroups(
+            state.relationshipsBySource,
+            state.entity,
+          )}
+          track={null}
+        />
+      </RelationshipSourceGroupsContext.Provider>
+    </>
   );
 }
 
