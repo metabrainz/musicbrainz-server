@@ -47,7 +47,7 @@ declare class Buffer extends Uint8Array {
 
   compare(otherBuffer: Buffer): number;
   copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-  entries(): Iterator<[number, number]>;
+  entries(): ArrayIterator<[number, number]>;
   equals(otherBuffer: Buffer): boolean;
   fill(value: string | Buffer | number, offset?: number, end?: number, encoding?: string): this;
   fill(value: string, encoding?: string): this;
@@ -62,7 +62,7 @@ declare class Buffer extends Uint8Array {
     encoding?: buffer$Encoding
   ): number;
   inspect(): string;
-  keys(): Iterator<number>,
+  keys(): ArrayIterator<number>,
   lastIndexOf(
     value: string | Buffer | number,
     offsetOrEncoding?: number | buffer$Encoding,
@@ -92,7 +92,7 @@ declare class Buffer extends Uint8Array {
   swap64(): Buffer;
   toJSON(): buffer$ToJSONRet;
   toString(encoding?: buffer$Encoding, start?: number, end?: number): string;
-  values(): Iterator<number>;
+  values(): ArrayIterator<number>;
   write(string: string, offset?: number, length?: number, encoding?: buffer$Encoding): number;
   writeDoubleBE(value: number, offset?: number, noAssert?: boolean): number;
   writeDoubleLE(value: number, offset?: number, noAssert?: boolean): number;
@@ -123,7 +123,7 @@ declare class Buffer extends Uint8Array {
   static from(value: Buffer): Buffer;
   static from(value: string, encoding?: buffer$Encoding): Buffer;
   static from(value: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
-  static from(value: Iterable<number>): this;
+  static from<This = void>(iterable: ArrayLike<number> | Iterable<number>, mapFn?: (this : This, element: number) => number, thisArg?: This): this;
   static isBuffer(obj: any): boolean;
   static isEncoding(encoding: string): boolean;
 }

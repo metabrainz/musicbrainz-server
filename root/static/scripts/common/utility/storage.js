@@ -61,7 +61,7 @@ export function localStorage(name: string, value?: string): string | void {
      * broken in Opera (at least the Presto versions). Source:
      * https://shanetomlinson.com/2012/localstorage-bugs-inconsistent-removeitem-delete/
      */
-    if (storedValue !== undefined) {
+    if (storedValue != null) {
       return storedValue;
     }
   }
