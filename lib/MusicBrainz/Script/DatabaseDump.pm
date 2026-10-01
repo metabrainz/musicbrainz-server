@@ -192,12 +192,13 @@ sub dump_table {
 }
 
 sub dump_rows {
-    my ($self, $schema, $table, $rows) = @_;
+    my ($self, $table, $rows) = @_;
 
     my ($dump_fh, $table_file_path, $table_file_is_new) =
         $self->_open_table_file($table, '>>');
 
-    my @ordered_columns = $self->sql->get_ordered_columns("$schema.$table");
+    my @ordered_columns = $self->sql->get_ordered_columns($table);
+    @ordered_columns or die "No columns found for $table";
 
     my $it = natatime 1000, @{$rows};
     while (my @next_rows = $it->()) {

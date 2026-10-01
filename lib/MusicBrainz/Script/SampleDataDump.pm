@@ -137,9 +137,11 @@ $MusicBrainz::Script::EntityDump::relationships_cardinality = undef;
 $MusicBrainz::Script::EntityDump::handle_inserts = sub {
     my ($c, $schema, $table, $rows) = @_;
 
-    $table_map{$table} = 1;
+    my $qualified_table = $schema eq 'musicbrainz' ? $table : "$schema.$table";
 
-    $mbdump_handle->dump_rows($schema, $table, $rows);
+    $table_map{$qualified_table} = 1;
+
+    $mbdump_handle->dump_rows($qualified_table, $rows);
 };
 
 sub run {
