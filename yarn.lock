@@ -7900,7 +7900,7 @@ __metadata:
     tap-difflet: "npm:0.7.2"
     tap-junit: "npm:5.0.4"
     tape: "npm:4.17.0"
-    tldts: "npm:7.4.4"
+    tldts: "npm:7.4.16"
     utf8: "npm:3.0.0"
     webpack: "npm:5.109.0"
     webpack-node-externals: "npm:3.0.0"
@@ -10523,21 +10523,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tldts-core@npm:^7.4.4":
-  version: 7.4.4
-  resolution: "tldts-core@npm:7.4.4"
-  checksum: 10c0/0e7d44b503a573237d7683ccc4798105b8e455aa2e8fcf4bfde626ab9a55d85116604d9e3ac2341858fe342b100a4740ba109d54a0d3afe6cc69f301fe7dc960
+"tldts-core@npm:^7.4.16":
+  version: 7.4.16
+  resolution: "tldts-core@npm:7.4.16"
+  checksum: 10c0/a5b10719c0d5faa46486d4c7448803c2216822fa994494815adf62abc43cc51bad7ade7d85b17d1614a9b1e140e9b8d9e142c666c52480a6491886fc183083f9
   languageName: node
   linkType: hard
 
-"tldts@npm:7.4.4":
-  version: 7.4.4
-  resolution: "tldts@npm:7.4.4"
+"tldts@npm:7.4.16":
+  version: 7.4.16
+  resolution: "tldts@npm:7.4.16"
   dependencies:
-    tldts-core: "npm:^7.4.4"
+    tldts-core: "npm:^7.4.16"
   bin:
     tldts: bin/cli.js
-  checksum: 10c0/e0a85d7ec71af40b7d01d1e8bd054669d8a22a2950567ce81381c5b7d7232c80b55f018b5e9fdea81217071c4fdc0d881e26237bb9b37aa6a52993732d3f754f
+  checksum: 10c0/87a99121a8ad2b7c8dfb6aa2e38e37daf6fe77bb453f8c6524a0775465beec7df9267e5a0b1cf1fa453793d3c06ab41e10d10a0919de47ab24687612c40b4677
   languageName: node
   linkType: hard
 
