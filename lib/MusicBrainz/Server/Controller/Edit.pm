@@ -189,21 +189,21 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
-    if (!$edit->editor_may_cancel($c->user)) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'edit/CannotCancelEdit',
-            component_props => {edit => $edit->TO_JSON},
-        );
-        $c->detach;
-    }
+    _cannot_cancel_edit($c, $edit) unless $edit->editor_may_cancel($c->user);
 
     $c->model('Edit')->load_all($edit);
 
     my $form = $c->form(form => 'Confirm');
     if ($c->form_posted_and_valid($form)) {
+        my $uncancellable_edit;
         $c->model('MB')->with_transaction(sub {
-            $c->model('Edit')->cancel($edit);
+            my $locked_edit = $c->model('Edit')->get_by_id_and_lock($edit->id);
+            unless ($locked_edit->editor_may_cancel($c->user)) {
+                $uncancellable_edit = $locked_edit;
+                return;
+            }
+
+            $c->model('Edit')->cancel($locked_edit);
 
             if (my $edit_note = $form->field('edit_note')->value) {
                 $c->model('EditNote')->add_note(
@@ -215,6 +215,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
                 );
             }
         });
+        _cannot_cancel_edit($c, $uncancellable_edit) if $uncancellable_edit;
 
         $c->response->redirect($c->stash->{cancel_redirect} || $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         $c->detach;
@@ -228,6 +229,17 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
             form => $form->TO_JSON,
         },
     );
+}
+
+sub _cannot_cancel_edit {
+    my ($c, $edit) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'edit/CannotCancelEdit',
+        component_props => {edit => $edit->TO_JSON},
+    );
+    $c->detach;
 }
 
 =head2 open
