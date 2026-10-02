@@ -649,6 +649,23 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
     );
 };
 
+test 'find_by_label_fast orders by release ID' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+    $c->sql->do(<<~'SQL');
+        INSERT INTO release_label (release, label, catalog_number)
+            VALUES (2, 1, 'ABC-123'), (7, 1, 'ZZZ');
+        SQL
+
+    my ($releases, undef) = $c->model('Release')->find_by_label_fast(1, 10, 0);
+    is_deeply(
+        [map { $_->id } @$releases],
+        [1, 2, 7],
+    );
+};
+
 test 'find_by_cdtoc' => sub {
     my $test = shift;
     my $c = $test->c;
