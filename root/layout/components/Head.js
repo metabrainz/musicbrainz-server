@@ -73,6 +73,11 @@ component Head(
       <meta charSet="utf-8" />
       <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
       <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+      {$c.stash.noindex === true ? (
+        <meta content="noindex" name="robots" />
+      ) : null}
+
       <FaviconLinks />
 
       <MetaDescription entity={$c.stash.entity} />
