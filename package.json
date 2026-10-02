@@ -89,7 +89,7 @@
     "flow-parser": "0.334.0",
     "flow-typed": "4.1.1",
     "gettext-parser": "4.2.0",
-    "globals": "17.7.0",
+    "globals": "17.13.0",
     "http-proxy": "1.18.1",
     "json5": "2.2.3",
     "nyc": "18.0.0",
