@@ -250,6 +250,37 @@ test 'MBS-13862: entity0 is loaded for display when it has the same type as enti
     );
 };
 
+test 'MBS-14075: edits_pending is adjusted for both entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
+
+    my $relationship = _get_relationship($c, 'artist', 'url', 1);
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        editor => $c->model('Editor')->get_by_id(1),
+        type0 => 'artist',
+        type1 => 'url',
+        relationship => $relationship,
+    );
+
+    ok($edit->is_open, 'edit is still open');
+
+    my $artist = $c->model('Artist')->get_by_id(3);
+    my $url = $c->model('URL')->get_by_id(1);
+    is($artist->edits_pending, 1, 'edits_pending was incremented for entity0');
+    is($url->edits_pending, 1, 'edits_pending was incremented for entity1');
+
+    accept_edit($c, $edit);
+
+    $artist = $c->model('Artist')->get_by_id(3);
+    $url = $c->model('URL')->get_by_id(1);
+    is($artist->edits_pending, 0, 'edits_pending was decremented for entity0');
+    is($url->edits_pending, 0, 'edits_pending was decremented for entity1');
+
+};
+
 sub _get_relationship {
     my ($c, $type0, $type1, $id) = @_;
 

@@ -546,6 +546,50 @@ test 'MBS-13862: entity0 is loaded for display when it has the same type as enti
     );
 };
 
+test 'MBS-14075: edits_pending is adjusted for all entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('release', 'url', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my ($release, $old_url);
+    my $new_url = $c->model('URL')->find_or_insert(
+        'https://www.amazon.com/gp/product/B00000000Y',
+    );
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(77),
+        begin_date => undef,
+        end_date => undef,
+        entity1 => $new_url,
+    );
+
+    ok($edit->is_open, 'edit is still open');
+
+    $release = $c->model('Release')->get_by_id(2);
+    $old_url = $c->model('URL')->get_by_id(263685);
+    $new_url = $c->model('URL')->get_by_gid($new_url->gid);
+    is($release->edits_pending, 1, 'edits_pending was incremented for entity0');
+    is($old_url->edits_pending, 1, 'edits_pending was incremented for the old entity1');
+    is($new_url->edits_pending, 1, 'edits_pending was incremented for the new entity1');
+
+    accept_edit($c, $edit);
+
+    $release = $c->model('Release')->get_by_id(2);
+    $old_url = $c->model('URL')->get_by_id(263685);
+    $new_url = $c->model('URL')->get_by_gid($new_url->gid);
+    is($release->edits_pending, 0, 'edits_pending was decremented for entity0');
+    is($old_url->edits_pending, 0, 'edits_pending was decremented for the old entity1');
+    is($new_url->edits_pending, 0, 'edits_pending was decremented for the new entity1');
+};
+
 sub _create_edit {
     my ($c, %args) = @_;
 
