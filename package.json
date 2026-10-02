@@ -7,6 +7,10 @@
     "url": "https://github.com/metabrainz/musicbrainz-server.git"
   },
   "license": "GPL-2.0-or-later",
+  "@comment dependencies": {
+    "@package react-table": "react-table 8+ rewrites the API entirely, updating is non-trivial",
+    "@package tape": "updating to tape 5+ breaks Selenium tests, needs more care"
+  },
   "dependencies": {
     "@babel/core": "8.0.6",
     "@babel/plugin-transform-flow-strip-types": "8.0.1",
