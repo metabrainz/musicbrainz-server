@@ -846,7 +846,7 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
-        artist_credit
+        artist_credit_artists
         artist_credit_field
         can_delete
         collaborative_collections
@@ -940,10 +940,6 @@ sub TO_JSON {
 
     if (my $event_artwork = delete $stash{event_artwork}) {
         $stash{event_artwork} = to_json_object($event_artwork);
-    }
-
-    if (my $artist_credit = delete $stash{artist_credit}) {
-        $stash{artist_credit} = to_json_object($artist_credit);
     }
 
     my $req = $self->req;

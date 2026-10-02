@@ -23,7 +23,9 @@ component ExternalLinksEditorFieldset(
       readonly type: 'update-external-links-editor',
     },
   ) => void,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   state: LinksEditorStateT,
+  tableRef?: {current: HTMLTableElement | null},
 ) {
   const externalLinksEditorDispatch = React.useCallback((
     action: LinksEditorActionT,
@@ -36,7 +38,9 @@ component ExternalLinksEditorFieldset(
       <legend>{l('External links')}</legend>
       <ExternalLinksEditor
         dispatch={externalLinksEditorDispatch}
+        onFocus={onFocus}
         state={state}
+        tableRef={tableRef}
       />
     </fieldset>
   );

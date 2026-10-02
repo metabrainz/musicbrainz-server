@@ -26,16 +26,16 @@ declare type ArtistFieldT = CompoundFieldT<{
 }>;
 
 declare type ArtistCreditFieldT = CompoundFieldT<{
-  readonly names: ArtistCreditNameFieldT,
+  readonly names: RepeatableFieldT<ArtistCreditNameFieldT>,
 }>;
 
 declare type ArtistCreditNameFieldT = CompoundFieldT<{
-  readonly artist: ArtistCreditFieldT,
+  readonly artist: ArtistFieldT,
   readonly join_phrase: FieldT<string>,
   readonly name: FieldT<string>,
 }>;
 
-declare type CompoundFieldT<out F> = {
+declare type CompoundFieldT<out F extends SubfieldsT> = {
   readonly errors: ReadonlyArray<string>,
   readonly field: F,
   readonly has_errors: boolean,
@@ -73,27 +73,15 @@ declare type SubfieldsT = {
   readonly [fieldName: string]: AnyFieldT,
 };
 
+declare type AnyCompoundFieldT = Readonly<{
+  ...CompoundFieldT<SubfieldsT>,
+  ...
+}>;
+
 declare type AnyFieldT =
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly field: SubfieldsT,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'compound_field',
-      ...
-    }
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly field: ReadonlyArray<AnyFieldT>,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'repeatable_field',
-      ...
-    }
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'field',
-      ...
-    };
+  | AnyCompoundFieldT
+  | RepeatableFieldT<AnyFieldT | void>
+  | FieldT<unknown>;
 
 declare type FormOrAnyFieldT =
   | FormT<SubfieldsT>
@@ -134,7 +122,13 @@ declare type PartialDateFieldT = CompoundFieldT<{
   readonly year: FieldT<StrOrNum | null>,
 }>;
 
-declare type RepeatableFieldT<out F> = {
+/*
+ * A repeatable field should not actually contain any `undefined` values in
+ * the `field` array, but `void` is specified to allow some forms to guard
+ * against out-of-bounds indexed access, which Flow happily allows otherwise.
+ * See, e.g,, 626aadc5534b20d2fabc2b0c90d55de01a97678a.
+ */
+declare type RepeatableFieldT<out F extends AnyFieldT | void> = {
   readonly errors: ReadonlyArray<string>,
   readonly field: ReadonlyArray<F>,
   readonly has_errors: boolean,

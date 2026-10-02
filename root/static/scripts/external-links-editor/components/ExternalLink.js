@@ -85,6 +85,7 @@ component _ExternalLink(
   isLastLink: boolean,
   isOnlyLink: boolean,
   link: LinkStateT,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   source: RelatableEntityT,
 ) {
   const {
@@ -239,6 +240,7 @@ component _ExternalLink(
               className="value with-button"
               onBlur={submitLink}
               onChange={handleUrlChange}
+              onFocus={onFocus}
               onKeyDown={handleKeyDown}
               placeholder={isOnlyLink
                 ? l('Add link')

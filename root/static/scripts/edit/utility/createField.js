@@ -18,10 +18,11 @@ let LAST_FIELD_ID = 99999;
 export type MapFields<F> = {[K in keyof F]: FieldT<F[K]>};
 
 export function createCompoundFieldFromObject<
-  F extends {...},
+  F extends {readonly [fieldName: string]: unknown},
 >(
   name: string,
   fieldValues: F,
+  props?: Partial<CompoundFieldT<MapFields<F>>>,
 ): CompoundFieldT<MapFields<F>> {
   // $FlowExpectedError[incompatible-type]
   const field: MapFields<F> = Object.fromEntries(
@@ -37,12 +38,14 @@ export function createCompoundFieldFromObject<
     html_name: name,
     id: ++LAST_FIELD_ID,
     type: 'compound_field',
+    ...props,
   };
 }
 
-export function createCompoundField<T>(
+export function createCompoundField<T extends SubfieldsT>(
   name: string,
   fieldValues: T,
+  props?: Partial<CompoundFieldT<T>>,
 ): CompoundFieldT<T> {
   return {
     errors: [],
@@ -51,12 +54,14 @@ export function createCompoundField<T>(
     html_name: name,
     id: ++LAST_FIELD_ID,
     type: 'compound_field',
+    ...props,
   };
 }
 
 export function createField<T>(
   name: string,
   value: T,
+  props?: Partial<FieldT<T>>,
 ): FieldT<T> {
   return {
     errors: [],
@@ -65,5 +70,23 @@ export function createField<T>(
     id: ++LAST_FIELD_ID,
     type: 'field',
     value,
+    ...props,
+  };
+}
+
+export function createRepeatableField<T extends AnyFieldT>(
+  name: string,
+  field: ReadonlyArray<T>,
+  props?: Partial<RepeatableFieldT<T>>,
+): RepeatableFieldT<T> {
+  return {
+    errors: [],
+    field,
+    has_errors: false,
+    html_name: name,
+    id: ++LAST_FIELD_ID,
+    last_index: field.length - 1,
+    type: 'repeatable_field',
+    ...props,
   };
 }

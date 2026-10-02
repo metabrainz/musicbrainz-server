@@ -19,43 +19,43 @@ export type ArtistCreditableT =
   | ReleaseGroupT
   | ReleaseEditorTrackT;
 
-export type ArtistCreditNameStateT = {
+export type ArtistCreditNameStateT = Readonly<{
+  ...ArtistCreditNameFieldT,
   readonly artist: AutocompleteStateT<ArtistT>,
   readonly automaticJoinPhrase: boolean,
-  readonly joinPhrase: string,
-  readonly key: number,
-  readonly name: string,
   readonly removed: boolean,
-};
+}>;
 
-export type StateT = {
-  readonly artistCreditString: string,
+export type ArtistCreditNamesStateT =
+  RepeatableFieldT<ArtistCreditNameStateT>;
+
+export type InitialBubbleFocusT =
+  | 'default'
+  | 'next-track'
+  | 'prev-track';
+
+export type StateT = Readonly<{
+  ...CompoundFieldT<{readonly names: ArtistCreditNamesStateT}>,
   readonly changeMatchingTrackArtists?: boolean,
   readonly editsPending?: boolean,
   readonly entity?: ArtistCreditableT,
-  readonly formName?: string,
-  readonly id: string,
+  readonly htmlId: string,
   readonly initialArtistCreditString: string,
-  readonly initialBubbleFocus?:
-    | 'default'
-    | 'next-track'
-    | 'prev-track'
-    | void,
+  readonly initialBubbleFocus?: InitialBubbleFocusT | void,
   readonly isOpen: boolean,
-  readonly names: ReadonlyArray<ArtistCreditNameStateT>,
   readonly singleArtistAutocomplete: AutocompleteStateT<ArtistT>,
-};
+}>;
 
 /* eslint-disable ft-flow/sort-keys */
 export type EditArtistActionT = {
   readonly type: 'edit-artist',
-  readonly index: number,
+  readonly nameFieldId: number,
   readonly action: AutocompleteActionT<ArtistT>,
 };
 
 export type EditNameActionT = {
   readonly type: 'edit-name',
-  readonly index: number,
+  readonly nameFieldId: number,
   readonly joinPhrase?: string,
   readonly name?: string,
   readonly automaticJoinPhrase?: boolean,
@@ -64,14 +64,14 @@ export type EditNameActionT = {
 export type ActionT =
   | {
       readonly type: 'open-dialog',
-      readonly initialFocus?: StateT['initialBubbleFocus'],
+      readonly initialFocus?: InitialBubbleFocusT,
     }
   | {readonly type: 'close-dialog'}
   | {readonly type: 'add-name'}
-  | {readonly type: 'move-name-down', readonly index: number}
-  | {readonly type: 'move-name-up', readonly index: number}
-  | {readonly type: 'remove-name', readonly index: number}
-  | {readonly type: 'undo-remove-name', readonly index: number}
+  | {readonly type: 'move-name-down', readonly nameFieldId: number}
+  | {readonly type: 'move-name-up', readonly nameFieldId: number}
+  | {readonly type: 'remove-name', readonly nameFieldId: number}
+  | {readonly type: 'undo-remove-name', readonly nameFieldId: number}
   | {
       readonly type: 'update-single-artist-autocomplete',
       readonly action: AutocompleteActionT<ArtistT>,
@@ -82,7 +82,7 @@ export type ActionT =
   | {readonly type: 'paste'}
   | {
       readonly type: 'next-track',
-      readonly initialFocus?: StateT['initialBubbleFocus'],
+      readonly initialFocus?: InitialBubbleFocusT,
     }
   | {readonly type: 'previous-track'}
   | {readonly type: 'set-change-matching-artists', readonly checked: boolean}

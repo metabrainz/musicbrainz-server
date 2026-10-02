@@ -45,7 +45,7 @@ declare type CatalystSessionT = {
 declare type CatalystStashT = {
   readonly alert?: string,
   readonly alert_mtime?: number | null,
-  readonly artist_credit?: ArtistCreditT,
+  readonly artist_credit_artists?: {readonly [id: string]: ArtistT},
   readonly artist_credit_field?: ArtistCreditFieldT,
   readonly can_delete?: boolean,
   readonly collaborative_collections?: ReadonlyArray<CollectionT>,
@@ -116,7 +116,7 @@ declare type SanitizedCatalystContextT = {
   },
   readonly session: SanitizedCatalystSessionT | null,
   readonly stash: {
-    readonly artist_credit?: ArtistCreditT,
+    readonly artist_credit_artists?: {readonly [id: string]: ArtistT},
     readonly artist_credit_field?: ArtistCreditFieldT,
     readonly current_isrcs?: ReadonlyArray<string>,
     readonly current_iswcs?: ReadonlyArray<string>,

@@ -34,6 +34,7 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../edit/components/GuessCaseOptions.js';
+import useFormSubmitHandler from '../edit/hooks/useFormSubmitHandler.js';
 import copyFieldData, {
   copyDatePeriodField,
 } from '../edit/utility/copyFieldData.js';
@@ -78,6 +79,11 @@ type StateT = {
   readonly searchHintType: number,
 };
 
+type CreateInitialStatePropsT = {
+  readonly form: AliasEditFormT,
+  readonly searchHintType: number,
+};
+
 const blankDatePeriod = {
   errors: [],
   field: {
@@ -97,7 +103,10 @@ const blankDatePeriod = {
   type: 'compound_field' as const,
 };
 
-function createInitialState(form: AliasEditFormT, searchHintType: number) {
+function createInitialState({
+  form,
+  searchHintType,
+}: CreateInitialStatePropsT): StateT {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -134,7 +143,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
       runNameReducer(nameStateCtx, action);
-      const nameState = nameStateCtx.read();
+      const nameState = nameStateCtx.final();
       newStateCtx
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
@@ -216,7 +225,8 @@ const AliasEditForm = ({
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm, searchHintType),
+    {form: initialForm, searchHintType},
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {
@@ -258,20 +268,7 @@ const AliasEditForm = ({
 
   const hasErrors = missingRequired || hasSubfieldErrors(state.form);
 
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
-
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <>
@@ -288,7 +285,6 @@ const AliasEditForm = ({
       <form
         className="edit-alias"
         method="post"
-        onKeyDown={handleKeyDown}
         onSubmit={handleSubmit}
       >
         <div className="half-width">
@@ -354,10 +350,7 @@ const AliasEditForm = ({
             field={state.form.field.period}
           />
           <EnterEditNote field={state.form.field.edit_note} />
-          <EnterEdit
-            disabled={hasErrors}
-            form={state.form}
-          />
+          <EnterEdit errorsExist={hasErrors} form={state.form} />
         </div>
       </form>
     </>

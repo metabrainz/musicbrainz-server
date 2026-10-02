@@ -25,8 +25,8 @@ import RelationshipEditor, {
  * Wraps the relationship editor component to provide it with state and
  * hydration.
  *
- * TODO: Pass state/dispatch in from the edit form once that's written, and
- * perform hydration there. This component can then be removed.
+ * This is only intended to be used from root/forms/relationship-editor.tt!
+ * Forms which have been fully converted to React do not need this.
  *
  * N.B. For series, use
  * root/static/scripts/series/components/SeriesRelationshipEditor.js instead.

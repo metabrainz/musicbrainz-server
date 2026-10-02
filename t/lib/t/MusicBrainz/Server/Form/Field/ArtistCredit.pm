@@ -34,12 +34,37 @@ test 'Artist credit field validation' => sub {
 
     my $missing_fields = $form->field('missing_fields');
     ok($missing_fields->has_errors, 'missing fields are invalid');
+    is(
+        $missing_fields->errors->[0],
+        'Artist credit field is required',
+        'the top level field has a "required" error message',
+    );
 
     my $empty_fields = $form->field('empty_fields');
-    ok($empty_fields->has_errors, 'empty fields are invalid');
+    ok($empty_fields->has_error_fields, 'empty fields are invalid');
+    my @names = $empty_fields->field('names')->fields;
+    is(
+        $names[0]->errors->[0],
+        'Please add an artist name for each credit.',
+        'the first empty field has an error',
+    );
+    is(
+        $names[1]->errors->[0],
+        'Please add an artist name for each credit.',
+        'the second empty field has an error',
+    );
+    ok(!$empty_fields->has_errors, 'the top level field has no error');
 
     my $missing_artist_ids = $form->field('missing_artist_ids');
-    ok($missing_artist_ids->has_errors, 'missing artist ids are invalid');
+    ok($missing_artist_ids->has_error_fields, 'missing artist ids are invalid');
+    @names = $missing_artist_ids->field('names')->fields;
+    is(
+        $names[0]->errors->[0],
+        'Artist "α" is unlinked, please select an existing artist. ' .
+        'You may need to add a new artist to MusicBrainz first.',
+        'the field with an unlinked artist has an error',
+    );
+    ok(!$missing_artist_ids->has_errors, 'the top level field has no error');
 
     $form = t::MusicBrainz::Server::Form::Field::ArtistCredit::TestForm->new( init_object => {} );
     ok(!$form->ran_validation, 'new form with init_object has not yet been validated');

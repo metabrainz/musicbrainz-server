@@ -46,6 +46,7 @@ component EnterEdit(
   children?: React.Node,
   childrenFirst: boolean = false,
   disabled: boolean = false,
+  errorsExist: boolean = false,
   form: FormT<{readonly make_votable: FieldT<boolean>, ...}>,
   ...controlledProps: ControlledPropsT
 ) {
@@ -79,6 +80,15 @@ component EnterEdit(
         </button>
         {childrenFirst ? null : children}
       </div>
+      {errorsExist
+        ? <div className="row no-label">
+            <p className="error">
+              {l(`Some errors were detected in the data you’ve entered.
+                  Please correct any visible error messages (in red text)
+                  before submitting.`)}
+            </p>
+          </div>
+        : null}
     </>
   );
 }
