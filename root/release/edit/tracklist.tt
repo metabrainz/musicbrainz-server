@@ -222,6 +222,7 @@
 
     <td class="icon">
       <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-bind="click: $root.guessCaseTrackName, event: { mouseenter: $root.guessCaseTrackName, mouseleave: $root.guessCaseTrackName }"></button>
+      <button type="button" class="icon guess-punctuation" title="[% l('Guess punctuation') %]" data-bind="click: $root.guessPunctuationTrackName, event: { mouseenter: $root.guessPunctuationTrackName, mouseleave: $root.guessPunctuationTrackName }"></button>
       <button type="button" class="icon guessfeat" title="[% l('Guess feat. artists') %]" data-click="guessTrackFeatArtists"></button>
       <!-- ko ifnot: (medium.hasToc() && !isDataTrack()) -->
       <button type="button" class="icon remove-item remove-track" title="[% l('Remove track') %]" data-click="removeTrack"></button>
@@ -318,6 +319,7 @@
             <label data-bind="attr: { for: 'medium-title-' + uniqueID }">[% l('Medium title:') %]</label>
             <input type="text" data-bind="attr: { id: 'medium-title-' + uniqueID }, value: inputName, valueUpdate: 'input', css: { modified: nameModified(), preview: previewNameDiffers() }, event: { focus: $root.focusMediumName }" />
             <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-bind="click: $root.guessCaseMediumName, event: { mouseenter: $root.guessCaseMediumName, mouseleave: $root.guessCaseMediumName }"></button>
+            <button type="button" class="icon guess-punctuation" title="[% l('Guess punctuation medium title') %]" data-bind="click: $root.guessPunctuationMediumName, event: { mouseenter: $root.guessPunctuationMediumName, mouseleave: $root.guessPunctuationMediumName }"></button>
           <!-- /ko -->
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
             [%~ l('A format is required. If you don’t know it, tick the “I don’t know” checkbox next to the format dropdown.') %]
