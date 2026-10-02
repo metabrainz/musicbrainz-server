@@ -5365,30 +5365,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-eslint@npm:0.329.0":
-  version: 0.329.0
-  resolution: "flow-eslint@npm:0.329.0"
+"flow-eslint@npm:0.334.0":
+  version: 0.334.0
+  resolution: "flow-eslint@npm:0.334.0"
   dependencies:
     esrecurse: "npm:^4.3.0"
-    flow-estree: "npm:0.329.0"
-    flow-parser: "npm:0.329.0"
-  checksum: 10c0/50ddb44de032495cc18c0f28e3ebcec1e405bf3eefbbae69375eb9b9bab9be2a1ef9ed369dfe724dd30b4c485621db677c19fb716e8cf074268fde74f122b30e
+    flow-estree: "npm:0.334.0"
+    flow-parser: "npm:0.334.0"
+  checksum: 10c0/8c9025506ed8bf68b07ef436a8019b63d3dba54ee5921e20cd1db77c20dae11616ed75a3a96c4b68ec6e041a3230031974471ab95c697aa199e6c400dd889566
   languageName: node
   linkType: hard
 
-"flow-estree@npm:0.329.0":
-  version: 0.329.0
-  resolution: "flow-estree@npm:0.329.0"
-  checksum: 10c0/515d28901f739e9da311481acd5d643882f2fe596d3b3d3faa5928d9763cfab425a5c4675c3a0c76e2bd7fc01477c307d107176e98e07889f36c1edd27a8ea21
+"flow-estree@npm:0.334.0":
+  version: 0.334.0
+  resolution: "flow-estree@npm:0.334.0"
+  checksum: 10c0/69f90dca67f26dfb404d4e4ca4cb178be0ddc6e9e81246440bc0190b53bba94b906642bd2520d0176b201304ec42ecb875c6168b2927d5e879f25967f600b467
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.329.0":
-  version: 0.329.0
-  resolution: "flow-parser@npm:0.329.0"
+"flow-parser@npm:0.334.0":
+  version: 0.334.0
+  resolution: "flow-parser@npm:0.334.0"
   dependencies:
-    flow-estree: "npm:0.329.0"
-  checksum: 10c0/ae68d8301d5ec35a35baec9411c517a53354b0db74d2309441eb99fae507b8c53e34562e3381400307e0c6152d753012177066c51d256f68eef9634f1bba863d
+    flow-estree: "npm:0.334.0"
+  checksum: 10c0/861969037a1fc80b48aa8018f90b439554b33b140dce8c4c92c6653f85695c6b3f275e925f6e93a62ac92f6c02d53551e566c6fa9626354daeecf6ed4103ff8c
   languageName: node
   linkType: hard
 
@@ -7837,7 +7837,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     filesize: "npm:10.1.6"
     flow-bin: "npm:0.334.0"
-    flow-eslint: "npm:0.329.0"
+    flow-eslint: "npm:0.334.0"
     flow-typed: "npm:4.1.1"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:4.2.0"
