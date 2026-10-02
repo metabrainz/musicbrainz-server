@@ -19,7 +19,7 @@
     "@babel/register": "8.0.6",
     "@babel/runtime": "8.0.5",
     "@babel/runtime-corejs3": "8.0.6",
-    "@floating-ui/react": "0.27.19",
+    "@floating-ui/react": "0.27.20",
     "@sentry/browser": "7.119.2",
     "@sentry/node": "7.119.2",
     "babel-loader": "10.1.1",
