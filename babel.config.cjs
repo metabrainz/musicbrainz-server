@@ -67,7 +67,7 @@ module.exports = function (api) {
      * https://react.dev/learn/react-compiler/installation#babel
      */
     'babel-plugin-react-compiler',
-    'babel-plugin-syntax-hermes-parser',
+    'flow-parser/babel-plugin',
     '@babel/plugin-transform-flow-strip-types',
     ['@babel/plugin-transform-react-jsx', {
       runtime: 'automatic',
