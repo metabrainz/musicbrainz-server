@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use parent qw(Plack::Middleware::Debug::Base);
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Time::HiRes qw( gettimeofday tv_interval );
 use List::AllUtils qw( sum );
 

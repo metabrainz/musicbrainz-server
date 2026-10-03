@@ -12,7 +12,6 @@ use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Structured qw( Map Optional );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( l );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 
 has 'relationships' => (
@@ -40,33 +39,6 @@ has has_loaded_relationships => (
     isa => 'Bool',
     default => 0,
 );
-
-# Converted to JavaScript at root/utility/groupRelationships.js
-sub grouped_relationships
-{
-    my ($self, @types) = @_;
-    my %filter = map { $_ => 1 } @types;
-    my $filter_present = @types > 0;
-
-    my %groups;
-    my @relationships = sort { $a <=> $b } $self->all_relationships;
-
-    for my $relationship (@relationships) {
-        next if ($filter_present && !$filter{ $relationship->target_type });
-
-        my $phrase = $relationship->grouping_phrase;
-        if ($relationship->source_credit) {
-            $phrase = l('{role} (as {credited_name})', {
-                role => $phrase,
-                credited_name => $relationship->source_credit,
-            });
-        }
-
-        push @{ $groups{$relationship->target_type}{$phrase} }, $relationship;
-    }
-
-    return \%groups;
-}
 
 sub relationships_by_type
 {

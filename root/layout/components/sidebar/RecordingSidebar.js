@@ -85,7 +85,7 @@ component RecordingSidebar(recording: RecordingT) {
 
         <RemoveLink entity={recording} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <CollectionLinks entity={recording} />

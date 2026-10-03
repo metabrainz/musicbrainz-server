@@ -113,7 +113,7 @@ component WorkSidebar(work: WorkT) {
 
         <MergeLink entity={work} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <CollectionLinks entity={work} />

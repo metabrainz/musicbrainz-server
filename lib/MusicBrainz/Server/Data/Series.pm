@@ -347,7 +347,7 @@ sub automatically_reorder {
     my @relationships = values %$relationships;
     $self->c->model('Link')->load(@relationships);
     $self->c->model('LinkType')->load(map { $_->link } @relationships);
-    $self->c->model('Relationship')->load_entities(@relationships);
+    $self->c->model('Relationship')->load_entities(\@relationships);
 
     if ($entity_type eq 'release') {
         my @releases = map { $_->$target_prop } @relationships;

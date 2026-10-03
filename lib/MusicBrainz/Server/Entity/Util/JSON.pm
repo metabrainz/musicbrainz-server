@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Exporter';
 use feature 'state';
-use Scalar::Util qw( blessed reftype );
+use builtin qw( blessed reftype );
 
 our @EXPORT_OK = qw(
     add_linked_entity

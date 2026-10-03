@@ -25,9 +25,9 @@ ws_test 'artist lookup with url relationships',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <relation-list target-type="url">
-            <relation type-id="eb535226-f8ca-499d-9b18-6a144df4ae6f" type="blog">
+            <relation type-id="29651736-fa6d-48e4-aadc-a557c6add1cb" type="wikipedia">
                 <direction>forward</direction>
-                <target id="5eb2c075-3c3b-4cf7-ab77-2dacaee19366">http://dj-distance.blogspot.com/</target>
+                <target id="651248e8-6a8f-4365-948a-aa43559caf58">http://en.wikipedia.org/wiki/Distance_(musician)</target>
             </relation>
             <relation type-id="04a5b104-a4c2-4bac-99a1-7b837c37d9e4" type="discogs">
                 <direction>forward</direction>
@@ -37,9 +37,9 @@ ws_test 'artist lookup with url relationships',
                 <direction>forward</direction>
                 <target id="63854ab2-4804-481f-8b07-e2cbe8192c0f">http://www.myspace.com/djdistancedub</target>
             </relation>
-            <relation type-id="29651736-fa6d-48e4-aadc-a557c6add1cb" type="wikipedia">
+            <relation type-id="eb535226-f8ca-499d-9b18-6a144df4ae6f" type="blog">
                 <direction>forward</direction>
-                <target id="651248e8-6a8f-4365-948a-aa43559caf58">http://en.wikipedia.org/wiki/Distance_(musician)</target>
+                <target id="5eb2c075-3c3b-4cf7-ab77-2dacaee19366">http://dj-distance.blogspot.com/</target>
             </relation>
         </relation-list>
     </artist>
@@ -151,14 +151,14 @@ ws_test 'recording lookup with artist relationships and credits',
         </artist-credit>
         <first-release-date>2004-03-17</first-release-date>
         <relation-list target-type="artist">
-            <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
+            <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                 <direction>backward</direction>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                 </artist>
             </relation>
-            <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
+            <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                 <direction>backward</direction>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
@@ -191,6 +191,14 @@ ws_test 'label lookup with label and url relationships',
             </iso-3166-1-code-list>
         </area>
         <relation-list target-type="url">
+            <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
+                <direction>forward</direction>
+                <target id="e697226c-7752-47d5-9192-5722babd9c32">http://ja.wikipedia.org/wiki/Rhythm_zone</target>
+            </relation>
+            <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
+                <direction>forward</direction>
+                <target id="4e5f8e53-a6fc-46e2-8fe4-2b3192be57e1">http://en.wikipedia.org/wiki/Rhythm_Zone</target>
+            </relation>
             <relation type-id="5b987f87-25bc-4a2d-b3f1-3618795b8207" type="discogs">
                 <direction>forward</direction>
                 <target id="baaf9d35-392a-407a-b1bb-564015b146c6">http://www.discogs.com/label/Rhythm+Zone</target>
@@ -198,14 +206,6 @@ ws_test 'label lookup with label and url relationships',
             <relation type-id="fe108f43-acb9-4ad1-8be3-57e6ec5b17b6" type="official site">
                 <direction>forward</direction>
                 <target id="2a545d02-5447-4f16-a9c5-6239d98ea3f0">http://rzn.jp/</target>
-            </relation>
-            <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
-                <direction>forward</direction>
-                <target id="4e5f8e53-a6fc-46e2-8fe4-2b3192be57e1">http://en.wikipedia.org/wiki/Rhythm_Zone</target>
-            </relation>
-            <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
-                <direction>forward</direction>
-                <target id="e697226c-7752-47d5-9192-5722babd9c32">http://ja.wikipedia.org/wiki/Rhythm_zone</target>
             </relation>
         </relation-list>
     </label>

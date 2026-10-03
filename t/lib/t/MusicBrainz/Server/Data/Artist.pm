@@ -43,7 +43,7 @@ test 'Test find_by_work' => sub {
         INSERT INTO link (id, link_type, attribute_count)
             VALUES (1, 278, 0), (2, 167, 0);
 
-        INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
+        INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 2);
         INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
         SQL
 

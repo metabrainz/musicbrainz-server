@@ -10,8 +10,8 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO link (id, link_type) VALUES (1, 200);
 INSERT INTO link (id, link_type, begin_date_year) VALUES (2, 200, 1995);
-INSERT INTO link (id, link_type, attribute_count) VALUES (3, 148, 1),
-                                                         (4, 148, 2),
+INSERT INTO link (id, link_type, attribute_count) VALUES (3, 103, 1),
+                                                         (4, 103, 2),
                                                          (5, 116, 0);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (3, 229),
