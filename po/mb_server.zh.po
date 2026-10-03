@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"PO-Revision-Date: 2026-10-03 18:13+0000\n"
 "Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
@@ -43,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -2603,8 +2603,8 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free‐form text)."
 msgstr ""
-"该栏用于添加通常不符合 MusicBrainz 严格结构数据模式的信息（无论是由于技术限"
-"制，可能之后会解决，还是因为信息本身必须是自由形式的文本）。"
+"此栏用于添加通常不符合 MusicBrainz 严格结构化数据模式的信息（无论是由于日后可"
+"能解决的技术限制，还是因为信息本身必须为自由格式文本）。"
 
 #: ../root/layout.tt:66 ../root/layout/index.js:238
 msgid "The server is temporarily in read-only mode for database maintenance."
@@ -3892,6 +3892,8 @@ msgid ""
 "group. Leave this blank if none apply. You can select multiple types by "
 "using Ctrl + click (or Cmd + click on a Mac)."
 msgstr ""
+"{doc|次要类型}是描述该发行组的额外属性。若无适用项目请留空。您可以使用 Ctrl "
+"+ 点选（在 Mac 上为 Cmd + 点选）选取多个类型。"
 
 #: ../root/layout.tt:77 ../root/layout/index.js:265
 msgid ""
@@ -3907,7 +3909,7 @@ msgstr "{name} – {additional_info}"
 #: ../root/recording/edit_form.tt:38
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
-msgstr ""
+msgstr "{recording_length}（由相关音轨长度{length_info|推导}）"
 
 #: ../root/instrument/layout.tt:1 ../root/instrument/InstrumentLayout.js:25
 msgid "{type} “{instrument}”"
@@ -3949,7 +3951,7 @@ msgstr ""
 #: ../root/components/forms.tt:247
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
-msgstr ""
+msgstr "“Last Name, First Name”和“Group, The”是常见的排序名称范例。"
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:87
@@ -4019,7 +4021,7 @@ msgstr "您的资料已更新。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:306
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "没有符合这些参数的 OAuth 令牌。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
@@ -4080,6 +4082,8 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
+"提供的 CD 目录无效。这可能是您用来生成它的软件的问题。请重试，如果问题仍然存"
+"在，请将错误报告给您的软件开发者，包括以下技术信息。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:242
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:476
@@ -4098,7 +4102,7 @@ msgstr "提供的 CD 目录不存在。"
 #, perl-brace-format
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or removed."
-msgstr ""
+msgstr "“{id}”不是有效的行 ID；该实体可能已被合并或移除。"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
@@ -4127,7 +4131,7 @@ msgstr "默认"
 msgid ""
 "An edit search query could not be constructed. Some of your parameters are "
 "probably invalid."
-msgstr ""
+msgstr "无法构建修改搜索查询，您的部分参数可能无效。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
@@ -4160,6 +4164,8 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"您无法更改此备注，因为其他人已经对其做出了回复。如果有重要原因需要更改（例如"
+"，包含私有数据），请{contact_url|联系我们}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
@@ -4167,6 +4173,8 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"您无法更改此备注，因为它是在太久以前输入的。如果有重要原因需要更改（例如，包"
+"含私有数据），请{contact_url|联系我们}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:79
@@ -4184,14 +4192,11 @@ msgstr "无法合并至已删除的厂牌。"
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
 msgid "Too many login attempts. Please try again in a few minutes."
-msgstr ""
+msgstr "登录尝试次数过多，请于数分钟后再试。"
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgctxt "event"
-#| msgid "cancelled"
 msgid "Login cancelled."
-msgstr "已取消"
+msgstr "已取消登入。"
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:179
 #, fuzzy
@@ -4213,14 +4218,14 @@ msgstr "‘{types}’ 不是有效的关联类型组合。"
 msgid ""
 "These release groups are being merged in connection with a release merge in "
 "{edit_link|edit #{edit_id}}."
-msgstr ""
+msgstr "这些发行组因 {edit_link|修改 #{edit_id}} 中的发行品合并而一并合并。"
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:432
 #, perl-brace-format
 msgid ""
 "The associated release groups are being merged in {edit_link|edit "
 "#{edit_id}}."
-msgstr ""
+msgstr "相关联的发行组正在{edit_link|修改 #{edit_id}}中合并。"
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:539
 msgid ""
@@ -4364,6 +4369,8 @@ msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
+"我们在尝试从 Internet Archive 获取元数据时遇到了暂时的延迟。请稍等片刻后再试"
+"一次。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:339
 #, perl-brace-format
@@ -4372,6 +4379,8 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"无法将封面图上传到此发行品，因为我们不拥有 Internet Archive 上对应的项目。请"
+"通过 {contact_url} 联系我们，以便我们解决此问题。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:358
 #, perl-brace-format
@@ -4380,13 +4389,15 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"活动图像无法上传到此活动，因为我们不拥有 Internet Archive 上对应的项目。请通"
+"过 {contact_url} 联系我们，以便我们解决此问题。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:483
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
-msgstr ""
+msgstr "Internet Archive 过去对此项目提出过下架请求，因此我们无法再开放上传。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:528
 #, perl-brace-format
@@ -4395,6 +4406,8 @@ msgid ""
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
+"无法在此上传图片，因为我们不拥有 Internet Archive 上对应的项目。请通过 "
+"{contact_url} 联系我们，以便我们解决此问题。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:764
 msgid ""
@@ -4430,12 +4443,16 @@ msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
 msgstr ""
+"无法确定录音 {source_recording} 应合并至哪个录音。存在多个有效选项："
+"{target_recordings}。"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:55
 msgid ""
 "Some mediums being merged don’t have an equivalent on the target release: "
 "either the target release has less mediums, or the positions don’t match."
 msgstr ""
+"某些被合并的媒介在目标发行品上没有对应项目：可能是目标发行品的媒介较少，或者"
+"位置不相符。"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:56
 msgid "The medium positions conflict."
@@ -4451,6 +4468,8 @@ msgid ""
 "Merging a medium with tracks into one without them is not currently "
 "supported. You can always merge in the other direction!"
 msgstr ""
+"将包含音轨的音频载体合并为不包含音轨的音频载体目前不支持。您随时可以反向合并"
+"！"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:59
 msgid ""
@@ -4465,6 +4484,8 @@ msgid ""
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
 msgstr ""
+"存在合并循环，其中两个录音（{recording1} 和 {recording2}）彼此想要合并。这可"
+"能是因为这些音轨或录音在发行品上的顺序不一致。"
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
@@ -4570,6 +4591,8 @@ msgid ""
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
 msgstr ""
+"“{artist_type}”类型未被添加到目标创作者，因为它与此处某位创作者的性别设定冲突"
+"。团体创作者不能有性别。"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:97
 #, perl-brace-format
@@ -4578,6 +4601,8 @@ msgid ""
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
 msgstr ""
+"“{gender}”性别未被添加到目标创作者，因为它与此处某位创作者的团体类型冲突。团"
+"体创作者不能有性别。"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgctxt "edit type"
@@ -4926,7 +4951,7 @@ msgstr "编辑媒介"
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
-msgstr ""
+msgstr "用于设定音轨时间的 CD 目录在此修改提交后已被移除。"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgctxt "edit type"
@@ -5039,6 +5064,8 @@ msgid ""
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
+"此修改将移除在文档中被设为其关系类型示例的关系。如果您仍然认为应该移除它，请"
+"{contact_url|联系我们}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:434
 #, perl-brace-format
@@ -5208,6 +5235,8 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
 msgstr[0] ""
+"IPI {ipi} 已在 {artist_count} 位创作者中使用。请检查 {artist_search|此 IPI 的"
+"所有使用情况}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
 #, perl-brace-format
@@ -5218,6 +5247,8 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
 msgstr[0] ""
+"IPI {ipi} 已在 {label_count} 个厂牌中使用。请检查 {label_search|此 IPI 的所有"
+"使用情况}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:40
 #, perl-brace-format
@@ -5228,6 +5259,8 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
 msgstr[0] ""
+"ISNI {isni} 已在 {artist_count} 位创作者中使用。请检查 {artist_search|此 "
+"ISNI 的所有使用情况}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:46
 #, perl-brace-format
@@ -5238,6 +5271,8 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
 msgstr[0] ""
+"ISNI {isni} 已经在 {label_count} 个厂牌中使用。请检查 {label_search|此 ISNI "
+"的所有使用情况}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgctxt "edit type"
@@ -5466,10 +5501,8 @@ msgstr "编辑/投票已禁用"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "投票已关闭。"
+msgstr "投票已关闭"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:296
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -5527,7 +5560,7 @@ msgstr "在 VK 串流"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
-msgstr ""
+msgstr "在 Anghami 串流"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
@@ -5558,10 +5591,9 @@ msgid "Score at IMSLP"
 msgstr "在 IMSLP 的乐谱"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
-#, fuzzy, perl-brace-format
-#| msgid "Stream at Spotify"
+#, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "Spotify 在线播放"
+msgstr "在 KKBOX {country} 串流"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
 #, fuzzy
@@ -5591,7 +5623,7 @@ msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "在 Rate Your Music 的访谈"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
@@ -5694,7 +5726,7 @@ msgstr "收藏的类型必须匹配其包含的实体类型。"
 msgid ""
 "“{collaborator}” was added more than once. Did you intend to select someone "
 "else?"
-msgstr ""
+msgstr "“{collaborator}”被添加了多次。您是否打算选择其他人？"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:124
 #, perl-brace-format
@@ -5843,7 +5875,7 @@ msgstr "视频"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:47
 msgid "Non-videos only"
-msgstr ""
+msgstr "仅限非影片"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
 #, fuzzy
@@ -5893,7 +5925,7 @@ msgstr "录音艺术家："
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
-msgstr ""
+msgstr "作为作者"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
@@ -5967,7 +5999,7 @@ msgstr "必须提供编辑备注"
 msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
-msgstr ""
+msgstr "由于图片已变更，无法应用这次修改，请重试。"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -6093,7 +6125,7 @@ msgstr "确认密码与密码不一致"
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:35
 #: ../root/user/ReportUser.js:43
 msgid "Editor is spamming"
-msgstr ""
+msgstr "编辑者正在滥发垃圾信息"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:36
 #: ../root/user/ReportUser.js:47
@@ -6108,12 +6140,12 @@ msgstr "编辑器故意无视已批准的指导原则"
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:38
 #: ../root/user/ReportUser.js:55
 msgid "Editor is overzealous in enforcing guidelines as rules"
-msgstr ""
+msgstr "编辑者过度热心地将准则当作规则执行"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:39
 #: ../root/user/ReportUser.js:59
 msgid "Editor engages in overzealous or abusive yes/no voting"
-msgstr ""
+msgstr "编辑进行过度热心或滥用的赞成/反对投票"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:40
 #: ../root/user/ReportUser.js:64
@@ -6217,12 +6249,12 @@ msgstr "{commas_only_list_item}, {rest}"
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
 msgid "Digest access authentication"
-msgstr ""
+msgstr "摘要访问认证"
 
 #: ../root/account/DigestAuthentication.js:29
 #: ../root/account/applications/ApplicationList.js:197
 msgid "Digest authentication is <strong>disabled</strong> on your account."
-msgstr ""
+msgstr "您的账号已<strong>禁用</strong>摘要认证。"
 
 #: ../root/account/DigestAuthentication.js:36
 msgid ""
@@ -6231,11 +6263,14 @@ msgid ""
 "retrieve this token again after closing the page; if it’s lost, you can "
 "reset it from {applications_url|Applications}."
 msgstr ""
+"您的新摘要认证令牌如下。请在需要它的应用程序中，用它代替您的 MusicBrainz 账号"
+"密码。关闭此页面后您将无法再次获取此令牌；如果丢失，您可以从"
+"{applications_url|应用程序}重置。"
 
 #: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
 msgid "{applications_url|Back to Applications}."
-msgstr ""
+msgstr "{applications_url|返回应用程序}。"
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:88
@@ -6262,6 +6297,8 @@ msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
 msgstr ""
+"如果您想捐款，{donate|您可以在这里进行捐款}。如果您已经捐款，但仍然受到催促，"
+"请{contact|联系我们}。"
 
 #: ../root/account/Donation.js:56
 msgid "Thank you for contributing to MusicBrainz."
@@ -6434,6 +6471,9 @@ msgid ""
 "MusicBrainz account. If you no longer use some of the applications, you can "
 "revoke their access."
 msgstr ""
+"一些应用程序和网站支持从 MusicBrainz 访问私人数据或提交数据，但需要您授权访问"
+"您的账号。这些是您已授权访问您 MusicBrainz 账号的应用程序。如果您不再使用某些"
+"应用程序，可以撤销它们的访问权限。"
 
 #: ../root/account/applications/ApplicationList.js:112
 #: ../root/account/applications/ApplicationList.js:151
@@ -6446,7 +6486,7 @@ msgstr "访问"
 
 #: ../root/account/applications/ApplicationList.js:114
 msgid "Last granted token"
-msgstr ""
+msgstr "最近授予的令牌"
 
 #: ../root/account/applications/ApplicationList.js:115
 #: ../root/account/applications/ApplicationList.js:155
@@ -6473,6 +6513,9 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
+"您想要开发使用 {mb_api_doc_url|MusicBrainz API} 的应用程序吗？"
+"{register_url|注册应用程序}以生成 OAuth 令牌。查看我们的 "
+"{oauth2_doc_url|OAuth 文档}以获取更多详细信息。"
 
 #: ../root/account/applications/ApplicationList.js:153
 msgid "OAuth client ID"
@@ -6488,7 +6531,7 @@ msgstr "您没有已注册的应用程序。"
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "Digest access authentication"
-msgstr ""
+msgstr "摘要访问认证"
 
 #: ../root/account/applications/ApplicationList.js:171
 msgid ""
@@ -6499,16 +6542,22 @@ msgid ""
 "token if you want to use such an application; use this token in place of "
 "your password when the application asks for one."
 msgstr ""
+"有些应用程序使用一种名为 {digest_url|HTTP 摘要访问认证} 的旧式认证方式。这要"
+"求我们使用 {md5_url|不安全的哈希函数} 来存储密码。我们不会以这种方式存储您的 "
+"MusicBrainz 账号密码，如果您想使用此类应用程序，我们需要您生成一个单独的令牌"
+"；当应用程序要求输入密码时，请使用此令牌代替您的密码。"
 
 #: ../root/account/applications/ApplicationList.js:188
 msgid ""
 "We don’t track which applications are using digest authentication. You can "
 "choose to either reset the token, or disable this access method entirely."
 msgstr ""
+"我们不会跟踪哪些应用程序正在使用摘要认证。您可以选择重置令牌，或完全禁用此访"
+"问方式。"
 
 #: ../root/account/applications/ApplicationList.js:195
 msgid "Digest authentication is <strong>enabled</strong> on your account."
-msgstr ""
+msgstr "您的账号已<strong>启用</strong>摘要认证。"
 
 #: ../root/account/applications/ApplicationList.js:212
 #, fuzzy
@@ -6518,7 +6567,7 @@ msgstr "消歧义"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
-msgstr ""
+msgstr "重置摘要认证令牌"
 
 #: ../root/account/applications/ApplicationList.js:230
 #, fuzzy
@@ -6560,11 +6609,11 @@ msgstr "移除应用程序"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:25
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
+msgstr "您即将撤销 {app} 的权限："
 
 #: ../root/account/applications/RevokeApplicationAccess.js:37
 msgid "Are you sure you want to revoke this application’s access?"
-msgstr ""
+msgstr "您确定要撤销此应用程序的访问权限吗？"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:41
 msgctxt "header"
@@ -6694,7 +6743,7 @@ msgstr "标题："
 
 #: ../root/annotation/EditAnnotation.js:105
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr ""
+msgstr "= 标题 1 =; == 标题 2 ==; === 标题 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:109
 msgid "Lists:"
@@ -6704,7 +6753,7 @@ msgstr "列表："
 msgid ""
 "tab or 4 spaces and: * bullets or 1., a., A., i., I. numbered items "
 "(rendered with 1.)"
-msgstr ""
+msgstr "Tab 或 4 个空格和：* 项目符号或 1.、a.、A.、i.、I. 编号项目（以 1. 显示）"
 
 #: ../root/annotation/EditAnnotation.js:116
 msgid "Links:"
@@ -6712,7 +6761,7 @@ msgstr "链接："
 
 #: ../root/annotation/EditAnnotation.js:118
 msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
-msgstr ""
+msgstr "网址; [网址]; [网址|厂牌]; [实体类型:MBID|厂牌]"
 
 #: ../root/annotation/EditAnnotation.js:126
 msgid ""
@@ -6723,10 +6772,10 @@ msgid ""
 "have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the "
 "way you intended it to show."
 msgstr ""
-"方括号 [] 用于创建超链接，如果您不希望它们被转换为超链接，您必须使用等价的"
-"HTML 编码（<code>&amp;#91;</code>对应 [）和（<code>&amp;#93;</code>对应 ]）。"
-"例如：如果您想要在注释內使用 [未知] ，您必须输入「<code>&amp;#91;未知"
-"&amp;#93;</code>」，这样才能按照您的意愿显示。"
+"因为方括号 [] 用于创建超链接，如果您不希望它们被转换为超链接，您必须使用等价"
+"的 HTML 编码（<code>&amp;#91;</code> 代表 [，<code>&amp;#93;</code> 代表 ]）"
+"。例如：如果您想在注释中使用 [未知]，您必须输入 <code>&amp;#91;未"
+"知&amp;#93;</code>，这样它才会以您预期的方式显示。"
 
 #: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
 #: ../root/components/EntityTabs.js:25
@@ -6807,7 +6856,7 @@ msgstr "地点"
 msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
-msgstr ""
+msgstr "无法显示地图，因为此服务器尚未设置地图服务访问令牌。"
 
 #: ../root/area/AreaPlaces.js:64
 msgid "Add selected places for merging"
@@ -6951,7 +7000,7 @@ msgstr "显示此艺术家的正式专辑组"
 
 #: ../root/artist/ArtistIndex.js:213
 msgid "Performance name of"
-msgstr ""
+msgstr "演出身份所属"
 
 #: ../root/artist/ArtistIndex.js:221
 msgid "Legal name"
@@ -6959,7 +7008,7 @@ msgstr "合法名称"
 
 #: ../root/artist/ArtistIndex.js:227 ../root/label/LabelIndex.js:59
 msgid "Previously known as"
-msgstr ""
+msgstr "先前称为"
 
 #: ../root/artist/ArtistIndex.js:234 ../root/label/LabelIndex.js:66
 msgid "Renamed to"
@@ -6967,7 +7016,7 @@ msgstr "更名为"
 
 #: ../root/artist/ArtistIndex.js:242
 msgid "Also performs as"
-msgstr ""
+msgstr "演出身份也为"
 
 #: ../root/artist/ArtistIndex.js:256
 msgid "Discography"
@@ -7002,11 +7051,11 @@ msgstr "合并艺术家"
 msgid ""
 "You are about to merge all these artists into a single one. Please select "
 "the artist all others should be merged into:"
-msgstr ""
+msgstr "您即将把所有这些艺术家合并为一个。请选择其他所有艺术家应合并至的目标艺术家："
 
 #: ../root/artist/ArtistMerge.js:43
 msgid "You should only use the checkbox above to fix errors (such as typos)."
-msgstr ""
+msgstr "您应仅使用上面的复选框来修正错误（例如，拼写错误）。"
 
 #: ../root/artist/ArtistMerge.js:49
 msgid ""
@@ -7075,7 +7124,7 @@ msgstr "没有找到专辑。"
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
-msgstr ""
+msgstr "显示多位创作者的发行品。{show_subset|改为显示此创作者的发行品}。"
 
 #: ../root/artist/ArtistReleases.js:88
 msgid "This search only found releases by various artists."
@@ -7089,7 +7138,7 @@ msgstr "此艺术家只有群星艺术家的专辑。"
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
-msgstr ""
+msgstr "显示此创作者的发行品。{show_all|改为显示多位创作者的发行品}。"
 
 #: ../root/artist/ArtistWorks.js:58 ../root/iswc/Index.js:80
 msgid "Add selected works for merging"
@@ -7147,7 +7196,7 @@ msgstr "不允许编辑特殊用途艺术家"
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
-msgstr ""
+msgstr "您尝试修改的创作者是特殊用途创作者，您无法直接更改此数据。"
 
 #: ../root/artist/SplitArtist.js:34
 msgid "Split artist"
@@ -7268,7 +7317,7 @@ msgstr "死亡："
 #: ../root/artist/utils.js:42
 msgctxt "group artist"
 msgid "Dissolving"
-msgstr ""
+msgstr "将解散"
 
 #: ../root/artist/utils.js:43
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
@@ -7437,7 +7486,7 @@ msgstr "导入 CD 存根"
 
 #: ../root/cdstub/ImportCDStub.js:32
 msgid "Please search for the artist you wish to add a new release for:"
-msgstr ""
+msgstr "请搜索您希望新增发行品的艺术家："
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:44
 msgid ""
@@ -7449,7 +7498,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:72
 msgid "Track length comparison"
-msgstr ""
+msgstr "音轨长度比较"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:76
 #: ../root/cdtoc/SetTracklistDurations.js:57
@@ -7515,12 +7564,14 @@ msgid ""
 "ensure a better result, search for the full release title or as close to it "
 "as possible."
 msgstr ""
+"出于性能原因，此搜索仅检查标题与您输入的查询最接近的有限数量发行品是否合适。"
+"为确保获得更好的结果，请搜索完整的发行品标题或尽可能接近完整的标题。"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:146
 msgid ""
 "You can also {search_link|search manually} and paste the link to the release "
 "here."
-msgstr ""
+msgstr "您也可以{search_link|手动搜索}，并将发行品的链接粘贴到这里。"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:163
 msgid ""
@@ -7603,8 +7654,7 @@ msgstr "移除唱片 ID"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr ""
-"确定要从 {artist} 的专辑 {release} 中移除唱片 ID<code>{discid}</code>吗？"
+msgstr "确定要从 {artist} 的发行品 {release} 中移除唱片 ID<code>{discid}</code>吗？"
 
 #: ../root/cdtoc/RemoveDiscId.js:51
 msgid ""
@@ -7638,6 +7688,8 @@ msgid ""
 "release. This will allow you to add this artist and a release at the same "
 "time"
 msgstr ""
+"如果您没有看到您正在寻找的创作者，您仍然可以添加新发行品。这将允许您同时添加"
+"此创作者和发行品"
 
 #: ../root/cdtoc/SetTracklistDurations.js:36
 #: ../root/cdtoc/SetTracklistDurations.js:37
@@ -7648,7 +7700,7 @@ msgstr "设置音轨列表时长"
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
-msgstr ""
+msgstr "您即将提交一个修改，将更改音轨的时长，使其与以下碟片 ID 相符。"
 
 #: ../root/cdtoc/SetTracklistDurations.js:53 ../root/edit/EditIndex.js:57
 msgid "Changes"
@@ -7683,7 +7735,7 @@ msgstr "修改"
 #: ../root/user/UserProfile.js:402
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
-msgstr ""
+msgstr "此内容已被隐藏以防止垃圾信息。要查看它，请{url|登录}。"
 
 #: ../root/collection/CollectionIndex.js:202
 #: ../root/collection/CollectionMerge.js:58
@@ -7741,7 +7793,7 @@ msgstr "合并收藏"
 msgid ""
 "You are about to merge all these collections into a single one. Please "
 "select the collection all others should be merged into:"
-msgstr ""
+msgstr "您即将把所有这些收藏合并为一个。请选择其他所有收藏应合并至的目标收藏："
 
 #: ../root/collection/CollectionMerge.js:117
 msgid ""
@@ -7749,12 +7801,16 @@ msgid ""
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
 msgstr ""
+"<strong>警告：</strong>这些收藏属于不同的实体类型。请从合并队列中移除一些收藏"
+"，直到仅剩下相同实体类型的收藏。"
 
 #: ../root/collection/CollectionMerge.js:124
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
 msgstr ""
+"<strong>警告：</strong>这些收藏属于不同的实体类型。只能合并相同实体类型的收藏"
+"。"
 
 #: ../root/collection/CollectionMerge.js:136
 msgid ""
@@ -7763,10 +7819,13 @@ msgid ""
 "apply. If you merge your private collections into a public one, the final "
 "result will be visible to other users."
 msgstr ""
+"<strong>警告：</strong>这些收藏中有些是公开的，有些是私人的。请注意，目标收藏"
+"的隐私设置将适用。如果您将私人收藏合并到公开收藏中，最终结果将对其他用户可见"
+"。"
 
 #: ../root/collection/CollectionMerge.js:151
 msgid "The merged collection will have the following collaborators:"
-msgstr ""
+msgstr "合并后的收藏将拥有以下合作编辑者："
 
 #: ../root/collection/CollectionMerge.js:162
 msgid ""
@@ -7822,11 +7881,13 @@ msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
 msgstr ""
+"这是 {artist} 在数据库中被署名所有不同方式的列表。查看 {doc|创作者署名文档} "
+"以获取更多详情信息。"
 
 #: ../root/components/Aliases/ArtistCreditList.js:64
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:159
 msgid "see uses"
-msgstr ""
+msgstr "查看使用情况"
 
 #: ../root/components/Aliases/index.js:45 ../root/components/EntityTabs.js:137
 #: ../root/entity/Aliases.js:23
@@ -7840,6 +7901,8 @@ msgid ""
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
+"别名是实体的另一个名称。它们通常包含常见的拼写错误或名称变体，并且也用于改善"
+"搜索结果。查看{doc|别名文档}以获取更多详情。"
 
 #: ../root/components/Aliases/index.js:63
 msgid "{entity} has no aliases."
@@ -7906,6 +7969,8 @@ msgid ""
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
 msgstr ""
+"此发行组没有关联或发行品，将在未来几天内自动移除。如果您不希望这样，请为此发"
+"行组添加更多数据。"
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
@@ -7920,6 +7985,8 @@ msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
 msgstr ""
+"此作品没有关联，将在未来几天内自动移除。如果您不希望这样，请为此作品添加关联"
+"。"
 
 #: ../root/components/ConfirmLayout.js:32 ../root/edit/DeleteNote.js:59
 msgid "Yes, I am sure"
@@ -7933,7 +8000,7 @@ msgstr "加载评论时发生了错误。"
 msgid ""
 "No one has reviewed {entity} yet. Be the first to {write_link|write a "
 "review}."
-msgstr ""
+msgstr "还没有人评析过{entity}。成为第一个{write_link|撰写评析}的人。"
 
 #: ../root/components/CritiqueBrainzLinks.js:52
 msgid ""
@@ -7943,6 +8010,8 @@ msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
 msgstr[0] ""
+"在 CritiqueBrainz 上有 {reviews_link|{review_count} 则评析}。您也可以 "
+"{write_link|撰写自己的评析}。"
 
 #: ../root/components/EntityDeletionHelp.js:20
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
@@ -8037,7 +8106,7 @@ msgstr "作为 “{credit}”"
 msgid ""
 "Only the first {n} results can be returned. If you cannot find what you are "
 "looking for, please try a more precise search."
-msgstr ""
+msgstr "只能返回前 {n} 个结果。如果找不到所需的结果，请尝试更精确的搜索。"
 
 #: ../root/components/RelationshipsTable.js:286
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
@@ -8355,11 +8424,11 @@ msgstr "此页面未经过我们的文档团队审核（{more_info|更多信息}
 
 #: ../root/doc/DocPage.js:85
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
-msgstr ""
+msgstr "此页面是从 {title} 的修订版 {version} {doc|嵌入}而来。"
 
 #: ../root/doc/DocPage.js:93
 msgid "This page is {doc|transcluded} from {title}."
-msgstr ""
+msgstr "此页面是从 {title} {doc|嵌入}而来。"
 
 #: ../root/doc/components/DocSearchBox.js:19
 msgid "Search the documentation..."
@@ -8423,7 +8492,7 @@ msgstr "取消 {edit} 时遇到了问题。"
 
 #: ../root/edit/CannotCancelEdit.js:29
 msgid "Only the editor who entered an edit can cancel it."
-msgstr ""
+msgstr "只有提交修改的编辑者可以取消它。"
 
 #: ../root/edit/CannotVote.js:14 ../root/edit/CannotVote.js:15
 msgid "Error voting on edits"
@@ -8448,6 +8517,8 @@ msgid ""
 "things clearer for other editors checking the editing history in the future. "
 "Otherwise it can be omitted."
 msgstr ""
+"如果提供移除原因能让未来检查编辑历史的其他编辑更清楚，建议您提供理由。否则可"
+"以省略。"
 
 #: ../root/edit/DeleteNote.js:49 ../root/edit/ModifyNote.js:67
 #: ../root/user/ReportUser.js:132
@@ -8469,11 +8540,11 @@ msgstr "相关实体："
 #: ../root/edit/EditData.js:86
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr ""
+msgstr "这是修改 #{id} 的原始数据。此数据可用于调试目的。"
 
 #: ../root/edit/EditData.js:92
 msgid "View the human-readable rendering instead."
-msgstr ""
+msgstr "请改为查看易读版本。"
 
 #: ../root/edit/EditIndex.js:51
 msgid "Edit #{id}"
@@ -8509,7 +8580,7 @@ msgstr "测试中的特性"
 msgid ""
 "To aid in testing, the following features have been made available on "
 "testing servers:"
-msgstr ""
+msgstr "为了协助测试，以下功能已在测试服务器上提供："
 
 #: ../root/edit/EditIndex.js:175
 msgid "You must be logged in to vote on edits."
@@ -8559,6 +8630,8 @@ msgid ""
 "checking this edit in the future. Keep in mind the reason will be displayed "
 "to other editors."
 msgstr ""
+"提供理由是选填的，但可以让未来检查此修改的其他编辑更清楚。请记住，理由将显示"
+"给其他编辑。"
 
 #: ../root/edit/ModifyNote.js:77 ../root/oauth2/OAuth2FormPost.js:38
 #: ../root/static/scripts/edit/components/InlineSubmitButton.js:16
@@ -8586,18 +8659,16 @@ msgid "ModBot notes"
 msgstr "编辑备注"
 
 #: ../root/edit/NotesReceived.js:57
-#, fuzzy
-#| msgid "Show all tags."
 msgid "Show all notes"
-msgstr "显示所有标签。"
+msgstr "显示所有备注"
 
 #: ../root/edit/NotesReceived.js:58
 msgid "Show only notes by ModBot"
-msgstr ""
+msgstr "只显示 ModBot 的备注"
 
 #: ../root/edit/NotesReceived.js:60
 msgid "Show only notes by someone else"
-msgstr ""
+msgstr "只显示其他人的备注"
 
 #: ../root/edit/NotesReceived.js:86
 msgid "Nobody has left notes on any of your edits in the past three months."
@@ -8625,7 +8696,7 @@ msgid ""
 "This page lists edits linked to entities you are directly subscribed to, as "
 "well as edits linked to entities which are part of a collection you are "
 "subscribed to."
-msgstr ""
+msgstr "此页面列出与您直接订阅的实体相关的修改，以及您订阅的收藏中实体相关的修改。"
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 msgctxt "singular"
@@ -8747,19 +8818,19 @@ msgstr "此编辑笔记已被管理员删除。没有提供任何理由。"
 
 #: ../root/edit/components/EditNote.js:209
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
-msgstr ""
+msgstr "最后由备注作者修改（{time}）。给出的理由：“{reason}”。"
 
 #: ../root/edit/components/EditNote.js:218
 msgid "Last modified by the note author ({time})."
-msgstr ""
+msgstr "最后由备注作者修改（{time}）。"
 
 #: ../root/edit/components/EditNote.js:225
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
-msgstr ""
+msgstr "最后由管理员修改（{time}）。给出的理由：“{reason}”。"
 
 #: ../root/edit/components/EditNote.js:234
 msgid "Last modified by an admin ({time})."
-msgstr ""
+msgstr "最后由管理员修改（{time}）。"
 
 #: ../root/edit/components/EditNoteHelp.js:15
 msgid ""
@@ -8788,12 +8859,12 @@ msgstr "开启于："
 
 #: ../root/edit/components/EditSidebar.js:62
 msgid "For quicker closing"
-msgstr ""
+msgstr "为了更快关闭"
 
 #: ../root/edit/components/EditSidebar.js:65
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] ""
+msgstr[0] "{n} 票一致"
 
 #: ../root/edit/components/EditSidebar.js:74
 msgid "If no votes cast"
@@ -8831,7 +8902,7 @@ msgstr "新手"
 
 #: ../root/edit/components/EditorTypeInfo.js:35
 msgid "This user is automated."
-msgstr ""
+msgstr "此用户为自动化账号。"
 
 #: ../root/edit/components/EditorTypeInfo.js:36
 msgid "bot"
@@ -10436,10 +10507,8 @@ msgstr "没有找到艺术家。"
 
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
-#, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument list"
-msgstr "乐器列表"
+msgstr "乐器清单"
 
 #: ../root/instrument/List.js:60 ../root/report/components/InstrumentList.js:50
 msgid "Unclassified instrument"
@@ -10449,7 +10518,7 @@ msgstr "未分类的乐器"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr ""
+msgstr "此清单是否缺少某种乐器？请按照{link|这些说明}提出请求。"
 
 #: ../root/isrc/Index.js:36 ../root/isrc/Index.js:40
 msgid "ISRC “{isrc}”"
@@ -11279,10 +11348,8 @@ msgstr ""
 "重要。在这行代码下面，您可以查看正在发送的数据，并根据需要进行任何修改。"
 
 #: ../root/main/ImageEditingUnavailable.js:14
-#, fuzzy
-#| msgid "No description available."
 msgid "Image editing unavailable"
-msgstr "无可用描述。"
+msgstr "图片编辑不可用"
 
 #: ../root/main/ImageEditingUnavailable.js:17
 #, fuzzy
@@ -11581,7 +11648,7 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"<strong>MusicBrainz数据库</strong>中的大部分数据被发布到<strong>公共域</"
+"<strong>MusicBrainz数据库</strong>中的大部分数据被发布到<strong>公共领域</"
 "strong>，可以<strong>免费</strong>下载和使用 。"
 
 #: ../root/main/index.js:234
@@ -11836,8 +11903,8 @@ msgid ""
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
 msgstr ""
-"<strong>警告:</strong>正在合并的某些录音具有不同的isrc。请确保它们确实是相同"
-"的录音，并且您希望继续合并。"
+"<strong>警告：</strong>您正在合并的某些录音是具有不同 ISRC 的录音。请确保它们"
+"确实是相同的录音，并且您希望继续合并。"
 
 #: ../root/relationship/RelationshipsHeader.js:24
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:80
@@ -11876,7 +11943,7 @@ msgstr "可能的值"
 msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
-msgstr ""
+msgstr "此属性的可能值可以从 {instrument_list|乐器清单} 中检视。"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "Relationship usage"
@@ -14176,12 +14243,12 @@ msgstr ""
 "这是一台开发用服务器。您的电子邮件地址可能不是私有和安全的。请慎重行事！"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
-#, fuzzy
-#| msgid "If you change your email address, you will be required to verify it."
 msgid ""
 "Your email address can be changed from your {profile|MetaBrainz profile}. If "
 "you change your email address, you will be required to verify it."
-msgstr "如果您更改了电子邮件地址，您将需要重新验证它。"
+msgstr ""
+"您的电子邮件地址可以在{profile|MetaBrainz 个人资料}中变更。如果您变更电子邮件"
+"地址，将需要重新验证。"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
@@ -15945,15 +16012,12 @@ msgid ""
 msgstr "不允许添加此网站的链接，因为它是已知的恶意网站。"
 
 #: ../root/static/scripts/external-links-editor/validation.js:188
-#, fuzzy
-#| msgid ""
-#| "This is a redirect link. Please follow {redirect_url|your link} and add "
-#| "the link it redirects to instead."
 msgid ""
 "This is an aggregator link. Please follow {aggregator_url|your link} and add "
 "all appropriate links separately instead."
 msgstr ""
-"这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
+"这是一个聚合链接。请访问{aggregator_url|您的链接}，并改为分别添加所有相应的链"
+"接。"
 
 #: ../root/static/scripts/external-links-editor/validation.js:217
 msgid ""
@@ -16351,7 +16415,7 @@ msgstr ""
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
-msgstr "这一媒介具有一或多个唱片ID，因此无法改变此信息。"
+msgstr "此音频载体具有一个或多个唱片 ID，因此无法更改此信息。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:49
 msgid ""
@@ -17193,9 +17257,9 @@ msgid ""
 "so that you can be contacted if the report is resolved or the admins need "
 "more information."
 msgstr ""
-"如果您不希望我们的管理员因此报告进一步联系您，请取消勾选上方的复选框。<br />"
-"我们建议您保持勾选，这样在报告的问题被解决或管理员需要更多信息时，我们能够能"
-"联系您。"
+"如果您不希望我们的管理员针对此报告进一步联系您，请取消勾选上方的复选框"
+"。<br />我们建议您保留勾选，以便在报告得到解决或管理员需要更多信息时，能够联"
+"系到您。"
 
 #: ../root/user/ReportUser.js:161
 msgid "Receive email updates about this report"
@@ -17935,13 +17999,14 @@ msgid ""
 "destructive changes to releases (track, medium and release label removals), "
 "and one for image removals (cover and event art)."
 msgstr ""
-"破坏性编辑（移除和合并）往往难以甚至不能撤销。因此，未经审核的错误的破坏性编"
-"辑可能会造成很大的混乱！大多数破坏性编辑即使获得三个“同意”票，也保证至少会保"
-"持开放两天，以避免其过快关闭，但让更多人有时间审查总是好的。以下你可以找到六"
-"种不同的搜索：1. 所有破坏性编辑（有时可能会令人不知所措）, 2. 仅没有编辑注释"
-"的破坏性编辑（完全不提供任何理由）, 3. 仅实体的合并和移除（如果错误地允许并通"
-"过了，这些编辑最有可能造成混乱）, 4. 仅关系的移除, 5. 仅对发行版本的破坏性更"
-"改（移除相关的音轨、介质和发行厂牌）, 5. 仅图像的移除（封面/活动图)"
+"破坏性修改（移除和合并）往往很难甚至无法撤销。因此，一个未被注意到的错误破坏"
+"性修改一旦生效，就可能造成很大的混乱！即使获得三张“赞成”票，大多数破坏性修改"
+"也会保证至少保持开放整整两天，以避免过快关闭，但让更多人审查它们总是有益的。"
+"您可以在下面找到六种不同的搜索：1. 所有破坏性修改（有时可能会让人不知所措）；"
+"2. 仅没有修改备注的破坏性修改（即完全没有提供任何理由）；3. 仅实体的合并和移"
+"除（如果错误地通过，这些修改最有可能造成混乱）；4. 仅关系的移除；5. 仅对发行"
+"品的破坏性更改（移除音轨、音频载体和发行厂牌）；6. 仅图像的移除（封面和活动图"
+"片）。"
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
