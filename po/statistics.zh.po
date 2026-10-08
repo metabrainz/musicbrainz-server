@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"PO-Revision-Date: 2026-10-02 16:13+0000\n"
 "Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -863,8 +863,8 @@ msgid ""
 "administrator for this server, you should run <code>./admin/CollectStats.pl</"
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
-"统计信息从未从此服务器收集过。如果您是服务器的管理员，请运行<code>./admin/"
-"CollectStats.pl</code>或导入<code>mbdump-stats.tar.bz2</code>。"
+"此服务器从未为收集过统计信息。如果您是此服务器的管理员，应运行 <code>./admin/"
+"CollectStats.pl</code> 或导入 <code>mbdump-stats.tar.bz2</code>。"
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
@@ -1593,12 +1593,12 @@ msgstr[0] "有 {n}个碟片ID的音频载体"
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] "录音"
+msgstr[0] "具有 {n} 个发行品的录音"
 
 #: ../root/statistics/stats.js:1012
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] "发行组"
+msgstr[0] "具有 {n} 个发行品的发行组"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
@@ -1706,7 +1706,7 @@ msgstr "{script} 发行"
 
 #: ../root/statistics/stats.js:1331
 msgid "{type} series"
-msgstr "{类型}系列"
+msgstr "{type}系列"
 
 #: ../root/statistics/stats.js:1342
 msgid "{status} releases"
