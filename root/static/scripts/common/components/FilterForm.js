@@ -49,6 +49,7 @@ type ReleaseFilterFormT = FormT<{
   readonly artist_credit_id: FieldT<number>,
   readonly country_id: FieldT<number>,
   readonly date: FieldT<string>,
+  readonly format_id: FieldT<number>,
   readonly label_id: FieldT<number>,
   readonly status_id: FieldT<number>,
 }>;
@@ -58,6 +59,7 @@ export type ReleaseFilterT = Readonly<{
   readonly entity_type: 'release',
   readonly options_artist_credit_id: SelectOptionsT,
   readonly options_country_id: SelectOptionsT,
+  readonly options_format_id: SelectOptionsT,
   readonly options_label_id: SelectOptionsT,
   readonly options_status_id: SelectOptionsT,
 }>;
@@ -292,6 +294,22 @@ component FilterForm(
                       options={{
                         grouped: false,
                         options: form.options_country_id,
+                      }}
+                      style={{maxWidth: '40em'}}
+                      uncontrolled
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    {addColonText(l('Format'))}
+                  </td>
+                  <td>
+                    <SelectField
+                      field={form.field.format_id}
+                      options={{
+                        grouped: false,
+                        options: form.options_format_id,
                       }}
                       style={{maxWidth: '40em'}}
                       uncontrolled
