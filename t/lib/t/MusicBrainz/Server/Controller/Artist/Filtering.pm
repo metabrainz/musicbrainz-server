@@ -427,7 +427,7 @@ test 'Event page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
-        'Uncertain',
+        'Uncertain (cancelled)',
         'The entry is named "Uncertain"',
     );
 
@@ -446,6 +446,35 @@ test 'Event page filtering' => sub {
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         '[concert]',
         'The first entry is named [concert]',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.cancelled=1',
+        'Fetched artist events page with with cancelled events only option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
+        '1',
+        'There is one entry in the event table after filtering by cancelled only',
+    );
+    $tx->is(
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
+        'Uncertain (cancelled)',
+        'The entry is named "Uncertain" and marked as cancelled',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.cancelled=2',
+        'Fetched artist events page with with non-cancelled events only option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
+        '3',
+        'There are three entries in the event table after filtering non-cancelled only',
     );
 };
 

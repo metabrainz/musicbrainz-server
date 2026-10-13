@@ -18,6 +18,7 @@ type GenericFilterFormFieldsT = {
 
 type EventFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
+  readonly cancelled: FieldT<number>,
   readonly setlist: FieldT<string>,
   readonly type_id: FieldT<number>,
 }>;
@@ -25,6 +26,7 @@ type EventFilterFormT = FormT<{
 export type EventFilterT = Readonly<{
   ...EventFilterFormT,
   readonly entity_type: 'event',
+  readonly options_cancelled: SelectOptionsT,
   readonly options_type_id: SelectOptionsT,
 }>;
 
@@ -185,6 +187,22 @@ component FilterForm(
                   field={form.field.type_id}
                   options={form.options_type_id}
                 />
+                <tr>
+                  <td>
+                    {addColonText(l('Cancelled'))}
+                  </td>
+                  <td>
+                    <SelectField
+                      field={form.field.cancelled}
+                      options={{
+                        grouped: false,
+                        options: form.options_cancelled,
+                      }}
+                      style={{maxWidth: '40em'}}
+                      uncontrolled
+                    />
+                  </td>
+                </tr>
                 <tr>
                   <td>
                     {addColonText(l('Setlist contains'))}
