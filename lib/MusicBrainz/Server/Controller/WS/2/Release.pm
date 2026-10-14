@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
 );
 use List::AllUtils qw( natatime partition_by uniq_by );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_barcode is_valid_gtin );
 use Readonly;
@@ -297,6 +298,7 @@ sub release_submit : Private
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my $client = $c->req->query_params->{client} // $c->req->user_agent // '';
+    my $edit_note = $xp->find('/mb:metadata/mb:edit-note')->string_value;
 
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
@@ -335,7 +337,7 @@ sub release_submit : Private
 
         try {
             $c->model('MB')->with_transaction(sub {
-                $c->model('Edit')->create(
+                my $edit = $c->model('Edit')->create(
                     editor => $c->user,
                     privileges => $c->user->privileges,
                     edit_type => $EDIT_RELEASE_EDIT_BARCODES,
@@ -345,6 +347,16 @@ sub release_submit : Private
                     }, @submit ],
                     client_version => $client,
                 );
+
+                if (non_empty($edit_note)) {
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            text => $edit_note,
+                            editor_id => $c->user->id,
+                        },
+                    );
+                }
             });
         }
         catch {
