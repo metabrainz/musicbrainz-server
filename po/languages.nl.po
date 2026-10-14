@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-23 13:12+0000\n"
+"PO-Revision-Date: 2026-10-03 12:13+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.10\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -428,10 +428,8 @@ msgstr "Meso-Amerikaanse talen"
 
 #. frequency:1 iso_code_3:dtp
 #: DB:language/name:2109
-#, fuzzy
-#| msgid "Central Yupik"
 msgid "Central Dusun"
-msgstr "Centraal-Alaskaans Joepik"
+msgstr "Centraal-Dusun"
 
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
@@ -1591,7 +1589,7 @@ msgstr "Malayalam"
 #. frequency:1 iso_code_3:pqm
 #: DB:language/name:5515
 msgid "Malecite-Passamaquoddy"
-msgstr ""
+msgstr "Maliseet-Passamaquoddy"
 
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
@@ -1838,7 +1836,7 @@ msgstr "Niger-Congotalen"
 #. frequency:1 iso_code_3:pcm
 #: DB:language/name:5322
 msgid "Nigerian Pidgin"
-msgstr ""
+msgstr "Nigeriaans Pidgin"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
@@ -2017,10 +2015,8 @@ msgstr "Pitjantjatjara"
 
 #. frequency:1 iso_code_3:crk
 #: DB:language/name:1800
-#, fuzzy
-#| msgid "Haitian Creole"
 msgid "Plains Cree"
-msgstr "Haïtiaans Creools (Kreyòl of Patua)"
+msgstr "Plains Cree"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2394,10 +2390,8 @@ msgstr "Zuid-Altai"
 
 #. frequency:1 iso_code_3:crj
 #: DB:language/name:1799
-#, fuzzy
-#| msgid "Southern Altai"
 msgid "Southern East Cree"
-msgstr "Zuid-Altai"
+msgstr "Zuidoostelijk Cree"
 
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
@@ -2751,10 +2745,8 @@ msgstr "Welsh"
 
 #. frequency:1 iso_code_3:wdt
 #: DB:language/name:7181
-#, fuzzy
-#| msgid "Venda"
 msgid "Wendat"
-msgstr "Venda"
+msgstr "Wendat"
 
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
