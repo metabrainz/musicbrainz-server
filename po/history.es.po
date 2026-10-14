@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-01 04:11+0000\n"
-"Last-Translator: jmrr83 <juanmiguelrr@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 15:13+0000\n"
+"Last-Translator: Raguts <raguts@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/es/>\n"
 "Language: es\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -39,7 +39,7 @@ msgstr "Se retiró la directriz \"No Agrupar\""
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "Retirada la estandarización \"feat.\""
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
@@ -282,7 +282,7 @@ msgstr "Anotaciones"
 
 #: DB:statistics.statistic_event/title:2013-05-15
 msgid "Areas, ISNI codes and multiple release events per release"
-msgstr ""
+msgstr "Regiones, códigos ISNI y múltiples lanzamientos por publicación"
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
@@ -293,6 +293,8 @@ msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
+"Se hacen públicas las suscripciones a artistas y se publican varias mejoras "
+"menores centradas en el usuario."
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
@@ -304,6 +306,9 @@ msgid ""
 "stop standardizing \"featuring\" and all its variants to \"feat.\", and ask "
 "editors to use whatever is printed instead."
 msgstr ""
+"Como parte de un movimiento a largo plazo hacia una mayor fidelidad a los "
+"datos originales, dejamos de normalizar \"featuring\" y todas sus variantes "
+"a \"feat.\", y pedimos a los editores que usen lo que aparezca impreso."
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
@@ -320,19 +325,19 @@ msgstr "La BBC se asocia a MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
+msgstr "BookBrainz se convierte en un proyecto oficial de MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr ""
+msgstr "Primera publicación de CAA"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "Publicación oficial de CAA"
 
 #: DB:statistics.statistic_event/title:2016-06-20
 msgid "CatQuest becomes Instrument Inserter"
-msgstr ""
+msgstr "CatQuest se convierte en \"Instrument Inserter\""
 
 #: DB:statistics.statistic_event/description:2016-06-20
 msgid ""
@@ -340,6 +345,9 @@ msgid ""
 "new instruments to MusicBrainz, with the newly created Instrument Inserter "
 "position."
 msgstr ""
+"CatQuest toma oficialmente el relevo de reosarevok como principal "
+"responsable de añadir nuevos instrumentos a MusicBrainz, con el recién "
+"creado cargo de \"Instrument Inserter\"."
 
 #: DB:statistics.statistic_event/title:2019-08-08
 msgid "Collaborative collections"
@@ -350,6 +358,8 @@ msgid ""
 "Collection owners are now able to allow other editors to also add/remove "
 "entities from any of their collections."
 msgstr ""
+"Los propietarios de colecciones ya pueden autorizar a otros editores para "
+"añadir o eliminar entidades de cualquiera de sus colecciones."
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
@@ -366,6 +376,10 @@ msgid ""
 "create series of artists, and to rate places (the only entity that could be "
 "reviewed on CritiqueBrainz but not rated on MusicBrainz)."
 msgstr ""
+"Ahora las colecciones se pueden fusionar, por si un editor quiere consolidar "
+"varias de las suyas en una sola. Además, ya se pueden crear series de "
+"artistas y puntuar lugares (la única entidad que se podía reseñar en "
+"CritiqueBrainz pero no puntuar en MusicBrainz)."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -377,17 +391,19 @@ msgstr "Servidor dedicado de base de datos"
 
 #: DB:statistics.statistic_event/title:2016-03-01
 msgid "Discourse unifies community communication"
-msgstr ""
+msgstr "Discourse unifica la comunicación dentro de la comunidad"
 
 #: DB:statistics.statistic_event/title:2003-07-25
 msgid "Easier edit note adding"
-msgstr ""
+msgstr "Añadir notas de edición más fácilmente"
 
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
 msgstr ""
+"Mejoras de visualización al editar, desactivación de los volcados RDF y "
+"publicación de nuevos scripts de instalación."
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
