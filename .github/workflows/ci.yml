@@ -220,7 +220,7 @@ jobs:
         id: junit_download
 
       - if: steps.junit_download.outcome == 'success'
-        uses: mikepenz/action-junit-report@b7b80d7ac5b1da46d6aaff9fb57ad50d8453bcb3 # v6.6.0
+        uses: mikepenz/action-junit-report@6ef3fdcfcd5f0b5d14df3e659ef19b8c6820f93d # v6.6.1
         with:
           report_paths: '*_junit_output/*.xml'
           annotate_only: true
