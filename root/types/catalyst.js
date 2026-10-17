@@ -136,6 +136,7 @@ declare type ServerLanguageT = {
   readonly id: number,
   readonly name: string,
   readonly native_language: string,
+  readonly native_script?: string | null,
   readonly native_territory: string,
 };
 
