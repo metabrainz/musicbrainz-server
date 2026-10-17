@@ -16,6 +16,7 @@ require('./GuessCase.js');
 require('./guessFeat.js');
 require('./i18n.js');
 require('./i18n/expand2.js');
+require('./layout/languageName.js');
 require('./relationship-editor.js');
 require('./relationship-editor/dialog.js');
 require('./relationship-editor/utility/compareRelationships.js');
