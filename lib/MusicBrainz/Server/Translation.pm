@@ -6,8 +6,8 @@ use DBDefs;
 use DateTime::Locale;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
-use List::AllUtils qw( any sort_by );
-use Locale::Messages qw( bindtextdomain LC_MESSAGES );
+use List::AllUtils qw( sort_by );
+use Locale::Messages qw( bindtextdomain nl_putenv LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
 use POSIX qw( setlocale );
 use Text::Balanced qw( extract_bracketed );
@@ -92,6 +92,43 @@ sub _bind_domain
     $self->{bound} = 1;
 }
 
+# Language codes in MB_LANGUAGES, in the lang cookie and in Accept-Language
+# have the form ll[-Ssss][-CC] in any case, for example "fr-ca", "es-419" or
+# "zh-hant". These functions give the POSIX form (fr_CA, zh_Hant) and the
+# BCP 47 form (fr-CA, zh-Hant) of such a code. They only fix the case and the
+# separators: a subtag of four characters becomes a script, and any other
+# subtag a region. They do not check a code, and they do not support other
+# BCP 47 subtags, for example variants or extensions.
+sub _subtags
+{
+    my ($language, @subtags) = split /[-_]/, shift;
+    return '' unless defined $language;
+    return (lc $language,
+            map { length $_ == 4 ? ucfirst lc $_ : uc $_ } @subtags);
+}
+
+sub posix_locale { join '_', _subtags(shift) }
+
+sub bcp47_tag { join '-', _subtags(shift) }
+
+sub _strip_last_subtag { shift =~ s/_[^_]+$//r }
+
+sub _mb_languages { map { posix_locale($_) => 1 } DBDefs->MB_LANGUAGES }
+
+# glibc has no locale with a script subtag, for example zh_Hant. For such a
+# language, set_language selects this system locale, and LANGUAGE tells
+# gettext to read the catalogs of the language. If the language has no
+# catalogs of its own, gettext reads those of the language without its
+# script: the Simplified Chinese catalogs are named zh, not zh_Hans. The
+# browser build must also make a jed bundle for each key (SCRIPT_LOCALES in
+# webpack/client.config.mjs).
+my %SYSTEM_LOCALE_FOR = (
+    zh_Hans => 'zh_CN',
+    zh_Hant => 'zh_TW',
+);
+
+sub _set_gettext_language { nl_putenv('LANGUAGE=' . (shift // '')) }
+
 sub build_languages_from_header
 {
     my ($self, $headers) = @_;
@@ -115,21 +152,37 @@ sub set_language
     $ENV{OUTPUT_CHARSET} = '';
     $ENV{LC_ALL} = '';
     $ENV{LC_MESSAGES} = '';
+    _set_gettext_language();
+    # glibc caches translations by locale name, and ignores a new LANGUAGE
+    # value while the locale stays the same. For example, zh_TW and zh_Hant
+    # both use the zh_TW locale. Start from the C locale, so that the locale
+    # that set_language selects is always a change.
+    setlocale(LC_MESSAGES, 'C');
 
+    my %mb_languages = _mb_languages();
     my @avail_lang;
     if (defined $lang) {
-        @avail_lang = ($lang =~ s/-/_/gr);
+        @avail_lang = (posix_locale($lang));
     } elsif (DBDefs->LANGUAGE_FALLBACK_TO_BROWSER) {
-        # change e.g. 'en-aq' to 'en_AQ'
-        @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; }
-            grep {
-                my $l = $_;
-                grep { $l eq $_ } DBDefs->MB_LANGUAGES
-            } $self->all_system_languages;
+        @avail_lang = grep { $mb_languages{$_} }
+                      map { posix_locale($_) } $self->all_system_languages;
     } else {
         @avail_lang = ('en');
     }
-    my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
+
+    my $set_lang;
+    for my $avail_lang (@avail_lang) {
+        my $system_locale = $SYSTEM_LOCALE_FOR{$avail_lang};
+        if (defined $system_locale) {
+            if (defined web_set_locale([ $system_locale ], [ 'utf-8' ], LC_MESSAGES)) {
+                _set_gettext_language($avail_lang);
+                return $avail_lang;
+            }
+            next;
+        }
+        $set_lang = web_set_locale([ $avail_lang ], [ 'utf-8' ], LC_MESSAGES);
+        last if defined $set_lang;
+    }
     if (!defined $set_lang) {
         # Force setting 'es_419' which seems to not be recognized by
         # Locale::Util most likely, or I18N::LangTags::Detect maybe.
@@ -138,15 +191,13 @@ sub set_language
     }
     # Strip off charset
     $set_lang =~ s/\.utf-8//;
-    my $set_lang_munge = $set_lang =~ s/_([A-Z]{2})/-\L$1/r;
-    my $set_lang_nocountry = $set_lang =~ s/_[A-Z]{2}//r;
-    # Change en_AQ back to en-aq to compare with MB_LANGUAGES
-    if (any { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs->MB_LANGUAGES) {
+    my $set_lang_parent = _strip_last_subtag($set_lang);
+    if ($mb_languages{$set_lang}) {
         return $set_lang;
     }
-    # Check if the language without country code is in MB_LANGUAGES
-    elsif (contains_string([ DBDefs->MB_LANGUAGES ], $set_lang_nocountry)) {
-        return $set_lang_nocountry;
+    # Check if the language without its last subtag is in MB_LANGUAGES
+    elsif ($mb_languages{$set_lang_parent}) {
+        return $set_lang_parent;
     }
     # Give up, return the full language even though it looks wrong
     else {
@@ -158,30 +209,32 @@ sub run_without_translations {
     my ($self, $code) = @_;
 
     my $prev_locale = setlocale(LC_MESSAGES);
+    my $prev_language = $ENV{LANGUAGE};
     $self->unset_language();
     $code->();
     setlocale(LC_MESSAGES, $prev_locale);
+    _set_gettext_language($prev_language);
     return;
 }
 
 sub unset_language
 {
+    _set_gettext_language();
     web_set_locale([ 'en' ], [ 'utf-8' ], LC_MESSAGES);
 }
 
 sub language_from_cookie
 {
     my ($self, $cookie) = @_;
-    my $cookie_munge = defined $cookie ? $cookie->value : '';
-    $cookie_munge =~ s/-([A-Z0-9]{2,})/-\L$1/;
-    my $cookie_nocountry = defined $cookie ? $cookie->value : '';
-    $cookie_nocountry =~ s/-[A-Z0-9]{2,}//;
-    if (defined $cookie &&
-        any { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
+    return undef unless defined $cookie && length $cookie->value;
+
+    my %mb_languages = _mb_languages();
+    my $cookie_lang = posix_locale($cookie->value);
+    my $cookie_parent = _strip_last_subtag($cookie_lang);
+    if ($mb_languages{$cookie_lang}) {
         return $cookie->value;
-    } elsif (defined $cookie &&
-             contains_string([ DBDefs->MB_LANGUAGES ], $cookie_nocountry)) {
-        return $cookie_nocountry;
+    } elsif ($mb_languages{$cookie_parent}) {
+        return bcp47_tag($cookie_parent);
     } else {
         return undef;
     }
@@ -189,16 +242,14 @@ sub language_from_cookie
 
 sub all_languages
 {
+    my %locale_codes = map { $_ => 1 } DateTime::Locale->codes();
+    my @mb_languages = map { bcp47_tag($_) } DBDefs->MB_LANGUAGES;
     my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language }
                            map { [ $_ => DateTime::Locale->load($_) ] }
-                           grep { my $l = $_;
-                                  grep { $l eq $_ } DateTime::Locale->codes() }
-                           map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
+                           grep { $locale_codes{$_} } @mb_languages;
     my @lang_without_locale = sort_by { $_->[1]->{id} }
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] }
-                              grep { my $l = $_;
-                                     !(grep { $l eq $_ } DateTime::Locale->codes()) }
-                              map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
+                              grep { !$locale_codes{$_} } @mb_languages;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;
 }
