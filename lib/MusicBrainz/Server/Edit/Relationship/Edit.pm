@@ -382,7 +382,7 @@ sub initialize
     my $type1 = $link->type->entity1_type;
 
     unless ($relationship->entity0 && $relationship->entity1) {
-        $self->c->model('Relationship')->load_entities($relationship);
+        $self->c->model('Relationship')->load_entities([$relationship]);
     }
 
     my $new_entity0 = $opts{entity0} // $relationship->entity0;

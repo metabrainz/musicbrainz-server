@@ -179,7 +179,7 @@ component ArtistSidebar(artist: ArtistT) {
               </a>
             </li>
 
-            <li className="separator" role="separator" />
+            <li aria-hidden="true" className="separator" />
 
             <li>
               <a href={entityHref(artist, 'split')}>
@@ -195,7 +195,7 @@ component ArtistSidebar(artist: ArtistT) {
 
         <MergeLink entity={artist} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       {isSpecialPurposeArtist ? null : (

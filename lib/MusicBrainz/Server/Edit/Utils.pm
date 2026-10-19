@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_lp );
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';

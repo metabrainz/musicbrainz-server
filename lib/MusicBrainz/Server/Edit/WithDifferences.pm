@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
-use Scalar::Util qw(blessed);
+use builtin qw( blessed );
 
 extends 'MusicBrainz::Server::Edit';
 

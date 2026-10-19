@@ -5,7 +5,7 @@ use warnings;
 
 use parent qw(Plack::Middleware::Debug::Base);
 use List::AllUtils qw( sum );
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Statistics::Basic qw( stddev mean );
 use Time::HiRes qw( gettimeofday tv_interval );
 

@@ -19,6 +19,10 @@ test 'Correctly identifies serializers' => sub {
 };
 
 test 'Throws exception if asked to serialize an unknown entity' => sub {
+    {
+        package Wazoodle;
+        sub entity_type { '' }
+    }
     my $wazoodle = bless { }, 'Wazoodle';
     like(exception { serializer($wazoodle) },
           qr/^No serializer found for Wazoodle/);

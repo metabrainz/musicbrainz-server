@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'medium' },
      'MusicBrainz::Server::Data::Role::GetByGID',
      'MusicBrainz::Server::Data::Role::GIDRedirect';
 
-use Scalar::Util qw( weaken );
+use builtin qw( weaken );
 
 sub _main_table { 'medium' }
 
