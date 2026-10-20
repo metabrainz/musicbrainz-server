@@ -83,7 +83,10 @@ test 'Test locks on edits' => sub {
     $sql2->begin;
     $sql2->select_single_row_array('SELECT * FROM edit WHERE id = 12345 FOR UPDATE');
 
-    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/, 'Lock found';
+    $test->c->sql->do('SAVEPOINT lock_test');
+    $test->c->sql->do('SET LOCAL lock_timeout = 10');
+    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/lock timeout/, 'Lock found';
+    $test->c->sql->do('ROLLBACK TO SAVEPOINT lock_test');
 
     # Release the lock
     $sql2->rollback;

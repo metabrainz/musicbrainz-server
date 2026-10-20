@@ -501,6 +501,32 @@ test 'Deleting an editor cancels all open edits' => sub {
 
     is($open_edit->status, $STATUS_OPEN, 'The edit is marked as open');
 
+    note('The editor votes on open edits by another editor');
+    my %edit_params = (
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 2,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+    my $yes_voted_edit = $c->model('Edit')->create(
+        %edit_params,
+        comment => 'Yes-voted edit',
+    );
+    my $no_voted_edit = $c->model('Edit')->create(
+        %edit_params,
+        comment => 'No-voted edit',
+    );
+    $c->model('Vote')->enter_votes(
+        $c->model('Editor')->get_by_id(1),
+        [
+            { vote => $VOTE_YES, edit_id => $yes_voted_edit->id },
+            { vote => $VOTE_NO, edit_id => $no_voted_edit->id },
+        ],
+        override_privs => 1,
+    );
+
     note('We delete the editor');
     $c->model('Editor')->delete(1);
 
@@ -513,6 +539,18 @@ test 'Deleting an editor cancels all open edits' => sub {
         $c->model('Edit')->get_by_id($open_edit->id)->status,
         $STATUS_DELETED,
         'The open edit is now marked as cancelled',
+    );
+
+    $c->model('Vote')->load_for_edits($yes_voted_edit, $no_voted_edit);
+    is_deeply(
+        [map { [$_->vote, $_->superseded ? 1 : 0] } @{ $yes_voted_edit->votes }],
+        [[$VOTE_YES, 1], [$VOTE_ABSTAIN, 0]],
+        'The Yes vote is superseded by Abstain',
+    );
+    is_deeply(
+        [map { [$_->vote, $_->superseded ? 1 : 0] } @{ $no_voted_edit->votes }],
+        [[$VOTE_NO, 1], [$VOTE_ABSTAIN, 0]],
+        'The No vote is superseded by Abstain',
     );
 };
 

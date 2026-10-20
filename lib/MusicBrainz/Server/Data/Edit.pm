@@ -127,14 +127,14 @@ sub run_query {
     );
 }
 
-# Load an edit from the DB and try to get an exclusive lock on it
+# Load an edit from the DB and wait for an exclusive lock on it.
 sub get_by_id_and_lock
 {
     my ($self, $id) = @_;
 
     my $query =
         'SELECT id FROM edit ' .
-        'WHERE id = ? FOR UPDATE NOWAIT';
+        'WHERE id = ? FOR UPDATE';
     my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
