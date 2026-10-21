@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM metabrainz/base-image:noble-1.0.2-v0.1
+FROM metabrainz/base-image:noble-1.0.2-v0.4
 
 ARG DEBIAN_FRONTEND=noninteractive
 
