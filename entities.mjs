@@ -111,6 +111,7 @@ const ENTITIES = {
     merging: true,
     meta_table: true,
     model: 'Artist',
+    noindex_table: true,
     plural: 'artists',
     plural_url: 'artists',
     ratings: true,

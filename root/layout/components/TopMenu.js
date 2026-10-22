@@ -177,6 +177,9 @@ component AdminMenu(user: UnsanitizedEditorT) {
                 {l_admin('Possible spammers')}
               </a>
             </li>
+            <li>
+              <a href="/admin/noindex/artist">{l_admin('Artist noindex')}</a>
+            </li>
           </>
         ) : null}
       </ul>

@@ -358,6 +358,12 @@ CREATE TABLE artist_meta ( -- replicate
     rating_count        INTEGER
 );
 
+CREATE TABLE artist_noindex (
+    artist              INTEGER NOT NULL, -- PK, references artist.id CASCADE
+    editor              INTEGER NOT NULL, -- FK, references editor.id
+    added               TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE artist_tag ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
