@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-10-08 15:13+0000\n"
-"Last-Translator: \"fernando.rey1987\" <fernando.rey.caires@gmail.com>\n"
+"PO-Revision-Date: 2026-10-22 05:13+0000\n"
+"Last-Translator: Kolesteraw <leonaribas00@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -111,7 +111,6 @@ msgid "7\" Vinyl"
 msgstr "7\" Vinil"
 
 #: DB:medium_format/name:71
-#, fuzzy
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
 msgstr "8\" LaserDisc"
@@ -548,6 +547,7 @@ msgstr ""
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
 msgstr ""
+"Um selo que, primariamente, publica lançamentos não autorizados (pirata)."
 
 #. name:Longbox
 #: DB:release_packaging/description:55
@@ -556,12 +556,17 @@ msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
 msgstr ""
+"Uma grande caixa de papelão usada, normalmente, até o meio dos anos 1990 "
+"para vender CDs na América do Norte, assim eles caberiam nas prateleiras "
+"existentes de vinil das lojas."
 
 #. name:Amphitheatre
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
 msgstr ""
+"Um grande e permanente palco ao ar livre, tipicamente com uma área de "
+"assentos fixos."
 
 #. name:Setlist
 #: DB:event_art_archive.art_type/description:3
@@ -570,6 +575,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Uma lista de músicas a ser tocada em um evento, geralmente impressa ou "
+"escrita à mão pelo artista."
 
 #. name:Logo
 #: DB:event_art_archive.art_type/description:12
@@ -579,11 +586,14 @@ msgid ""
 "than being the logo for a series (such as a festival logo reused over "
 "multiple years)."
 msgstr ""
+"Logo que é específico para um evento em particular e usado somente para "
+"isso, em vez de ser um logo para uma \"série\" (como o logo de um festival "
+"que é reutilizada múltiplas vezes)."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr ""
+msgstr "Uma grande"
 
 #. name:Mass
 #: DB:work_type/description:8
@@ -593,6 +603,9 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
+"Uma missa é uma composição coral que coloca as partes invariáveis da "
+"liturgia eucarística cristã (Kyrie - Gloria - Credo - Sanctus - Benedictus - "
+"Agnus Dei, com outras partes às vezes adicionadas) à música."
 
 #. name:Masterclass/Clinic
 #: DB:event_type/description:5
@@ -602,6 +615,10 @@ msgid ""
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
 msgstr ""
+"Uma masterclass ou clínica é um evento em que um artista se reúne com um "
+"público pequeno a médio e os instrui individualmente e/ou responde a "
+"perguntas destinadas a aprimorar as habilidades de execução dos membros da "
+"plateia."
 
 #. name:Clamshell Case
 #: DB:release_packaging/description:56
@@ -610,11 +627,14 @@ msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
 msgstr ""
+"Caixa de plástico minimalista onde a frente e as costas estão conectadas por "
+"uma pequena dobradiça. Mais comumente usada para promoções baratas / "
+"lançamentos próprios."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr ""
+msgstr "Uma pequena"
 
 #. name:Partita
 #: DB:work_type/description:13
@@ -623,6 +643,8 @@ msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
 msgstr ""
+"Uma partita é uma peça instrumental composta por uma série de variações, e "
+"é, pela definição atual, muito semelhante a uma suíte."
 
 #. name:Launch event
 #: DB:event_type/description:3
@@ -631,12 +653,14 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr ""
+"Festa, recepção ou outro evento feito especificamente para a publicação de "
+"um lançamento."
 
 #. name:Digibook
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "Um livro encadernado com um espaço no final para guardar um CD"
 
 #. name:Stage performance
 #: DB:event_type/description:6
@@ -647,12 +671,16 @@ msgid ""
 "href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
 "performance</a> without staging)."
 msgstr ""
+"Apresentação de um ou mais musicais, óperas, balé, peças de teatro ou outros "
+"trabalhos parecidos para o palco nas suas formas ensaiadas (oposto a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">apresentação em "
+"concerto</a> sem ensaio)."
 
 #. name:Pressing plant
 #: DB:place_type/description:8
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
-msgstr ""
+msgstr "Um lugar (normalmente uma fábrica) onde a mídia física é feita."
 
 #. name:Indoor arena
 #: DB:place_type/description:5
@@ -662,6 +690,9 @@ msgid ""
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
 msgstr ""
+"Um local composto por uma grande área fechada com um espaço central para "
+"eventos, rodeado por assentos, que pode ser usado para esportes internos, "
+"shows e outros eventos de entretenimento."
 
 #. name:Studio
 #: DB:place_type/description:1
@@ -670,6 +701,7 @@ msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
 msgstr ""
+"Um lugar projetado para produção musical, tipicamente um estúdio de gravação."
 
 #. name:Venue
 #: DB:place_type/description:2
@@ -678,6 +710,8 @@ msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
 msgstr ""
+"Um lugar que tem apresentações artísticas ao vivo como uma de suas "
+"principais funções, como uma sala de concertos."
 
 #. name:Religious building
 #: DB:place_type/description:6
@@ -687,6 +721,9 @@ msgid ""
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
 msgstr ""
+"Um lugar que tem como principal função o culto ou estudos religiosos. "
+"Prédios religiosos frequentemente recebem concertos e servem como locais de "
+"gravação, especialmente para música clássica."
 
 #. name:Stadium
 #: DB:place_type/description:4
@@ -696,6 +733,9 @@ msgid ""
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
 msgstr ""
+"Um local cujo principal objetivo é sediar eventos esportivos ao ar livre, "
+"normalmente consistindo em um campo cercado por uma estrutura para "
+"espectadores sem teto, ou um telhado que pode ser retraído."
 
 #. name:Cancelled
 #: DB:release_status/description:6
@@ -705,6 +745,9 @@ msgid ""
 "which enough info is known to still confidently list it (e.g. it was "
 "available for preorder)."
 msgstr ""
+"Um lançamento oficial planejado que foi cancelado antes de ser lançado, mas "
+"para o qual se sabe informação suficiente para ainda listá-lo com confiança "
+"(por exemplo, estava disponível para pré-venda)."
 
 #. name:Play
 #: DB:work_type/description:28
@@ -714,6 +757,9 @@ msgid ""
 "between characters, and intended for theatrical performance rather than just "
 "reading."
 msgstr ""
+"Uma peça é uma forma de literatura geralmente composta por diálogos "
+"roteirizados entre personagens, destinada à apresentação teatral, e não "
+"apenas à leitura."
 
 #. name:Poem
 #: DB:work_type/description:21
@@ -722,6 +768,8 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr ""
+"Um poema é uma peça literária, geralmente curta e em verso, onde as palavras "
+"são geralmente escolhidas pelo som e pelas imagens e ideias que sugerem."
 
 #. name:Expunged
 #: DB:release_status/description:38
@@ -733,6 +781,11 @@ msgid ""
 "to disown the release and no longer consider it part of their discography. "
 "If it is unclear, use Withdrawn."
 msgstr ""
+"Um lançamento oficial anteriormente que foi ativamente removido da "
+"discografia de um artista ou gravadora. Isso não deve ser usado em casos em "
+"que o lançamento foi apenas retirado, é necessário haver intenção conhecida "
+"de artista ou gravadora de renegar o lançamento e não considerá-lo mais "
+"parte da discografia deles. Se não estiver claro, use \"Retirado\"."
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -742,6 +795,8 @@ msgid ""
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
 msgstr ""
+"Um lançamento promocional destinado principalmente a ter circulação limitada "
+"e demonstrar o som de um artista para gravadoras, editoras e outros artistas."
 
 #. name:Liner
 #: DB:cover_art_archive.art_type/description:12
@@ -751,6 +806,9 @@ msgid ""
 "(usually a vinyl record, but sometimes a CD), often printed with notes or "
 "images."
 msgstr ""
+"Uma capa protetora (geralmente uma 'capa interna') envolvendo um meio "
+"(geralmente um disco de vinil, mas às vezes um CD), frequentemente impressa "
+"com notas ou imagens."
 
 #. name:Quartet
 #: DB:work_type/description:14
@@ -758,6 +816,8 @@ msgctxt "work_type"
 msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
 msgstr ""
+"Um quarteto é uma composição musical composta por quatro vozes ou "
+"instrumentos."
 
 #. name:ROM cartridge
 #: DB:medium_format/description:208
@@ -766,12 +826,15 @@ msgid ""
 "A read only memory cartridge or card, such as the ones used by early home "
 "computers and some video game systems."
 msgstr ""
+"Um cartucho ou cartão de memória somente leitura, como os usados por "
+"computadores domésticos antigos e alguns sistemas de videogame."
 
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr ""
+"Um festival recorrente, geralmente acontecendo anualmente no mesmo local."
 
 #. name:Field recording
 #: DB:release_group_secondary_type/description:12
@@ -780,12 +843,14 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"Um lançamento composto principalmente por gravações de campo (como sons da "
+"natureza ou ruídos urbanos/industriais)."
 
 #. name:Remix
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "Um lançamento que contém principalmente material remixado."
 
 #. name:Live
 #: DB:release_group_secondary_type/description:6
@@ -794,6 +859,8 @@ msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
 msgstr ""
+"Um lançamento gravado ao vivo. Geralmente isso significa \"com uma "
+"plateia\", seja pessoalmente, pelo rádio ou de outra forma semelhante."
 
 #. name:Educational institution
 #: DB:place_type/description:7
@@ -802,60 +869,62 @@ msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
 msgstr ""
+"Escola, universidade ou outra instituição educacional parecida (em especial "
+", mas não unicamente, uma é ensinado música)"
 
 #. name:Artist award
 #: DB:series_type/description:14
 msgctxt "series_type"
 msgid "A series of artists honoured by the same award."
-msgstr ""
+msgstr "Uma série de artistas homenageados pelo mesmo prêmio."
 
 #. name:Artist series
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "Uma série de artistas."
 
 #. name:Award ceremony
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "Uma série de cerimônias de premiação, geralmente uma por ano."
 
 #. name:Event series
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "Uma série de eventos."
 
 #. name:Run
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Uma série de apresentações do mesmo show no mesmo local."
 
 #. name:Recording award
 #: DB:series_type/description:48
 msgctxt "series_type"
 msgid "A series of recordings honoured by the same award."
-msgstr ""
+msgstr "Uma série de gravações homenageadas com o mesmo prêmio."
 
 #. name:Recording series
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "Uma série de gravações."
 
 #. name:Tour
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "Uma série de shows de um artista em diferentes locais."
 
 #. name:Residency
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr ""
+msgstr "Uma série de concertos relacionados de um artista no mesmo local."
 
 #. name:Podcast
 #: DB:series_type/description:80
@@ -863,24 +932,26 @@ msgctxt "series_type"
 msgid ""
 "A series of release groups containing episodes of the same podcast series."
 msgstr ""
+"Uma série de grupos de lançamento contendo episódios da mesma série de "
+"podcasts."
 
 #. name:Release group award
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
-msgstr ""
+msgstr "Uma série de grupos de lançamento homenageados com o mesmo prêmio."
 
 #. name:Release group series
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr ""
+msgstr "Uma série de grupos de lançamento."
 
 #. name:Release series
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr ""
+msgstr "Uma série de lançamentos."
 
 #. name:Series award
 #: DB:series_type/description:17
@@ -889,30 +960,32 @@ msgid ""
 "A series of series (such as podcasts or festivals) honoured by the same "
 "award."
 msgstr ""
+"Uma série de séries (como podcasts ou festivais) homenageadas com o mesmo "
+"prêmio."
 
 #. name:Series series
 #: DB:series_type/description:16
 msgctxt "series_type"
 msgid "A series of series."
-msgstr ""
+msgstr "Uma série de séries."
 
 #. name:Work award
 #: DB:series_type/description:46
 msgctxt "series_type"
 msgid "A series of works honoured by the same award."
-msgstr ""
+msgstr "Uma série de obras homenageadas com o mesmo prêmio."
 
 #. name:Catalogue
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "A series of works which form a catalogue of classical compositions."
-msgstr ""
+msgstr "Uma série de obras que formam um catálogo de composições clássicas."
 
 #. name:Work series
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr ""
+msgstr "Uma série de obras."
 
 #. name:Club
 #: DB:place_type/description:42
@@ -921,6 +994,8 @@ msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
 msgstr ""
+"Um pequeno local (como um clube de jazz, boate ou bar) que recebe shows e "
+"eventos sociais. Pode ou não ter um palco ou assentos dedicados."
 
 #. name:Song-cycle
 #: DB:work_type/description:15
@@ -930,6 +1005,10 @@ msgid ""
 "single entity. In most cases, all of the songs are by the same composer, and "
 "often use words from the same poet or lyricist."
 msgstr ""
+"Um ciclo de canções é um conjunto de canções projetadas para serem "
+"executadas em uma sequência como uma única entidade. Na maioria dos casos, "
+"todas as canções são do mesmo compositor e frequentemente usam palavras do "
+"mesmo poeta ou letrista."
 
 #. name:Song
 #: DB:work_type/description:17
@@ -940,6 +1019,10 @@ msgid ""
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
 msgstr ""
+"Uma canção é na sua origem (e ainda na maioria dos casos) uma composição "
+"para voz, com ou sem instrumentos, executada por canto. Esta é de longe a "
+"forma mais comum na música folclórica e popular, mas também bastante comum "
+"em um contexto clássico (\"canções artísticas\")."
 
 #. name:Soundtrack
 #: DB:work_type/description:22
@@ -948,6 +1031,8 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or "
 "even book."
 msgstr ""
+"Uma trilha sonora é a música que acompanha um filme, programa de TV, "
+"videogame ou até mesmo livro."
 
 #. name:Soundtrack
 #: DB:release_group_secondary_type/description:2
@@ -958,6 +1043,10 @@ msgid ""
 "as soundtracks because the musical properties of the CDs are more "
 "interesting to MusicBrainz than their data properties."
 msgstr ""
+"Uma trilha sonora é a trilha sonora de um filme, série de TV, show, "
+"videogame ou outro meio. Os CDs de videogame com faixas de áudio devem ser "
+"classificados como trilhas sonoras porque as propriedades musicais dos CDs "
+"são mais interessantes para o MusicBrainz do que as propriedades dos dados."
 
 #. name:Ensemble
 #: DB:instrument_type/description:6
@@ -966,6 +1055,8 @@ msgid ""
 "A standard grouping of instruments often played together, like a string "
 "quartet"
 msgstr ""
+"Um agrupamento padrão de instrumentos frequentemente tocados juntos, como um "
+"quarteto de cordas"
 
 #. name:Minimax CD
 #: DB:medium_format/description:165
@@ -974,6 +1065,8 @@ msgid ""
 "A standard size CD with the playing/data area of a 8cm CD; the remaining "
 "area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Um CD de tamanho padrão com a área de reprodução/dados de um CD de 8cm; o "
+"restante é plástico transparente/translúcido, às vezes impresso."
 
 #. name:Minimax DVD
 #: DB:medium_format/description:167
@@ -982,6 +1075,9 @@ msgid ""
 "A standard size DVD with the playing/data area of a 8cm MiniDVD; the "
 "remaining area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Um DVD de tamanho padrão com a área de reprodução/dados de um MiniDVD de "
+"8cm; o restante da área é plástico transparente/translúcido, as vezes "
+"impresso."
 
 #. name:Suite
 #: DB:work_type/description:6
@@ -991,6 +1087,9 @@ msgid ""
 "performed in a concert setting. They may be extracts from a ballet or opera, "
 "or entirely original movements."
 msgstr ""
+"Uma suíte é um conjunto ordenado de peças instrumentais ou orquestrais "
+"normalmente executadas em um ambiente de concerto. Podem ser trechos de um "
+"balé ou ópera, ou movimentos totalmente originais."
 
 #. name:Symphonic poem
 #: DB:work_type/description:18
@@ -1000,6 +1099,9 @@ msgid ""
 "single movement, that evokes a painting, a landscape, the content of a poem, "
 "a story or novel, or other non-musical source."
 msgstr ""
+"Um poema sinfônico é uma peça de música orquestral programática, geralmente "
+"em um único movimento, que evoca uma pintura, uma paisagem, o conteúdo de um "
+"poema, uma história ou romance, ou outra fonte não musical."
 
 #. name:Symphony
 #: DB:work_type/description:16
@@ -1008,6 +1110,8 @@ msgid ""
 "A symphony is an extended composition, almost always scored for orchestra "
 "without soloists."
 msgstr ""
+"Uma sinfonia é uma composição extensa, quase sempre pontuada para orquestra "
+"sem solistas."
 
 #. name:Festival stage
 #: DB:place_type/description:45
@@ -1016,12 +1120,14 @@ msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
 msgstr ""
+"Um palco temporário ao ar livre erguido para um festival de música ou outro "
+"evento similar."
 
 #. name:Slim Jewel Case
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr ""
+msgstr "Uma caixa mais fina, comumente usado para singles."
 
 #. name:DataPlay
 #: DB:medium_format/description:128
@@ -1031,6 +1137,9 @@ msgid ""
 "portable listening. It did not find commercial success, but a few albums "
 "were released in the format in the early 00s."
 msgstr ""
+"Um disco óptico muito pequeno em uma capa protetora destinado à audição "
+"portátil. Não teve sucesso comercial, mas alguns álbuns foram lançados nesse "
+"formato no início dos anos 2000."
 
 #. name:Betacam SP
 #: DB:medium_format/description:131
@@ -1039,6 +1148,8 @@ msgid ""
 "A video format used in the 1980s and 90s for professional work, including "
 "television and video archival."
 msgstr ""
+"Formato de vídeo usado nas décadas de 1980 e 90 para trabalho profissional, "
+"incluindo televisão e arquivamento de vídeo."
 
 #. name:Zarzuela
 #: DB:work_type/description:19
@@ -1048,247 +1159,250 @@ msgid ""
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
 msgstr ""
+"A zarzuela é uma obra lírico-dramática espanhola que alterna entre cenas "
+"faladas e cantadas, esta última incorporando canção operística e popular, "
+"bem como dança."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat major"
-msgstr ""
+msgstr "Lá bemol maior"
 
 #: DB:work_attribute_type_allowed_value/value:27
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
-msgstr ""
+msgstr "Lá bemol menor"
 
 #: DB:work_attribute_type_allowed_value/value:817
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp major"
-msgstr ""
+msgstr "Lá sustenido maior"
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
-msgstr ""
+msgstr "Lá sustenido menor"
 
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
 msgid "AACIMH ID"
-msgstr ""
+msgstr "AACIMH ID"
 
 #: DB:work_attribute_type/name:44
 msgctxt "work_attribute_type"
 msgid "ACAM ID"
-msgstr ""
+msgstr "ACAM ID"
 
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
-msgstr ""
+msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:206
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr ""
+msgstr "ACUM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
-msgstr ""
+msgstr "AEI ID"
 
 #: DB:work_attribute_type/name:43
 msgctxt "work_attribute_type"
 msgid "AGADU ID"
-msgstr ""
+msgstr "AGADU ID"
 
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "AKKA/LAA ID"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr ""
+msgstr "AKM ID"
 
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
 msgid "AMRA ID"
-msgstr ""
+msgstr "AMRA ID"
 
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
 msgid "APA ID"
-msgstr ""
+msgstr "APA ID"
 
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
 msgid "APDAYC ID"
-msgstr ""
+msgstr "APDAYC ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
 msgid "APRA ID"
-msgstr ""
+msgstr "APRA ID"
 
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
 msgid "ARTISJUS ID"
-msgstr ""
+msgstr "ARTISJUS ID"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
-msgstr ""
+msgstr "ASCAP ID"
 
 #: DB:work_attribute_type/name:211
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
-msgstr ""
+msgstr "AUTODIA ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
-msgstr ""
+msgstr "Acem"
 
 #: DB:work_attribute_type_allowed_value/value:305
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Nevruz"
-msgstr ""
+msgstr "Acem Nevruz"
 
 #: DB:work_attribute_type_allowed_value/value:306
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Rast"
-msgstr ""
+msgstr "Acem Rast"
 
 #: DB:work_attribute_type_allowed_value/value:300
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Zemzeme"
-msgstr ""
+msgstr "Acem Zemzeme"
 
 #: DB:work_attribute_type_allowed_value/value:301
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemaşiran"
-msgstr ""
+msgstr "Acemaşiran"
 
 #: DB:work_attribute_type_allowed_value/value:302
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acembuselik"
-msgstr ""
+msgstr "Acembuselik"
 
 #: DB:work_attribute_type_allowed_value/value:303
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemkürdi"
-msgstr ""
+msgstr "Acemkürdi"
 
 #: DB:work_attribute_type_allowed_value/value:304
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemli Yegah"
-msgstr ""
+msgstr "Acemli Yegah"
 
 #: DB:work_attribute_type_allowed_value/value:307
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
-msgstr ""
+msgstr "Acemtarab"
 
 #: DB:medium_format/name:203
 msgctxt "medium_format"
 msgid "Acetate"
-msgstr ""
+msgstr "Acetato"
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
-msgstr ""
+msgstr "Adānā"
 
 #: DB:work_attribute_type_allowed_value/value:849
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā malhār"
-msgstr ""
+msgstr "Adānā malhār"
 
 #: DB:work_attribute_type_allowed_value/value:308
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aheng-i Tarab"
-msgstr ""
+msgstr "Aheng-i Tarab"
 
 #: DB:work_attribute_type_allowed_value/value:850
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahir lalit"
-msgstr ""
+msgstr "Ahir lalit"
 
 #: DB:work_attribute_type_allowed_value/value:851
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahira bhairav"
-msgstr ""
+msgstr "Ahira bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:852
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahiri tōḍī"
-msgstr ""
+msgstr "Ahiri tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:309
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ak Dügah"
-msgstr ""
+msgstr "Ak Dügah"
 
 #: DB:work_attribute_type_allowed_value/value:690
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksak"
-msgstr ""
+msgstr "Aksak"
 
 #: DB:work_attribute_type_allowed_value/value:691
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai"
-msgstr ""
+msgstr "Aksaksemai"
 
 #: DB:work_attribute_type_allowed_value/value:692
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai Evferi"
-msgstr ""
+msgstr "Aksaksemai Evferi"
 
 #: DB:work_attribute_type_allowed_value/value:853
 msgctxt "work_attribute_type_allowed_value"
 msgid "Alahaiyā bilāval"
-msgstr ""
+msgstr "Alahaiyā bilāval"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr ""
+msgstr "Álbum"
 
 #: DB:work_attribute_type/name:216
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr ""
+msgstr "AllTrack ID"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Permite definir manualmente a posição de cada item da série."
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ambikā"
-msgstr ""
+msgstr "Ambikā"
 
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr ""
+msgstr "Anfiteatro"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amr̥t varṣiṇi"
-msgstr ""
+msgstr "Amr̥t varṣiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amṛtavarṣiṇi"
-msgstr ""
+msgstr "Amṛtavarṣiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:39
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amṛtavāhiṇi"
-msgstr ""
+msgstr "Amṛtavāhiṇi"
 
 #. name:EP
 #: DB:release_group_primary_type/description:3
@@ -1316,6 +1430,9 @@ msgid ""
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
 msgstr ""
+"Um álbum, talvez melhor definido como um lançamento \"Long Play\" (LP), "
+"geralmente consiste em material inédito (a menos que esse tipo seja "
+"combinado com tipos secundários que mudem isso, como \"Compilação\")."
 
 #. name:Pseudo-Release
 #: DB:release_status/description:4
@@ -9513,4 +9630,4 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:227
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ṣanmukhapriya"
-msgstr ""
+msgstr "Shanmukhapriya"
