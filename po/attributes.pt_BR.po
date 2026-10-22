@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-09-20 04:13+0000\n"
+"PO-Revision-Date: 2026-10-01 00:13+0000\n"
 "Last-Translator: Kolesteraw <leonaribas00@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
@@ -355,31 +355,41 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"Um DJ-mix é uma sequência de várias gravações tocadas uma após a outra, cada "
+"uma modificada para que se misture com a próxima para um fluxo contínuo da "
+"música. A publicação de um DJ-mix requer que as gravações sejam modificadas "
+"de alguma forma, e que o DJ que fez essas modificações seja normalmente "
+"(embora não sempre) creditado de forma proeminente."
 
 #: DB:work_attribute_type_allowed_value/value:794
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr ""
+msgstr "Dórico"
 
 #: DB:work_attribute_type_allowed_value/value:1070
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Locrian"
-msgstr ""
+msgstr "Lócrio"
 
 #: DB:work_attribute_type_allowed_value/value:1063
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Lydian"
-msgstr ""
+msgstr "Lídio"
 
 #: DB:work_attribute_type_allowed_value/value:806
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr ""
+msgstr "Mixolídio"
 
 #: DB:work_attribute_type_allowed_value/value:1056
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr ""
+msgstr "Frígio"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -388,6 +398,8 @@ msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
 msgstr ""
+"Um balé é uma música composta para ser usada, junto com uma coreografia, em "
+"uma produção de dança de balé."
 
 #. name:Program
 #: DB:event_art_archive.art_type/description:11
@@ -398,12 +410,17 @@ msgid ""
 "being played. Programs/programmes are most often made available for music "
 "festivals and for stage and classical performances."
 msgstr ""
+"Um livreto dado ou vendido para os participantes do evento que contêm "
+"informações sobre o evento, como cronograma, dados do artista e detalhes "
+"sobre a música sendo tocada. Programas são feitos normalmente para festivais "
+"de música e para teatro e apresentações clássicas."
 
 #. name:Box
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
 msgstr ""
+"Uma box normalmente contêm múltiplos discos como parte de uma coletânea."
 
 #. name:Cantata
 #: DB:work_type/description:3
@@ -412,6 +429,9 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
+"Uma cantata é um tipo de composição vocal (frequentemente coral) com um "
+"instrumental (geralmente orquestral) acompanhando, tipicamente em vários "
+"movimentos."
 
 #. name:Download Card
 #: DB:medium_format/description:46
