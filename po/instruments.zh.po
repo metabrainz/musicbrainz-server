@@ -12,11 +12,12 @@
 # Beteix <1158817754@qq.com>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Avava_Ava <2245176012haha@gmail.com>, 2025.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 11:01+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2026-10-02 11:13+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -323,8 +324,6 @@ msgid "afoxé"
 msgstr "巴西串珠葫芦"
 
 #: DB:instrument/name:487
-#, fuzzy
-#| msgid "agogô"
 msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr "阿哥哥铃"
@@ -407,12 +406,9 @@ msgid "anvil"
 msgstr "砧琴"
 
 #: DB:instrument/name:583
-#, fuzzy
-#| msgctxt "generic member of the viol family, use for \"viol\" credits"
-#| msgid "viola da gamba"
 msgctxt "Three-toned samba whistle"
 msgid "apito de samba"
-msgstr "腿上提琴"
+msgstr "桑巴哨"
 
 #: DB:instrument/name:507
 msgid "archlute"
@@ -437,9 +433,6 @@ msgid "arrabel"
 msgstr "阿拉维尔琴"
 
 #: DB:instrument/name:812
-#, fuzzy
-#| msgctxt "cone shaped west african frame-drum"
-#| msgid "ashiko"
 msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "阿希可鼓"
@@ -656,7 +649,7 @@ msgstr "巴松"
 #: DB:instrument/name:1218
 msgctxt "Brazilian samba drum ensemble"
 msgid "bateria"
-msgstr ""
+msgstr "桑巴打击乐团"
 
 #: DB:instrument/name:483
 msgid "bawu"
@@ -918,9 +911,6 @@ msgid "cabrette"
 msgstr "芦笛"
 
 #: DB:instrument/name:903
-#, fuzzy
-#| msgctxt "Brazilian Samba snare-drum"
-#| msgid "caixa"
 msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "巴西小鼓"
@@ -953,9 +943,6 @@ msgid "castanets"
 msgstr "响板"
 
 #: DB:instrument/name:524
-#, fuzzy
-#| msgctxt "Small four-stringed Portugesian lute"
-#| msgid "cavaquinho"
 msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr "卡瓦金诺琴"
@@ -1762,8 +1749,6 @@ msgid "gamelan"
 msgstr "甘美兰"
 
 #: DB:instrument/name:383
-#, fuzzy
-#| msgid "gankogui"
 msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr "甘柯圭铃"
@@ -2812,8 +2797,6 @@ msgid "musical saw"
 msgstr "乐锯"
 
 #: DB:instrument/name:684
-#, fuzzy
-#| msgid "nabal"
 msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr "朝鲜喇叭"
@@ -3403,8 +3386,6 @@ msgid "rototom"
 msgstr "轮鼓"
 
 #: DB:instrument/name:545
-#, fuzzy
-#| msgid "ruan"
 msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr "阮"
@@ -3526,8 +3507,6 @@ msgid "sasando"
 msgstr "撒桑多琴"
 
 #: DB:instrument/name:580
-#, fuzzy
-#| msgid "satsuma biwa"
 msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "萨摩琵琶"
@@ -3908,8 +3887,6 @@ msgid "t'rưng"
 msgstr "竹琴"
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "塔布拉鼓"
@@ -3953,8 +3930,6 @@ msgid "talking drum"
 msgstr "对话鼓"
 
 #: DB:instrument/name:723
-#, fuzzy
-#| msgid "tamborim"
 msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "巴西手鼓"
@@ -4018,12 +3993,9 @@ msgid "taragot"
 msgstr "塔拉戈管"
 
 #: DB:instrument/name:1219
-#, fuzzy
-#| msgctxt "Wooden keyless shawm from Catalonia"
-#| msgid "tarota"
 msgctxt "Brazilian shallow samba snare-drum"
 msgid "tarol"
-msgstr "塔罗塔管"
+msgstr "巴西浅筒小鼓"
 
 #: DB:instrument/name:870
 msgctxt "Wooden keyless shawm from Catalonia"
@@ -4650,7 +4622,7 @@ msgstr "牙伊坦布琴"
 #: DB:instrument/name:1217
 msgctxt "Ancient south-Indian harp"
 msgid "yazh"
-msgstr "yazh"
+msgstr "亚兹琴"
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
@@ -4678,11 +4650,9 @@ msgid "yueqin"
 msgstr "月琴"
 
 #: DB:instrument/name:715
-#, fuzzy
-#| msgid "zabumba"
 msgctxt "Brazilian bass drum"
 msgid "zabumba"
-msgstr "巴西军鼓"
+msgstr "札奔巴鼓"
 
 #: DB:instrument/name:1192
 msgctxt "Large Italian bagpipe"
@@ -4694,11 +4664,9 @@ msgid "zarb"
 msgstr "通巴克鼓"
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
-msgstr "角笛"
+msgstr "单簧笛"
 
 #: DB:instrument/name:217
 msgctxt "Alto huqin"
@@ -4706,8 +4674,6 @@ msgid "zhonghu"
 msgstr "中胡"
 
 #: DB:instrument/name:241
-#, fuzzy
-#| msgid "zhongruan"
 msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr "中阮"
