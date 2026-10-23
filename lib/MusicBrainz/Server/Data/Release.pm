@@ -437,6 +437,42 @@ sub find_by_label
     $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
+=method find_by_label_fast
+
+Same as C<find_by_label>, but sorts only by release ID for a faster
+query plan. This was added for use in the API (for browsing releases by
+label ID), since we don't document a specific sort order there and
+prioritize performance. API users needing a specific order would need to
+browse all pages in any case.
+
+=cut
+
+sub find_by_label_fast
+{
+    my ($self, $label_id, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
+
+    push @$conditions, 'release_label.label = ?';
+    push @$params, $label_id;
+
+    my $columns = $self->_columns;
+    my $joins_str = join(' ', @$extra_joins);
+    my $conditions_str = join(' AND ', @$conditions);
+
+    $self->query_to_list_limited(
+        <<~"SQL",
+        SELECT DISTINCT ON (release.id) $columns
+          FROM release
+          JOIN release_label ON release_label.release = release.id
+          $joins_str
+         WHERE $conditions_str
+         ORDER BY release.id
+        SQL
+        $params, $limit, $offset, undef, cache_hits => 1,
+    );
+}
+
 sub find_by_disc_id
 {
     my ($self, $disc_id) = @_;
