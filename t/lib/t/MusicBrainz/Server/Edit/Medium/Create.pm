@@ -130,12 +130,17 @@ $edit = $c->model('Edit')->create(
     position => 2,
     format_id => 1,
     release => $c->model('Release')->get_by_id(1),
-    tracklist => $tracks_creating_recordings,
+    tracklist => [
+        $tracks_creating_recordings->[0],
+        $tracks_creating_recordings->[0]->meta->clone_object($tracks_creating_recordings->[0], position => 2, video => 1),
+    ],
 );
 
 $c->model('Edit')->load_all($edit);
 ok($edit->display_data);
 ok(defined $edit->display_data->{tracks}->[0]->{recording}{id}, 'New recording was created');
+ok(defined $edit->display_data->{tracks}->[1]->{recording}{id}, 'New recording was created');
+ok($edit->display_data->{tracks}->[1]->{recording}{video}, 'New recording is video');
 
 };
 
