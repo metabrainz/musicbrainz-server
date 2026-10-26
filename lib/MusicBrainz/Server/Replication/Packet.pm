@@ -77,7 +77,7 @@ sub validate_file_signature {
     # Make sure that the signature exists
     unless (-e $signature) {
         # React based on the configured mode for missing signature
-        (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
+        (DBDefs->MISSING_SIGNATURE_MODE =~ m/FAIL/i)
             ? die "Can't find signature file $file: $OS_ERROR"
             : return;
     }
