@@ -120,7 +120,7 @@ sub DB_SCHEMA_SEQUENCE { 31 }
 # sub REPLICATION_ACCESS_TOKEN { '' }
 
 ################################################################################
-# GPG Signature
+# Signature
 ################################################################################
 
 # Location of the public key file
@@ -136,6 +136,11 @@ sub DB_SCHEMA_SEQUENCE { 31 }
 # only be required on the master server.
 # sub GPG_SIGN_KEY { '' }
 # sub GPG_ENCRYPT_KEY { '' }
+
+# Location of the public (verify) and secret (sign) files to
+# use for ML-DSA signatures.
+# sub MLDSA_VERIFY_KEY { '' }
+# sub MLDSA_SIGN_KEY { '' }
 
 ################################################################################
 # HTTP Server Names

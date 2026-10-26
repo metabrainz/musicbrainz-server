@@ -53,7 +53,7 @@ sub REPLICATION_ACCESS_TOKEN { '' }
 sub REPLICATION_USE_DBMIRROR2 { 1 }
 
 ################################################################################
-# GPG Signature
+# Signature
 ################################################################################
 
 # Location of the public key file to use for verifying packets.
@@ -69,6 +69,11 @@ sub GPG_MISSING_SIGNATURE_MODE { 'PASS' }
 # only be required on the master server.
 sub GPG_SIGN_KEY { '' }
 sub GPG_ENCRYPT_KEY { '' }
+
+# Location of the public (verify) and secret (sign) files to
+# use for ML-DSA signatures.
+sub MLDSA_VERIFY_KEY { '' }
+sub MLDSA_SIGN_KEY { '' }
 
 ################################################################################
 # HTTP Server Names
