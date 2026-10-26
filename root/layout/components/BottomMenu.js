@@ -14,10 +14,10 @@ import {VARTIST_GID} from '../../static/scripts/common/constants.js';
 import {capitalize} from '../../static/scripts/common/utility/strings.js';
 import {returnToCurrentPage} from '../../utility/returnUri.js';
 
-function languageName(
+export function languageName(
   language: ?ServerLanguageT,
   selected: boolean,
-) {
+): string {
   if (!language) {
     return '';
   }
@@ -25,6 +25,7 @@ function languageName(
   const {
     id,
     native_language: nativeLanguage,
+    native_script: nativeScript,
     native_territory: nativeTerritory,
   } = language;
 
@@ -33,8 +34,12 @@ function languageName(
   if (nativeLanguage) {
     text = capitalize(nativeLanguage);
 
-    if (nativeTerritory) {
-      text += ' (' + capitalize(nativeTerritory) + ')';
+    // The script tells apart e.g. zh, zh-Hans and zh-Hant.
+    const details = [nativeScript, nativeTerritory]
+      .filter(Boolean)
+      .map(capitalize);
+    if (details.length) {
+      text += ' (' + details.join(', ') + ')';
     }
   }
 
