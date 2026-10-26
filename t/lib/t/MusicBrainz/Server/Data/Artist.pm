@@ -52,6 +52,33 @@ test 'Test find_by_work' => sub {
     cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
 };
 
+test 'Test find_by_release (fast and slow versions)' => sub {
+    my $test = shift;
+    my $artist_data = $test->c->model('Artist');
+
+    $test->c->sql->do('DELETE FROM editor');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+    my ($artists) = $artist_data->_find_by_release_slow(3, 100, 0);
+    is_deeply(
+        [map { $_->id } @$artists],
+        [1, 2],
+        '_find_by_release_slow returns two artists',
+    );
+
+    $test->c->sql->do(<<~'SQL');
+        INSERT INTO artist_release
+        SELECT * FROM get_artist_release_rows(NULL);
+        SQL
+
+    ($artists) = $artist_data->_find_by_release_fast(3, 100, 0);
+    is_deeply(
+        [map { $_->id } @$artists],
+        [1, 2],
+        '_find_by_release_fast returns two artists',
+    );
+};
+
 test all => sub {
 
 my $test = shift;
