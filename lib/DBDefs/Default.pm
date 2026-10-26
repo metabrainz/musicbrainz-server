@@ -56,13 +56,13 @@ sub REPLICATION_USE_DBMIRROR2 { 1 }
 # Signature
 ################################################################################
 
-# Location of the public key file to use for verifying packets.
-sub GPG_PUB_KEY { '' }
-
 # Define how validation deals with the missing signature file:
 #   FAIL    - validation fails if signature file is missing
 #   PASS    - validation passes if signature file is missing
-sub GPG_MISSING_SIGNATURE_MODE { 'PASS' }
+sub MISSING_SIGNATURE_MODE { 'PASS' }
+
+# Location of the public key file to use for verifying packets.
+sub GPG_PUB_KEY { '' }
 
 # Key identifiers (compatible with --recipient in GPG) for
 # signatures and encryption of data dumps and packets. Should
