@@ -124,6 +124,13 @@ sub copy_readme() {
     $self->write_file('README', $readme_text);
 }
 
+sub sign {
+    my ($file_to_be_signed) = @_;
+
+    gpg_sign("$file_to_be_signed");
+    mldsa_sign("$file_to_be_signed");
+}
+
 sub gpg_sign {
     my ($file_to_be_signed) = @_;
 
@@ -141,6 +148,26 @@ sub gpg_sign {
     if ($CHILD_ERROR != 0) {
         print STDERR "Failed to sign $file_to_be_signed\n",
                      "GPG returned $CHILD_ERROR\n";
+    }
+}
+
+sub mldsa_sign {
+    my ($file_to_be_signed) = @_;
+
+    my $sign_with = DBDefs->MLDSA_SIGN_KEY;
+    return unless $sign_with;
+
+    system 'openssl',
+           'pkeyutl',
+           '-inkey', $sign_with,
+           '-sign',
+           '-in', $file_to_be_signed,
+           '-out', "$file_to_be_signed.mldsa"
+           ;
+
+    if ($CHILD_ERROR != 0) {
+        print STDERR "Failed to sign $file_to_be_signed\n",
+                     "openssl returned $CHILD_ERROR\n";
     }
 }
 
@@ -187,7 +214,7 @@ sub make_tar {
     $CHILD_ERROR == 0 or die "Tar returned $CHILD_ERROR";
     log_info { sprintf "Tar completed in %d seconds\n", tv_interval($t0) };
 
-    gpg_sign("$output_dir/$tar_file");
+    sign("$output_dir/$tar_file");
 }
 
 sub copy_file {
@@ -229,7 +256,7 @@ sub write_checksum_files {
 
         $CHILD_ERROR == 0 or die "$hash_program returned $CHILD_ERROR";
 
-        gpg_sign("$output_dir/$hash_output_file");
+        sign("$output_dir/$hash_output_file");
     }
 }
 

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
+use feature qw( switch );
 use DBDefs;
 use English;
 use File::Temp qw( tempdir );
@@ -62,14 +63,14 @@ sub retrieve_remote_file {
         my $s_url_token = $url . '?token=' . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
         $ua->mirror($s_url_token, $signature);
 
-        validate_file_signature($file, $signature);
+        validate_file_signature($file, $signature, 'gpg');
     }
 
     return $f_resp;
 }
 
 sub validate_file_signature {
-    my ($file, $signature) = @_;
+    my ($file, $signature, $type) = @_;
 
     # Make sure that the file to be tested exists
     die "Can't find file $file: $OS_ERROR" unless -e $file;
@@ -77,24 +78,34 @@ sub validate_file_signature {
     # Make sure that the signature exists
     unless (-e $signature) {
         # React based on the configured mode for missing signature
-        (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
+        (DBDefs->MISSING_SIGNATURE_MODE =~ m/FAIL/i)
             ? die "Can't find signature file $file: $OS_ERROR"
             : return;
     }
 
-    # Initialise GnuPG module in local scope
-    my $gpg = GnuPG->new;
+    given($type) {
+        when('gpg') {
+            # Initialise GnuPG module in local scope
+            my $gpg = GnuPG->new;
 
-    # Attempt to verify file signature
-    try {
-        $gpg->import_keys(keys => [DBDefs->GPG_PUB_KEY]);
-        $gpg->verify(signature => $signature, file => $file);
-        unlink $signature or warn "unlink $signature: $OS_ERROR\n";
-    } catch {
-        # Exist with and error if verification failed
-        printf STDERR "Failed to verify signature for $file \nGPG returned $_";
-        die;
-    };
+            # Attempt to verify file signature
+            try {
+                $gpg->import_keys(keys => [DBDefs->GPG_PUB_KEY]);
+                $gpg->verify(signature => $signature, file => $file);
+                unlink $signature or warn "unlink $signature: $OS_ERROR\n";
+            } catch {
+                # Exist with and error if verification failed
+                printf STDERR "Failed to verify signature for $file \nGPG returned $_";
+                die;
+            };
+        }
+        when('ml-dsa') {
+            die "ml-dsa unimplemented";
+        }
+        default {
+            die "unknown algorithm $type";
+        }
+    }
 }
 
 1;
