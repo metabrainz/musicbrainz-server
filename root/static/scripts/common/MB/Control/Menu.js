@@ -14,8 +14,11 @@ function initializeHeaderMenu() {
   function getLeft(li) {
     var $li = $(li);
     if ($li.hasClass('language-selector')) {
-      return '-' +
-        ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) +
+      /*
+       * Align the right edges of the menu and its header. The header can be
+       * wider than the menu, so this offset can be positive.
+       */
+      return ($li.outerWidth() - $li.children('ul:eq(0)').outerWidth()) +
         'px';
     }
     return 'auto';
