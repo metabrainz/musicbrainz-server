@@ -1,0 +1,36 @@
+{
+  title: 'MBS-13446: Language menu opens when its header is wider than the menu',
+  commands: [
+    {
+      command: 'open',
+      target: '/set-language/es-419',
+      value: '',
+    },
+    // Header width depends on the fonts, so make the header wide here.
+    {
+      command: 'runScript',
+      target: "document.querySelector('.language-selector').style.minWidth = '400px'",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=.language-selector .menu-header',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Math.abs(document.querySelector('.language-selector > ul').getBoundingClientRect().right - document.querySelector('.language-selector').getBoundingClientRect().right) <= 1",
+      value: 'true',
+    },
+    {
+      command: 'runScript',
+      target: 'document.body.click()',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.getComputedStyle(document.querySelector('.language-selector > ul')).left",
+      value: '-10000px',
+    },
+  ],
+}
