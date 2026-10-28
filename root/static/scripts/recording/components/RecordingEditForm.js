@@ -18,7 +18,6 @@ import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
-import isBlank from '../../common/utility/isBlank.js';
 import {
   createInitialState as createArtistCreditState,
   reducer as runArtistCreditReducer,
@@ -63,6 +62,8 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -158,21 +159,6 @@ function updateIsrcFieldErrors(
   }
 }
 
-function updateNameFieldErrors(
-  nameFieldCtx: CowContext<FieldT<string | null>>,
-) {
-  if (isBlank(nameFieldCtx.get('value').read())) {
-    nameFieldCtx.set('has_errors', true);
-    nameFieldCtx.set('pendingErrors', [
-      l('Required field.'),
-    ]);
-  } else {
-    nameFieldCtx.set('has_errors', false);
-    nameFieldCtx.set('pendingErrors', []);
-    nameFieldCtx.set('errors', []);
-  }
-}
-
 function updateLengthFieldErrors(
   lengthFieldCtx: CowContext<FieldT<string | null>>,
 ) {
@@ -225,7 +211,7 @@ function createInitialState({
   const formCtx = mutate(form);
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
-  updateNameFieldErrors(nameFieldCtx);
+  updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
   updateLengthFieldErrors(lengthFieldCtx);
   formCtx
@@ -289,7 +275,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          updateNameFieldErrors(nameFieldCtx);
+          updateRequiredNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);

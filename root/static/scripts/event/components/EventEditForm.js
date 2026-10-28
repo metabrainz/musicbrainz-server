@@ -16,7 +16,6 @@ import Bubble from '../../common/components/Bubble.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
@@ -47,6 +46,8 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -110,9 +111,13 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: EventFormT,
 }) {
+  const formCtx = mutate(form);
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateRequiredNameFieldErrors(nameFieldCtx);
+
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
@@ -146,16 +151,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          if (isBlank(nameState.field.value)) {
-            nameFieldCtx.set('has_errors', true);
-            nameFieldCtx.set('pendingErrors', [
-              l('Required field.'),
-            ]);
-          } else {
-            nameFieldCtx.set('has_errors', false);
-            nameFieldCtx.set('pendingErrors', []);
-            nameFieldCtx.set('errors', []);
-          }
+          updateRequiredNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
