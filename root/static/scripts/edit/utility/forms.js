@@ -87,17 +87,6 @@ function runNameAction(
     })
     .set('guessCaseOptions', nameState.guessCaseOptions)
     .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-  if (action.type === 'set-name') {
-    stateCtx.set('relationshipEditor', relationshipEditorReducer(
-      state.relationshipEditor,
-      {
-        changes: {name: action.name},
-        entityType: state.relationshipEditor.entity.entityType,
-        type: 'update-entity',
-      },
-    ));
-  }
 }
 
 export function createCommonEntityEditFormState({$c, form}: {

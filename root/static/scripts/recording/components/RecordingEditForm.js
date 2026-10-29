@@ -75,12 +75,14 @@ import ExternalLinksEditorFieldset
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditor
+  from '../../relationship-editor/components/RelationshipEditor.js';
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
+import syncEntityNameToRelationshipEditor
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
@@ -294,18 +296,7 @@ function reducer(state: StateT, action: ActionT): StateT {
     }
   }
 
-  const newState = newStateCtx.read();
-  const newName = newState.form.field.name.value ?? '';
-  if (newName !== (state.form.field.name.value ?? '')) {
-    newStateCtx.set(
-      'relationshipEditor',
-      relationshipEditorReducer(newState.relationshipEditor, {
-        changes: {name: newName},
-        entityType: state.relationshipEditor.entity.entityType,
-        type: 'update-entity',
-      }),
-    );
-  }
+  syncEntityNameToRelationshipEditor(state, newStateCtx);
 
   return newStateCtx.final();
 }

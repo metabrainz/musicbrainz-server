@@ -63,6 +63,9 @@ import RelationshipEditor
 import type {
   RelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
+import syncEntityNameToRelationshipEditor
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
@@ -155,6 +158,8 @@ function reducer(state: StateT, action: ActionT): StateT {
       runCommonEntityEditFormActions(newStateCtx, action);
     }
   }
+  syncEntityNameToRelationshipEditor(state, newStateCtx);
+
   return newStateCtx.final();
 }
 
