@@ -49,7 +49,7 @@ function createInitialState({
     artistCredit: createArtistCreditState({
       artistCredit,
       formName: form.name,
-      id: 'source',
+      htmlId: 'source',
     }),
     form,
   };

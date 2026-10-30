@@ -14,25 +14,26 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {RecordingFormT} from '../../../../recording/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
-import isBlank from '../../common/utility/isBlank.js';
 import {
   createInitialState as createArtistCreditState,
   reducer as runArtistCreditReducer,
 } from '../../edit/components/ArtistCreditEditor.js';
 import {
   type ActionT as ArtistCreditActionT,
-  type StateT as ArtistCreditStateT,
 } from '../../edit/components/ArtistCreditEditor/types.js';
 import {
+  getArtistCreditNames,
   incompleteArtistCreditFromState,
-  isArtistCreditStateComplete,
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import {FieldErrorsList} from '../../edit/components/FieldErrors.js';
 import FormRow from '../../edit/components/FormRow.js';
 import FormRowArtistCredit
   from '../../edit/components/FormRowArtistCredit.js';
@@ -54,6 +55,8 @@ import {
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
+import useFormSubmitHandler
+  from '../../edit/hooks/useFormSubmitHandler.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
@@ -62,6 +65,8 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -76,9 +81,16 @@ import type {
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
-import {
-  NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
-} from '../../relationship-editor/components/RelationshipEditorWrapper.js';
+import RelationshipEditor, {
+  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
+  reducer as relationshipEditorReducer,
+} from '../../relationship-editor/components/RelationshipEditor.js';
+import type {
+  RelationshipEditorStateT,
+} from '../../relationship-editor/types.js';
+import type {
+  RelationshipEditorActionT,
+} from '../../relationship-editor/types/actions.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
@@ -96,24 +108,39 @@ type ActionT =
       readonly type: 'update-external-links-editor',
       readonly action: LinksEditorActionT,
     }
+  | {
+      readonly type: 'update-relationship-editor',
+      readonly action: RelationshipEditorActionT,
+    }
   | {readonly type: 'update-isrcs', readonly action: IsrcActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   readonly actionName: string,
-  readonly artistCredit: ArtistCreditStateT,
   readonly externalLinksEditor: LinksEditorStateT,
   readonly form: RecordingFormT,
   readonly guessCaseOptions: GuessCaseOptionsStateT,
   readonly isGuessCaseOptionsOpen: boolean,
+  readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
+  readonly relationshipEditor: RelationshipEditorStateT,
   readonly shownBubble: string,
 };
 
 type CreateInitialStatePropsT = {
   readonly $c: SanitizedCatalystContextT,
   readonly form: RecordingFormT,
+  readonly usedByTracks: boolean,
 };
+
+function updateArtistCreditState(
+  stateCtx: CowContext<StateT>,
+  action: ArtistCreditActionT,
+): void {
+  stateCtx.update('form', 'field', 'artist_credit', (ctx) => {
+    ctx.set(runArtistCreditReducer(ctx.read(), action));
+  });
+}
 
 function updateIsrcFieldErrors(
   fieldCtx: CowContext<TextListFieldT>,
@@ -134,21 +161,6 @@ function updateIsrcFieldErrors(
       valueFieldCtx.set('pendingErrors', []);
       valueFieldCtx.set('errors', []);
     }
-  }
-}
-
-function updateNameFieldErrors(
-  nameFieldCtx: CowContext<FieldT<string | null>>,
-) {
-  if (isBlank(nameFieldCtx.get('value').read())) {
-    nameFieldCtx.set('has_errors', true);
-    nameFieldCtx.set('pendingErrors', [
-      l('Required field.'),
-    ]);
-  } else {
-    nameFieldCtx.set('has_errors', false);
-    nameFieldCtx.set('pendingErrors', []);
-    nameFieldCtx.set('errors', []);
   }
 }
 
@@ -196,6 +208,7 @@ function updateNoteFieldErrors(
 function createInitialState({
   $c,
   form,
+  usedByTracks,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityData($c);
   const actionName = $c.action.name;
@@ -204,9 +217,17 @@ function createInitialState({
   const formCtx = mutate(form);
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
-  updateNameFieldErrors(nameFieldCtx);
+  updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
-  updateLengthFieldErrors(lengthFieldCtx);
+  let lengthErrors: ReadonlyArray<string> = [];
+  if (usedByTracks) {
+    lengthErrors = form.field.length.errors;
+    lengthFieldCtx.set('has_errors', false);
+    lengthFieldCtx.set('pendingErrors', []);
+    lengthFieldCtx.set('errors', []);
+  } else {
+    updateLengthFieldErrors(lengthFieldCtx);
+  }
   formCtx
     .update('field', 'isrcs', (isrcCtx) => {
       isrcCtx.set(createIsrcState(isrcCtx.read()));
@@ -215,19 +236,26 @@ function createInitialState({
   const editNoteFieldCtx = formCtx.get('field', 'edit_note');
   updateNoteFieldErrors(actionName, editNoteFieldCtx);
 
+  formCtx.set('field', 'artist_credit', createArtistCreditState({
+    artistsById: $c.stash.artist_credit_artists,
+    entity: recording,
+    formName: form.name,
+    htmlId: 'source',
+    initialField: form.field.artist_credit,
+  }));
+
   return {
     actionName,
-    artistCredit: createArtistCreditState({
-      artistCredit: $c.stash.artist_credit,
-      entity: recording,
-      formName: form.name,
-      id: 'source',
-    }),
     externalLinksEditor: createExternalLinksEditorState($c),
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
+    lengthErrors,
     recording,
+    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
+      formName: form.name,
+      seededRelationships: $c.stash.seeded_relationships,
+    }),
     shownBubble: '',
   };
 }
@@ -262,7 +290,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          updateNameFieldErrors(nameFieldCtx);
+          updateRequiredNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
@@ -285,15 +313,12 @@ function reducer(state: StateT, action: ActionT): StateT {
       applyAllPendingErrors(newStateCtx.get('form'));
     }
     {type: 'update-artist-credit', const action} => {
-      newStateCtx.set(
-        'artistCredit',
-        runArtistCreditReducer(state.artistCredit, action),
-      );
+      updateArtistCreditState(newStateCtx, action);
     }
     {type: 'guess-feat'} => {
       const results = guessFeat({
         artistCredit: incompleteArtistCreditFromState(
-          state.artistCredit.names,
+          getArtistCreditNames(state.form.field.artist_credit),
         ),
         entityType: 'recording',
         name: state.form.field.name.value || '',
@@ -302,16 +327,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       if (results) {
         newStateCtx
           .set('form', 'field', 'name', 'value', results.name);
-        newStateCtx.set(
-          'artistCredit',
-          runArtistCreditReducer(
-            state.artistCredit,
-            {
-              artistCredit: {names: results.artistCreditNames},
-              type: 'set-names-from-artist-credit',
-            },
-          ),
-        );
+        updateArtistCreditState(newStateCtx, {
+          artistCredit: {names: results.artistCreditNames},
+          type: 'set-names-from-artist-credit',
+        });
       }
     }
     {type: 'update-external-links-editor', const action} => {
@@ -320,7 +339,27 @@ function reducer(state: StateT, action: ActionT): StateT {
         externalLinksEditorReducer(state.externalLinksEditor, action),
       );
     }
+    {type: 'update-relationship-editor', const action} => {
+      newStateCtx.set(
+        'relationshipEditor',
+        relationshipEditorReducer(state.relationshipEditor, action),
+      );
+    }
   }
+
+  const newState = newStateCtx.read();
+  const newName = newState.form.field.name.value ?? '';
+  if (newName !== (state.form.field.name.value ?? '')) {
+    newStateCtx.set(
+      'relationshipEditor',
+      relationshipEditorReducer(newState.relationshipEditor, {
+        changes: {name: newName},
+        entityType: state.relationshipEditor.entity.entityType,
+        type: 'update-entity',
+      }),
+    );
+  }
+
   return newStateCtx.final();
 }
 
@@ -335,10 +374,11 @@ component RecordingEditForm(
   ), [$c]);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    {$c, form: initialForm},
+    {$c, form: initialForm, usedByTracks},
     createInitialState,
   );
 
@@ -355,6 +395,13 @@ component RecordingEditForm(
   const isrcDispatch = React.useCallback((action: IsrcActionT) => {
     dispatch({action, type: 'update-isrcs'});
   }, [dispatch]);
+
+  const relationshipEditorDispatch = React.useCallback(
+    (action: RelationshipEditorActionT) => {
+      dispatch({action, type: 'update-relationship-editor'});
+    },
+    [dispatch],
+  );
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -402,23 +449,16 @@ component RecordingEditForm(
     dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
 
-  const hasErrors = hasSubfieldErrors(state.form) ||
-    !isArtistCreditStateComplete(state.artistCredit.names) ||
+  const hasLinkErrors =
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true) ||
+    hasLinkErrors;
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false) ||
+    hasLinkErrors;
 
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-    }
-  };
-
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const nameFieldRef = React.useRef<HTMLDivElement | null>(null);
   const artistFieldRef = React.useRef<HTMLDivElement | null>(null);
@@ -431,7 +471,6 @@ component RecordingEditForm(
     <form
       className="edit-recording"
       method="post"
-      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <p>
@@ -464,11 +503,10 @@ component RecordingEditForm(
             rowRef={nameFieldRef}
           />
           <FormRowArtistCredit
-            artistCreditField={state.form.field.artist_credit}
             dispatch={artistCreditEditorDispatch}
             onFocus={handleArtistFocus}
             rowRef={artistFieldRef}
-            state={state.artistCredit}
+            state={state.form.field.artist_credit}
           />
           <FormRowTextLong
             field={state.form.field.comment}
@@ -477,15 +515,7 @@ component RecordingEditForm(
             rowRef={commentFieldRef}
             uncontrolled
           />
-          {(!usedByTracks || state.form.field.length.has_errors) ? (
-            <FormRowTextLong
-              field={state.form.field.length}
-              label={addColonText(l('Length'))}
-              onChange={handleLengthChange}
-              onFocus={handleLengthFocus}
-              rowRef={lengthFieldRef}
-            />
-          ) : (
+          {usedByTracks ? (
             <FormRow>
               <label>{addColonText(l('Length'))}</label>
               {exp.l(
@@ -496,8 +526,19 @@ component RecordingEditForm(
                   recording_length: formatTrackLength(state.recording.length),
                 },
               )}
+              <FieldErrorsList
+                errors={state.lengthErrors}
+                hasHtmlErrors={false}
+              />
             </FormRow>
-
+          ) : (
+            <FormRowTextLong
+              field={state.form.field.length}
+              label={addColonText(l('Length'))}
+              onChange={handleLengthChange}
+              onFocus={handleLengthFocus}
+              rowRef={lengthFieldRef}
+            />
           )}
           <FormRowCheckbox
             field={state.form.field.video}
@@ -517,9 +558,10 @@ component RecordingEditForm(
           />
         </fieldset>
 
-        <RelationshipEditorWrapper
+        <RelationshipEditor
+          dispatch={relationshipEditorDispatch}
           formName={state.form.name}
-          seededRelationships={$c.stash.seeded_relationships}
+          state={state.relationshipEditor}
         />
 
         <ExternalLinksEditorFieldset
@@ -534,7 +576,7 @@ component RecordingEditForm(
           field={state.form.field.edit_note}
           onChange={handleEditNoteChange}
         />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
 
       <div className="documentation">

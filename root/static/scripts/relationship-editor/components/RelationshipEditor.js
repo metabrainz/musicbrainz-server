@@ -582,7 +582,7 @@ component RelationshipEditor(
 
   React.useEffect(() => {
     const handleSubmission = (event: Event) => {
-      if (!submissionInProgress.current) {
+      if (!submissionInProgress.current && !event.defaultPrevented) {
         submissionInProgress.current = true;
         try {
           prepareHtmlFormSubmission(formName, state);

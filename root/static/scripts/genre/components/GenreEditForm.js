@@ -14,9 +14,10 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowNameWithGuessCase, {
@@ -31,6 +32,14 @@ import {
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
+import useFormSubmitHandler
+  from '../../edit/hooks/useFormSubmitHandler.js';
+import {
+  applyAllPendingErrors,
+  hasSubfieldErrors,
+} from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -66,7 +75,8 @@ type ActionT =
       readonly type: 'update-relationship-editor',
       readonly action: RelationshipEditorActionT,
     }
-  | {readonly type: 'update-name', readonly action: NameActionT};
+  | {readonly type: 'update-name', readonly action: NameActionT}
+  | {readonly type: 'show-all-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
@@ -84,9 +94,11 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: GenreFormT,
 }) {
+  const formCtx = mutate(form);
+  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
@@ -108,7 +120,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.final();
       newStateCtx
-        .set('form', 'field', 'name', nameState.field)
+        .update('form', 'field', 'name', (nameFieldCtx) => {
+          nameFieldCtx.set(nameState.field);
+          updateRequiredNameFieldErrors(nameFieldCtx);
+        })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
 
@@ -135,6 +150,9 @@ function reducer(state: StateT, action: ActionT): StateT {
         relationshipEditorReducer(state.relationshipEditor, action),
       );
     }
+    {type: 'show-all-pending-errors'} => {
+      applyAllPendingErrors(newStateCtx.get('form'));
+    }
   }
   return newStateCtx.final();
 }
@@ -143,6 +161,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -160,31 +179,23 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     dispatch({action, type: 'update-relationship-editor'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired ||
+  const hasLinkErrors =
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
-
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      event.preventDefault();
-    }
-  };
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true) ||
+    hasLinkErrors;
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false) ||
+    hasLinkErrors;
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <form
       className="edit-genre"
       method="post"
-      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <div className="half-width">
@@ -214,7 +225,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           state={state.externalLinksEditor}
         />
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
     </form>
   );
