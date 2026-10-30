@@ -3361,9 +3361,9 @@ type repl$DefineCommandOptions =
   ...
 };
 
-declare class $SymbolReplModeMagic mixins Symbol {}
-declare class $SymbolReplModeSloppy mixins Symbol {}
-declare class $SymbolReplModeStrict mixins Symbol {}
+declare class $SymbolReplModeMagic extends Symbol {}
+declare class $SymbolReplModeSloppy extends Symbol {}
+declare class $SymbolReplModeStrict extends Symbol {}
 
 declare module 'repl' {
   declare var REPL_MODE_MAGIC: $SymbolReplModeMagic;
