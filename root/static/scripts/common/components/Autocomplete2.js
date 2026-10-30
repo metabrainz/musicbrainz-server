@@ -233,7 +233,7 @@ export function createInitialState<T extends EntityItemT>(
   return state;
 }
 
-component _AutocompleteItem<T extends EntityItemT>(
+component AutocompleteItem<T extends EntityItemT>(
   autocompleteId: string,
   dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
@@ -291,8 +291,6 @@ component _AutocompleteItem<T extends EntityItemT>(
     </li>
   );
 }
-
-const AutocompleteItem = React.memo(_AutocompleteItem);
 
 component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
   const {dispatch, state} = props;

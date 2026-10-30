@@ -34,7 +34,7 @@ declare var addQuotesText: (variable: StrOrNum) => string;
 
 declare var hydrate: (
   <
-    Config: {...},
+    Config extends {...},
     SanitizedConfig = Config,
   >(
     containerSelector: string,
