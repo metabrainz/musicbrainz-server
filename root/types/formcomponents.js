@@ -62,7 +62,7 @@ declare type FieldT<out V> = {
 };
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<out F, out N: string = ''> = {
+declare type FormT<out F, out N extends string = ''> = {
   readonly field: F,
   readonly has_errors: boolean,
   readonly name: N,
