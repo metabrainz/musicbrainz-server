@@ -11,17 +11,15 @@ import type {CowContext} from 'mutate-cow';
 
 import isBlank from '../../common/utility/isBlank.js';
 
+import setPendingFieldErrors from './setPendingFieldErrors.js';
+
 export default function updateRequiredNameFieldErrors(
   nameFieldCtx: CowContext<FieldT<string | null>>,
 ): void {
-  if (isBlank(nameFieldCtx.get('value').read())) {
-    nameFieldCtx.set('has_errors', true);
-    nameFieldCtx.set('pendingErrors', [
-      l('Required field.'),
-    ]);
-  } else {
-    nameFieldCtx.set('has_errors', false);
-    nameFieldCtx.set('pendingErrors', []);
-    nameFieldCtx.set('errors', []);
-  }
+  setPendingFieldErrors(
+    nameFieldCtx,
+    isBlank(nameFieldCtx.get('value').read())
+      ? [l('Required field.')]
+      : [],
+  );
 }

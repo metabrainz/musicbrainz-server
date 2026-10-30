@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow strict-local
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import hydrate from '../../../../utility/hydrate.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import {keyBy} from '../../common/utility/arrays.js';
 import sleep from '../../common/utility/sleep.js';
@@ -163,4 +164,18 @@ export function withLoadedTypeInfoForRelationshipEditor<Config extends {...}>(
       ...extraTypeInfoToLoad,
     ]),
   );
+}
+
+export function hydrateRelationshipEditorForm<Config extends {...}>(
+  containerSelector: string,
+  Component: component(...Config),
+  extraTypeInfoToLoad?: ReadonlyArray<LoadableEntityTypeT>,
+): component(...Config) {
+  return hydrate<Config>(
+    containerSelector,
+    withLoadedTypeInfoForRelationshipEditor<Config>(
+      Component,
+      extraTypeInfoToLoad,
+    ),
+  ) as component(...Config);
 }

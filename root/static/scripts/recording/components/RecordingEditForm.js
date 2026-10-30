@@ -14,9 +14,6 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {RecordingFormT} from '../../../../recording/types.js';
 import Bubble from '../../common/components/Bubble.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
@@ -38,10 +35,8 @@ import FormRow from '../../edit/components/FormRow.js';
 import FormRowArtistCredit
   from '../../edit/components/FormRowArtistCredit.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-  runReducer as runNameReducer,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextList, {
   type ActionT as IsrcActionT,
   createInitialState as createIsrcState,
@@ -49,81 +44,49 @@ import FormRowTextList, {
 } from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
-import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
+import {
+  type CommonEntityEditFormActionT,
+  type CommonEntityEditFormStateT,
+  createCommonEntityEditFormState,
+  runCommonEntityEditFormActions,
+  useCommonEntityEditForm,
+} from '../../edit/utility/forms.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
-import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import isValidIsrc from '../../edit/utility/isValidIsrc.js';
-import {
-  applyAllPendingErrors,
-  hasSubfieldErrors,
-} from '../../edit/utility/subfieldErrors.js';
-import updateRequiredNameFieldErrors
-  from '../../edit/utility/updateRequiredNameFieldErrors.js';
+import setPendingFieldErrors
+  from '../../edit/utility/setPendingFieldErrors.js';
+import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import {
-  createInitialState as createExternalLinksEditorState,
-  reducer as externalLinksEditorReducer,
-} from '../../external-links-editor/state.js';
-import type {
-  LinksEditorActionT,
-  LinksEditorStateT,
-} from '../../external-links-editor/types.js';
-import {
-  hasErrorsOnNewOrChangedLinks,
-} from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorStateT,
-} from '../../relationship-editor/types.js';
-import type {
-  RelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
+import syncEntityNameToRelationshipEditor
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | CommonEntityEditFormActionT
   | {readonly type: 'guess-feat'}
-  | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-bubble', readonly bubble: string}
-  | {readonly type: 'update-edit-note', readonly editNote: string}
   | {readonly type: 'update-length', readonly length: string}
-  | {readonly type: 'update-name', readonly action: NameActionT}
   | {
       readonly type: 'update-artist-credit',
       readonly action: ArtistCreditActionT,
-    }
-  | {
-      readonly type: 'update-external-links-editor',
-      readonly action: LinksEditorActionT,
-    }
-  | {
-      readonly type: 'update-relationship-editor',
-      readonly action: RelationshipEditorActionT,
     }
   | {readonly type: 'update-isrcs', readonly action: IsrcActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  readonly actionName: string,
-  readonly externalLinksEditor: LinksEditorStateT,
+  ...CommonEntityEditFormStateT,
   readonly form: RecordingFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
   readonly lengthErrors: ReadonlyArray<string>,
   readonly recording: RecordingT,
-  readonly relationshipEditor: RelationshipEditorStateT,
+  readonly requiredEditNoteMessage: string | null,
   readonly shownBubble: string,
 };
 
@@ -152,15 +115,10 @@ function updateIsrcFieldErrors(
     const value = valueFieldCtx.get('value').read();
     const isInvalid = !empty(value) && !isValidIsrc(value);
 
-    valueFieldCtx.set('has_errors', isInvalid);
-    if (isInvalid) {
-      valueFieldCtx.set('pendingErrors', [
-        l('This is not a valid ISRC.'),
-      ]);
-    } else {
-      valueFieldCtx.set('pendingErrors', []);
-      valueFieldCtx.set('errors', []);
-    }
+    setPendingFieldErrors(
+      valueFieldCtx,
+      isInvalid ? [l('This is not a valid ISRC.')] : [],
+    );
   }
 }
 
@@ -168,41 +126,12 @@ function updateLengthFieldErrors(
   lengthFieldCtx: CowContext<FieldT<string | null>>,
 ) {
   const length = lengthFieldCtx.get('value').read();
-  if (length && isInvalidLength(length)) {
-    lengthFieldCtx.set('has_errors', true);
-    lengthFieldCtx.set('pendingErrors', [
-      l('Not a valid time. Must be in the format MM:SS'),
-    ]);
-  } else {
-    lengthFieldCtx.set('has_errors', false);
-    lengthFieldCtx.set('pendingErrors', []);
-    lengthFieldCtx.set('errors', []);
-  }
-}
-
-function updateNoteFieldErrors(
-  actionName: string,
-  editNoteFieldCtx: CowContext<FieldT<string>>,
-) {
-  const editNote = editNoteFieldCtx.get('value').read();
-  if (isInvalidEditNote(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
-      l(`Your edit note seems to have no actual content.
-         Please provide a note that will be helpful to
-         your fellow editors!`),
-    ]);
-  } else if (actionName === 'create' && empty(editNote)) {
-    editNoteFieldCtx.set('has_errors', true);
-    editNoteFieldCtx.set('pendingErrors', [
-      l(`You must provide an edit note when adding
-         a standalone recording`),
-    ]);
-  } else {
-    editNoteFieldCtx.set('has_errors', false);
-    editNoteFieldCtx.set('pendingErrors', []);
-    editNoteFieldCtx.set('errors', []);
-  }
+  setPendingFieldErrors(
+    lengthFieldCtx,
+    length && isInvalidLength(length)
+      ? [l('Not a valid time. Must be in the format MM:SS')]
+      : [],
+  );
 }
 
 function createInitialState({
@@ -211,20 +140,18 @@ function createInitialState({
   usedByTracks,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityData($c);
-  const actionName = $c.action.name;
+  const requiredEditNoteMessage = $c.action.name === 'create'
+    ? l(`You must provide an edit note when adding
+         a standalone recording`)
+    : null;
   invariant(recording && recording.entityType === 'recording');
 
   const formCtx = mutate(form);
-  // $FlowExpectedError[incompatible-call]
-  const nameFieldCtx = formCtx.get('field', 'name');
-  updateRequiredNameFieldErrors(nameFieldCtx);
   const lengthFieldCtx = formCtx.get('field', 'length');
   let lengthErrors: ReadonlyArray<string> = [];
   if (usedByTracks) {
     lengthErrors = form.field.length.errors;
-    lengthFieldCtx.set('has_errors', false);
-    lengthFieldCtx.set('pendingErrors', []);
-    lengthFieldCtx.set('errors', []);
+    setPendingFieldErrors(lengthFieldCtx, []);
   } else {
     updateLengthFieldErrors(lengthFieldCtx);
   }
@@ -233,9 +160,6 @@ function createInitialState({
       isrcCtx.set(createIsrcState(isrcCtx.read()));
       updateIsrcFieldErrors(isrcCtx);
     });
-  const editNoteFieldCtx = formCtx.get('field', 'edit_note');
-  updateNoteFieldErrors(actionName, editNoteFieldCtx);
-
   formCtx.set('field', 'artist_credit', createArtistCreditState({
     artistsById: $c.stash.artist_credit_artists,
     entity: recording,
@@ -245,17 +169,15 @@ function createInitialState({
   }));
 
   return {
-    actionName,
-    externalLinksEditor: createExternalLinksEditorState($c),
+    ...createCommonEntityEditFormState({
+      $c,
+      formCtx,
+      requiredEditNoteMessage,
+    }),
     form: formCtx.final(),
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
     lengthErrors,
     recording,
-    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
-      formName: form.name,
-      seededRelationships: $c.stash.seeded_relationships,
-    }),
+    requiredEditNoteMessage,
     shownBubble: '',
   };
 }
@@ -264,36 +186,12 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
 
   match (action) {
-    {type: 'update-edit-note', const editNote} => {
-      newStateCtx
-        .update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
-          editNoteFieldCtx.set('value', editNote);
-          updateNoteFieldErrors(state.actionName, editNoteFieldCtx);
-        });
-    }
     {type: 'update-length', const length} => {
       newStateCtx
         .update('form', 'field', 'length', (lengthFieldCtx) => {
           lengthFieldCtx.set('value', length);
           updateLengthFieldErrors(lengthFieldCtx);
         });
-    }
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          updateRequiredNameFieldErrors(nameFieldCtx);
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
     }
     {type: 'update-isrcs', const action} => {
       const isrcStateCtx = mutate(state.form.field.isrcs);
@@ -308,9 +206,6 @@ function reducer(state: StateT, action: ActionT): StateT {
     }
     {type: 'toggle-bubble', const bubble} => {
       newStateCtx.set('shownBubble', bubble);
-    }
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
     }
     {type: 'update-artist-credit', const action} => {
       updateArtistCreditState(newStateCtx, action);
@@ -333,32 +228,12 @@ function reducer(state: StateT, action: ActionT): StateT {
         });
       }
     }
-    {type: 'update-external-links-editor', const action} => {
-      newStateCtx.set(
-        'externalLinksEditor',
-        externalLinksEditorReducer(state.externalLinksEditor, action),
-      );
-    }
-    {type: 'update-relationship-editor', const action} => {
-      newStateCtx.set(
-        'relationshipEditor',
-        relationshipEditorReducer(state.relationshipEditor, action),
-      );
+    _ as action => {
+      runCommonEntityEditFormActions(newStateCtx, action);
     }
   }
 
-  const newState = newStateCtx.read();
-  const newName = newState.form.field.name.value ?? '';
-  if (newName !== (state.form.field.name.value ?? '')) {
-    newStateCtx.set(
-      'relationshipEditor',
-      relationshipEditorReducer(newState.relationshipEditor, {
-        changes: {name: newName},
-        entityType: state.relationshipEditor.entity.entityType,
-        type: 'update-entity',
-      }),
-    );
-  }
+  syncEntityNameToRelationshipEditor(state, newStateCtx);
 
   return newStateCtx.final();
 }
@@ -373,44 +248,24 @@ component RecordingEditForm(
     $c.stash.current_isrcs || []
   ), [$c]);
 
-  useFormUnloadWarning();
-  useContainingDialogEscape();
-
   const [state, dispatch] = React.useReducer(
     reducer,
     {$c, form: initialForm, usedByTracks},
     createInitialState,
   );
 
-  const nameDispatch = React.useCallback((action: NameActionT) => {
-    dispatch({action, type: 'update-name'});
-  }, [dispatch]);
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
 
-  const artistCreditEditorDispatch = React.useCallback((
-    action: ArtistCreditActionT,
-  ) => {
-    dispatch({action, type: 'update-artist-credit'});
-  }, [dispatch]);
-
-  const isrcDispatch = React.useCallback((action: IsrcActionT) => {
-    dispatch({action, type: 'update-isrcs'});
-  }, [dispatch]);
-
-  const relationshipEditorDispatch = React.useCallback(
-    (action: RelationshipEditorActionT) => {
-      dispatch({action, type: 'update-relationship-editor'});
-    },
-    [dispatch],
-  );
-
-  const handleEditNoteChange = React.useCallback((
-    event: SyntheticEvent<HTMLTextAreaElement>,
-  ) => {
-    dispatch({
-      editNote: event.currentTarget.value,
-      type: 'update-edit-note',
-    });
-  }, [dispatch]);
+  const artistCreditEditorDispatch = useChildDispatch<
+    ArtistCreditActionT, _,
+  >(dispatch, 'update-artist-credit');
+  const isrcDispatch =
+    useChildDispatch<IsrcActionT, _>(dispatch, 'update-isrcs');
 
   function handleArtistFocus() {
     dispatch({bubble: 'artist', type: 'toggle-bubble'});
@@ -448,17 +303,6 @@ component RecordingEditForm(
   function handleNameFocus() {
     dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
-
-  const hasLinkErrors =
-    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
-  const hasErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ true) ||
-    hasLinkErrors;
-  const hasVisibleErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ false) ||
-    hasLinkErrors;
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const nameFieldRef = React.useRef<HTMLDivElement | null>(null);
   const artistFieldRef = React.useRef<HTMLDivElement | null>(null);
@@ -558,8 +402,8 @@ component RecordingEditForm(
           />
         </fieldset>
 
-        <RelationshipEditor
-          dispatch={relationshipEditorDispatch}
+        <RelationshipEditorFieldset
+          dispatch={dispatch}
           formName={state.form.name}
           state={state.relationshipEditor}
         />
@@ -721,10 +565,8 @@ component RecordingEditForm(
 }
 
 export default (
-  hydrate<React.PropsOf<RecordingEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<RecordingEditForm>>(
     'div.recording-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<RecordingEditForm>>(
-      RecordingEditForm,
-    ),
+    RecordingEditForm,
   ) as component(...React.PropsOf<RecordingEditForm>)
 );

@@ -13,9 +13,6 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import DateRangeFieldset, {
@@ -25,84 +22,50 @@ import DateRangeFieldset, {
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-  runReducer as runNameReducer,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
-import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
+import {
+  type CommonEntityEditFormActionT,
+  type CommonEntityEditFormStateT,
+  createCommonEntityEditFormState,
+  runCommonEntityEditFormActions,
+  useCommonEntityEditForm,
+} from '../../edit/utility/forms.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
-import {
-  applyAllPendingErrors,
-  hasSubfieldErrors,
-} from '../../edit/utility/subfieldErrors.js';
-import updateRequiredNameFieldErrors
-  from '../../edit/utility/updateRequiredNameFieldErrors.js';
+import useChildDispatch from '../../edit/utility/useChildDispatch.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import {
-  createInitialState as createExternalLinksEditorState,
-  reducer as externalLinksEditorReducer,
-} from '../../external-links-editor/state.js';
-import type {
-  LinksEditorActionT,
-  LinksEditorStateT,
-} from '../../external-links-editor/types.js';
-import {
-  hasErrorsOnNewOrChangedLinks,
-} from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorStateT,
-} from '../../relationship-editor/types.js';
-import type {
-  RelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
+import syncEntityNameToRelationshipEditor
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | CommonEntityEditFormActionT
   | {readonly type: 'set-setlist', readonly setlist: string}
   | {readonly type: 'set-time', readonly time: string}
   | {readonly type: 'set-type', readonly type_id: string}
-  | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-type-bubble'}
   | {
       readonly type: 'update-date-range',
       readonly action: DateRangeFieldsetActionT,
-    }
-  | {
-      readonly type: 'update-external-links-editor',
-      readonly action: LinksEditorActionT,
-    }
-  | {
-      readonly type: 'update-relationship-editor',
-      readonly action: RelationshipEditorActionT,
-    }
-  | {readonly type: 'update-name', readonly action: NameActionT};
+    };
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  readonly externalLinksEditor: LinksEditorStateT,
+  ...CommonEntityEditFormStateT,
   readonly form: EventFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
-  readonly relationshipEditor: RelationshipEditorStateT,
   readonly showTypeBubble: boolean,
 };
 
@@ -114,18 +77,9 @@ function createInitialState({
   readonly form: EventFormT,
 }) {
   const formCtx = mutate(form);
-  const nameFieldCtx = formCtx.get('field', 'name');
-  updateRequiredNameFieldErrors(nameFieldCtx);
-
   return {
-    externalLinksEditor: createExternalLinksEditorState($c),
+    ...createCommonEntityEditFormState({$c, formCtx}),
     form: formCtx.final(),
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
-    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
-      formName: form.name,
-      seededRelationships: $c.stash.seeded_relationships,
-    }),
     showTypeBubble: false,
   };
 }
@@ -139,46 +93,6 @@ function reducer(state: StateT, action: ActionT): StateT {
       runDateRangeFieldsetReducer(
         newStateCtx.get('form', 'field', 'period'),
         action,
-      );
-    }
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          updateRequiredNameFieldErrors(nameFieldCtx);
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-      if (action.type === 'set-name') {
-        newStateCtx.set(
-          'relationshipEditor',
-          relationshipEditorReducer(state.relationshipEditor, {
-            changes: {name: action.name},
-            entityType: state.relationshipEditor.entity.entityType,
-            type: 'update-entity',
-          }),
-        );
-      }
-    }
-    {type: 'update-external-links-editor', const action} => {
-      newStateCtx.set(
-        'externalLinksEditor',
-        externalLinksEditorReducer(state.externalLinksEditor, action),
-      );
-    }
-    {type: 'update-relationship-editor', const action} => {
-      newStateCtx.set(
-        'relationshipEditor',
-        relationshipEditorReducer(state.relationshipEditor, action),
       );
     }
     {type: 'toggle-type-bubble'} => {
@@ -216,10 +130,12 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'set-type', const type_id} => {
       fieldCtx.set('type_id', 'value', type_id);
     }
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
+    _ as action => {
+      runCommonEntityEditFormActions(newStateCtx, action);
     }
   }
+  syncEntityNameToRelationshipEditor(state, newStateCtx);
+
   return newStateCtx.final();
 }
 
@@ -229,9 +145,6 @@ component EventEditForm(
   form as initialForm: EventFormT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
-
-  useFormUnloadWarning();
-  useContainingDialogEscape();
 
   const typeOptions = {
     grouped: false as const,
@@ -244,9 +157,16 @@ component EventEditForm(
     createInitialState,
   );
 
-  const nameDispatch = React.useCallback((action: NameActionT) => {
-    dispatch({action, type: 'update-name'});
-  }, [dispatch]);
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
+
+  const dateRangeDispatch = useChildDispatch<
+    DateRangeFieldsetActionT, _,
+  >(dispatch, 'update-date-range');
 
   function handleTypeFocus() {
     dispatch({type: 'toggle-type-bubble'});
@@ -270,30 +190,7 @@ component EventEditForm(
     dispatch({time: event.currentTarget.value, type: 'set-time'});
   }, [dispatch]);
 
-  const dispatchDateRange = React.useCallback((
-    action: DateRangeFieldsetActionT,
-  ) => {
-    dispatch({action, type: 'update-date-range'});
-  }, [dispatch]);
-
-  const relationshipEditorDispatch = React.useCallback((
-    action: RelationshipEditorActionT,
-  ) => {
-    dispatch({action, type: 'update-relationship-editor'});
-  }, [dispatch]);
-
-  const hasLinkErrors =
-    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
-  const hasErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ true) ||
-    hasLinkErrors;
-  const hasVisibleErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ false) ||
-    hasLinkErrors;
-
   const eventEntity: EventT = getSourceEntityData($c, 'event');
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const typeSelectRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -367,7 +264,7 @@ component EventEditForm(
         </fieldset>
 
         <DateRangeFieldset
-          dispatch={dispatchDateRange}
+          dispatch={dateRangeDispatch}
           field={state.form.field.period}
         >
           <FormRowText
@@ -380,8 +277,8 @@ component EventEditForm(
           />
         </DateRangeFieldset>
 
-        <RelationshipEditor
-          dispatch={relationshipEditorDispatch}
+        <RelationshipEditorFieldset
+          dispatch={dispatch}
           formName={state.form.name}
           state={state.relationshipEditor}
         />
@@ -391,7 +288,11 @@ component EventEditForm(
           state={state.externalLinksEditor}
         />
 
-        <EnterEditNote field={state.form.field.edit_note} />
+        <EnterEditNote
+          controlled
+          field={state.form.field.edit_note}
+          onChange={handleEditNoteChange}
+        />
         <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
 
@@ -439,10 +340,8 @@ component EventEditForm(
 }
 
 export default (
-  hydrate<React.PropsOf<EventEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<EventEditForm>>(
     'div.event-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<EventEditForm>>(
-      EventEditForm,
-    ),
+    EventEditForm,
   ) as component(...React.PropsOf<EventEditForm>)
 );
