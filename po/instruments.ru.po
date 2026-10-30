@@ -21,8 +21,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-13 11:12+0000\n"
-"Last-Translator: Covium <jidiyping@gmail.com>\n"
+"PO-Revision-Date: 2026-09-27 11:13+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ru/>\n"
 "Language: ru\n"
@@ -32,7 +33,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -442,9 +443,6 @@ msgid "arrabel"
 msgstr "аррабель"
 
 #: DB:instrument/name:812
-#, fuzzy
-#| msgctxt "cone shaped west african frame-drum"
-#| msgid "ashiko"
 msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "ашико"
@@ -923,9 +921,6 @@ msgid "cabrette"
 msgstr "карбет"
 
 #: DB:instrument/name:903
-#, fuzzy
-#| msgctxt "Brazilian Samba snare-drum"
-#| msgid "caixa"
 msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "кайша"
@@ -3948,11 +3943,9 @@ msgid "talking drum"
 msgstr ""
 
 #: DB:instrument/name:723
-#, fuzzy
-#| msgid "tamborim"
 msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
-msgstr "тамбурин"
+msgstr "тамборим"
 
 #: DB:instrument/name:263
 msgid "tambourine"
@@ -4015,7 +4008,7 @@ msgstr ""
 #: DB:instrument/name:1219
 msgctxt "Brazilian shallow samba snare-drum"
 msgid "tarol"
-msgstr ""
+msgstr "тарол"
 
 #: DB:instrument/name:870
 msgctxt "Wooden keyless shawm from Catalonia"
