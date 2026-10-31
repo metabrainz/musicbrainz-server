@@ -202,6 +202,10 @@ class Track {
       owner: this,
     });
 
+    if (data.video) {
+      this.video(Boolean(data.video));
+    }
+
     recordingAssociation.track(this);
 
     this.uniqueID = this.id || uniqueId('new-');

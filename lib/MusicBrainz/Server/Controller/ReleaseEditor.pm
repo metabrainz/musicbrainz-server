@@ -464,7 +464,7 @@ sub _seeded_track
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my @known_fields = qw( name number recording length artist_credit pregap );
+    my @known_fields = qw( name number recording length artist_credit pregap video );
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {};
@@ -510,6 +510,10 @@ sub _seeded_track
 
     if ($params->{pregap}) {
         $result->{position} = 0;
+    }
+    
+    if (defined $params->{video}) {
+        $result->{video} = $params->{video} eq 'on';
     }
 
     return $result;
