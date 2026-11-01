@@ -511,7 +511,7 @@ sub _seeded_track
     if ($params->{pregap}) {
         $result->{position} = 0;
     }
-    
+
     if (defined $params->{video}) {
         $result->{video} = $params->{video} eq 'on';
     }
