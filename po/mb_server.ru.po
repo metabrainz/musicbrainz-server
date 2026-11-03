@@ -50,7 +50,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2026-09-10 22:13+0000\n"
+"PO-Revision-Date: 2026-10-20 21:13+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -62,7 +62,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1995,8 +1995,8 @@ msgid ""
 "which reorder relationships."
 msgstr ""
 "Примечание: выполняется поиск только тех правок, которые: добавляют или "
-"изменяют отношения, введенные после 2011-05-16; или удаляют отношения, "
-"введенные после 2013-07-08; или изменяют порядок отношений."
+"изменяют отношения, внесенные после 2011-05-16; или удаляют отношения, "
+"внесенные после 2013-07-08; или изменяют порядок отношений."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2041,7 +2041,7 @@ msgstr "Тип порядка"
 #: ../root/static/scripts/common/components/Artwork.js:69
 #: ../root/static/scripts/common/components/Artwork2.js:66
 msgid "PDF file"
-msgstr "PDF файл"
+msgstr "PDF-файл"
 
 #: ../root/release/edit/information.tt:283
 #: ../root/edit/details/AddRelease.js:100
@@ -8590,6 +8590,8 @@ msgid ""
 "Only the first {n} results can be returned. If you cannot find what you are "
 "looking for, please try a more precise search."
 msgstr ""
+"Можно вернуть только первые {n} результатов. Если вы не можете найти то, что "
+"вы ищете, попробуйте ввести более точный запрос."
 
 #: ../root/components/RelationshipsTable.js:286
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
@@ -9124,13 +9126,13 @@ msgstr "Отклонить правку"
 
 #: ../root/edit/EditIndex.js:153
 msgid "Testing features"
-msgstr ""
+msgstr "Тестируемые функции"
 
 #: ../root/edit/EditIndex.js:155
 msgid ""
 "To aid in testing, the following features have been made available on "
 "testing servers:"
-msgstr ""
+msgstr "В целях тестирования, на тест-сервера были добавлены следующие функции:"
 
 #: ../root/edit/EditIndex.js:175
 msgid "You must be logged in to vote on edits."
@@ -9657,7 +9659,7 @@ msgstr "(неизвестен)"
 
 #: ../root/edit/details/AddIsrcs.js:29 ../root/edit/details/AddIswcs.js:21
 msgid "Additions:"
-msgstr "Дополнения:"
+msgstr "Добавления:"
 
 #: ../root/edit/details/AddIsrcs.js:35
 msgid "ISRC {isrc} to {recording}"
@@ -9670,12 +9672,12 @@ msgstr "код ISWC {iswc} к работе \"{work}\""
 #: ../root/edit/details/AddLabel.js:69 ../root/edit/details/EditLabel.js:107
 msgctxt "label ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Закрыт"
 
 #: ../root/edit/details/AddPlace.js:80 ../root/edit/details/EditPlace.js:105
 msgctxt "place ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Закрыто"
 
 #: ../root/edit/details/AddRelationship.js:29
 msgid "Link order:"
@@ -9915,7 +9917,7 @@ msgstr "Новый трек-лист"
 
 #: ../root/edit/details/EditMedium.js:470
 msgid "This edit changes which tracks are data tracks."
-msgstr ""
+msgstr "Эта правка изменяет то, какие треки являются треками с данными."
 
 #: ../root/edit/details/EditMedium.js:485
 msgid "Old recording"
@@ -9951,7 +9953,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:241
 #: ../root/edit/details/EditRelationshipType.js:249
 msgid "Deprecated:"
-msgstr ""
+msgstr "Устаревший:"
 
 #: ../root/edit/details/EditRelationshipType.js:327
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:236
@@ -9975,6 +9977,8 @@ msgid ""
 "The new URL already exists in the database. This edit will therefore merge "
 "the two URL entities."
 msgstr ""
+"Новая URL уже существует в базе данных. Поэтому, эта правка объединит две "
+"существующие сущности этой URL."
 
 #: ../root/edit/details/EditUrl.js:76
 msgid "This edit was a merge."
@@ -11469,11 +11473,11 @@ msgstr "Официальная страница"
 
 #: ../root/layout/components/ExternalLinks.js:135
 msgid "Interview ({hostname})"
-msgstr ""
+msgstr "Интервью ({hostname})"
 
 #: ../root/layout/components/ExternalLinks.js:136
 msgid "Review ({hostname})"
-msgstr ""
+msgstr "Рецензия ({hostname})"
 
 #: ../root/layout/components/ExternalLinks.js:183
 msgid "View all relationships"
@@ -12044,7 +12048,7 @@ msgstr ""
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:14
 msgid "Forbidden request"
-msgstr ""
+msgstr "Запрещённый запрос"
 
 #: ../root/main/error/Error403.js:24
 msgid "The page you requested is private."
@@ -13147,7 +13151,7 @@ msgstr ""
 #: ../root/report/BootlegsOnNonBootlegLabels.js:34
 #: ../root/report/ReportsIndex.js:499
 msgid "Releases on non-bootleg labels set to bootleg"
-msgstr ""
+msgstr "Релизы-бутлеги с небутлежными лейблами"
 
 #: ../root/report/CDTocDubiousLength.js:25
 msgid ""
@@ -13178,7 +13182,7 @@ msgstr ""
 
 #: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:691
 msgid "Disc IDs attached but not applied"
-msgstr ""
+msgstr "Прикрепленные, но непринятые ID диска"
 
 #: ../root/report/CatNoLooksLikeAsin.js:28
 msgid ""
@@ -13210,7 +13214,7 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:347
 msgid "Releases with catalog numbers that look like ISRCs"
-msgstr ""
+msgstr "Релизы с каталожными номерами, похожими на ISRC"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:28
 msgid ""
@@ -13251,7 +13255,7 @@ msgstr "Коллаборатор"
 #: ../root/report/DuplicateArtists.js:117
 #: ../root/report/components/ArtistUrlList.js:69
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "Этот исполнитель больше не существует."
 
 #: ../root/report/DeprecatedRelationshipArtists.js:29
 msgid ""
@@ -13262,7 +13266,7 @@ msgstr ""
 #: ../root/report/DeprecatedRelationshipArtists.js:35
 #: ../root/report/ReportsIndex.js:96
 msgid "Artists with deprecated relationships"
-msgstr ""
+msgstr "Исполнители с устаревшими отношениями"
 
 #: ../root/report/DeprecatedRelationshipLabels.js:29
 msgid ""
@@ -19141,11 +19145,11 @@ msgid ""
 "especially good edits, you might want to let them know so they’ll feel good "
 "about it!"
 msgstr ""
-"Начинающие редакторы чаще всего нуждаются в дружеском внимании к своим "
-"правкам. Проверяя их, ищите случаи, когда редактор вносит правки, "
-"противоречащие рекомендациям MusicBrainz или кажущиеся неправильными, и "
-"оставляйте заметки, направляющие редактора, чтобы в будущем он мог работать "
-"лучше. Обязательно дайте ссылку на соответствующее руководство или на "
+"Начинающим редакторам чаще всего нужно дружеское внимание к своим правкам. "
+"Проверяя их, ищите случаи, когда редактор вносит правки, противоречащие "
+"рекомендациям MusicBrainz или кажущиеся неправильными, и оставляйте "
+"комментарии, направляющие редактора, чтобы в будущем он мог работать лучше. "
+"Обязательно дайте ссылку на соответствующие рекомендации или на "
 "соответствующие примеры хорошо введенных данных, и, прежде всего, не "
 "забывайте быть вежливыми. Скорее всего, если эти пользователи вносят ужасный "
 "беспорядок, они делают это не специально, а от растерянности: MusicBrainz "
@@ -19157,8 +19161,8 @@ msgstr ""
 "плохо, что это невозможно исправить, и это ухудшает существующие данные, "
 "проголосуйте против правки, но постарайтесь хорошо объяснить, почему это "
 "необходимо, а не просто молча проголосуйте \"Нет\". Более подробный обзор "
-"отношения, на которое мы рассчитываем, смотрите в {voting_blog|этом посте в "
-"нашем блоге о голосовании}. Кроме того, если новичок делает особенно хорошие "
+"позиции, на которую мы рассчитываем, смотрите в {voting_blog|этом посте о "
+"голосовании в нашем блоге}. Кроме того, если новичок делает особенно хорошие "
 "правки, вы можете сообщить ему об этом, чтобы он чувствовал себя хорошо!"
 
 #: ../root/vote/VotingIndex.js:336
