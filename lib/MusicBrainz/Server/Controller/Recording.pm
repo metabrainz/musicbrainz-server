@@ -198,7 +198,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         $ret{form_args} = { used_by_tracks => 0 };
         return %ret;
     },
-    dialog_template => 'recording/edit_form.tt',
 };
 
 sub _merge_load_entities {

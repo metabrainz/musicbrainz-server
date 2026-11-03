@@ -72,7 +72,7 @@
     },
     {
       command: 'type',
-      target: 'id=id-edit-recording.edit_note',
+      target: 'name=edit-recording.edit_note',
       value: 'ok',
     },
     {
