@@ -20,8 +20,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-10-13 01:13+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2026-11-03 18:13+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -111,7 +112,7 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
 msgstr ""
-"Versione turca del tamburino / daf, realizzato in pelle animale e suonato "
+"Versione turca del tamburello / daf, realizzato in pelle animale e suonato "
 "con le dita."
 
 #. name:barrel organ
@@ -571,7 +572,7 @@ msgstr ""
 "Usato sempre insieme al kempyang, è composto da un singolo gong \"a "
 "marmitta\" in bronzo, dal tono più grave rispetto al kempyang. Dalla parte "
 "superiore piatta e con un pomolo, il gong è disposto su un telaio (rancak) "
-"molto decorato e percosso con mazzuole (tabuh) dalla stessa persona."
+"molto decorato e percosso con battenti (tabuh) dalla stessa persona."
 
 #. name:kempyang
 #: DB:instrument/description:987
@@ -583,7 +584,7 @@ msgstr ""
 "Usato sempre insieme al kethuk, è composto da due gong \"a marmitta\" in "
 "bronzo, il cui tono si distingue per una nota. Dalla parte superiore arcuata "
 "e con un pomolo, i gong sono disposti su un telaio (rancak) molto decorato e "
-"percossi con mazzuole (tabuh) dalla stessa persona."
+"percossi con battenti (tabuh) dalla stessa persona."
 
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
@@ -838,7 +839,7 @@ msgid ""
 "hit with tabuh beaters."
 msgstr ""
 "Coppia di tamburi a fessura in bronzo, ripiegati in una forma simile a un "
-"mestolo o una banana e percossi con mazzuole (tabuh)."
+"mestolo o una banana e percossi con battenti (tabuh)."
 
 #. name:typewriter
 #: DB:instrument/description:526
@@ -1132,7 +1133,7 @@ msgid ""
 "decorated wooden frames, these are hit with tabuh beaters."
 msgstr ""
 "Composto da gong \"a marmitta\" in bronzo con pomolo, disposti su telai in "
-"legno decorati in modo elaborato e percossi con mazzuole (tabuh)."
+"legno decorati in modo elaborato e percossi con battenti (tabuh)."
 
 #. name:metallophone
 #: DB:instrument/description:349
@@ -1167,8 +1168,8 @@ msgid ""
 "buffalo horn."
 msgstr ""
 "È composto da fino a 21 sbarre in legno duro sospese con puntine e corde "
-"sopra una scatola in legno a forma di trapezio, spesso riccamente ornata; le "
-"due mazzuole molleggiate sono in corno di bufalo."
+"sopra una scatola in legno a forma di trapezio, spesso riccamente ornata; i "
+"due battenti molleggiati sono in corno di bufalo."
 
 #. name:octobass
 #: DB:instrument/description:935
@@ -1807,10 +1808,6 @@ msgstr ""
 
 #. name:tambourine
 #: DB:instrument/description:263
-#, fuzzy
-#| msgid ""
-#| "For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
-#| "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgid ""
 "For the Brazilian frame-drum hit with a whisk, see <a href=\"/instrument/"
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> For the old "
@@ -1818,7 +1815,9 @@ msgid ""
 "2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 msgstr ""
 "Per il tamburo a cornice brasiliano colpito con una frusta, vedi <a href=\"/"
-"instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+"instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Per "
+"l'antico tamburo tenore francese dal tono grave chiamato tambourin, vedi <a "
+"href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">tabor</a>.<br />"
 
 #. name:cornamuse
 #: DB:instrument/description:510
@@ -1928,14 +1927,6 @@ msgstr ""
 
 #. name:tamborim
 #: DB:instrument/description:723
-#, fuzzy
-#| msgid ""
-#| "Not to be confused with the <a href=\"/instrument/4431f7b0-69a4-49ee-"
-#| "b84f-15dda19fb70c\">tambourine</a>.<br /> For the Brazilian frame-drum "
-#| "hit with a whisk see <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
-#| "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more "
-#| "snares, worn by one person and beaten by one hand, it is often combined "
-#| "with tabor pipes."
 msgid ""
 "For the common framedrum with jangles, see <a href=\"/instrument/"
 "4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For the old "
@@ -1944,12 +1935,12 @@ msgid ""
 "metal, plastic or wood jangle-less frame is strung with nylon and beaten "
 "with brush or stick called Baqueta."
 msgstr ""
-"Da non confondere con il <a href=\"/instrument/4431f7b0-69a4-49ee-"
-"b84f-15dda19fb70c\">tamburello</a>.<br /> Per il tamburo a cornice "
-"brasiliano colpito con una frusta, vedi <a href=\"/instrument/"
-"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Rullante, spesso "
-"con uno o più fili, imbracciato da una persona e percosso con una mano, si "
-"accompagna spesso con flauti."
+"Per il comune tamburo a cornice con sonagli, vedi <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tamburello</a>.<br /> Per l'antico "
+"tamburo tenore francese, vedi <a href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-"
+"316c244a52fd\">tabor</a>.<br /> Usato nel samba brasiliano, ha una cornice "
+"in metallo, plastica o legno priva di sonagli su cui è tesa una pelle in "
+"nylon e viene percosso con una spazzola o bacchetta, chiamata baqueta."
 
 #. name:musette de cour
 #: DB:instrument/description:735
@@ -2586,8 +2577,8 @@ msgid ""
 "Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
 "Cretan lyra with the violin."
 msgstr ""
-"Ispirati dal violino, nel 1920 liutai ellenici combinarono parti della "
-"vecchia lira cretese con il violino."
+"Ispirati dal violino, nel 1920 liutai ellenici combinarono parti dell'antica "
+"lira cretese con il violino."
 
 #. name:kacapi siter
 #: DB:instrument/description:1000
@@ -4111,6 +4102,8 @@ msgid ""
 "Originating in West Africa, it consists of (usually) two differing pitch "
 "metal bells, it is used in various Brazilian samba music."
 msgstr ""
+"Proveniente dall'Africa occidentale, è composto (solitamente) da due campane "
+"in metallo con toni diversi ed è usato nella musica samba brasiliana."
 
 #. name:octavina
 #: DB:instrument/description:941
@@ -4509,7 +4502,7 @@ msgid ""
 msgstr ""
 "Imparentato con il bonang, è composto da 3 telai (rancak) decorati, ognuno "
 "dei quali sorregge 2 grandi carillon di gong arcuati (jaler) in bronzo, "
-"percossi con pesanti mazzuole (tabuh)."
+"percossi con pesanti battenti (tabuh)."
 
 #. name:rubab
 #: DB:instrument/description:883
@@ -4617,7 +4610,7 @@ msgid ""
 "often hung together with it."
 msgstr ""
 "Set di 6-10 piccoli gong in bronzo con un pomolo centrale che vengono appesi "
-"e percossi con mazzuole (tabuh). Dal tono più acuto rispetto al gong ageng, "
+"e percossi con battenti (tabuh). Dal tono più acuto rispetto al gong ageng, "
 "i due sono spesso appesi insieme."
 
 #. name:drums (drum set)
@@ -4651,16 +4644,13 @@ msgstr ""
 
 #. name:shaken idiophone
 #: DB:instrument/description:954
-#, fuzzy
-#| msgid ""
-#| "Shaken idiophone or rattle. Sound is produced by holding or containing "
-#| "usually small concussing parts."
 msgid ""
 "Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
 "contains small concussing parts."
 msgstr ""
-"Detti anche sonagli, producono suono tramite lo scontrarsi di piccoli "
-"oggetti contenuti nello strumento."
+"Detti anche sonagli, producono suono quando vengono mossi o scossi, "
+"solitamente grazie allo scontro tra piccoli oggetti contenuti nello "
+"strumento."
 
 #. name:Otamatone
 #: DB:instrument/description:890
@@ -4761,7 +4751,7 @@ msgid ""
 msgstr ""
 "Singolo carillon di gong \"a marmitta\" in bronzo disposto su una cassetta "
 "di supporto in legno di giaco decorato. Usato per tenere il tempo o il "
-"ritmo, è percosso sul pomolo con una mazzuola panggul, che serve da "
+"ritmo, è percosso sul pomolo con un battente panggul, che serve da "
 "riferimento nel pokok."
 
 #. name:härjedalspipa
@@ -6350,7 +6340,7 @@ msgstr "Violino folk polacco, un tempo considerato estinto."
 msgid ""
 "The surdo is a large bass drum used in Brazilian music, most notably samba."
 msgstr ""
-"Grande grancassa usata nella musica brasiliana e in particolare nella samba."
+"Grande grancassa usata nella musica brasiliana e in particolare nel samba."
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -6811,10 +6801,10 @@ msgid ""
 "with a synthetic material, upon which a steel wire or guitar string is "
 "strung across."
 msgstr ""
-"Usata tradizionalmente nella samba e nel maracatu, ha origine dai "
-"battaglioni militari europei. È costituita da un barile in metallo con "
-"diametro di 30-35 cm ricoperto di materiale sintetico, su cui è incordato un "
-"filo di acciaio o una corda di chitarra."
+"Usata tradizionalmente nel samba e nel maracatu, ha origine dai battaglioni "
+"militari europei. È costituita da un barile in metallo con diametro di 30-35 "
+"cm ricoperto di materiale sintetico, su cui è incordato un filo di acciaio o "
+"una corda di chitarra."
 
 #. name:pūtātara
 #: DB:instrument/description:789
@@ -6833,8 +6823,8 @@ msgid ""
 "produce sound."
 msgstr ""
 "Contenitori in metallo o bambù riempiti con semi, ciottoli o sabbia. Usati "
-"in particolare nella musica latinoamericana, vengono agitati ritmicamente "
-"per produrre suoni."
+"in particolare nella musica latinoamericana, vengono scossi ritmicamente per "
+"produrre suoni."
 
 #. name:soprano violin
 #: DB:instrument/description:210
@@ -6965,6 +6955,9 @@ msgid ""
 "and Fon people, it is made of a sheet of metal forged and hammered into twin "
 "bells, hit with a wooden beater."
 msgstr ""
+"Usato per scandire il ritmo nelle grandi orchestre di percussioni dei popoli "
+"subsahariani ewe e fon, è composto da una lastra di metallo forgiata e "
+"martellata in forma di campane gemelle, percosse con un battente in legno."
 
 #. name:tenor banjo
 #: DB:instrument/description:657
@@ -7041,6 +7034,8 @@ msgid ""
 "Used by the band leader to conduct the rhythm in samba schools, it is made "
 "of metal and has 3 holes."
 msgstr ""
+"Usato dal capobanda per condurre il ritmo nelle scuole di samba, è "
+"realizzato in metallo e ha 3 fori."
 
 #. name:water drum
 #: DB:instrument/description:279
@@ -7114,6 +7109,8 @@ msgid ""
 "Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
 "of various mostly percussion instruments."
 msgstr ""
+"Usata nelle scuole di samba brasiliano e per accompagnare la capoeira, "
+"l'ensemble è composta da vari strumenti, principalmente percussioni."
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -7321,6 +7318,9 @@ msgid ""
 "Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
 "modifier lever."
 msgstr ""
+"Usato nelle marce militari e nel samba brasiliano, è portato sopra la "
+"spalla. Realizzato in metallo, ha un diametro di circa 10 cm, un'altezza di "
+"15 cm, due membrane e una leva modificatrice."
 
 #. name:krap phuang
 #: DB:instrument/description:951
@@ -7353,23 +7353,18 @@ msgid ""
 "calabash sistrum or disc rattle (n'goso m'bara)."
 msgstr ""
 "Usato per rituali sacri, è composto da sonagli in metallo o creta con dischi "
-"in metallo che tintinnano quando vengono agitati. <br/> Da non confondere "
-"con il sistro in zucca a fiasco dell'Africa occidentale, detto anche "
-"sonaglio a disco (n'goso m'bara)."
+"in metallo che tintinnano quando vengono scossi. <br/> Da non confondere con "
+"il sistro in zucca a fiasco dell'Africa occidentale, detto anche sonaglio a "
+"disco (n'goso m'bara)."
 
 #. name:ganzá
 #: DB:instrument/description:644
-#, fuzzy
-#| msgid ""
-#| "Used in various performances (capoeira angola, caboclo, etc) and samba "
-#| "music, it is usually made of metal and filled with grains, pebbles or the "
-#| "like."
 msgid ""
 "Used in samba music, it is a small canister of metal or woven material, "
 "filled with beads, grains, pebbles or the like."
 msgstr ""
-"Usata in varie esibizioni (capoeira angola, caboclo, ecc.) e nella musica "
-"samba, è solitamente in metallo e riempita con cereali, ciottoli o simili."
+"Usato nella musica samba, è un piccolo contenitore in metallo o in materiale "
+"intessuto, riempito con perline, cereali, ciottoli o simili."
 
 #. name:saron wayang
 #: DB:instrument/description:1010
@@ -7592,7 +7587,7 @@ msgid ""
 "Sundanese peoples."
 msgstr ""
 "Solitamente composto da 2-3 canne di bambù intagliate, appese a un telaio in "
-"legno o in bambù che viene agitato. È usato dai sundanesi sin dall'antichità."
+"legno o in bambù che viene scosso. È usato dai sundanesi sin dall'antichità."
 
 #. name:valved brass instruments
 #: DB:instrument/description:201
