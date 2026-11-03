@@ -36,6 +36,7 @@ declare type ReleaseEditorSeededTrackT = {
   readonly number: StrOrNum,
   readonly position: number,
   readonly recording?: RecordingT,
+  readonly video?: boolean,
 };
 
 declare type ReleaseEditorSeededMediumT = {

@@ -551,6 +551,23 @@ const actions = {
       }
     },
   }),
+
+  markAllRecordingsAsVideo: ko.computed({
+    read: () => {
+      const release = releaseEditor.rootField.release();
+      if (!release) {
+        return false;
+      }
+      const tracks = release.countTracks(Boolean);
+      const checked = release.countTracks((t) => t.video());
+      return tracks > 0 && checked === tracks;
+    },
+    write: (value) => {
+      for (const track of releaseEditor.rootField.release().allTracks()) {
+        track.video(value || track.recording.original().video);
+      }
+    },
+  }),
 };
 
 Object.assign(releaseEditor, actions);
