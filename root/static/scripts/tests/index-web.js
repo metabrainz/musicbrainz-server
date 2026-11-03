@@ -13,6 +13,7 @@ require('./edit/utility/isUselessMediumTitle.js');
 require('./edit/utility/linkPhrase.js');
 require('./entity.js');
 require('./GuessCase.js');
+require('./GuessPunctuation.js');
 require('./guessFeat.js');
 require('./i18n.js');
 require('./i18n/expand2.js');

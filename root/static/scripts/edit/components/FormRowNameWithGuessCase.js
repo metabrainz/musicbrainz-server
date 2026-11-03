@@ -12,6 +12,7 @@ import * as React from 'react';
 import {flushSync} from 'react-dom';
 
 import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
+import guessPunctuation from '../../guess-punctuation.js';
 
 import FormRowText from './FormRowText.js';
 import {
@@ -31,6 +32,7 @@ type NamedEntityT = {
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {readonly type: 'guess-case', readonly entity: NamedEntityT}
+  | {readonly type: 'guess-punctuation'}
   | {readonly type: 'open-guess-case-options'}
   | {readonly type: 'close-guess-case-options'}
   | {
@@ -66,6 +68,11 @@ export function runReducer(
         'field', 'value', GuessCase.entities[entity.entityType].guess(
           newState.read().field.value ?? '',
         ),
+      );
+    }
+    {type: 'guess-punctuation'} => {
+      newState.set(
+        'field', 'value', guessPunctuation(newState.read().field.value ?? ''),
       );
     }
     {type: 'open-guess-case-options'} => {
@@ -116,6 +123,17 @@ component FormRowNameWithGuessCase(
     }
   }
 
+  function handleGuessPunctuation() {
+    flushSync(() => {
+      dispatch({type: 'guess-punctuation'});
+      setPreview(null);
+    });
+
+    if (inputRef.current) {
+      inputRef.current.dispatchEvent(new Event('input'));
+    }
+  }
+
   function showGuessCasePreview(
     event: SyntheticMouseEvent<HTMLButtonElement>,
   ) {
@@ -124,6 +142,14 @@ component FormRowNameWithGuessCase(
       setPreview(
         GuessCase.entities[entity.entityType].guess(field.value ?? ''),
       );
+    }
+  }
+
+  function showGuessPunctuationPreview(
+    event: SyntheticMouseEvent<HTMLButtonElement>,
+  ) {
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(guessPunctuation(field.value ?? ''));
     }
   }
 
@@ -169,6 +195,14 @@ component FormRowNameWithGuessCase(
         onMouseEnter={showGuessCasePreview}
         onMouseLeave={hidePreview}
         title={l('Guess case')}
+        type="button"
+      />
+      <button
+        className="guess-punctuation icon"
+        onClick={handleGuessPunctuation}
+        onMouseEnter={showGuessPunctuationPreview}
+        onMouseLeave={hidePreview}
+        title={l('Guess punctuation')}
         type="button"
       />
       {guessFeat ? (

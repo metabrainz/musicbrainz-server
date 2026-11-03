@@ -14,6 +14,7 @@ import '../../../common/dialogs.js';
 
 import getBooleanCookie from '../../../common/utility/getBooleanCookie.js';
 import setCookie from '../../../common/utility/setCookie.js';
+import guessPunctuation from '../../../guess-punctuation.js';
 import * as modes from '../../modes.js';
 import gc from '../GuessCase/Main.js';
 
@@ -60,6 +61,15 @@ export default function initializeGuessCase(type, formPrefix) {
       // Don't change the value while the user is dragging to select text.
       if (event.originalEvent.buttons === 0) {
         showPreview($name, guess.guess($name.val()));
+      }
+    })
+    .on('mouseleave', () => hidePreview($name))
+    .end()
+    .find('button.guess-punctuation')
+    .on('click', () => setVal($name, guessPunctuation($name.val())))
+    .on('mouseenter', (event) => {
+      if (event.originalEvent.buttons === 0) {
+        showPreview($name, guessPunctuation($name.val()));
       }
     })
     .on('mouseleave', () => hidePreview($name))

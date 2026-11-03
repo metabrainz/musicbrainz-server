@@ -138,6 +138,7 @@
     [% r.label('name', options.label || add_colon(l('Name'))) %]
     [% r.text('name', { class => 'with-guesscase' _ (options.guessfeat ? '-guessfeat' : '') }) %]
     <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+    <button type="button" class="guess-punctuation icon" title="[% l('Guess punctuation') %]"></button>
     [%- IF options.guessfeat -%]
       <button type="button" class="guessfeat icon" title="[% l('Guess feat. artists') %]"></button>
     [%- END -%]
