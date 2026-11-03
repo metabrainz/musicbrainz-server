@@ -190,4 +190,4 @@ declare var texp: {
 };
 
 // root/utility/invariant.js
-declare var invariant: (cond: unknown, msg?: string) => empty;
+declare var invariant: (cond: unknown, msg?: string) => asserts cond;
