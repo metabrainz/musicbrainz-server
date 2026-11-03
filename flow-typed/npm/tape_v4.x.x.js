@@ -79,8 +79,8 @@ declare interface tape$Context {
   notLooseEqual(actual: unknown, expected: unknown, msg?: string): void,
   notLooseEquals(actual: unknown, expected: unknown, msg?: string): void,
 
-  throws(fn: Function, expected?: RegExp | Function, msg?: string): void,
-  doesNotThrow(fn: Function, expected?: RegExp | Function, msg?: string): void,
+  throws(fn: Function, expected?: RegExp | Function | Object, msg?: string): void,
+  doesNotThrow(fn: Function, expected?: RegExp | Function | Object, msg?: string): void,
 
   timeoutAfter(ms: number): void,
 
