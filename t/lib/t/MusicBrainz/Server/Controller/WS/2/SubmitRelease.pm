@@ -84,6 +84,7 @@ test all => sub {
     $content = _create_request_content(
         'fbe4eb72-0f24-3875-942e-f581589713d4',
         $ean13,
+        'This is a &quot;test&quot; &amp; it is great!',
     );
 
     $req = xml_post('/ws/2/release?client=test-1.0', $content);
@@ -106,6 +107,9 @@ test all => sub {
         ],
         client_version => 'test-1.0',
     });
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 1, 'Edit has an edit note');
+    is($edit->edit_notes->[0]->text, 'This is a "test" & it is great!');
 
     $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -161,7 +165,8 @@ test all => sub {
 };
 
 sub _create_request_content {
-    my ($recording_mbid, $barcode) = @_;
+    my ($recording_mbid, $barcode, $edit_note) = @_;
+    $edit_note //= '';
     return <<~"EOXML";
         <?xml version="1.0" encoding="UTF-8"?>
         <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -170,6 +175,7 @@ sub _create_request_content {
               <barcode>$barcode</barcode>
             </release>
           </release-list>
+          <edit-note>$edit_note</edit-note>
         </metadata>
         EOXML
 }
