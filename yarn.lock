@@ -7627,7 +7627,7 @@ __metadata:
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
     minimizer-webpack-plugin: "npm:5.6.1"
-    mutate-cow: "npm:8.1.0"
+    mutate-cow: "npm:9.0.1"
     nodemon: "npm:3.1.14"
     nyc: "npm:18.0.0"
     path-browserify: "npm:1.0.1"
@@ -7661,10 +7661,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"mutate-cow@npm:8.1.0":
-  version: 8.1.0
-  resolution: "mutate-cow@npm:8.1.0"
-  checksum: 10c0/8dced915f6efd1219a848233296c2f9e6dbf0d2d498d1d88c63431fb8b55c30f0b21dbb4bdf4c5ba40c95bed73c834c3b8a92809b0de79e670947178d64090d1
+"mutate-cow@npm:9.0.1":
+  version: 9.0.1
+  resolution: "mutate-cow@npm:9.0.1"
+  checksum: 10c0/51a416f802cec137fd085159a0f62297ca29c44123d34486eca75462c47dcf26aaf85e3d7e274d5a32d3102a2d3e6153785ab462786a0c4b340f0eecaa9a1f67
   languageName: node
   linkType: hard
 

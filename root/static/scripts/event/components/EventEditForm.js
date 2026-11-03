@@ -13,10 +13,11 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useContainingDialogEscape
+  from '../../common/hooks/useContainingDialogEscape.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
@@ -39,12 +40,16 @@ import {
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
+import useFormSubmitHandler
+  from '../../edit/hooks/useFormSubmitHandler.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -108,9 +113,13 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: EventFormT,
 }) {
+  const formCtx = mutate(form);
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateRequiredNameFieldErrors(nameFieldCtx);
+
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
@@ -144,16 +153,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          if (isBlank(nameState.field.value)) {
-            nameFieldCtx.set('has_errors', true);
-            nameFieldCtx.set('pendingErrors', [
-              l('Required field.'),
-            ]);
-          } else {
-            nameFieldCtx.set('has_errors', false);
-            nameFieldCtx.set('pendingErrors', []);
-            nameFieldCtx.set('errors', []);
-          }
+          updateRequiredNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
@@ -231,6 +231,7 @@ component EventEditForm(
   const $c = React.useContext(SanitizedCatalystContext);
 
   useFormUnloadWarning();
+  useContainingDialogEscape();
 
   const typeOptions = {
     grouped: false as const,
@@ -281,24 +282,18 @@ component EventEditForm(
     dispatch({action, type: 'update-relationship-editor'});
   }, [dispatch]);
 
-  const hasErrors = hasSubfieldErrors(state.form) ||
+  const hasLinkErrors =
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true) ||
+    hasLinkErrors;
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false) ||
+    hasLinkErrors;
 
   const eventEntity: EventT = getSourceEntityData($c, 'event');
 
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-    }
-  };
-
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const typeSelectRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -306,7 +301,6 @@ component EventEditForm(
     <form
       className="edit-event"
       method="post"
-      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <p>
@@ -398,7 +392,7 @@ component EventEditForm(
         />
 
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
 
       <div className="documentation">

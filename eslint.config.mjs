@@ -1051,6 +1051,7 @@ export default [
       'root/static/scripts/common/components/Autocomplete2/searchItems.js',
       'root/static/scripts/common/components/ButtonPopover.js',
       'root/static/scripts/common/components/EntityLink.js',
+      'root/static/scripts/common/hooks/useContainingDialogEscape.js',
       'root/static/scripts/common/i18n/expand2.js',
       'root/static/scripts/common/linkedEntities.mjs',
       'root/static/scripts/common/utility/catalyst.js',

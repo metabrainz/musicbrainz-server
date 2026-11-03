@@ -47,7 +47,7 @@
     "less-plugin-clean-css": "1.6.0",
     "leven": "4.1.0",
     "minimizer-webpack-plugin": "5.6.1",
-    "mutate-cow": "8.1.0",
+    "mutate-cow": "9.0.1",
     "nodemon": "3.1.14",
     "pg": "8.22.0",
     "pg-cursor": "2.21.0",

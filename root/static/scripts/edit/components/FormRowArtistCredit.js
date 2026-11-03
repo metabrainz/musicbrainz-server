@@ -16,7 +16,6 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 component FormRowArtistCredit(
-  artistCreditField: ArtistCreditFieldT,
   dispatch: (ArtistCreditActionT) => void,
   onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   rowRef?: {writeonly current: HTMLDivElement | null},
@@ -32,7 +31,7 @@ component FormRowArtistCredit(
         onFocus={onFocus}
         state={state}
       />
-      <FieldErrors field={artistCreditField} />
+      <FieldErrors field={state} />
     </FormRow>
   );
 }

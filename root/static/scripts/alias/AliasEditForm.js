@@ -13,7 +13,6 @@ import * as React from 'react';
 import type {
   AliasEditFormT,
 } from '../../../entity/alias/types.js';
-import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
@@ -34,6 +33,7 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../edit/components/GuessCaseOptions.js';
+import useFormSubmitHandler from '../edit/hooks/useFormSubmitHandler.js';
 import copyFieldData, {
   copyDatePeriodField,
 } from '../edit/utility/copyFieldData.js';
@@ -45,6 +45,8 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../edit/utility/updateRequiredNameFieldErrors.js';
 
 type Props = {
   readonly aliasTypes: SelectOptionsT,
@@ -106,8 +108,10 @@ function createInitialState({
   form,
   searchHintType,
 }: CreateInitialStatePropsT): StateT {
+  const formCtx = mutate(form);
+  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
   return {
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isEnded: form.field.period.field.ended.value,
     isGuessCaseOptionsOpen: false,
@@ -144,7 +148,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.final();
       newStateCtx
-        .set('form', 'field', 'name', nameState.field)
+        .update('form', 'field', 'name', (nameFieldCtx) => {
+          nameFieldCtx.set(nameState.field);
+          updateRequiredNameFieldErrors(nameFieldCtx);
+        })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
     }
@@ -263,24 +270,12 @@ const AliasEditForm = ({
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true);
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false);
 
-  const hasErrors = missingRequired || hasSubfieldErrors(state.form);
-
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
-
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <>
@@ -297,7 +292,6 @@ const AliasEditForm = ({
       <form
         className="edit-alias"
         method="post"
-        onKeyDown={handleKeyDown}
         onSubmit={handleSubmit}
       >
         <div className="half-width">
@@ -363,10 +357,7 @@ const AliasEditForm = ({
             field={state.form.field.period}
           />
           <EnterEditNote field={state.form.field.edit_note} />
-          <EnterEdit
-            disabled={hasErrors}
-            form={state.form}
-          />
+          <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
         </div>
       </form>
     </>

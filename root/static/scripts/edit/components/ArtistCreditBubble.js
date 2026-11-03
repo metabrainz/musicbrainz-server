@@ -20,16 +20,19 @@ import type {
   ActionT,
   ArtistCreditableT,
   ArtistCreditNameStateT,
+  InitialBubbleFocusT,
   StateT as ArtistCreditStateT,
 } from './ArtistCreditEditor/types.js';
 import {
   artistCreditFromState,
+  getArtistCreditNames,
+  isNameNotRemoved,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
 type ButtonsPropsT = {
   readonly dispatch: (ActionT) => void,
-  readonly initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
+  readonly initialBubbleFocus: InitialBubbleFocusT | void,
   readonly initialFocusRef: {writeonly current: HTMLElement | null},
   readonly isTrack: boolean,
 };
@@ -224,8 +227,8 @@ component _ArtistCreditBubble(
     entity,
     initialArtistCreditString,
     initialBubbleFocus,
-    names,
   } = state;
+  const names = getArtistCreditNames(state);
 
   const isTrack = entity?.entityType === 'track';
 
@@ -264,8 +267,8 @@ component _ArtistCreditBubble(
   }, [names, initialBubbleFocus, initialFocusRef]);
 
   const allowNameMoveOrRemoval = React.useMemo(
-    () => state.names.filter((n) => !n.removed).length > 1,
-    [state.names],
+    () => names.filter(isNameNotRemoved).length > 1,
+    [names],
   );
 
   return (
@@ -286,10 +289,10 @@ component _ArtistCreditBubble(
               allowMoveDown={index < names.length - 1}
               allowMoveUp={index > 0}
               allowRemoval={allowNameMoveOrRemoval}
-              artistCreditEditorId={state.id}
+              artistCreditEditorHtmlId={state.htmlId}
               dispatch={dispatch}
               index={index}
-              key={name.key}
+              key={name.id}
               name={name}
               showMoveButtons={allowNameMoveOrRemoval && !name.removed}
             />
