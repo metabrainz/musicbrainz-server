@@ -14,77 +14,36 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
-import useContainingDialogEscape
-  from '../../common/hooks/useContainingDialogEscape.js';
-import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
-import FormRowNameWithGuessCase, {
-  type ActionT as NameActionT,
-  runReducer as runNameReducer,
-} from '../../edit/components/FormRowNameWithGuessCase.js';
+import FormRowNameWithGuessCase
+  from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
-  type StateT as GuessCaseOptionsStateT,
-  createInitialState as createGuessCaseOptionsState,
-} from '../../edit/components/GuessCaseOptions.js';
-import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import useFormSubmitHandler
-  from '../../edit/hooks/useFormSubmitHandler.js';
 import {
-  applyAllPendingErrors,
-  hasSubfieldErrors,
-} from '../../edit/utility/subfieldErrors.js';
-import updateRequiredNameFieldErrors
-  from '../../edit/utility/updateRequiredNameFieldErrors.js';
+  type CommonEntityEditFormActionT,
+  type CommonEntityEditFormStateT,
+  createCommonEntityEditFormState,
+  runCommonEntityEditFormActions,
+  useCommonEntityEditForm,
+} from '../../edit/utility/forms.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
-import {
-  createInitialState as createExternalLinksEditorState,
-  reducer as externalLinksEditorReducer,
-} from '../../external-links-editor/state.js';
-import type {
-  LinksEditorActionT,
-  LinksEditorStateT,
-} from '../../external-links-editor/types.js';
-import {
-  hasErrorsOnNewOrChangedLinks,
-} from '../../external-links-editor/validation.js';
-import RelationshipEditor, {
-  loadOrCreateInitialState as loadOrCreateInitialRelationshipEditorState,
-  reducer as relationshipEditorReducer,
-} from '../../relationship-editor/components/RelationshipEditor.js';
-import type {
-  RelationshipEditorStateT,
-} from '../../relationship-editor/types.js';
-import type {
-  RelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
+import syncEntityNameToRelationshipEditor
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../relationship-editor/utility/syncEntityNameToRelationshipEditor.js';
 
-/* eslint-disable ft-flow/sort-keys */
-type ActionT =
-  | {
-      readonly type: 'update-external-links-editor',
-      readonly action: LinksEditorActionT,
-    }
-  | {
-      readonly type: 'update-relationship-editor',
-      readonly action: RelationshipEditorActionT,
-    }
-  | {readonly type: 'update-name', readonly action: NameActionT}
-  | {readonly type: 'show-all-pending-errors'};
-/* eslint-enable ft-flow/sort-keys */
+type ActionT = CommonEntityEditFormActionT;
 
 type StateT = {
-  readonly externalLinksEditor: LinksEditorStateT,
+  ...CommonEntityEditFormStateT,
   readonly form: GenreFormT,
-  readonly guessCaseOptions: GuessCaseOptionsStateT,
-  readonly isGuessCaseOptionsOpen: boolean,
-  readonly relationshipEditor: RelationshipEditorStateT,
 };
 
 function createInitialState({
@@ -95,73 +54,26 @@ function createInitialState({
   readonly form: GenreFormT,
 }) {
   const formCtx = mutate(form);
-  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
   return {
-    externalLinksEditor: createExternalLinksEditorState($c),
+    ...createCommonEntityEditFormState({$c, formCtx}),
     form: formCtx.final(),
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
-    relationshipEditor: loadOrCreateInitialRelationshipEditorState({
-      formName: form.name,
-      seededRelationships: $c.stash.seeded_relationships,
-    }),
   };
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   match (action) {
-    {type: 'update-name', const action} => {
-      const nameStateCtx = mutate({
-        field: state.form.field.name,
-        guessCaseOptions: state.guessCaseOptions,
-        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
-      });
-      runNameReducer(nameStateCtx, action);
-      const nameState = nameStateCtx.final();
-      newStateCtx
-        .update('form', 'field', 'name', (nameFieldCtx) => {
-          nameFieldCtx.set(nameState.field);
-          updateRequiredNameFieldErrors(nameFieldCtx);
-        })
-        .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-
-      if (action.type === 'set-name') {
-        newStateCtx.set(
-          'relationshipEditor',
-          relationshipEditorReducer(state.relationshipEditor, {
-            changes: {name: action.name},
-            entityType: state.relationshipEditor.entity.entityType,
-            type: 'update-entity',
-          }),
-        );
-      }
-    }
-    {type: 'update-external-links-editor', const action} => {
-      newStateCtx.set(
-        'externalLinksEditor',
-        externalLinksEditorReducer(state.externalLinksEditor, action),
-      );
-    }
-    {type: 'update-relationship-editor', const action} => {
-      newStateCtx.set(
-        'relationshipEditor',
-        relationshipEditorReducer(state.relationshipEditor, action),
-      );
-    }
-    {type: 'show-all-pending-errors'} => {
-      applyAllPendingErrors(newStateCtx.get('form'));
+    _ as action => {
+      runCommonEntityEditFormActions(newStateCtx, action);
     }
   }
+  syncEntityNameToRelationshipEditor(state, newStateCtx);
+
   return newStateCtx.final();
 }
 
 component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
-
-  useFormUnloadWarning();
-  useContainingDialogEscape();
 
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -169,28 +81,14 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     createInitialState,
   );
 
-  const nameDispatch = React.useCallback((action: NameActionT) => {
-    dispatch({action, type: 'update-name'});
-  }, [dispatch]);
-
-  const relationshipEditorDispatch = React.useCallback((
-    action: RelationshipEditorActionT,
-  ) => {
-    dispatch({action, type: 'update-relationship-editor'});
-  }, [dispatch]);
-
-  const hasLinkErrors =
-    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
-  const hasErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ true) ||
-    hasLinkErrors;
-  const hasVisibleErrors =
-    hasSubfieldErrors(state.form, /* includePending = */ false) ||
-    hasLinkErrors;
+  const {
+    handleEditNoteChange,
+    handleSubmit,
+    hasVisibleErrors,
+    nameDispatch,
+  } = useCommonEntityEditForm(state, dispatch);
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
-
-  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <form
@@ -215,8 +113,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
             uncontrolled
           />
         </fieldset>
-        <RelationshipEditor
-          dispatch={relationshipEditorDispatch}
+        <RelationshipEditorFieldset
+          dispatch={dispatch}
           formName={state.form.name}
           state={state.relationshipEditor}
         />
@@ -224,7 +122,11 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           dispatch={dispatch}
           state={state.externalLinksEditor}
         />
-        <EnterEditNote field={state.form.field.edit_note} />
+        <EnterEditNote
+          controlled
+          field={state.form.field.edit_note}
+          onChange={handleEditNoteChange}
+        />
         <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
     </form>
@@ -232,10 +134,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 }
 
 export default (
-  hydrate<React.PropsOf<GenreEditForm>>(
+  hydrateRelationshipEditorForm<React.PropsOf<GenreEditForm>>(
     'div.genre-edit-form',
-    withLoadedTypeInfoForRelationshipEditor<React.PropsOf<GenreEditForm>>(
-      GenreEditForm,
-    ),
+    GenreEditForm,
   ) as component(...React.PropsOf<GenreEditForm>)
 );

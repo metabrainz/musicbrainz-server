@@ -9,19 +9,23 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate.js';
 import {
-  withLoadedTypeInfoForRelationshipEditor,
+  hydrateRelationshipEditorForm,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import getUnicodeUrl
   from '../../external-links-editor/utility/getUnicodeUrl.js';
-import RelationshipEditor, {
+import {
   type InitialStateArgsT,
   loadOrCreateInitialState,
   reducer,
 } from '../../relationship-editor/components/RelationshipEditor.js';
+import RelationshipEditorFieldset
+  from '../../relationship-editor/components/RelationshipEditorFieldset.js';
 import useEntityNameFromField
   from '../../relationship-editor/hooks/useEntityNameFromField.js';
+import type {
+  RelationshipEditorActionT,
+} from '../../relationship-editor/types/actions.js';
 
 type PropsT = InitialStateArgsT;
 
@@ -55,24 +59,27 @@ component _UrlRelationshipEditor(...props: PropsT) {
     };
   }, []);
 
+  const relationshipEditorFieldsetDispatch = React.useCallback((
+    action: {
+      readonly action: RelationshipEditorActionT,
+      readonly type: 'update-relationship-editor',
+    },
+  ) => {
+    dispatch(action.action);
+  }, [dispatch]);
+
   return (
-    <RelationshipEditor
-      dispatch={dispatch}
+    <RelationshipEditorFieldset
+      dispatch={relationshipEditorFieldsetDispatch}
       formName={props.formName}
       state={state}
     />
   );
 }
 
-const NonHydratedUrlRelationshipEditor:
-  component(...PropsT) =
-    withLoadedTypeInfoForRelationshipEditor<PropsT>(
-      _UrlRelationshipEditor,
-    );
-
-const UrlRelationshipEditor = hydrate<PropsT>(
+const UrlRelationshipEditor = hydrateRelationshipEditorForm<PropsT>(
   'div.relationship-editor',
-  NonHydratedUrlRelationshipEditor,
+  _UrlRelationshipEditor,
 ) as component(...PropsT);
 
 export default UrlRelationshipEditor;
