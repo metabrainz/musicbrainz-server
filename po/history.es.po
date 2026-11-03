@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-08 15:13+0000\n"
-"Last-Translator: Raguts <raguts@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-10-18 00:13+0000\n"
+"Last-Translator: navi_host <ductil_retorno_9a@icloud.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/es/>\n"
 "Language: es\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -406,18 +406,22 @@ msgstr ""
 "publicación de nuevos scripts de instalación."
 
 #: DB:statistics.statistic_event/title:2020-02-18
+#, fuzzy
 msgid "Edit history visible without logging in"
-msgstr ""
+msgstr "Historial de ediciones visible sin iniciar sesión"
 
 #: DB:statistics.statistic_event/title:2015-12-28
+#, fuzzy
 msgid "Edit note notifications"
-msgstr ""
+msgstr "Editar notificaciones de notas"
 
 #: DB:statistics.statistic_event/description:2003-07-25
 msgid ""
 "Edit notes can now be added when creating an edit, making it much easier for "
 "editors to explain their changes."
 msgstr ""
+"Ahora se pueden añadir notas de edición al crear una edición, lo que "
+"facilita mucho a los editores la explicación de sus cambios."
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
@@ -437,6 +441,10 @@ msgid ""
 "Edits made by editors to their own release additions within 1 hour of adding "
 "them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
 msgstr ""
+"Las ediciones que los editores realicen en sus propias adiciones de "
+"lanzamiento dentro de la hora posterior a su adición ahora son ediciones "
+"automáticas, al igual que las ediciones de \"Agregar grabación\" y "
+"\"Eliminar alias\"."
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
@@ -447,10 +455,15 @@ msgid ""
 "Empty labels, release groups and works are now auto-removed after 24 hours "
 "of being unused, in the same way artists already were before."
 msgstr ""
+"Las etiquetas, los grupos de lanzamiento y las obras vacías se eliminan "
+"automáticamente después de 24 horas de inactividad, del mismo modo que ya "
+"ocurría con los artistas anteriormente."
 
 #: DB:statistics.statistic_event/title:2012-06-25
 msgid "Empty labels, release groups and works start being auto-removed"
 msgstr ""
+"Las etiquetas, los grupos de lanzamiento y las obras vacías comienzan a "
+"eliminarse automáticamente."
 
 #: DB:statistics.statistic_event/description:2014-09-17
 msgid ""
@@ -459,51 +472,70 @@ msgid ""
 "way to indicate the content of data tracks in release tracklists, and the "
 "extension of tagging to areas, instruments and series."
 msgstr ""
+"Se ha añadido soporte para eventos en MusicBrainz, lo que permite almacenar "
+"información sobre conciertos y festivales. Esta actualización del esquema "
+"también incluye una forma adecuada de indicar el contenido de las pistas de "
+"datos en los listados de canciones de una publicación, así como la "
+"ampliación del etiquetado a áreas, instrumentos y series."
 
 #: DB:statistics.statistic_event/title:2014-09-17
 msgid "Event support, data tracks"
-msgstr ""
+msgstr "Soporte para eventos, seguimiento de datos"
 
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid ""
 "Folksonomy tagging and editor subscriptions are released. Additionally, it's "
 "now possible to batch-add relationships to multiple tracks on a release."
 msgstr ""
+"Se han lanzado las funciones de etiquetado folksonomía y suscripciones de "
+"editor. Además, ahora es posible agregar relaciones a varias pistas de una "
+"misma publicación de forma masiva."
 
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
+"Roman Tsukanov, antiguo alumno de GSoC, comienza a trabajar a tiempo parcial "
+"para MetaBrainz."
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
 msgstr ""
+"Frederik “Freso” S. Olesen se convierte en Community Manager de MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
+"Se desactivó la función de importación automática de FreeDB y se liberaron "
+"las opciones de edición automática. Se eliminaron de la base de datos los "
+"TRM no utilizados."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
-msgstr ""
+msgstr "FreeDB desactivado/Editores automáticos"
 
 #: DB:statistics.statistic_event/description:2015-08-06
 msgid ""
 "Freso becomes the first MetaBrainz Community Manager, tasked with helping "
 "resolve conflicts in the community and keeping an eye on their needs."
 msgstr ""
+"Freso se convierte en el primer gestor de la comunidad de MetaBrainz, "
+"encargado de ayudar a resolver conflictos en la comunidad y de estar atento "
+"a sus necesidades."
 
 #: DB:statistics.statistic_event/title:2018-11-02
 msgid "Genre added as a new entity"
-msgstr ""
+msgstr "Género añadido como una nueva entidad"
 
 #: DB:statistics.statistic_event/description:2018-11-02
 msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
 msgstr ""
+"Los géneros se añaden como una nueva entidad, aunque siguen estando "
+"estrechamente vinculados a las etiquetas de la folksonomía."
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
@@ -511,11 +543,11 @@ msgstr "Gran disputa"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
-msgstr ""
+msgstr "Adivina con botones"
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
-msgstr ""
+msgstr "Los canales de IRC se trasladan a Libera.Chat."
 
 #: DB:statistics.statistic_event/title:2012-09-01
 msgid "Ian McEwen hired"
@@ -554,6 +586,9 @@ msgid ""
 "waiting for changes, the length of time edits stay open before expiration is "
 "reduced from 14 to 7 days."
 msgstr ""
+"Con el fin de reducir el tamaño de la cola de ediciones abiertas y minimizar "
+"el tiempo de espera para los cambios, el tiempo que las ediciones permanecen "
+"abiertas antes de su vencimiento se reduce de 14 a 7 días."
 
 #: DB:statistics.statistic_event/description:2015-04-27
 msgid ""
@@ -561,16 +596,25 @@ msgid ""
 "still part of the track / release titles rather than the artists, guess "
 "feat. buttons are added that greatly simplify the process."
 msgstr ""
+"Para facilitar la solución de muchos casos en los que los artistas invitados "
+"siguen formando parte de los títulos de las pistas/lanzamientos en lugar de "
+"los artistas, se han añadido botones de \"Adivina la colaboración\" que "
+"simplifican enormemente el proceso."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
+"Como preparación para la secuenciación de nueva generación (NGS), la edición "
+"estará desactivada hasta su lanzamiento."
 
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
+"Como preparación para la secuenciación de nueva generación (NGS), se "
+"recomienda a los editores que eviten editar hasta el lanzamiento, a menos "
+"que sea absolutamente necesario."
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
@@ -578,7 +622,7 @@ msgstr "Búsqueda indexada/XML WS"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
-msgstr ""
+msgstr "Se lanzan la búsqueda por índice y un nuevo servicio web basado en XML."
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
@@ -597,18 +641,21 @@ msgstr "Instalar Scripts"
 #: DB:statistics.statistic_event/title:2020-12-31
 msgid "Instrument images, recordings' first release date"
 msgstr ""
+"Imágenes de instrumentos, fecha de lanzamiento de las primeras grabaciones"
 
 #: DB:statistics.statistic_event/title:2014-05-14
 msgid "Instruments and series"
-msgstr ""
+msgstr "Instrumentos y series"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
 msgstr ""
+"Se ha publicado la traducción al italiano; IPI e ISNI se convierten en "
+"autocorrectores."
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr ""
+msgstr "Kartik Ohri se une al equipo de MetaBrainz."
 
 #: DB:statistics.statistic_event/description:2021-02-23
 msgid ""
@@ -616,6 +663,9 @@ msgid ""
 "AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
 "already significantly rewritten as a volunteer."
 msgstr ""
+"Kartik Ohri se une al equipo de MetaBrainz para trabajar en ListenBrainz, "
+"AcousticBrainz y CritiqueBrainz, además de la aplicación para Android, que "
+"ya había reescrito en gran medida como voluntario."
 
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
@@ -636,6 +686,8 @@ msgstr "Last.fm"
 #: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
 msgstr ""
+"Last.fm se registra en MetaBrainz y comienza a utilizar los datos de "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
