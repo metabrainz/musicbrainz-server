@@ -229,7 +229,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
         $c->model('Link')->load(@load_subdata);
         $c->model('LinkType')->load(map { $_->link } @load_subdata);
-        $c->model('Relationship')->load_entities(@load_subdata);
+        $c->model('Relationship')->load_entities(\@load_subdata);
 
         if ($valid) {
             my $values = { map { $_->name => $_->value } $form->edit_fields };

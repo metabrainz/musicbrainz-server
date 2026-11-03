@@ -15,17 +15,35 @@ sub element { 'relation'; }
 
 sub serialize
 {
-    my ($self, $entity, $inc, $opts) = @_;
-    my $body = {};
-    my @attributes = $entity->link->all_attributes;
+    my ($self, $entity, $inc, $stash) = @_;
 
-    serialize_type($body, $entity->link, $inc, $opts, 1);
+    my $link = $entity->link;
+    my $link_body = ($stash->store($link)->{json_link_body} //= do {
+        _serialize_link($link, $inc, $stash);
+    });
 
+    my $body = { %{$link_body} };
     $body->{direction} = $entity->direction == 2 ? 'backward' : 'forward';
     $body->{'ordering-key'} = number($entity->link_order) if $entity->link_order;
 
-    serialize_date_period($body, $entity->link);
+    $body->{'target-type'} = $entity->target_type;
+    $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $stash);
+    $body->{'source-credit'} = $entity->source_credit // '';
+    $body->{'target-credit'} = $entity->target_credit // '';
 
+    return $body;
+}
+
+sub _serialize_link {
+    my ($link, $inc, $stash) = @_;
+
+    my $body = {};
+
+    serialize_type($body, $link, $inc, $stash, 1);
+
+    serialize_date_period($body, $link);
+
+    my @attributes = $link->all_attributes;
     $body->{attributes} = [ map { $_->type->name } @attributes ];
 
     $body->{'attribute-values'} = {
@@ -48,11 +66,6 @@ sub serialize
         }
         @attributes,
     } if any { $_->type->creditable } @attributes;
-
-    $body->{'target-type'} = $entity->target_type;
-    $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
-    $body->{'source-credit'} = $entity->source_credit // '';
-    $body->{'target-credit'} = $entity->target_credit // '';
 
     return $body;
 }

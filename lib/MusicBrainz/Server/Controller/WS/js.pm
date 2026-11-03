@@ -43,7 +43,7 @@ use MusicBrainz::Server::Validation qw(
     is_positive_integer
 );
 use Readonly;
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Text::Trim;
 use Time::Piece;
 use URI;

@@ -131,12 +131,6 @@ sub release_toplevel {
     {
         my @mediums = map { $_->all_mediums } @releases;
 
-        if (!$inc->discids)
-        {
-            my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
-            $c->model('CDTOC')->load(@medium_cdtocs);
-        }
-
         $c->model('Track')->load_for_mediums(@mediums);
         my @tracks = map { $_->all_tracks } @mediums;
 

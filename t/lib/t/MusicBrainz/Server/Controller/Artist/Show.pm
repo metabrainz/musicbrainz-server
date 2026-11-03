@@ -520,7 +520,7 @@ test 'Embedded JSON-LD for groups' => sub {
                     '@type' => ['Person', 'MusicGroup'],
                     'name' => 'George Harrison',
                 },
-                'roleName' => ['guitar', 'lead vocals'],
+                'roleName' => ['lead vocals', 'guitar'],
                 'startDate' => '1958-04',
             },
             {
@@ -542,7 +542,7 @@ test 'Embedded JSON-LD for groups' => sub {
                     '@type' => ['Person', 'MusicGroup'],
                     'name' => 'John Lennon',
                 },
-                'roleName' => ['guitar', 'lead vocals'],
+                'roleName' => ['lead vocals', 'guitar'],
             },
             {
                 '@type' => 'OrganizationRole',
@@ -552,7 +552,7 @@ test 'Embedded JSON-LD for groups' => sub {
                     '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Paul McCartney',
                 },
-                'roleName' => ['bass guitar', 'lead vocals'],
+                'roleName' => ['lead vocals', 'bass guitar'],
                 'startDate' => '1957-07',
             },
         ],

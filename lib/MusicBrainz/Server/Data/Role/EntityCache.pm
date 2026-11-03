@@ -65,7 +65,7 @@ has _recently_invalidated_prefix => (
 
 around get_by_ids => sub {
     my ($orig, $self, @ids) = @_;
-    @ids = grep { is_database_row_id($_) } @ids;
+    @ids = grep { is_database_row_id($_) } uniq @ids;
     return {} unless @ids;
     my %ids = map { $_ => 1 } @ids;
     my $cache_prefix = $self->_cache_prefix;

@@ -9,7 +9,7 @@ use Algorithm::Diff qw( sdiff traverse_sequences );
 use Carp qw( confess );
 use HTML::Tiny;
 use HTML::Entities qw( decode_entities );
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
 
 sub new {

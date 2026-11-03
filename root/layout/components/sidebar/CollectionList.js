@@ -76,7 +76,7 @@ component CollaborativeCollectionList(
         collections={collections}
         entity={entity}
       />
-      <li className="separator" role="separator" />
+      <li aria-hidden="true" className="separator" />
     </ul>
   );
 }
@@ -99,7 +99,7 @@ component OwnCollectionList(
           {addText}
         </a>
       </li>
-      <li className="separator" role="separator" />
+      <li aria-hidden="true" className="separator" />
     </ul>
   );
 }

@@ -111,13 +111,13 @@ component LabelSidebar(label: LabelT) {
           </a>
         </li>
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
 
         <AnnotationLinks entity={label} />
 
         <MergeLink entity={label} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       {isSpecialPurposeLabel

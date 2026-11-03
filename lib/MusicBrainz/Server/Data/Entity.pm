@@ -75,10 +75,10 @@ sub is_valid_id {
 sub get_by_ids {
     my ($self, @ids) = @_;
 
-    @ids = grep { $self->is_valid_id($_) } @ids;
+    @ids = grep { $self->is_valid_id($_) } uniq @ids;
     return {} unless @ids;
 
-    my %result = map { $_->id => $_ } $self->_get_by_keys($self->_id_column, uniq(@ids));
+    my %result = map { $_->id => $_ } $self->_get_by_keys($self->_id_column, @ids);
     \%result;
 }
 

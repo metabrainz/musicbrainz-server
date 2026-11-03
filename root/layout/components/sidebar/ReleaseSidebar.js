@@ -298,7 +298,7 @@ component ReleaseSidebar(release: ReleaseT) {
 
         <RemoveLink entity={release} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <CollectionLinks entity={release} />
