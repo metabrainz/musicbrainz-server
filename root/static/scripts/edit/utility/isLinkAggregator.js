@@ -37,6 +37,7 @@ const URL_AGGREGATORS = [
   'eventlink.to',
   'fanbase.to',
   'fanlink.to',
+  'fanlink.tv',
   'ffm.bio',
   'ffm.to',
   'found.ee',
