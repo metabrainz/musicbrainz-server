@@ -30,6 +30,7 @@ const URL_SHORTENERS = [
   'owl.ly',
   'page.link',
   'pandora.app.link',
+  'prf.hn',
   'rb.gy',
   'rubyurl.com',
   'share.google',
