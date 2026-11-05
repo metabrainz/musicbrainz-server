@@ -68,6 +68,7 @@ const URL_AGGREGATORS = [
   'lnkfi.re',
   'linkfly.to',
   'linkin.bio',
+  'links.freshtunes.com',
   'linktr.ee',
   'listen.lt',
   'lnk.bio',
