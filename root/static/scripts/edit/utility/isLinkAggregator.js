@@ -47,6 +47,7 @@ const URL_AGGREGATORS = [
   'fur.ly',
   'gate.fm',
   'gyro.to',
+  'heylink.me',
   'hoo.be',
   'hypeddit.com',
   'hypel.ink',
