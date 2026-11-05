@@ -24,6 +24,7 @@ const URL_AGGREGATORS = [
   'artist.link',
   'band.link',
   'beacons.ai',
+  'beacons.page',
   'bfan.link',
   'biglink.to',
   'bio.link',
