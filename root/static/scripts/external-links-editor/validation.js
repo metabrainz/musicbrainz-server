@@ -87,6 +87,10 @@ function isCritiqueBrainz(url: string) {
   return /^https?:\/\/([^/]+\.)?critiquebrainz\.org/.test(url);
 }
 
+function isListenBrainz(url: string) {
+  return /^https?:\/\/([^/]+\.)?listenbrainz\.org/.test(url);
+}
+
 function linkContainsErrors(link: LinkStateT): boolean {
   return link.error !== null ||
     link.relationships.some(linkRelationshipHasError);
@@ -174,6 +178,12 @@ export function validateLink(
          are automatically linked from the “{reviews_tab_name}” tab.`,
         {reviews_tab_name: l('Reviews')},
       ),
+      target: URLCleanup.ERROR_TARGETS.URL,
+    };
+  } else if (isListenBrainz(url)) {
+    error = {
+      message: l(`Links to ListenBrainz URLs are not allowed, as
+                  ListenBrainz pages are already linked automatically.`),
       target: URLCleanup.ERROR_TARGETS.URL,
     };
   } else if (isMalware(url)) {
