@@ -112,6 +112,7 @@ const URL_AGGREGATORS = [
   'unitedmasters.com',
   'untd.io',
   'vyd.co',
+  'wiki.name.ng/fanlink',
   'withkoji.com',
 ].map(aggregator => new RegExp(
   '^https?://([^/]+\\.)?' +
