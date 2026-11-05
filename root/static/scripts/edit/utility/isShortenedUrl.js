@@ -20,6 +20,7 @@ const URL_SHORTENERS = [
   'goo.gl',
   'is.gd',
   'kl.am',
+  'linktw.in',
   'lnk.co',
   'mcaf.ee',
   'moourl.com',
