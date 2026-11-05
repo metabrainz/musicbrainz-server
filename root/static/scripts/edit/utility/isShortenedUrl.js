@@ -16,6 +16,7 @@ const URL_SHORTENERS = [
   'cli.gs',
   'deck.ly',
   'g.co',
+  'gate.sc',
   'geni.us',
   'goo.gl',
   'is.gd',
