@@ -24,6 +24,7 @@ const URL_SHORTENERS = [
   'lnk.co',
   'mcaf.ee',
   'moourl.com',
+  'onelink.me',
   'owl.ly',
   'page.link',
   'pandora.app.link',
