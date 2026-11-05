@@ -59,6 +59,7 @@ const URL_AGGREGATORS = [
   'laburbain.com',
   'landr.com',
   'li.sten.to',
+  'link.me',
   'linkco.re',
   'lnkfi.re',
   'linkfly.to',
