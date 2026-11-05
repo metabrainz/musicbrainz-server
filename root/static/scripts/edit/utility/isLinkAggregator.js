@@ -80,6 +80,7 @@ const URL_AGGREGATORS = [
   'paa.ge',
   'podlink.to',
   'pods.link',
+  'poplme.co',
   'push.fm',
   'share.amuse.io',
   'smarturl.it',
