@@ -63,6 +63,7 @@ const URL_AGGREGATORS = [
   'li.sten.to',
   'link.me',
   'linkbio.co',
+  'linkbite.io',
   'linkco.re',
   'lnkfi.re',
   'linkfly.to',
