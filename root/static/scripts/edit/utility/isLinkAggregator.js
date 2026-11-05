@@ -93,6 +93,8 @@ const URL_AGGREGATORS = [
   'streamerlinks.com',
   'streamlink.to',
   'strm.to',
+  'taplink.at',
+  'taplink.ws',
   'too.fm',
   'tourlink.to',
   'trac.co',
