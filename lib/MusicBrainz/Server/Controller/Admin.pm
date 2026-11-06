@@ -285,6 +285,9 @@ sub _accept_edit
     my $sql = $c->model('MB')->context->sql;
 
     Sql::run_in_transaction( sub {
+        $edit = $c->model('Edit')->get_by_id_and_lock($edit->id);
+        return unless $edit->is_open;
+
         $c->model('Vote')->enter_votes(
             $c->user,
             [{
@@ -302,6 +305,9 @@ sub _reject_edit
 
     my $sql = $c->model('MB')->context->sql;
     Sql::run_in_transaction( sub {
+        $edit = $c->model('Edit')->get_by_id_and_lock($edit->id);
+        return unless $edit->is_open;
+
         $c->model('Vote')->enter_votes(
             $c->user,
             [{

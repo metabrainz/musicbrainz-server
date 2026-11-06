@@ -63,10 +63,28 @@ sub enter_votes
 
     my $query;
     Sql::run_in_transaction(sub {
-        $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
-
         # Deal with votes on closed or own edits, by blocked/beginner users, etc.
         my @edit_ids = map { $_->{edit_id} } @votes;
+
+        # Lock the edit rows being voted on with `FOR NO KEY UPDATE` to:
+        #
+        #  1. Block on edits being closed by ModBot.
+        #  2. Ensure concurrent votes are superseded, and duplicate votes
+        #     are filtered, i.e., to avoid running afoul of
+        #     `vote_idx_editor_edit`.
+        #  3. Prevent an unlikely race with `send_first_no_vote`.
+        #
+        # The `ORDER BY` here must be consistent with that of the
+        # `$locked_edits` query in `Data::Editor::cancel_edits_and_votes`,
+        # in order to avoid a (rare but possible) deadlock while an editor
+        # is being deleted or marked as a spammer.
+        $self->sql->do(<<~'SQL', \@edit_ids);
+            SELECT 1 FROM edit
+            WHERE id = any(?)
+            ORDER BY id
+            FOR NO KEY UPDATE
+            SQL
+
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;
         for my $vote (@votes) {
