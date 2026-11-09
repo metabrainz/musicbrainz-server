@@ -36,6 +36,13 @@
 
    For updating translations, also part of `production` server features in `cpanfile`.
 
+2. QEMU, for building ARM images (on non-ARM hosts) for the Docker release.
+   When using an OS/distribution-provided BuildKit package, QEMU may need
+   to be installed and registered with `binfmt_misc`.
+   See https://docs.docker.com/build/building/multi-platform/#qemu.
+
+   "Docker Desktop" bundles QEMU and should require no additional setup.
+
 See the private system administration wiki for additional prerequisites.
 
 The Git remote `origin` is assumed to point at `https://github.com/metabrainz/musicbrainz-server.git`.
