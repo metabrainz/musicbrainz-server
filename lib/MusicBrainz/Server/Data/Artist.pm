@@ -180,7 +180,7 @@ sub find_by_recording
     $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
-sub find_by_release
+sub _find_by_release_slow
 {
     my ($self, $release_id, $limit, $offset) = @_;
     my $query = 'SELECT ' . $self->_columns . '
@@ -198,6 +198,30 @@ sub find_by_release
                      WHERE release.id = ?)
                  ORDER BY artist.name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [($release_id) x 2], $limit, $offset);
+}
+
+sub _find_by_release_fast {
+    my ($self, $release_id, $limit, $offset) = @_;
+
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+
+    $self->query_to_list_limited(<<~"SQL", [$release_id], $limit, $offset);
+        SELECT $columns
+          FROM $table
+         WHERE artist.id IN (SELECT artist FROM artist_release WHERE release = ?)
+         ORDER BY artist.name COLLATE musicbrainz, artist.id
+        SQL
+}
+
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+
+    if ($self->c->model('Release')->has_materialized_artist_release_data) {
+        return $self->_find_by_release_fast($release_id, $limit, $offset);
+    }
+    return $self->_find_by_release_slow($release_id, $limit, $offset);
 }
 
 sub find_by_release_group
