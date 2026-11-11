@@ -5615,7 +5615,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?reverbnation\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, 'https://www.reverbnation.com/');
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|legacy|m)\.)?reverbnation\.com(?:\/#!)?\//, 'https://www.reverbnation.com/');
       url = url.replace(/#.*$/, '');
       url = url.replace(/([?&])(?:blog|current_active_tab|fb_og_[^=]+|kick|player_client_id|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)/g, '$1');
       url = url.replace(/([?&])&+/, '$1');
