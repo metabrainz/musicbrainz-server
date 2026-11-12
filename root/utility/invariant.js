@@ -10,15 +10,16 @@
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 
 /*
- * If Flow sees a function named `invariant` being called, it will behave
+ * If Flow sees the `invariant` function being called, it will behave
  * as if an exception was thrown inline where the passed condition isn't
  * true. The is useful for determining unreachable code and maintaining
  * refinements.
+ * See https://flow.org/en/docs/types/assertion-functions/
  */
 export default function invariant(
   cond: unknown,
   msg?: string = 'Invariant Violation',
-): void {
+): asserts cond {
   // flowlint sketchy-null-mixed:off
   if (!cond) {
     throw new Error(msg);
