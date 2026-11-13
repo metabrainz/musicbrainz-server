@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2026-07-28 19:12+0000\n"
+"PO-Revision-Date: 2026-10-30 19:13+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -46,7 +46,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -8606,6 +8606,8 @@ msgid ""
 "Only the first {n} results can be returned. If you cannot find what you are "
 "looking for, please try a more precise search."
 msgstr ""
+"È possibile mostrarti solo i primi {n} risultati. Se non trovi ciò che stai "
+"cercando, prova a effettuare una ricerca più precisa."
 
 #: ../root/components/RelationshipsTable.js:286
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
@@ -12709,7 +12711,7 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/reltypeslist.js:16
 #: ../root/static/scripts/edit/MB/reltypeslist.js:31
 msgid "more"
-msgstr "più"
+msgstr "di più"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:59
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:66
@@ -16458,10 +16460,8 @@ msgstr "Inizio:"
 
 #: ../root/static/scripts/edit/MB/reltypeslist.js:18
 #: ../root/static/scripts/edit/MB/reltypeslist.js:25
-#, fuzzy
-#| msgid "show less"
 msgid "less"
-msgstr "mostra meno"
+msgstr "di meno"
 
 #: ../root/static/scripts/edit/URLCleanup.js:390
 msgid ""
@@ -17303,16 +17303,13 @@ msgstr ""
 "I collegamenti a questo sito web non sono consentiti poiché contiene malware."
 
 #: ../root/static/scripts/external-links-editor/validation.js:188
-#, fuzzy
-#| msgid ""
-#| "This is a redirect link. Please follow {redirect_url|your link} and add "
-#| "the link it redirects to instead."
 msgid ""
 "This is an aggregator link. Please follow {aggregator_url|your link} and add "
 "all appropriate links separately instead."
 msgstr ""
-"Questo è un collegamento di reindirizzamento. Segui {redirect_url|il tuo "
-"collegamento} e aggiungi la pagina a cui reindirizza anziché questa."
+"Questo è un collegamento aggregatore. Segui {aggregator_url|il tuo "
+"collegamento} e aggiungi tutti i collegamenti attinenti separatamente "
+"anziché questo."
 
 #: ../root/static/scripts/external-links-editor/validation.js:217
 msgid ""
@@ -17768,6 +17765,9 @@ msgid ""
 "the tracks follow the MusicBrainz style guidelines for {titles_style|titles} "
 "and {credits_style|artist credits}."
 msgstr ""
+"Non hai visitato la scheda elenco tracce. Quando aggiungi una pubblicazione, "
+"assicurati che le tracce seguano le linee guida di stile di MusicBrainz sui "
+"{titles_style|titoli} e sugli {credits_style|accreditamenti artista}."
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:85
 msgid "Loading edit previews..."
