@@ -3608,6 +3608,39 @@ export const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'isrctaiwan': {
+    hostname: 'isrc-web.ncl.edu.tw',
+    match: [/^(https?:\/\/)?(www\.)?isrc-web\.ncl\.edu\.tw\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(https?:\/\/)?(www\.)?isrc-web\.ncl\.edu\.tw\//, 'https://isrc-web.ncl.edu.tw/');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/isrc-web\.ncl\.edu\.tw\/(C100\/C101|C100\/C102|D100\/D101)\/[\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'D100/D101',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: prefix === 'C100/C102',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'C100/C101',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'itunes': {
     hostname: 'itunes.apple.com',
     match: [/^(https?:\/\/)?([^/]+\.)?itunes\.apple\.com\//i],
@@ -5048,7 +5081,6 @@ export const CLEANUPS: CleanupEntries = {
       'discografia.dds.it',
       'encyclopedisque.fr',
       'discosdobrasil.com.br',
-      'isrc-web.ncl.edu.tw',
       'rolldabeats.com',
       'psydb.net',
       'spirit-of-metal.com',
@@ -5081,7 +5113,6 @@ export const CLEANUPS: CleanupEntries = {
       /^(https?:\/\/)?(www\.)?discografia\.dds\.it\//i,
       /^(https?:\/\/)?(www\.)?encyclopedisque\.fr\//i,
       /^(https?:\/\/)?((?:discografia|www)\.)?discosdobrasil\.com\.br\//i,
-      /^(https?:\/\/)?(www\.)?isrc-web\.ncl\.edu\.tw\//i,
       /^(https?:\/\/)?(www\.)?rolldabeats\.com\//i,
       /^(https?:\/\/)?(www\.)?psydb\.net\//i,
       /^(https?:\/\/)?(www\.)?spirit-of-metal\.com\//i,

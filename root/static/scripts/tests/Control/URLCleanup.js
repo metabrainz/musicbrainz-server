@@ -2964,6 +2964,26 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://saisaibatake.ame-zaiku.com/musical/instruments_concertina.html',
        only_valid_entity_types: ['instrument'],
   },
+  // ISRC查詢系統
+  {
+                     input_url: 'http://isrc-web.ncl.edu.tw/D100/D101/1516',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://isrc-web.ncl.edu.tw/D100/D101/1516',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://isrc-web.ncl.edu.tw/C100/C102/124300',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://isrc-web.ncl.edu.tw/C100/C101/2066',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['release'],
+  },
   // generasia
   {
                      input_url: 'http://generasia.com/wiki/Wink',
