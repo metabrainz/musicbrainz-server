@@ -16,13 +16,12 @@
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
-# GABG <musicbrainz@gabg.email>, 2025.
+# GABG <musicbrainz@gabg.email>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-10-13 01:13+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
@@ -31,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -514,10 +513,6 @@ msgstr ""
 
 #. name:te kū
 #: DB:instrument/description:860
-#, fuzzy
-#| msgid ""
-#| "also just \"kū\", a mouthbow with a single string, struck with a light "
-#| "implement of bone or wood."
 msgid ""
 "Also knownas just \"kū\", mouthbow with a single string is struck with a "
 "light implement of bone or wood."
@@ -1088,11 +1083,6 @@ msgstr "Strumento ad ancia doppia e a sezione conica di origine bretone."
 
 #. name:ashiko
 #: DB:instrument/description:812
-#, fuzzy
-#| msgid ""
-#| "conical goatskin frame-drum originating with the Yoruba people of West "
-#| "Africa, it is also found in Afro-Caribbean and Afro-Latin American "
-#| "cultures."
 msgid ""
 "Conical goatskin frame-drum originating with the Yoruba people of West "
 "Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
