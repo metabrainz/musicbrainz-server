@@ -29,13 +29,15 @@
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Poesty Li <poesty7450@gmail.com>, 2025.
 # scientists360 <scientists360@outlook.com>, 2026.
+# scientists360 <scientists360@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2026-10-05 19:13+0000\n"
-"Last-Translator: scientists360 <scientists360@outlook.com>\n"
+"PO-Revision-Date: 2026-10-07 16:13+0000\n"
+"Last-Translator: scientists360 "
+"<scientists360@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -165,12 +167,12 @@ msgstr "接受"
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "添加IPI代码"
+msgstr "添加 IPI 代码"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "添加ISNI代码"
+msgstr "添加 ISNI 代码"
 
 #: ../root/recording/edit_form.tt:44
 msgctxt "interactive"
@@ -544,8 +546,8 @@ msgid ""
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
 msgstr ""
-"根据您提供的信息，我们发现MusicBrainz中已经存在一下类似的发行版。如果您希望将"
-"您的版本基于现有的基础上，请在下面选择它。"
+"根据您提供的信息，我们发现 MusicBrainz 中已经存在一下类似的发行版。如果您希望"
+"将您的版本基于现有的基础上，请在下面选择它。"
 
 #: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
 #: ../root/search/error/InternalError.js:22
@@ -833,7 +835,7 @@ msgstr "消歧义"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
-msgstr "唱片ID信息"
+msgstr "唱片 ID 信息"
 
 #: ../root/release/edit/information.tt:511
 msgid ""
@@ -866,7 +868,7 @@ msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
 msgstr ""
-"MusicBrainz数据库中的每首音轨都必须链接到录音，选择合适的录音或在数据库中查"
+"MusicBrainz 数据库中的每首音轨都必须链接到录音，选择合适的录音或在数据库中查"
 "找。"
 
 #: ../root/release/edit/recordings.tt:109
@@ -1078,7 +1080,7 @@ msgid ""
 "fan sites."
 msgstr ""
 "外部链接是与艺术家存在关联的网址。它可以包括艺术家的官方网站与社交媒体页面、"
-"串流服务，以及非官方页面，包括维基百科条目、传记、采访与粉丝站。"
+"流媒体服务，以及非官方页面，包括维基百科条目、传记、采访与粉丝站。"
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1103,7 +1105,8 @@ msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
 msgstr ""
-"外部链接是与录音存在关联的网址，例如购买或串流链接，以及其他数据库中的条目。"
+"外部链接是与录音存在关联的网址，例如购买或流媒体链接，以及其他数据库中的条目"
+"。"
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
@@ -1551,8 +1554,8 @@ msgid ""
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
-"请记住，如果介质有光盘 ID的话，取消选择此选项将删除该曲目！如果您错误地取消选"
-"择此选项，请在提交之前重新添加预间隙曲目。"
+"请记住，如果介质有光盘 ID 的话，取消选择此选项将删除该曲目！如果您错误地取消"
+"选择此选项，请在提交之前重新添加预间隙曲目。"
 
 #: ../root/release/edit/tracklist.tt:577
 msgid ""
@@ -1560,8 +1563,8 @@ msgid ""
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
 msgstr ""
-"请记住，如果介质有光盘 ID的话，取消选择此选项将删除曲目！如果您错误地取消选择"
-"此选项，请在提交之前重新添加数据曲目。"
+"请记住，如果介质有光盘 ID 的话，取消选择此选项将删除曲目！如果您错误地取消选"
+"择此选项，请在提交之前重新添加数据曲目。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:17 ../root/cdtoc/list.tt:11
 #: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:480
@@ -1692,8 +1695,8 @@ msgid ""
 "Mail‐order links shouldn’t be attached to digital media releases, and "
 "download and streaming links shouldn’t be attached to CD or vinyl releases."
 msgstr ""
-"邮寄链接不应与数字媒体发行品关联，下载与串流链接不应与 CD 或黑胶唱片发行品关"
-"联。"
+"邮寄链接不应与数字媒体发行品关联，下载与流媒体链接不应与 CD 或黑胶唱片发行品"
+"关联。"
 
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
@@ -1710,7 +1713,7 @@ msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
-msgstr "匹配的CD"
+msgstr "匹配的 CD"
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:419
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
@@ -1863,14 +1866,14 @@ msgstr "没有投票"
 #: ../root/static/scripts/release-editor/fields.js:296
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
-msgstr "在附加的唱片 ID中，没有一个能对应符合所给长度的前间隙音轨。"
+msgstr "在附加的唱片 ID 中，没有一个能对应符合所给长度的前间隙音轨。"
 
 #: ../root/cdtoc/attach_list.tt:78
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:155
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
-msgstr "此专辑没有媒介能附加所给的CD 目录，因为音轨数错误。"
+msgstr "此专辑没有媒介能附加所给的 CD 目录，因为音轨数错误。"
 
 #: ../root/release/edit/recordings.tt:3 ../root/edit/details/EditRelease.js:160
 #: ../root/edit/details/MergeReleases.js:346
@@ -1905,8 +1908,8 @@ msgid ""
 "non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
 "仅上传符合此特定发行的图片（例如，检查是否显示了相同条码或目录编号）。不要上"
-"传粉丝自制、修改过或优化过的图片；包括AI改进版和非方形作品的方形版本图片。在 "
-"{cover_art_doc|documentation} 查看更多细节。"
+"传粉丝自制、修改过或优化过的图片；包括 AI 改进版和非方形作品的方形版本图片。"
+"在 {cover_art_doc|documentation} 查看更多细节。"
 
 #: ../root/edit/search_macros.tt:123
 msgid ""
@@ -2250,12 +2253,12 @@ msgstr "移除"
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "移除IPI代码"
+msgstr "移除 IPI 代码"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "移除ISNI代码"
+msgstr "移除 ISNI 代码"
 
 #: ../root/recording/edit_form.tt:44
 msgctxt "interactive"
@@ -2927,9 +2930,9 @@ msgid ""
 "disc to another MusicBrainz release, or to add a new one if the search shows "
 "it is missing from the database."
 msgstr ""
-"目前MusicBrainz中没有与您提供的信息相关的光盘。您可以使用下面的表单进行搜索，"
-"以便将此光盘附加到MusicBrainz的另一个发行版上，或者如果搜索显示该光盘在数据库"
-"中缺失，则添加一个新的光盘。"
+"目前 MusicBrainz 中没有与您提供的信息相关的光盘。您可以使用下面的表单进行搜索"
+"，以便将此光盘附加到 MusicBrainz 的另一个发行版上，或者如果搜索显示该光盘在数"
+"据库中缺失，则添加一个新的光盘。"
 
 #: ../root/place/edit_form.tt:31
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
@@ -3426,8 +3429,8 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
-"我们找到了与您要求的信息相匹配的光盘，如下所示。如果这些都不是你想要的发行"
-"版，你可以使用下面的表单进行搜索，以便将此光盘附加到MusicBrainz的另一个发行版"
+"我们找到了与您要求的信息相匹配的光盘，如下所示。如果这些都不是你想要的发行版"
+"，你可以使用下面的表单进行搜索，以便将此光盘附加到 MusicBrainz 的另一个发行版"
 "中，或者如果搜索结果显示数据库中缺少该光盘，则添加一个新光盘。"
 
 #: ../root/cdtoc/lookup.tt:12
@@ -3518,7 +3521,7 @@ msgstr "您必须登录才能使用此选项。"
 
 #: ../root/components/common-macros.tt:453
 msgid "You must enter a disambiguation comment for this entity."
-msgstr "您必须为此实体输入消歧义注解。"
+msgstr "您必须为此实体输入消歧义注释。"
 
 #: ../root/release/edit/tracklist.tt:496
 msgid ""
@@ -3883,7 +3886,7 @@ msgstr "{doc|IPI 码} 由 CISAC 分配给音乐版权管理中的“相关方”
 msgid ""
 "{doc|ISNI codes} are an ISO standard used to uniquely identify persons and "
 "organizations."
-msgstr "{doc|ISNI码} 是一种 ISO 标准，用于唯一标识个人和组织。"
+msgstr "{doc|ISNI 码} 是一种 ISO 标准，用于唯一标识个人和组织。"
 
 #: ../root/release/edit/information.tt:371
 #: ../root/release_group/edit_form.tt:74
@@ -3970,14 +3973,14 @@ msgid ""
 "avoid another automatic removal."
 msgstr ""
 "这个实体被自动删除，因为它是空的:它没有与它相关联的关系，也没有(如果与问题中"
-"的实体类型相关)任何录音、专辑或专辑组。如果您认为这是一个有效的、不重复的条"
-"目，并且确实属于MusicBrainz，可以再次添加它，但请确保这次添加了足够的数据，以"
+"的实体类型相关)任何录音、专辑或专辑组。如果您认为这是一个有效的、不重复的条目"
+"，并且确实属于 MusicBrainz，可以再次添加它，但请确保这次添加了足够的数据，以"
 "避免再次被自动删除。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
-msgstr "'{id}' 不是一个有效的MusicBrainz的 ID"
+msgstr "'{id}' 不是一个有效的 MusicBrainz 的 ID"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
@@ -4237,7 +4240,7 @@ msgstr "注释修订版 ID 必须为正整数"
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
 msgid "Found no annotation with ID “{id}”."
-msgstr "找不到ID为“{id}”的注释。"
+msgstr "找不到 ID 为“{id}”的注释。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
@@ -4246,12 +4249,12 @@ msgstr "ID 为 “{id}” 的注释未关联到此实体。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
-msgstr "新的和旧的注解代码必须一致，并且是正整数。"
+msgstr "新的和旧的注释代码必须一致，并且是正整数。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:129
 #, perl-brace-format
 msgid "Found no artwork with ID “{id}”."
-msgstr "找不到ID为“{id}”的图片。"
+msgstr "找不到 ID 为“{id}”的图片。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:226
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
@@ -4268,7 +4271,7 @@ msgstr "提供的关联类型 ID 无效。"
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
-msgstr "已设定语言。如果这是误操作，你可以 {url|设置回 “{prev_lang_name}”}。"
+msgstr "已设置语言。如果这是误操作，你可以 {url|设置回 “{prev_lang_name}”}。"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:108
 msgid ""
@@ -4277,24 +4280,16 @@ msgid ""
 msgstr "如果你发现翻译中有任何问题，请{url|帮助我们改进它}！"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:311
-#, fuzzy
-#| msgid ""
-#| "We were not able to check your donation status right now. Please try "
-#| "again later."
 msgid ""
 "Sorry, we could not verify your login credentials right now. Please try "
 "logging in again."
-msgstr "我们暂时无法检查你的捐赠状态，请稍后再试。"
+msgstr "很抱歉，我们目前无法验证您的登录凭据。请尝试重新登录。"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:363
-#, fuzzy
-#| msgid ""
-#| "Our Redis server appears to be down; some features may not work as "
-#| "intended or expected."
 msgid ""
 "Our Valkey server appears to be down; some features may not work as intended "
 "or expected."
-msgstr "我们的 Redis 服务器似乎宕机了；一些功能可能无法正常工作。"
+msgstr "我们的 Valkey 服务器似乎出现故障；部分功能可能无法按预期正常运行。"
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:173
 msgid "Series that have different entity types cannot be merged."
@@ -4571,11 +4566,9 @@ msgid "Edit artist alias"
 msgstr "编辑艺术家别名"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
-#, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "edit type"
 msgid "Edit artist credit"
-msgstr "编辑艺术家名单"
+msgstr "修改创作者署名"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 msgctxt "edit type"
@@ -4589,7 +4582,7 @@ msgid ""
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
 msgstr ""
-"“{artist_type}”类型未被添加到目标创作者，因为它与此处某位创作者的性别设定冲突"
+"“{artist_type}”类型未被添加到目标创作者，因为它与此处某位创作者的性别设置冲突"
 "。团体创作者不能有性别。"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:97
@@ -4786,11 +4779,9 @@ msgid "Edit recording"
 msgstr "编辑录音"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
-#, fuzzy
-#| msgid "Convert release to single artist (historic)"
 msgctxt "edit type"
 msgid "Convert release to single artist (historic)"
-msgstr "将专辑转换为独立艺术家（历史）"
+msgstr "将发行品转换为单艺人（历史数据）"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
@@ -4949,7 +4940,7 @@ msgstr "编辑媒介"
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
-msgstr "用于设定音轨时间的 CD 目录在此修改提交后已被移除。"
+msgstr "用于设置音轨时间的 CD 目录在此修改提交后已被移除。"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgctxt "edit type"
@@ -5492,10 +5483,8 @@ msgstr "[无]"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:290
 #: ../root/static/scripts/common/utility/privileges.js:161
-#, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
-msgstr "编辑/投票已禁用"
+msgstr "修改功能已禁用"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
@@ -5551,22 +5540,20 @@ msgid "{role} (as {credited_name})"
 msgstr "{role}（作为 {credited_name}）"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "在 VK 串流"
+msgstr "在 AWA 上在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
-msgstr "在 Anghami 串流"
+msgstr "在 Anghami 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
-msgstr "在 Audiomack 串流"
+msgstr "在 Audiomack 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Boomplay.pm:10
 msgid "Stream at Boomplay"
-msgstr "在 Boomplay 串流"
+msgstr "在 Boomplay 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
@@ -5591,29 +5578,23 @@ msgstr "在 IMSLP 的乐谱"
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
 #, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "在 KKBOX {country} 串流"
+msgstr "在 KKBOX {country} 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at KKBOX"
-msgstr "在 VK 串流"
+msgstr "在 KKBOX 上在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/LineMusic.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at LINE MUSIC"
-msgstr "在 VK 串流"
+msgstr "在 LINE MUSIC 上在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
 msgstr "Migu Music 在线播放"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at Naver VIBE"
-msgstr "在 VK 串流"
+msgstr "在 Naver VIBE 上在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
@@ -5636,10 +5617,8 @@ msgid "Purchase at Spotify"
 msgstr "在 Spotify 购买"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
-#, fuzzy
-#| msgid "Stream at Spotify"
 msgid "Songwriter info at Spotify"
-msgstr "Spotify 在线播放"
+msgstr "Spotify 上的词曲作者信息"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:20
 msgid "Stream at Spotify"
@@ -5647,15 +5626,15 @@ msgstr "Spotify 在线播放"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr "在Tidal购买"
+msgstr "在 Tidal 购买"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
-msgstr "在Tidal串流"
+msgstr "在 Tidal 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
 msgid "Stream at VK"
-msgstr "在 VK 串流"
+msgstr "在 VK 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
@@ -5667,7 +5646,7 @@ msgstr "维基文库"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
 msgid "Stream at Yandex"
-msgstr "在 Yandex 串流"
+msgstr "在 Yandex 在线收听"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
@@ -5754,8 +5733,8 @@ msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
 msgstr ""
-"歌手“{artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
-"新的歌手。"
+"歌手“{artist}”未关联，请选择一个现有的歌手。你可能需要先向 MusicBrainz 添加一"
+"个新的歌手。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
@@ -5866,26 +5845,20 @@ msgid "[none]"
 msgstr "[无]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:46
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "视频"
+msgstr "仅限视频"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:47
 msgid "Non-videos only"
-msgstr "仅限非影片"
+msgstr "仅限非视频"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
-#, fuzzy
-#| msgid "Related works"
 msgid "Related to works"
-msgstr "相关作品"
+msgstr "与作品相关"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
-#, fuzzy
-#| msgid "Related works"
 msgid "Not related to works"
-msgstr "相关作品"
+msgstr "与作品无关"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 msgctxt "release country"
@@ -5916,27 +5889,21 @@ msgid "[none]"
 msgstr "[无]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "As recording artist"
-msgstr "录音艺术家："
+msgstr "作为录音创作者"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
 msgstr "作为作者"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
-#, fuzzy
-#| msgid "Add another artist"
 msgid "As other artist"
-msgstr "添加其他艺术家"
+msgstr "作为其他创作者"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:48
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
-msgstr "无法编辑"
+msgstr "[未设置]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:52
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:105
@@ -6037,7 +6004,7 @@ msgstr "必须指定完整的出生日期，这样我们才能显示您的年龄
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
 msgid "Birth year must be after 1900"
-msgstr "出生年份必须在1900年之后"
+msgstr "出生年份必须在1900 年之后"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/layout/components/Search.js:45
@@ -6323,13 +6290,13 @@ msgstr "也可参见您的 {uri|用户偏好}，其中包含了您的隐私设�
 #: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:21
 #: ../root/components/UserAccountTabs.js:82
 msgid "Preferences"
-msgstr "偏好设定"
+msgstr "偏好设置"
 
 #: ../root/account/PreferencesSaved.js:24
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
-msgstr "您的偏好设定已保存。点击 {link|此处} 继续前往您的用户页面。"
+msgstr "您的偏好设置已保存。点击 {link|此处} 继续前往您的用户页面。"
 
 #: ../root/account/Register.js:19 ../root/account/Register.js:20
 msgctxt "header"
@@ -6363,8 +6330,8 @@ msgid ""
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
 msgstr ""
-"您可以在任何时间删除您的账号，以移除您的个人信息。详情请见我们的{doc|GDPR合规"
-"声明}。"
+"您可以在任何时间删除您的账号，以移除您的个人信息。详情请见我们的{doc|GDPR 合"
+"规声明}。"
 
 #: ../root/account/Register.js:57
 msgid ""
@@ -6558,21 +6525,16 @@ msgid "Digest authentication is <strong>enabled</strong> on your account."
 msgstr "您的账号已<strong>启用</strong>摘要认证。"
 
 #: ../root/account/applications/ApplicationList.js:212
-#, fuzzy
-#| msgid "Disambiguation"
 msgid "Disable digest authentication"
-msgstr "消歧义"
+msgstr "禁用摘要认证"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
 msgstr "重置摘要认证令牌"
 
 #: ../root/account/applications/ApplicationList.js:230
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit annotation"
 msgid "Enable digest authentication"
-msgstr "编辑注释"
+msgstr "启用摘要认证"
 
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
@@ -6622,7 +6584,7 @@ msgstr "撤销应用程序访问权限"
 #: ../root/account/sso/DiscourseRegistered.js:15
 msgctxt "header"
 msgid "Account created"
-msgstr "帐号已创建"
+msgstr "账号已创建"
 
 #: ../root/account/sso/DiscourseRegistered.js:18
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:18
@@ -7036,10 +6998,8 @@ msgid "This artist has no release groups, only standalone recordings."
 msgstr "此艺术家没有专辑组，只有独立录音。"
 
 #: ../root/artist/ArtistIndex.js:326
-#, fuzzy
-#| msgid "No releases found that match this search."
 msgid "No release groups found that match this search."
-msgstr "未找到符合此搜索条件的专辑。"
+msgstr "未找到与该搜索条件匹配的发行组。"
 
 #: ../root/artist/ArtistMerge.js:23 ../root/artist/ArtistMerge.js:25
 msgid "Merge artists"
@@ -7169,18 +7129,13 @@ msgstr ""
 "{relationships|查看所有关系}。"
 
 #: ../root/artist/EditArtistCredit.js:40
-#, fuzzy
-#| msgid ""
-#| "This form allows you to edit the artist credit \"{ac}\". When the edit is "
-#| "accepted, all tracks, recordings, releases and release groups using this "
-#| "artist credit will be update to use the new one."
 msgid ""
 "This form allows you to edit the artist credit “{ac}”. When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be updated to use the new one."
 msgstr ""
-"此表格允许您编辑艺术家姓名“{ac}”。编辑被接受后，所有使用此艺术家信息的曲目、"
-"录音、专辑和专辑组都将更新为新的值。"
+"通过此表单，您可以修改创作者署名“{ac}”。修改内容被接受后，所有使用该创作者署"
+"名的曲目、录音、发行作品及发行组都将更新为使用新的署名。"
 
 #: ../root/artist/SpecialPurpose.js:18 ../root/label/SpecialPurpose.js:18
 msgid "Cannot edit"
@@ -7201,18 +7156,13 @@ msgid "Split artist"
 msgstr "分割艺术家"
 
 #: ../root/artist/SplitArtist.js:43
-#, fuzzy
-#| msgid ""
-#| "This form allows you to split {artist} into separate artists. When the "
-#| "edit is accepted, existing artist credits will be updated, and "
-#| "collaboration relationships will be removed"
 msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed."
 msgstr ""
-"此表格允许你将{artist}拆分为多个艺术家。在此编辑被接受后，现存的艺术家名单会"
-"更新，而合作品关联则会被移除。"
+"通过此表单，您可以将 {artist} 拆分为多个创作者。修改内容被接受后，现有的创作"
+"者署名信息将随之更新，合作关系也将被移除。"
 
 #: ../root/artist/SplitArtist.js:52
 msgid "Collaborators on this artist"
@@ -7227,8 +7177,8 @@ msgid ""
 "remove this artist in the upcoming days."
 msgstr ""
 "没有录音，专辑组，专辑或音轨是在{name}名下的。如果你想要移除{name}，请编辑"
-"{alias_uri|别名}选项底部的所有艺术家名单并移除所有现存的{rel_uri|关联}，这样"
-"ModBot可以在日后自动移除这个艺术家。"
+"{alias_uri|别名}选项底部的所有艺术家名单并移除所有现存的{rel_uri|关联}，这样 "
+"ModBot 可以在日后自动移除这个艺术家。"
 
 #: ../root/artist/utils.js:12
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
@@ -7243,12 +7193,9 @@ msgstr "成立于"
 
 #: ../root/artist/utils.js:14
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
-#, fuzzy
-#| msgctxt "character artist"
-#| msgid "Created"
 msgctxt "character artist"
 msgid "Created in"
-msgstr "已创建"
+msgstr "创建于"
 
 #: ../root/artist/utils.js:15 ../root/components/list/ArtistList.js:90
 #: ../root/search/components/ArtistResults.js:59
@@ -7512,21 +7459,15 @@ msgid "Medium track lengths"
 msgstr "媒介音轨长度"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
-#, fuzzy
-#| msgid "Move Disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
-msgstr "移动唱片 ID"
+msgstr "移动碟片 ID"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:54
-#, fuzzy
-#| msgid ""
-#| "Select a release to which the disc ID <code>{discid}</code>. should be "
-#| "moved to."
 msgid ""
 "Select a release to which the disc ID <code>{discid}</code> should be moved "
 "to."
-msgstr "选择一个专辑，唱片 ID<code>{discid}</code>将被移动至该专辑。"
+msgstr "选择碟片 ID <code>{discid}</code> 应移至的发行版。"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:62
 msgid ""
@@ -7661,9 +7602,9 @@ msgid ""
 "ID can belong to more than one release. For more in-depth information about "
 "this topic, please see our {doc|CD submission guide}."
 msgstr ""
-"您需要证明此唱片 ID是错误地加入了专辑中，这是因为一个专辑能具有多个有效的唱片"
-"ID，而每个唱片 ID能属于多个专辑。如需这一方面更深入的信息，请查看我们的{doc|"
-"CD提交指南}。"
+"您需要证明此唱片 ID 是错误地加入了专辑中，这是因为一个专辑能具有多个有效的唱"
+"片 ID，而每个唱片 ID 能属于多个专辑。如需这一方面更深入的信息，请查看我们的"
+"{doc|CD 提交指南}。"
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:30
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
@@ -8043,7 +7984,7 @@ msgstr "唱片 ID ({num})"
 #: ../root/components/EntityTabs.js:98 ../root/release/DiscIds.js:68
 #: ../root/release/DiscIds.js:69 ../root/report/ReportsIndex.js:683
 msgid "Disc IDs"
-msgstr "唱片IDs"
+msgstr "唱片 IDs"
 
 #: ../root/components/EntityTabs.js:108
 msgctxt "plural"
@@ -8061,11 +8002,9 @@ msgid "Event art"
 msgstr "活动图片"
 
 #: ../root/components/EntityTabs.js:125
-#, fuzzy
-#| msgid "Cover Art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
-msgstr "封面 ({num})"
+msgstr "活动图像 ({num})"
 
 #: ../root/components/EntityTabs.js:141
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:30
@@ -8353,17 +8292,13 @@ msgstr "实体数量"
 #: ../root/search/components/WorkResults.js:56
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
-#, fuzzy
-#| msgid "Authorization"
 msgid "Authors"
-msgstr "授权"
+msgstr "作者"
 
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:58
-#, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
-msgstr "合并艺术家"
+msgstr "其他艺术家"
 
 #: ../root/constants.js:22
 msgid "View and modify your private collections"
@@ -8644,17 +8579,12 @@ msgid ""
 msgstr "{edit}收到了一个或多个“反对”的投票，您必须在批准之前留下编辑笔记。"
 
 #: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
-#, fuzzy
-#| msgid "Recent Notes Left on Your Edits"
 msgid "Recent notes left on your edits"
-msgstr "最近您的编辑收到的备注"
+msgstr "最近留在您修改内容上的备注"
 
 #: ../root/edit/NotesReceived.js:51
-#, fuzzy
-#| msgctxt "noun"
-#| msgid "Edit notes"
 msgid "ModBot notes"
-msgstr "编辑备注"
+msgstr "ModBot 备注"
 
 #: ../root/edit/NotesReceived.js:57
 msgid "Show all notes"
@@ -8721,10 +8651,8 @@ msgid "We are unable to display history for this image."
 msgstr "无法显示此图片的历史。"
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "进入"
+msgstr "来自"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -8836,8 +8764,8 @@ msgid ""
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
 msgstr ""
-"编辑笔记支持{doc_formatting|一组有限的wiki格式选项}。请在编写编辑笔记时始终牢"
-"记{doc_coc|行为准则}!"
+"编辑笔记支持{doc_formatting|一组有限的 wiki 格式选项}。请在编写编辑笔记时始终"
+"牢记{doc_coc|行为准则}!"
 
 #: ../root/edit/components/EditNotes.js:49
 msgid "No edit notes have been added."
@@ -8937,16 +8865,12 @@ msgid "All edits for this entity"
 msgstr "此实体的所有编辑"
 
 #: ../root/edit/components/ListHeader.js:93
-#, fuzzy
-#| msgid "Open edits for this collection"
 msgid "Everyone’s edits for this collection"
-msgstr "此收藏的待审核编辑"
+msgstr "大家为这个收藏做的修改"
 
 #: ../root/edit/components/ListHeader.js:104
-#, fuzzy
-#| msgid "Open edits for this collection"
 msgid "Others’ edits for this collection"
-msgstr "此收藏的待审核编辑"
+msgstr "其他用户对本收藏的修改"
 
 #: ../root/edit/components/ListHeader.js:116
 msgid "All edits for your subscribed entities"
@@ -9064,12 +8988,12 @@ msgstr "已结束"
 #: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
 #: ../root/layout/components/sidebar/SidebarIpis.js:16
 msgid "IPI code"
-msgstr "IPI代码"
+msgstr "IPI 代码"
 
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
 #: ../root/layout/components/sidebar/SidebarIsnis.js:20
 msgid "ISNI code"
-msgstr "ISNI代码"
+msgstr "ISNI 代码"
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
@@ -9266,7 +9190,7 @@ msgstr "已结束"
 #: ../root/static/scripts/common/components/IswcList.js:26
 #: ../root/utility/tableColumns.js:721
 msgid "ISWC"
-msgstr "国际标准音乐作品编码ISWC"
+msgstr "国际标准音乐作品编码 ISWC"
 
 #: ../root/edit/details/AddWork.js:63 ../root/edit/details/EditWork.js:80
 #: ../root/layout/components/sidebar/WorkSidebar.js:73
@@ -9961,11 +9885,9 @@ msgstr ""
 "它}。"
 
 #: ../root/entity/NotFound.js:45
-#, fuzzy
-#| msgid "Artist Credit Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
-msgstr "未找到艺术家名单"
+msgstr "未找到创作者署名"
 
 #: ../root/entity/NotFound.js:46
 msgid "Sorry, we could not find an artist credit with that ID."
@@ -10006,10 +9928,8 @@ msgid "Edit note not found"
 msgstr "未找到编辑备注"
 
 #: ../root/entity/NotFound.js:76
-#, fuzzy
-#| msgid "Sorry, we could not find this election."
 msgid "Sorry, we could not find an edit note with that ID."
-msgstr "抱歉，无法找到此选举。"
+msgstr "抱歉，我们找不到该 ID 对应的修改备注。"
 
 #: ../root/entity/NotFound.js:82
 msgctxt "header"
@@ -10103,18 +10023,13 @@ msgstr ""
 "。"
 
 #: ../root/entity/NotFound.js:143
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit not found"
 msgctxt "header"
 msgid "Medium not found"
-msgstr "未找到编辑"
+msgstr "未找到音频载体"
 
 #: ../root/entity/NotFound.js:145
-#, fuzzy
-#| msgid "Sorry, we could not find this election."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
-msgstr "抱歉，无法找到此选举。"
+msgstr "抱歉，我们找不到具有该 MusicBrainz ID 的音频载体。"
 
 #: ../root/entity/NotFound.js:151
 msgctxt "header"
@@ -10369,12 +10284,9 @@ msgid "Add event"
 msgstr "添加活动"
 
 #: ../root/event/EditEvent.js:28
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
-msgstr "编辑活动"
+msgstr "修改活动"
 
 #: ../root/event/EventArt.js:28
 msgctxt "plural, header"
@@ -10412,11 +10324,9 @@ msgid "We do not currently have any event art for {event}."
 msgstr "目前没有 {event} 的活动图片。"
 
 #: ../root/event/EventArt.js:118
-#, fuzzy
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "添加事件"
+msgstr "添加活动图像"
 
 #: ../root/event/EventArt.js:124
 msgctxt "plural, interactive"
@@ -10434,20 +10344,14 @@ msgid "Cannot add event art"
 msgstr "无法添加活动图片"
 
 #: ../root/event/EventArtFields.js:21
-#, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
-msgstr "为此图像选择一个或多个封面类型"
+msgstr "请为这张图片选择一种或多种活动图像类型"
 
 #: ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
-msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+msgstr "请选择所有适用的类型。有关这些类型的描述，请参阅“{doc|活动图像类型}”文档。"
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
@@ -10460,11 +10364,9 @@ msgid ""
 msgstr "您即将把所有这些活动合并为一个。请选择其他活动要合并到的目标活动："
 
 #: ../root/event/RemoveEventArt.js:24
-#, fuzzy
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "移除事件"
+msgstr "移除活动图像"
 
 #: ../root/event/RemoveEventArt.js:31 ../root/release/RemoveCoverArt.js:32
 msgid "Are you sure you wish to remove the image below from {entity}?"
@@ -10496,7 +10398,7 @@ msgstr "允许的唱片 ID"
 
 #: ../root/futureColumnLabels.js:40
 msgid "ISO code"
-msgstr "ISO代码"
+msgstr "ISO 代码"
 
 #: ../root/futureColumnLabels.js:41
 msgid "ISO number"
@@ -10544,7 +10446,7 @@ msgstr "没有找到艺术家。"
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 msgid "Instrument list"
-msgstr "乐器清单"
+msgstr "乐器列表"
 
 #: ../root/instrument/List.js:60 ../root/report/components/InstrumentList.js:50
 msgid "Unclassified instrument"
@@ -10554,7 +10456,7 @@ msgstr "未分类的乐器"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr "此清单是否缺少某种乐器？请按照{link|这些说明}提出请求。"
+msgstr "此列表是否缺少某种乐器？请按照{link|这些说明}提出请求。"
 
 #: ../root/isrc/Index.js:36 ../root/isrc/Index.js:40
 msgid "ISRC “{isrc}”"
@@ -10577,10 +10479,8 @@ msgstr[0] "与 {num} 个作品关联"
 #: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:57
 #: ../root/utility/tableColumns.js:815
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "Recording artists"
-msgstr "录音艺术家："
+msgstr "录音创作者"
 
 #: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
@@ -10643,14 +10543,10 @@ msgid "Data licenses"
 msgstr "数据协议"
 
 #: ../root/layout/components/BottomMenu.js:128
-#, fuzzy
-#| msgid "Social Contract"
 msgid "Social contract"
-msgstr "社会合同"
+msgstr "社会契约"
 
 #: ../root/layout/components/BottomMenu.js:131
-#, fuzzy
-#| msgid "Code of Conduct"
 msgid "Code of Conduct"
 msgstr "行为准则"
 
@@ -10667,8 +10563,6 @@ msgid "Copyright and DMCA compliance"
 msgstr "版权和 DMCA 合规性"
 
 #: ../root/layout/components/BottomMenu.js:145
-#, fuzzy
-#| msgid "Data Removal Policy"
 msgid "Data removal policy"
 msgstr "数据移除政策"
 
@@ -10760,11 +10654,9 @@ msgstr "添加艺术家"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "interactive"
 msgid "Add release group"
-msgstr "添加发行团"
+msgstr "添加发行组"
 
 #: ../root/layout/components/BottomMenu.js:257
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
@@ -10775,15 +10667,11 @@ msgid "Add release"
 msgstr "添加专辑"
 
 #: ../root/layout/components/BottomMenu.js:261
-#, fuzzy
-#| msgid "Add Various Artists Release"
 msgctxt "interactive"
 msgid "Add Various Artists release"
-msgstr "添加群星的发行专辑"
+msgstr "添加“多位创作者”发行品"
 
 #: ../root/layout/components/BottomMenu.js:266
-#, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "添加独立录音"
@@ -10812,10 +10700,8 @@ msgid "Add event"
 msgstr "添加活动"
 
 #: ../root/layout/components/BottomMenu.js:284
-#, fuzzy
-#| msgid "Vote on Edits"
 msgid "Vote on edits"
-msgstr "为编辑投票"
+msgstr "对修改进行投票"
 
 #: ../root/layout/components/BottomMenu.js:287
 #: ../root/report/ReportsIndex.js:32 ../root/report/ReportsIndex.js:34
@@ -10963,34 +10849,24 @@ msgid "My tags"
 msgstr "我的标签"
 
 #: ../root/layout/components/TopMenu.js:92
-#, fuzzy
-#| msgid "My Open Edits"
 msgid "My open edits"
-msgstr "我的待审核编辑"
+msgstr "我的待审核修改"
 
 #: ../root/layout/components/TopMenu.js:95
-#, fuzzy
-#| msgid "All edits"
 msgid "All my edits"
-msgstr "所有编辑"
+msgstr "我所有的修改"
 
 #: ../root/layout/components/TopMenu.js:98
-#, fuzzy
-#| msgid "Edits for Subscribed Entities"
 msgid "Edits for subscribed entities"
-msgstr "已订阅实体上的编辑"
+msgstr "订阅实体的修改操作"
 
 #: ../root/layout/components/TopMenu.js:102
-#, fuzzy
-#| msgid "Edits by Subscribed Editors"
 msgid "Edits by subscribed editors"
-msgstr "已订阅编辑者的编辑"
+msgstr "订阅编者的修改操作"
 
 #: ../root/layout/components/TopMenu.js:106
-#, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "Notes left on my edits"
-msgstr "我的编辑收到的备注"
+msgstr "关于我修改内容的备注"
 
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
@@ -11060,10 +10936,8 @@ msgid "You have no event collections!"
 msgstr "你没有活动收藏！"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "You have no series collections!"
 msgid "You have no genre collections!"
-msgstr "你没有系列收藏！"
+msgstr "您没有按流派分类的收藏！"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -11148,25 +11022,18 @@ msgid "Subscribe"
 msgstr "订阅"
 
 #: ../root/layout/components/sidebar/EditLinks.js:30
-#, fuzzy
-#| msgid "Log in to edit"
 msgctxt "interactive"
 msgid "Log in to edit"
-msgstr "登录以编辑"
+msgstr "登录以进行修改"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:57
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:89
-#, fuzzy
-#| msgid ""
-#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgid "Image failed to load correctly.<br/>{all|View all images}."
-msgstr "无法正常加载正面封面图片。<br/>{all|浏览所有图片}。"
+msgstr "无法正常加载图片。<br/>{all|浏览所有图片}。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:72
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
-msgstr "无可用的封面图片。"
+msgstr "没有海报。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:75
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:107
@@ -11175,10 +11042,8 @@ msgstr "浏览所有图片"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:78
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:110
-#, fuzzy
-#| msgid "No front cover image available."
 msgid "No images available."
-msgstr "无可用的正面封面图片。"
+msgstr "没有图片。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:93
 msgid "Event information"
@@ -11253,11 +11118,9 @@ msgid "Release group information"
 msgstr "专辑组信息"
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:86
-#, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, interactive"
 msgid "Set cover art"
-msgstr "设置封面"
+msgstr "设置封面图"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
 msgid "No front cover image available."
@@ -11336,8 +11199,6 @@ msgid "Other tags"
 msgstr "其他标签"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:91
-#, fuzzy
-#| msgid "See all tags"
 msgctxt "folksonomy"
 msgid "See all tags"
 msgstr "查看所有标签"
@@ -11366,10 +11227,8 @@ msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr "生日快乐，感谢您对 MusicBrainz 的贡献！"
 
 #: ../root/main/ConfirmSeed.js:25
-#, fuzzy
-#| msgid "Confirm Form Submission"
 msgid "Confirm form submission"
-msgstr "确认提交"
+msgstr "确认表单提交"
 
 #: ../root/main/ConfirmSeed.js:42
 msgid ""
@@ -11391,10 +11250,8 @@ msgid "Image editing unavailable"
 msgstr "图片编辑不可用"
 
 #: ../root/main/ImageEditingUnavailable.js:17
-#, fuzzy
-#| msgid "The blog is currently unavailable."
 msgid "Image editing is currently unavailable."
-msgstr "博客目前不可用。"
+msgstr "目前无法进行图片修改。"
 
 #: ../root/main/error/Error400.js:19
 msgid "Bad request"
@@ -11468,10 +11325,8 @@ msgstr ""
 "息。"
 
 #: ../root/main/error/Error500.js:30
-#, fuzzy
-#| msgid "Internal Server Error"
 msgid "Internal server error"
-msgstr "内部服务器错误"
+msgstr "服务器内部错误"
 
 #: ../root/main/error/Error500.js:33
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:558
@@ -11537,8 +11392,6 @@ msgid ""
 msgstr "要浏览此页面，请访问 {mb|https://musicbrainz.org/} 的主服务器。"
 
 #: ../root/main/error/TimeoutError.js:20
-#, fuzzy
-#| msgid "Request Timed Out"
 msgid "Request timed out"
 msgstr "请求超时"
 
@@ -11577,10 +11430,8 @@ msgid "(No details about this error are available)"
 msgstr "（没有关于此错误的详情）"
 
 #: ../root/main/index.js:34
-#, fuzzy
-#| msgid "MusicBrainz - The Open Music Encyclopedia"
 msgid "MusicBrainz - the open music encyclopedia"
-msgstr "MusicBrainz - 开放的音乐百科全书"
+msgstr "MusicBrainz——开放式音乐百科全书"
 
 #: ../root/main/index.js:38
 msgid "Welcome to MusicBrainz!"
@@ -11653,11 +11504,9 @@ msgid "The blog is currently unavailable."
 msgstr "博客目前不可用。"
 
 #: ../root/main/index.js:148
-#, fuzzy
-#| msgid "Tag Your Music"
 msgctxt "audio file metadata"
 msgid "Tag your music"
-msgstr "标记您的音乐"
+msgstr "给你的音乐添加标签"
 
 #: ../root/main/index.js:171
 msgid "Quick start"
@@ -11680,8 +11529,6 @@ msgid "Community"
 msgstr "社区"
 
 #: ../root/main/index.js:208
-#, fuzzy
-#| msgid "How to Contribute"
 msgid "How to contribute"
 msgstr "如何贡献"
 
@@ -11707,16 +11554,12 @@ msgstr ""
 "支持 MusicBrainz 的应用程序。"
 
 #: ../root/main/index.js:251
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "如何添加专辑"
+msgstr "最近添加的发行品"
 
 #: ../root/main/index.js:266
-#, fuzzy
-#| msgid "Release events"
 msgid "Recently added events"
-msgstr "发行事件"
+msgstr "最近添加的活动"
 
 #: ../root/main/index.js:323
 #: ../root/static/scripts/common/components/DescriptiveLink.js:65
@@ -11725,8 +11568,6 @@ msgid "{entity} by {artist}"
 msgstr "{artist} 的 {entity}"
 
 #: ../root/mbid/NotFound.js:15
-#, fuzzy
-#| msgid "MBID Not Found"
 msgid "MBID not found"
 msgstr "未找到 MBID"
 
@@ -11775,8 +11616,6 @@ msgid "Allow access"
 msgstr "允许访问"
 
 #: ../root/oauth2/OAuth2Error.js:14
-#, fuzzy
-#| msgid "OAuth Authorization Error"
 msgid "OAuth authorization error"
 msgstr "OAuth 授权错误"
 
@@ -11911,10 +11750,8 @@ msgstr "专辑艺术家"
 
 #: ../root/recording/RecordingIndex.js:49
 #: ../root/report/ReleasesSameBarcode.js:55
-#, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group type"
-msgstr "专辑组类型"
+msgstr "发行组类型"
 
 #: ../root/recording/RecordingIndex.js:71
 #: ../root/release_group/ReleaseGroupIndex.js:52
@@ -11991,7 +11828,7 @@ msgstr "可能的值"
 msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
-msgstr "此属性的可能值可以从 {instrument_list|乐器清单} 中检视。"
+msgstr "此属性的可能值可以从 {instrument_list|乐器列表} 中查看。"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "Relationship usage"
@@ -12105,10 +11942,8 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr "未找到 {type0}-{type1} 关联类型。"
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:41
-#, fuzzy
-#| msgid "This area has no relationships to any works."
 msgid "This pair has no relationship types."
-msgstr "此地区没有与任何作品的关联。"
+msgstr "这对没有关系类型。"
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
@@ -12133,22 +11968,15 @@ msgid "Cover art"
 msgstr "封面"
 
 #: ../root/release/CoverArt.js:35
-#, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show cover art"
-msgstr "无法显示封面图片"
+msgstr "无法显示封面图"
 
 #: ../root/release/CoverArt.js:97
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr ""
-"这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
+msgstr "这些图片属于“{caa|封面图库}”。您也可以在“{ia|互联网档案馆}”中查看这些图片。"
 
 #: ../root/release/CoverArt.js:110
 msgid "We do not currently have any cover art for {release}."
@@ -12161,39 +11989,29 @@ msgid ""
 msgstr "请注意，伪发行品通常不应有封面图。请参阅 {doc|伪发行品准则} 获取更多信息。"
 
 #: ../root/release/CoverArt.js:134
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
-msgstr "添加封面"
+msgstr "添加封面图"
 
 #: ../root/release/CoverArt.js:140
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
-msgstr "重排封面"
+msgstr "重新排列封面图"
 
 #: ../root/release/CoverArtDarkened.js:13
-#, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add cover art"
-msgstr "无法添加封面图片"
+msgstr "无法添加封面图"
 
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "为此图像选择一个或多个封面类型"
 
 #: ../root/release/CoverArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
-msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+msgstr "请选择所有适用的类型。有关这些类型的说明，请参阅“{doc|封面图类型}”文档。"
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -12204,7 +12022,7 @@ msgstr "删除专辑"
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
-msgstr "此专辑未附加任何唱片ID；要了解如何添加，参见 {doc|如何添加唱片ID}。"
+msgstr "此专辑未附加任何唱片 ID；要了解如何添加，参见 {doc|如何添加唱片 ID}。"
 
 #: ../root/release/DiscIds.js:124
 msgid "This release has no mediums that can have disc IDs."
@@ -12245,17 +12063,13 @@ msgid ""
 msgstr "您即将把以下发行品合并为一个发行品。请选择其他发行品要合并到的目标发行品："
 
 #: ../root/release/ReleaseMerge.js:63
-#, fuzzy
-#| msgid "Mismatched release groups"
 msgid "Also merge the associated release groups"
-msgstr "不匹配的专辑组"
+msgstr "同时合并相关的发行组"
 
 #: ../root/release/RemoveCoverArt.js:25
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
-msgstr "移除封面"
+msgstr "移除封面图"
 
 #: ../root/release_group/ReleaseGroupHeader.js:20
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
@@ -12447,10 +12261,8 @@ msgstr ""
 
 #: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:108
-#, fuzzy
-#| msgid "Artists with deprecated relationships"
 msgid "Artists with mismatched primary aliases"
-msgstr "有已弃用关联的艺术家"
+msgstr "主要别名不一致的艺术家"
 
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:25
 msgid ""
@@ -12567,7 +12379,7 @@ msgstr ""
 
 #: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:691
 msgid "Disc IDs attached but not applied"
-msgstr "唱片ID已附加但未应用"
+msgstr "唱片 ID 已附加但未应用"
 
 #: ../root/report/CatNoLooksLikeAsin.js:28
 msgid ""
@@ -12592,10 +12404,10 @@ msgid ""
 "linked to the appropriate recording instead. That said, do make sure this is "
 "not a legitimate catalog number that just happens to look like an ISRC!"
 msgstr ""
-"该报告显示的版本目录编号类似于{doc_link|ISRCs}。为发行版分配isrc几乎总是错误"
-"的，但有时仍然会发生，特别是歌手/厂商添加到MusicBrainz的发行版。但是ISRCs是分"
-"配给录音的代码，应该与适当的录音联系起来。也就是说，一定要确保这不是一个碰巧"
-"看起来像ISRC的合法目录编号!"
+"该报告显示的版本目录编号类似于{doc_link|ISRCs}。为发行版分配 isrc 几乎总是错"
+"误的，但有时仍然会发生，特别是歌手/厂商添加到 MusicBrainz 的发行版。但是 "
+"ISRCs 是分配给录音的代码，应该与适当的录音联系起来。也就是说，一定要确保这不"
+"是一个碰巧看起来像 ISRC 的合法目录编号!"
 
 #: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:347
 msgid "Releases with catalog numbers that look like ISRCs"
@@ -12616,10 +12428,8 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
 #: ../root/report/ReportsIndex.js:352
-#, fuzzy
-#| msgid "Releases with track number issues"
 msgid "Releases with catalog numbers that look like label codes"
-msgstr "发行专辑的发布音轨编号"
+msgstr "目录编号看起来像厂牌代码的发行品"
 
 #: ../root/report/CollaborationRelationships.js:32
 msgid ""
@@ -12953,10 +12763,8 @@ msgstr ""
 "或尚未发行的音乐，可能无法做到。"
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
-#, fuzzy
-#| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
-msgstr "有注释的专辑组"
+msgstr "没有发行品的发行组"
 
 #: ../root/report/EventSequenceNotInSeries.js:25
 msgid ""
@@ -12980,7 +12788,7 @@ msgstr ""
 
 #: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:154
 msgid "Events in the Event Art Archive where no event art piece has types"
-msgstr "在 Event Art Archive 中没有任何活动图像设定类型的活动"
+msgstr "在 Event Art Archive 中没有任何活动图像设置类型的活动"
 
 #: ../root/report/FeaturingRecordings.js:25
 msgid ""
@@ -13094,10 +12902,10 @@ msgid ""
 "with an {doc_instrumental_rel|“instrumental” relationship} and the "
 "{doc_karaoke_attr|“karaoke” attribute}."
 msgstr ""
-"此报告显示与另一个录音存在 {doc_karaoke_rel|“卡拉OK”关系}，但关联的作品却带"
+"此报告显示与另一个录音存在 {doc_karaoke_rel|“卡拉 OK”关系}，但关联的作品却带"
 "有 {doc_instrumental_attr|“器乐”属性} 的录音；反之亦然，即存在 "
-"{doc_instrumental_rel|“器乐”关系} 却带有 {doc_karaoke_attr|“卡拉OK”属性} 的录"
-"音。"
+"{doc_instrumental_rel|“器乐”关系} 却带有 {doc_karaoke_attr|“卡拉 OK”属性} 的"
+"录音。"
 
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:45
 msgid ""
@@ -13109,14 +12917,14 @@ msgid ""
 "with a “karaoke” relationship, but with an “instrumental” one."
 msgstr ""
 "请记住，MusicBrainz 中的“纯乐器”意味着歌词与录音无关。由于歌词从定义上讲就与"
-"卡拉OK录音相关，因此不应在卡拉OK录音上使用“纯乐器”（请改用“卡拉OK”）。反之，"
-"如果这不是卡拉OK录音，而只是一般的纯乐器录音，则不应通过“卡拉OK”关系链接到另"
-"一个录音，而应使用“纯乐器”关系。"
+"卡拉 OK 录音相关，因此不应在卡拉 OK 录音上使用“纯乐器”（请改用“卡拉 OK”）。反"
+"之，如果这不是卡拉 OK 录音，而只是一般的纯乐器录音，则不应通过“卡拉 OK”关系链"
+"接到另一个录音，而应使用“纯乐器”关系。"
 
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:55
 #: ../root/report/ReportsIndex.js:592
 msgid "Recordings marked as both karaoke and instrumental"
-msgstr "同时标记为卡拉OK和纯乐器的录音"
+msgstr "同时标记为卡拉 OK 和纯乐器的录音"
 
 #: ../root/report/LabelsDisambiguationSameName.js:25
 msgid ""
@@ -13158,10 +12966,10 @@ msgid ""
 "links, and a link attached to all movements of a classical work might be a "
 "better fit for the main parent work only."
 msgstr ""
-"此报告显示URL链接到了多个实体。这不包括许可关联(允许重复使用)和亚马逊(关于专"
-"辑)，Discogs以及维基数据(具有自己的报告)。这些链接需要审阅以确认它们是不是较"
-"好的匹配；例如，可以用特定的预售链接替代一般的商店页链接，而针对古典作品所有"
-"乐章的链接比只包含主要母作品的链接要好。"
+"此报告显示 URL 链接到了多个实体。这不包括许可关联(允许重复使用)和亚马逊(关于"
+"专辑)，Discogs 以及维基数据(具有自己的报告)。这些链接需要审阅以确认它们是不是"
+"较好的匹配；例如，可以用特定的预售链接替代一般的商店页链接，而针对古典作品所"
+"有乐章的链接比只包含主要母作品的链接要好。"
 
 #: ../root/report/LinksWithMultipleEntities.js:53
 #: ../root/report/ReportsIndex.js:656
@@ -13233,7 +13041,7 @@ msgstr "载体按位置命名的发行品"
 msgid ""
 "This report lists all releases with gaps in the medium numbers (for example, "
 "there is a medium 1 and 3 but no medium 2)."
-msgstr "此报告列出载体编号不连续的发行品（例如，有载体1和3，但没有载体2）。"
+msgstr "此报告列出载体编号不连续的发行品（例如，有载体1 和3，但没有载体2）。"
 
 #: ../root/report/MediumsWithSequenceIssues.js:31
 msgid "Releases with medium number issues"
@@ -13301,7 +13109,7 @@ msgstr ""
 
 #: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:272
 msgid "Releases without language"
-msgstr "没有设定语言的专辑"
+msgstr "没有设置语言的专辑"
 
 #: ../root/report/NoScript.js:28
 msgid ""
@@ -13314,7 +13122,7 @@ msgstr ""
 
 #: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:276
 msgid "Releases without script"
-msgstr "没有设定文字的专辑"
+msgstr "没有设置文字的专辑"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:25
 msgid ""
@@ -13446,10 +13254,8 @@ msgstr ""
 
 #: ../root/report/RecordingsWithDuplicateWorks.js:33
 #: ../root/report/ReportsIndex.js:531
-#, fuzzy
-#| msgid "Recordings with annotations"
 msgid "Recordings with possible duplicate works"
-msgstr "有注释的录音"
+msgstr "可能包含重复作品的录音"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:25
 msgid ""
@@ -13484,7 +13290,7 @@ msgstr "关系日期在未来的录音"
 msgid ""
 "This report shows recordings where the linked tracks have times that vary by "
 "more than 30 seconds."
-msgstr "此报告显示的音轨中，链接的音轨时间相差超过30秒。"
+msgstr "此报告显示的音轨中，链接的音轨时间相差超过30 秒。"
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:31
 #: ../root/report/ReportsIndex.js:535
@@ -13612,11 +13418,8 @@ msgstr ""
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove release label"
 msgid "Releases older than their release label"
-msgstr "删除专辑厂牌"
+msgstr "发行品发布时间早于其发行厂牌"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""
@@ -13685,9 +13488,9 @@ msgid ""
 "since the 16th of May 2022, so these releases have no front cover anymore "
 "until one is added to the Cover Art Archive."
 msgstr ""
-"这份报告显示了亚马逊上有封面艺术的作品，但在封面艺术档案中没有封面。自2022年5"
-"月16日起，亚马逊的艺术作品就不再使用了，所以这些作品在封面艺术档案中添加封面"
-"之前都没有封面。"
+"这份报告显示了亚马逊上有封面艺术的作品，但在封面艺术档案中没有封面。自2022 年"
+"5 月16 日起，亚马逊的艺术作品就不再使用了，所以这些作品在封面艺术档案中添加封"
+"面之前都没有封面。"
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:34
 #: ../root/report/ReportsIndex.js:385
@@ -13701,7 +13504,7 @@ msgid ""
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
 msgstr ""
-"此报告显示在封面图库中有封面图，但没有任何一张设定类型的发行品。这通常意味着"
+"此报告显示在封面图库中有封面图，但没有任何一张设置类型的发行品。这通常意味着"
 "添加了正面封面，但没有标记为正面。"
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:32
@@ -13730,7 +13533,7 @@ msgid ""
 "This report shows releases with at least one medium that is missing a "
 "tracklist. If you can find the tracklist, please help complete the data!"
 msgstr ""
-"此报告显示至少有一个载体缺少音轨清单的发行品。如果您能找到音轨清单，请协助补"
+"此报告显示至少有一个载体缺少音轨列表的发行品。如果您能找到音轨列表，请协助补"
 "全资料！"
 
 #: ../root/report/ReleasesWithEmptyMediums.js:32
@@ -13953,10 +13756,8 @@ msgstr "非视频媒介的视频记录"
 
 #: ../root/report/ReportsIndex.js:588
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
-#, fuzzy
-#| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
-msgstr "有已弃用关联的录音"
+msgstr "与视频相关的非视频录音"
 
 #: ../root/report/ReportsIndex.js:605
 msgid "Places with annotations"
@@ -13968,10 +13769,8 @@ msgstr "有注释的系列"
 
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
-#, fuzzy
-#| msgid "Release duplicates"
 msgid "Series containing duplicates"
-msgstr "重复专辑"
+msgstr "包含重复项的系列"
 
 #: ../root/report/ReportsIndex.js:639
 msgid "Works with annotations"
@@ -14040,8 +13839,8 @@ msgid ""
 "does not support disc IDs, yet have disc IDs attached. Usually this means "
 "the disc IDs ended up here because of a bug and should be moved or removed."
 msgstr ""
-"此报告显示了至少一个媒介格式上不支持碟片ID，但仍附加了碟片ID的专辑。这通常表"
-"明某个程序缺陷附加了唱片ID，应移动或移除。"
+"此报告显示了至少一个媒介格式上不支持碟片 ID，但仍附加了碟片 ID 的专辑。这通常"
+"表明某个程序缺陷附加了唱片 ID，应移动或移除。"
 
 #: ../root/report/ShowNotesButNotBroadcast.js:25
 msgid ""
@@ -14079,7 +13878,7 @@ msgstr ""
 
 #: ../root/report/SomeFormatsUnset.js:33
 msgid "Releases with some formats unset"
-msgstr "某些格式未设定的发行品"
+msgstr "某些格式未设置的发行品"
 
 #: ../root/report/SuperfluousDataTracks.js:25
 msgid ""
@@ -14089,10 +13888,10 @@ msgid ""
 "of the CD and contains audio or video. Otherwise, it should just be removed. "
 "See the {data_track_guidelines|data track guidelines}."
 msgstr ""
-"该报告列出了没有任何磁盘id的发行版本，这些版本可能在媒体的末尾包含数据音轨(如"
-"视频)，但没有标记为数据音轨。如果数据轨道是CD的最后一个轨道并且包含音频或视"
-"频，则应这样标记。否则，它应该被删除。参见{data_track_guidelines|数据跟踪指"
-"南}。"
+"该报告列出了没有任何磁盘 id 的发行版本，这些版本可能在媒体的末尾包含数据音轨"
+"(如视频)，但没有标记为数据音轨。如果数据轨道是 CD 的最后一个轨道并且包含音频"
+"或视频，则应这样标记。否则，它应该被删除。参见{data_track_guidelines|数据跟踪"
+"指南}。"
 
 #: ../root/report/TracksNamedWithSequence.js:25
 msgid ""
@@ -14167,10 +13966,10 @@ msgid ""
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
 msgstr ""
-"这里主要有两种可能:一种是标记为视频的录音正确，但格式不对(例如，CD应该是VCD)"
-"，另一种是同时用于视频和用于纯音频的录音，在这种情况下，两者应该分开，因为影"
-"片录音应始终独立。如果你拆分录音，考虑是否有意义的链接它们与{doc_link|音乐视"
-"频关系}。"
+"这里主要有两种可能:一种是标记为视频的录音正确，但格式不对(例如，CD 应该是 "
+"VCD)，另一种是同时用于视频和用于纯音频的录音，在这种情况下，两者应该分开，因"
+"为视频录音应始终独立。如果你拆分录音，考虑是否有意义的链接它们与{doc_link|音"
+"乐视频关系}。"
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -14540,7 +14339,7 @@ msgstr "保存"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:158
 msgid "Regional settings"
-msgstr "区域设定"
+msgstr "区域设置"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:167
 msgid "Guess timezone"
@@ -15029,7 +14828,7 @@ msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
-"高品质：所有可用数据均已添加，如果可能，还包括带有内页信息、可证明其存在的封"
+"高质量：所有可用数据均已添加，如果可能，还包括带有内页信息、可证明其存在的封"
 "面图"
 
 #: ../root/static/scripts/common/components/EntityLink.js:466
@@ -15096,11 +14895,11 @@ msgstr "取消链接"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:114
 msgid "This recording does not have any associated AcoustIDs"
-msgstr "此录音未与任何AcoustID关联"
+msgstr "此录音未与任何 AcoustID 关联"
 
 #: ../root/static/scripts/common/components/IrombookImage.js:38
 msgid "IROMBOOK image/IROMBOOKのイラスト"
-msgstr "IROMBOOK 图像/IROMBOOK插图"
+msgstr "IROMBOOK 图像/IROMBOOK 插图"
 
 #: ../root/static/scripts/common/components/IsrcList.js:44
 msgid "Show all ISRCs"
@@ -15224,22 +15023,18 @@ msgid "Withdraw vote"
 msgstr "撤回投票"
 
 #: ../root/static/scripts/common/components/TagEditor.js:118
-#, fuzzy
-#| msgid "You’ve upvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve upvoted this tag"
-msgstr "您已赞成此标签"
+msgstr "你给这个标签点了赞"
 
 #: ../root/static/scripts/common/components/TagEditor.js:122
 msgid "Upvote"
 msgstr "赞成票"
 
 #: ../root/static/scripts/common/components/TagEditor.js:134
-#, fuzzy
-#| msgid "You’ve downvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve downvoted this tag"
-msgstr "您已否决此标签"
+msgstr "你给这个标签投了反对票"
 
 #: ../root/static/scripts/common/components/TagEditor.js:138
 msgid "Downvote"
@@ -15252,18 +15047,14 @@ msgstr "没有可显示的流派。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:550
 #: ../root/user/UserTagList.js:112
-#, fuzzy
-#| msgid "There are no other tags to show."
 msgctxt "folksonomy"
 msgid "There are no other tags to show."
-msgstr "没有可显示的其他标签。"
+msgstr "没有其他标签可显示。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:554
-#, fuzzy
-#| msgid "Nobody has tagged this yet."
 msgctxt "folksonomy"
 msgid "Nobody has tagged this yet."
-msgstr "还没有人为此添加标签。"
+msgstr "目前还没有人给这个贴上标签。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:565
 msgctxt "folksonomy"
@@ -15278,18 +15069,14 @@ msgid "Tags with a score of zero or below are hidden."
 msgstr "评分等于或低于零的标签将被隐藏。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:583
-#, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "Show all tags."
 msgstr "显示所有标签。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:592
-#, fuzzy
-#| msgid "All tags are being shown."
 msgctxt "folksonomy"
 msgid "All tags are being shown."
-msgstr "已显示所有标签。"
+msgstr "正在显示所有标签。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:601
 msgctxt "folksonomy"
@@ -15320,8 +15107,6 @@ msgid "Submit tags"
 msgstr "提交标签"
 
 #: ../root/static/scripts/common/components/TagEditor.js:689
-#, fuzzy
-#| msgid "see all tags"
 msgctxt "folksonomy"
 msgid "see all tags"
 msgstr "查看所有标签"
@@ -15332,11 +15117,9 @@ msgid "Tag"
 msgstr "标签"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
-#, fuzzy
-#| msgid "Open in tagger"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
-msgstr "在标签工具中打开"
+msgstr "在标注器中打开"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:71
 msgid "Wikipedia"
@@ -15499,10 +15282,8 @@ msgstr "开始于："
 
 #: ../root/static/scripts/edit/MB/reltypeslist.js:18
 #: ../root/static/scripts/edit/MB/reltypeslist.js:25
-#, fuzzy
-#| msgid "show less"
 msgid "less"
-msgstr "显示更少"
+msgstr "更少"
 
 #: ../root/static/scripts/edit/URLCleanup.js:390
 msgid ""
@@ -15599,9 +15380,9 @@ msgid ""
 "(“{single_url_pattern}”) instead, and feel free to add this profile link to "
 "the appropriate artist or label."
 msgstr ""
-"这是一个 Bandcamp 个人档案，而不是特定录音的页面。即使目前只显示一个录音，当"
+"这是一个 Bandcamp 个人资料，而不是特定录音的页面。即使目前只显示一个录音，当"
 "创作者发行新作后，这可能就会改变。请改为找到并添加适当的录音页面（“"
-"{single_url_pattern}”），并可将此个人档案链接添加到相应的创作者或厂牌。"
+"{single_url_pattern}”），并可将此个人资料链接添加到相应的创作者或厂牌。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:1413
 msgid ""
@@ -15611,9 +15392,9 @@ msgid ""
 "(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
 "add this profile link to the appropriate artist or label."
 msgstr ""
-"这是一个 Bandcamp 个人档案，而不是特定发行品的页面。即使目前显示的是此发行品"
+"这是一个 Bandcamp 个人资料，而不是特定发行品的页面。即使目前显示的是此发行品"
 "，当创作者发行新作后，这可能就会改变。请改为找到并添加适当的发行品页面（“"
-"{album_url_pattern}”或“{single_url_pattern}”），并可将此个人档案链接添加到相"
+"{album_url_pattern}”或“{single_url_pattern}”），并可将此个人资料链接添加到相"
 "应的创作者或厂牌。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:1759
@@ -15662,8 +15443,8 @@ msgid ""
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
-"请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
-"{url|添加一个独立的录音}。"
+"请不要直接链接到图片，而是链接到适当的 Instagram 主页。如果你想链接到一个视频"
+"，{url|添加一个独立的录音}。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:3522
 msgid "This is an internal Instagram page and should not be added."
@@ -15697,7 +15478,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5440
 msgid "Only RYM music videos can be linked to recordings."
-msgstr "只有RYM的音乐视频可以链接到录音。"
+msgstr "只有 RYM 的音乐视频可以链接到录音。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:5508
 msgid ""
@@ -15710,13 +15491,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:6254
 msgid "Please link to Threads profiles, not threads."
-msgstr "请链接到Threads个人档案，而不是串文。"
+msgstr "请链接到 Threads 个人资料，而不是串文。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6382
-#, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
-msgstr "请链接至 Twitter 个人资料，而非推文。"
+msgstr "请提供 TikTok 个人配置的链接，而非视频链接。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6670
 msgid "This is not a profile, but a Twitter documentation page."
@@ -15780,10 +15559,8 @@ msgid ""
 msgstr "不允许链接到维基百科用户页面。请仅链接到实际的维基百科条目。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7553
-#, fuzzy
-#| msgid "Only video and playlist links are allowed on releases."
 msgid "Only video links are allowed as interviews."
-msgstr "专辑只能有视频或播放列表链接。"
+msgstr "采访内容仅限视频链接。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7565
 msgid ""
@@ -15805,35 +15582,24 @@ msgid ""
 msgstr "这是一个发行品（播放列表）链接，而不是创作者频道。请改为链接到创作者频道。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7694
-#, fuzzy
-#| msgid ""
-#| "Please link to a specific video. Add channel pages to the relevant "
-#| "artist, label, etc. instead."
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
-msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
+msgstr "请提供具体发行品（播放列表）的链接。请将音轨（视频）链接添加到相应的录音中。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7704
-#, fuzzy
-#| msgid ""
-#| "Please link to a specific video. Add channel pages to the relevant "
-#| "artist, label, etc. instead."
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
-msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
+msgstr "请提供具体发行品（播放列表）的链接。请改为添加相关艺术家的频道链接。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7714
-#, fuzzy
-#| msgid ""
-#| "This is a redirect link. Please follow {redirect_url|your link} and add "
-#| "the link it redirects to instead."
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
-"这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
+"这很可能是一个重定向链接。请点击{redirect_url|该链接}，并添加它所重定向到的发"
+"行品（播放列表）链接。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:7884
 msgid ""
@@ -15911,28 +15677,21 @@ msgid "Add a new work"
 msgstr "添加新作品"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
-#, fuzzy
-#| msgid "Copy Credits"
 msgid "Copy credits"
-msgstr "复制名单"
+msgstr "复制署名"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
-#, fuzzy
-#| msgid "Paste Credits"
 msgid "Paste credits"
-msgstr "粘贴名单"
+msgstr "粘贴署名"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:92
-#, fuzzy
-#| msgid ""
-#| "Use the following fields to enter collaborations. See the {ac|Artist "
-#| "Credit} documentation for more information."
 msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
-"使用以下表单栏来输入合作关系。如需更多信息请参见 {ac|艺术家名单} 文档。"
+"请使用以下栏输入艺术家姓名的变体以及多位艺术家的合作信息。更多详情请参阅《"
+"{ac|创作者署名}》文档。"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:132
 msgid "[missing track name]"
@@ -15959,11 +15718,9 @@ msgid "Join phrase:"
 msgstr "连接词："
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:171
-#, fuzzy
-#| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Add artist credit"
-msgstr "添加艺术家信息"
+msgstr "添加创作者署名"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:201
 msgid "Change all artists on this release that match “{name}”"
@@ -15979,32 +15736,24 @@ msgid "[removed]"
 msgstr "[已移除]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
-#, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Move artist credit down"
-msgstr "移除艺术家信息"
+msgstr "将创作者署名移至下方"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
-#, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Move artist credit up"
-msgstr "移除艺术家信息"
+msgstr "将创作者署名移至上方"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
-#, fuzzy
-#| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "添加艺术家信息"
+msgstr "撤销移除创作者署名"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
-#, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Remove artist credit"
-msgstr "移除艺术家信息"
+msgstr "移除创作者署名"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:178
 msgid "Date period"
@@ -16015,8 +15764,8 @@ msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
 msgstr ""
-"日期的格式为YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
-"该日期。"
+"日期的格式为 YYYY-MM-DD。部分日期（如 YYYY-MM 或只是 YYYY）也可以，或者你可以"
+"省略该日期。"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:195
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:173
@@ -16056,10 +15805,8 @@ msgid "The date you've entered is not valid"
 msgstr "您输入的日期无效"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
-#, fuzzy
-#| msgid "Possible Duplicates"
 msgid "Possible duplicates"
-msgstr "可能的重复"
+msgstr "可能的重复项"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:20
 msgid "We found the following entities with very similar names:"
@@ -16192,14 +15939,10 @@ msgid "HH:MM"
 msgstr "HH:MM"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:394
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
-msgstr "从列表中选择任一类型来查看其描述。如果作品不匹配任何类型，留空即可。"
+msgstr "从列表中选择任意一种类型，即可查看其说明。如果没有合适的类型，请留空。"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLink.js:199
 msgid "Add another relationship"
@@ -16223,11 +15966,9 @@ msgid "Remove relationship"
 msgstr "移除关联"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:273
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
-msgstr "署名为 “{credit}”"
+msgstr "署名为“{credit}”"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:295
 msgid "video"
@@ -16239,12 +15980,9 @@ msgid "This relationship has ended."
 msgstr "此关联已终止。"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationshipDialog.js:237
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit relationship"
 msgctxt "interactive"
 msgid "Edit relationship"
-msgstr "编辑关联"
+msgstr "修改关系"
 
 #: ../root/static/scripts/external-links-editor/components/TypeDescription.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
@@ -16261,10 +15999,8 @@ msgid "Edit URL"
 msgstr "编辑 URL"
 
 #: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
-msgstr "贡献名单"
+msgstr "署名"
 
 #: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:40
 msgid "Credited to"
@@ -16358,10 +16094,8 @@ msgid "This URL is not allowed for events."
 msgstr "此 URL 不适用于活动。"
 
 #: ../root/static/scripts/external-links-editor/validation.js:406
-#, fuzzy
-#| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
-msgstr "此 URL 不适用于系列。"
+msgstr "该网址不适用于流派分类。"
 
 #: ../root/static/scripts/external-links-editor/validation.js:408
 msgid "This URL is not allowed for instruments."
@@ -16464,7 +16198,7 @@ msgid ""
 "set the same end date and start date. You can use the arrow button to copy "
 "the begin date to the end date."
 msgstr ""
-"如果您需要将关联设定为在特定的一天发生，可以将起始和截止日期设为同一天。你可"
+"如果您需要将关联设置为在特定的一天发生，可以将起始和截止日期设为同一天。你可"
 "以用箭头按钮将起始日期复制到终止日期。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:218
@@ -16567,10 +16301,8 @@ msgid "The series you’ve selected is for release groups."
 msgstr "您选择的是一个专辑组系列。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:56
-#, fuzzy
-#| msgid "The series you’ve selected is for events."
 msgid "The series you’ve selected is for series."
-msgstr "你选择的系列只适用于活动。"
+msgstr "您选择的系列属于“系列”类别。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:57
 msgid "The series you’ve selected is for works."
@@ -16701,12 +16433,9 @@ msgid_plural "{n} works selected"
 msgstr[0] "已选择 {n} 个作品"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "找到 {num} 张专辑"
+msgstr[0] "{num} 个发行品"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -16804,14 +16533,12 @@ msgid ""
 "database. Please make sure you are not adding an exact duplicate of any of "
 "these:"
 msgstr ""
-"在MusicBrainz数据库中已经存在以下带有该条形码的版本。请确保你没有添加这些完全"
-"相同的内容:"
+"在 MusicBrainz 数据库中已经存在以下带有该条形码的版本。请确保你没有添加这些完"
+"全相同的内容:"
 
 #: ../root/static/scripts/release-editor/validation.js:183
-#, fuzzy
-#| msgid "The check digit is {checkdigit}."
 msgid "The check digit would be {checkdigit}."
-msgstr "校验码为 {checkdigit}。"
+msgstr "校验码应为 {checkdigit}。"
 
 #: ../root/static/scripts/release-editor/validation.js:184
 msgid "Please double-check the barcode on the release."
@@ -16849,10 +16576,8 @@ msgid ""
 msgstr "您输入的条形码或是无效的 UPC 代码，或是缺少校验码的 EAN 代码。"
 
 #: ../root/static/scripts/release-editor/validation.js:240
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "您输入的条形码是有效的 EAN 代码。"
+msgstr "您输入的条码是一个有效的 GTIN 代码。"
 
 #: ../root/static/scripts/release-editor/validation.js:247
 #: ../root/static/scripts/release-editor/validation.js:269
@@ -16867,32 +16592,22 @@ msgstr ""
 "主码“{main_digits}”仅保留在条码栏中。"
 
 #: ../root/static/scripts/release-editor/validation.js:258
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "您输入的条形码不是有效的 EAN 代码。"
+msgstr "您输入的条码不是有效的 GTIN 代码。"
 
 #: ../root/static/scripts/release-editor/validation.js:302
-#, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "您输入的条形码是有效的 UPC 代码。"
+msgstr "您输入的条码不是有效的 UPC 代码。"
 
 #: ../root/static/scripts/release-editor/validation.js:331
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
-msgstr "您输入的条形码不是有效的 UPC 或 EAN 代码。"
+msgstr "您输入的条码不是有效的 UPC、EAN 或 GTIN 代码。"
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No cover art available."
-msgstr "无可用的封面图片。"
+msgstr "无封面图。"
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
-#, fuzzy
-#| msgid "Types"
 msgctxt "cover art"
 msgid "Types"
 msgstr "类型"
@@ -16951,16 +16666,12 @@ msgid "Collapse all mediums"
 msgstr "收起所有媒介"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:86
-#, fuzzy
-#| msgid "Display Credits Inline"
 msgid "Display credits inline"
-msgstr "在行内显示名单"
+msgstr "在正文中显示署名信息"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:87
-#, fuzzy
-#| msgid "Display Credits at Bottom"
 msgid "Display credits at bottom"
-msgstr "在底部显示名单"
+msgstr "在底部显示制作人员署名"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 msgid "Recording alias: {alias}"
@@ -17014,16 +16725,12 @@ msgid "Release relationships"
 msgstr "专辑关联"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
-#, fuzzy
-#| msgid "Release Group Relationships"
 msgid "Release group relationships"
-msgstr "专辑组关联"
+msgstr "发行组关系"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
-#, fuzzy
-#| msgid "Are you sure you want to remove this application?"
 msgid "Are you sure you want to remove this work?"
-msgstr "你确定希望移除此应用吗？"
+msgstr "您确定要移除该作品吗？"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
@@ -17049,11 +16756,9 @@ msgid "Add lyrics language"
 msgstr "添加歌词语言"
 
 #: ../root/static/scripts/voting.js:21
-#, fuzzy
-#| msgid "Remove edit note"
 msgctxt "interactive"
 msgid "Remove note"
-msgstr "删除编辑笔记"
+msgstr "移除备注"
 
 #: ../root/static/scripts/work/edit.js:349
 msgctxt "interactive"
@@ -17235,11 +16940,9 @@ msgid_plural "{num} works found"
 msgstr[0] "找到 {num} 个作品"
 
 #: ../root/tag/NotFound.js:14
-#, fuzzy
-#| msgid "Tag Not Used"
 msgctxt "folksonomy"
 msgid "Tag not used"
-msgstr "标签未使用"
+msgstr "未使用的标签"
 
 #: ../root/tag/NotFound.js:17
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -17270,29 +16973,23 @@ msgid "Show as a list instead."
 msgstr "显示为列表。"
 
 #: ../root/tag/TagCloud.js:116
-#, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No genre tags have been used yet."
-msgstr "未添加编辑备注。"
+msgstr "尚未使用任何流派标签。"
 
 #: ../root/tag/TagCloud.js:118
 msgid "Other tags"
 msgstr "其他标签"
 
 #: ../root/tag/TagCloud.js:123
-#, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No non-genre tags have been used yet."
-msgstr "未添加编辑备注。"
+msgstr "尚未使用任何非流派标签。"
 
 #: ../root/tag/TagIndex.js:24
-#, fuzzy
-#| msgid "This tag is associated with the genre {genre}."
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
-msgstr "此标签与 {genre} 流派相关联。"
+msgstr "该标签与流派 {genre} 相关。"
 
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
@@ -17349,8 +17046,6 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "我刚捐款了！为什么我会看到这个？"
 
 #: ../root/taglookup/NotFound.js:14
-#, fuzzy
-#| msgid "Tag Lookup Error"
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
 msgstr "标签查找错误"
@@ -17368,8 +17063,6 @@ msgid "Please {search|try again}, providing at least one of these parameters"
 msgstr "请提供至少以下一个参数，然后{search|try again}"
 
 #: ../root/taglookup/Results.js:21 ../root/taglookup/Results.js:23
-#, fuzzy
-#| msgid "Tag Lookup Results"
 msgctxt "audio file metadata"
 msgid "Tag lookup results"
 msgstr "标签查找结果"
@@ -17473,11 +17166,9 @@ msgid "The following {count} users are relationship editors:"
 msgstr "以下的 {count} 个用户是关联编辑者："
 
 #: ../root/user/PrivilegedUsers.js:66
-#, fuzzy
-#| msgid "Location editors"
 msgctxt "header"
 msgid "Transclusion editors"
-msgstr "位置编辑者"
+msgstr "嵌入包含编辑者"
 
 #: ../root/user/PrivilegedUsers.js:69
 msgid ""
@@ -17503,8 +17194,6 @@ msgid "The following {count} users are location editors:"
 msgstr "以下的 {count} 个用户是位置编辑者："
 
 #: ../root/user/PrivilegedUsers.js:97
-#, fuzzy
-#| msgid "Banner message editors"
 msgctxt "header"
 msgid "Banner message editors"
 msgstr "横幅信息编辑者"
@@ -17525,15 +17214,13 @@ msgstr "以下的 {count} 个用户是横幅信息编辑者："
 #: ../root/user/PrivilegedUsers.js:111
 msgctxt "header"
 msgid "Account administrators"
-msgstr "帐号管理员"
+msgstr "账号管理员"
 
 #: ../root/user/PrivilegedUsers.js:113
-#, fuzzy
-#| msgid "Account administrators can edit and delete user accounts."
 msgid ""
 "Account administrators can edit and delete user accounts, and immediately "
 "accept and reject edits."
-msgstr "帐号管理员可以编辑和删除用户帐号。"
+msgstr "账号管理员可以修改和删除用户账号，并可立即接受或拒绝修改请求。"
 
 #: ../root/user/PrivilegedUsers.js:118
 msgid "The following {count} users are account administrators:"
@@ -17734,8 +17421,6 @@ msgid "Internal/Bot"
 msgstr "内部使用/机器人"
 
 #: ../root/user/UserProfile.js:93
-#, fuzzy
-#| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "账号管理员"
@@ -17774,11 +17459,9 @@ msgid "(hidden)"
 msgstr "(隐藏)"
 
 #: ../root/user/UserProfile.js:203
-#, fuzzy
-#| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
-msgstr "(验证时间：{date})"
+msgstr "（已于 {date} 验证）"
 
 #: ../root/user/UserProfile.js:208
 msgctxt "email address"
@@ -17937,18 +17620,14 @@ msgid "This table shows a summary of secondary data added by this editor."
 msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
 #: ../root/user/UserProfile.js:792
-#, fuzzy
-#| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "标签和评分"
 
 #: ../root/user/UserProfile.js:799
-#, fuzzy
-#| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
-msgstr "已赞成的标签"
+msgstr "获赞的标签"
 
 #: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:824
 msgctxt "folksonomy"
@@ -17961,11 +17640,9 @@ msgid "Removed"
 msgstr "已移除"
 
 #: ../root/user/UserProfile.js:819
-#, fuzzy
-#| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
-msgstr "已否决的标签"
+msgstr "被投反对票的标签"
 
 #: ../root/user/UserProfile.js:845
 msgid "Ratings are removed when an editor is deleted."
@@ -17995,16 +17672,12 @@ msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
 #: ../root/user/UserProfile.js:988
-#, fuzzy
-#| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
-msgstr "您的编辑内容收到的他人回复"
+msgstr "查看其他用户对我的修改所做的备注"
 
 #: ../root/user/UserProfile.js:989
-#, fuzzy
-#| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
-msgstr "查看你对这个用户的编辑的回复"
+msgstr "查看我关于此用户修改的备注"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
@@ -18123,11 +17796,9 @@ msgid "Tags {user} downvoted"
 msgstr "{user} 否决的标签"
 
 #: ../root/user/UserTagList.js:20
-#, fuzzy
-#| msgid "Tags {user} upvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} upvoted"
-msgstr "{user} 赞成的标签"
+msgstr "被 {user} 点赞的标签"
 
 #: ../root/user/UserTagList.js:121
 msgid "{user} has not downvoted any tags."
@@ -18454,11 +18125,11 @@ msgid ""
 "about it!"
 msgstr ""
 "初学编辑的人最可能需要友好的眼光来看待他们的编辑。在审查这些内容时，请查看编"
-"辑者是否进行了违背MusicBrainz的编辑指南，或者似乎有其他错误的情况，并留下指导"
-"编辑者的笔记，以便他们在未来做得更好。一定要链接到适当的指南，或相关的正确输"
-"入数据的示例，最重要的是记住要友好。如果这些用户搞得一团糟，他们可能不是故意"
-"的，而是出于困惑:MusicBrainz可能会让新手望而生畏!如果可能的话，修复错误(并让"
-"编辑者知道你已经这样做了，并且他们可以检查你所做的编辑，看看它应该是什么样"
+"辑者是否进行了违背 MusicBrainz 的编辑指南，或者似乎有其他错误的情况，并留下指"
+"导编辑者的笔记，以便他们在未来做得更好。一定要链接到适当的指南，或相关的正确"
+"输入数据的示例，最重要的是记住要友好。如果这些用户搞得一团糟，他们可能不是故"
+"意的，而是出于困惑:MusicBrainz 可能会让新手望而生畏!如果可能的话，修复错误(并"
+"让编辑者知道你已经这样做了，并且他们可以检查你所做的编辑，看看它应该是什么样"
 "子)，而不是对编辑投“反对”票，因为“反对”票是相当令人沮丧的，特别是作为一个新编"
 "辑者。如果某些内容糟糕到无法修复，并且会使现有数据变得更糟，请投票反对编辑，"
 "但请确保清楚地解释为什么需要这样做，而不是默默地投“反对”票。关于我们所希望的"
@@ -18499,11 +18170,9 @@ msgid "All edits from beginner editors made less than 2 weeks ago"
 msgstr "来自新手编辑者的所有编辑，并且创建于两周以内"
 
 #: ../root/vote/VotingIndex.js:375
-#, fuzzy
-#| msgid "All edits from beginner editors made less than 2 weeks ago"
 msgid ""
 "All edits from beginner editors without edit notes made less than 2 weeks ago"
-msgstr "来自新手编辑者的所有编辑，并且创建于两周以内"
+msgstr "所有由新手编者进行的、未附修改备注且距今不到两周的修改"
 
 #: ../root/vote/VotingIndex.js:385
 msgid "All \"Add release/medium\" edits by beginner editors"
@@ -18524,17 +18193,12 @@ msgid "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgstr "所有新手编辑者的“添加艺术家”编辑，并且并且创建于两周以内"
 
 #: ../root/vote/VotingIndex.js:413
-#, fuzzy
-#| msgid "All \"Add artist\" edits by beginner editors"
 msgid "All artwork edits by beginner editors"
-msgstr "所有新手编辑者创建的“添加艺术家”编辑"
+msgstr "新手编辑所做的所有美术修改"
 
 #: ../root/vote/VotingIndex.js:419
-#, fuzzy
-#| msgid ""
-#| "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgid "All artwork edits by beginner editors made less than 2 weeks ago"
-msgstr "所有新手编辑者的“添加艺术家”编辑，并且并且创建于两周以内"
+msgstr "所有由新手编辑在不到两周前进行的图片修改"
 
 #: ../root/vote/VotingIndex.js:426
 msgid "All open destructive edits by beginner editors"
