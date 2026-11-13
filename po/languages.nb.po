@@ -3,19 +3,21 @@
 # CatQuest, The Endeavouring Cat, 2015
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
 # Metafono <rainer@nilsen.com>, 2025.
+# Akira Holm <apekattquest_monkeypython@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-05 05:02+0000\n"
-"Last-Translator: Metafono <rainer@nilsen.com>\n"
+"PO-Revision-Date: 2026-11-12 20:13+0000\n"
+"Last-Translator: Akira Holm "
+"<apekattquest_monkeypython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
-"projects/musicbrainz/languages/nb_NO/>\n"
+"projects/musicbrainz/languages/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -699,10 +701,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
-#, fuzzy
-#| msgid "Sicilian"
 msgid "Emilian"
-msgstr "Sisiliansk"
+msgstr "Emiliansk"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -937,7 +937,7 @@ msgstr "Gresk, antikk"
 #. frequency:1 iso_code_3:kal
 #: DB:language/name:204
 msgid "Greenlandic"
-msgstr "Grønland"
+msgstr "Grønlandsk"
 
 #. frequency:1 iso_code_3:gos
 #: DB:language/name:2534
@@ -2041,10 +2041,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "Russisk"
+msgstr "Preussisk"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2243,10 +2241,8 @@ msgstr "Serbisk"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Kroatisk"
+msgstr "Serbokroatisk"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395

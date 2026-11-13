@@ -4,20 +4,21 @@
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 # "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
 # "ApeKattQuest, MonkeyPython" <ApeKattQuest_MonkeyPython@users.noreply.translations.metabrainz.org>, 2026.
+# Akira Holm <apekattquest_monkeypython@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-24 03:12+0000\n"
-"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<ApeKattQuest_MonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-11-13 22:13+0000\n"
+"Last-Translator: Akira Holm "
+"<apekattquest_monkeypython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
-"projects/musicbrainz/relationship-types/nb_NO/>\n"
+"projects/musicbrainz/relationship-types/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -575,10 +576,8 @@ msgstr ""
 
 #. name:part of
 #: DB:link_type/description:1307
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity."
 msgid "Indicates that the series is part of a series."
-msgstr "Spesifiserer at et objekt er coverversjon av et annet."
+msgstr "Dette indikerer at serien er en del av en annen serie."
 
 #. name:part of
 #: DB:link_type/description:743
@@ -4971,17 +4970,13 @@ msgstr ""
 
 #. name:a cappella
 #: DB:link_type/reverse_link_phrase:1238
-#, fuzzy
-#| msgid "karaoke version of"
 msgid "a cappella version of"
-msgstr "karaoke versjon av"
+msgstr "a cappella-versjon av"
 
 #. name:a cappella
 #: DB:link_type/link_phrase:1238
-#, fuzzy
-#| msgid "karaoke versions"
 msgid "a cappella versions"
-msgstr "karaoke versjoner"
+msgstr "a cappella-versjoner"
 
 #: DB:link_attribute_type/name:1406
 msgid "acappella"
@@ -5164,10 +5159,8 @@ msgid "artists and repertoire position"
 msgstr ""
 
 #: DB:link_type/name:1081
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "artists and repertoire position at"
-msgstr "hadde en kreativ posisjon ved"
+msgstr "jobbet som A&R (artister og repertoar) hos"
 
 #. name:artist-in-residence
 #: DB:link_type/reverse_link_phrase:1164 DB:link_type/reverse_link_phrase:1296
@@ -5721,10 +5714,8 @@ msgid "creative position"
 msgstr ""
 
 #: DB:link_type/name:115
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "creative position at"
-msgstr "hadde en kreativ posisjon ved"
+msgstr "kreativ stilling hos"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
 #: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
@@ -5757,10 +5748,8 @@ msgstr ""
 
 #. name:dedication
 #: DB:link_type/link_phrase:1290
-#, fuzzy
-#| msgid "field recordings"
 msgid "dedicated recordings"
-msgstr "feltopptak"
+msgstr "dedikerte opptak"
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:983
@@ -5931,7 +5920,7 @@ msgstr "tidlig musikk"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "endre, redigere"
+msgstr "endre"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
@@ -6051,16 +6040,12 @@ msgstr ""
 
 #. name:executive position at
 #: DB:link_type/link_phrase:1266
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "executive position"
-msgstr "hadde en kreativ posisjon ved"
+msgstr "lederstilling"
 
 #: DB:link_type/name:1266
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "executive position at"
-msgstr "hadde en kreativ posisjon ved"
+msgstr "lederstilling hos"
 
 #. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
@@ -6075,10 +6060,8 @@ msgstr ""
 
 #. name:exported
 #: DB:link_type/reverse_link_phrase:1280
-#, fuzzy
-#| msgid "employed by"
 msgid "exported by"
-msgstr "ansatt av"
+msgstr "eksportert av"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
@@ -6292,10 +6275,8 @@ msgstr "hadde en ingeniørposisjon ved"
 
 #. name:executive position at
 #: DB:link_type/long_link_phrase:1266
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "had an executive position at"
-msgstr "hadde en kreativ posisjon ved"
+msgstr "hadde en lederstilling hos"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -6668,10 +6649,8 @@ msgstr ""
 
 #. name:instrumental
 #: DB:link_type/long_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "has instrumental version"
-msgstr "instrumental"
+msgstr "har instrumentalversjon"
 
 #. name:history site
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
@@ -6956,19 +6935,19 @@ msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
-msgstr ""
+msgstr "instrument"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
-msgstr ""
+msgstr "instrumentarrangør"
 
 #: DB:link_type/name:752
 msgid "instrument origin"
-msgstr ""
+msgstr "instrumentopprinnelse"
 
 #: DB:link_type/name:986 DB:link_type/name:987
 msgid "instrument technician"
-msgstr ""
+msgstr "instrumenttekniker"
 
 #: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
@@ -6976,21 +6955,17 @@ msgstr "instrumental"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
-msgstr ""
+msgstr "instrumental støttemusiker"
 
 #. name:instrumental
 #: DB:link_type/reverse_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental version of"
-msgstr "instrumental"
+msgstr "instrumentalversjon av"
 
 #. name:instrumental
 #: DB:link_type/link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental versions"
-msgstr "instrumental"
+msgstr "instrumentalversjoner"
 
 #. name:instrument origin
 #: DB:link_type/link_phrase:752
@@ -6999,52 +6974,52 @@ msgstr ""
 
 #: DB:link_type/name:707
 msgid "interview"
-msgstr ""
+msgstr "intervju"
 
 #. name:interview
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
-msgstr ""
+msgstr "intervju med"
 
 #. name:interview
 #: DB:link_type/link_phrase:707
 msgid "interviews"
-msgstr ""
+msgstr "intervjuer"
 
 #. name:invented
 #: DB:link_type/name:896 DB:link_type/name:918 DB:link_type/link_phrase:896
 #: DB:link_type/reverse_link_phrase:918 DB:link_type/long_link_phrase:896
 msgid "invented"
-msgstr ""
+msgstr "oppfant"
 
 #. name:invented
 #: DB:link_type/link_phrase:918 DB:link_type/reverse_link_phrase:896
 msgid "invented by"
-msgstr ""
+msgstr "oppfunnet av"
 
 #: DB:link_type/name:112
 msgid "involved with"
-msgstr ""
+msgstr "involvert med"
 
 #. name:DJ-mix
 #: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
-msgstr ""
+msgstr "er en DJ-miks av"
 
 #. name:compilation
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
-msgstr ""
+msgstr "er et samlealbum av"
 
 #. name:fusion of
 #: DB:link_type/long_link_phrase:1096
 msgid "is a fusion of"
-msgstr ""
+msgstr "er en fusjon av"
 
 #. name:hybrid of
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
-msgstr ""
+msgstr "er en hybrid av"
 
 #. name:live performance
 #: DB:link_type/long_link_phrase:17
@@ -7054,84 +7029,84 @@ msgstr ""
 #. name:mashes up
 #: DB:link_type/long_link_phrase:10 DB:link_type/long_link_phrase:232
 msgid "is a mash-up of"
-msgstr ""
+msgstr "er en mashup av"
 
 #. name:medley
 #: DB:link_type/long_link_phrase:239
 msgid "is a medley of"
-msgstr ""
+msgstr "er en medley av"
 
 #. name:other databases
 #: DB:link_type/long_link_phrase:730
 msgid "is a page in a database for"
-msgstr ""
+msgstr "er ei side i en database for"
 
 #. name:part of
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:1307
 #: DB:link_type/long_link_phrase:742 DB:link_type/long_link_phrase:740
 #: DB:link_type/long_link_phrase:741 DB:link_type/long_link_phrase:996
 msgid "is a part of"
-msgstr ""
+msgstr "er en del av"
 
 #. name:remaster
 #: DB:link_type/long_link_phrase:6 DB:link_type/long_link_phrase:236
 msgid "is a remaster of"
-msgstr ""
+msgstr "er en remaster av"
 
 #. name:remix
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
-msgstr ""
+msgstr "er en remiks av"
 
 #. name:re‐recording
 #: DB:link_type/long_link_phrase:1229
 msgid "is a re‐recording of"
-msgstr ""
+msgstr "er ei nyinnspilling av"
 
 #. name:single from
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
-msgstr ""
+msgstr "er en singel/EP tatt fra"
 
 #. name:tribute
 #: DB:link_type/long_link_phrase:728
 msgid "is a tribute to"
-msgstr ""
+msgstr "er en hyllest til"
 
 #. name:cover
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
-msgstr ""
+msgstr "er en {translated:oversatt} {parody:parodi}coverversjon av"
 
 #. name:edit
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
-msgstr ""
+msgstr "er en bearbeidelse av"
 
 #. name:excerpt from
 #: DB:link_type/long_link_phrase:1240
 msgid "is an excerpt from"
-msgstr ""
+msgstr "er et utdrag fra"
 
 #. name:associated with
 #: DB:link_type/long_link_phrase:926
 msgid "is associated with"
-msgstr ""
+msgstr "er assosiert med"
 
 #. name:based on
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
-msgstr ""
+msgstr "er basert på"
 
 #. name:educational institution connection
 #: DB:link_type/long_link_phrase:925
 msgid "is connected to the educational institution"
-msgstr ""
+msgstr "er knyttet til utdanningsinstitusjonen"
 
 #. name:included in
 #: DB:link_type/long_link_phrase:894
 msgid "is included in"
-msgstr ""
+msgstr "er inkludert i"
 
 #. name:license
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
@@ -7141,72 +7116,72 @@ msgstr "er lisensiert under"
 #. name:named after artist
 #: DB:link_type/long_link_phrase:973
 msgid "is named after artist"
-msgstr ""
+msgstr "er oppkalt etter artisten"
 
 #. name:named after label
 #: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 msgid "is named after label"
-msgstr ""
+msgstr "er oppkalt etter plateselskapet"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
-msgstr ""
+msgstr "er oppkalt etter stedet"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
 msgid "is named after release group"
-msgstr ""
+msgstr "er oppkalt etter utgivelsesgruppa"
 
 #. name:named after series
 #: DB:link_type/long_link_phrase:1298
 msgid "is named after series"
-msgstr ""
+msgstr "er oppkalt etter serien"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
 #: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
-msgstr ""
+msgstr "er oppkalt etter åndsverket"
 
 #: DB:link_type/name:108
 msgid "is person"
-msgstr ""
+msgstr "er personen"
 
 #. name:related to
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
-msgstr ""
+msgstr "er relatert til"
 
 #. name:based on
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
-msgstr ""
+msgstr "er grunnlaget for"
 
 #. name:first track release
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
-msgstr ""
+msgstr "er den tidligste utgivelsen av"
 
 #. name:other version
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
-msgstr ""
+msgstr "er den tidligste versjonen av {translated:oversatte} {parody:parodi}"
 
 #. name:transl-tracklisting
 #: DB:link_type/long_link_phrase:2
 msgid "is the original for the transliterated/translated track listing"
-msgstr ""
+msgstr "er originalen til den transkriberte/oversatte sporlisten"
 
 #. name:rights society
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
-msgstr ""
+msgstr "er opphavsrettsorganisasjonen assosiert med"
 
 #. name:parent
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
-msgstr ""
+msgstr "er {step:ste}forelder til"
 
 #. name:performance
 #: DB:link_type/long_link_phrase:278
@@ -7214,18 +7189,19 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
+"er en {acappella:a cappella} {live:live} {medley:medley inkludert en|ei} "
+"{partial:delvis} {instrumental:instrumental} {karaoke:karaoke} {demo:demo} "
+"{cover:coverversjon}innspilling av"
 
 #. name:host
 #: DB:link_type/long_link_phrase:1287
-#, fuzzy
-#| msgid "is/was married to"
 msgid "is/was a host for"
-msgstr "er/var gift med"
+msgstr "er/var vert for"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
-msgstr ""
+msgstr "er/var en undergruppe av"
 
 #. name:supporting musician
 #: DB:link_type/long_link_phrase:104
@@ -9619,15 +9595,12 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/long_link_phrase:1084
-#, fuzzy
-#| msgid ""
-#| "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgid ""
 "was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
 "engineer at"
 msgstr ""
-"var {additional:tilleggs}{associate:assisterende} {assistant:assistent}"
-"{co:med}lydtekniker for"
+"var en {additional:tilleggs}{associate:assisterende} {assistant:assistent}"
+"{co:med}{executive:ledende}lydtekniker ved"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -10489,14 +10462,11 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
-#, fuzzy
-#| msgid ""
-#| "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"var {additional:tilleggs}{associate:assisterende} {assistant:assistent}"
-"{co:med}lydtekniker for"
+"{additional:tilleggs}{associate:assisterende} {assistant:assistent}{co:med}"
+"{executive:ledende}lydteknikere"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -11170,10 +11140,8 @@ msgstr ""
 
 #. name:jury member
 #: DB:link_type/link_phrase:1255
-#, fuzzy
-#| msgid "guest performer at"
 msgid "{guest} jury member at"
-msgstr "gjesteutøver ved"
+msgstr "{guest:gjeste}jurymedlem ved"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

@@ -3,20 +3,21 @@
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 # "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
+# Akira Holm <apekattquest_monkeypython@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-04 01:42+0000\n"
-"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<monkeypython+inst@yepmail.net>\n"
+"PO-Revision-Date: 2026-11-12 20:13+0000\n"
+"Last-Translator: Akira Holm "
+"<apekattquest_monkeypython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
-"projects/musicbrainz/instruments/nb_NO/>\n"
+"projects/musicbrainz/instruments/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1230,11 +1231,9 @@ msgid "crotales"
 msgstr ""
 
 #: DB:instrument/name:348
-#, fuzzy
-#| msgid "horn"
 msgctxt "Curved capped double reed"
 msgid "crumhorn"
-msgstr "horn"
+msgstr "krumhorn"
 
 #: DB:instrument/name:74
 msgid "crwth"
@@ -1537,11 +1536,9 @@ msgid "electronic organ"
 msgstr "elektronisk orgel"
 
 #: DB:instrument/name:1213
-#, fuzzy
-#| msgid "electronic drum set"
 msgctxt "Indian electronic drone device"
 msgid "electronic shruti box"
-msgstr "elektronisk trommesett"
+msgstr "elektronisk shruti-boks"
 
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
@@ -1627,9 +1624,6 @@ msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgctxt "Reedless aerophone"
-#| msgid "flute"
 msgctxt "reedless aerophone"
 msgid "flute"
 msgstr "fløyte"
@@ -4368,11 +4362,9 @@ msgid "venu"
 msgstr ""
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric violin"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "elektrisk fiolin"
+msgstr "vertikal bratsj"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4516,11 +4508,9 @@ msgid "washtub bass"
 msgstr ""
 
 #: DB:instrument/name:279
-#, fuzzy
-#| msgid "snare drum"
 msgctxt "water filled membranophone"
 msgid "water drum"
-msgstr "skarp tromme"
+msgstr "vanntromme"
 
 #: DB:instrument/name:280
 msgid "waterphone"
