@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-08-25 00:12+0000\n"
+"PO-Revision-Date: 2026-11-09 23:13+0000\n"
 "Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
 "Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/tok/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -637,7 +637,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:109
 msgid "Dravidian languages"
-msgstr "kulupu toki Tawisin"
+msgstr "kulupu toki pi kulupu Tawisin"
 
 #. frequency:1 iso_code_3:dua
 #: DB:language/name:111
@@ -772,7 +772,7 @@ msgstr "toki Sumi"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:132
 msgid "Finno-Ugrian languages"
-msgstr "kulupu toki Pinojukin"
+msgstr "kulupu toki pi nena Juwa"
 
 #. frequency:1 iso_code_3:fon
 #: DB:language/name:133
@@ -892,7 +892,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:143
 msgid "Germanic languages"
-msgstr "kulupu toki Semani"
+msgstr "kulupu toki pi ma Semani"
 
 #. frequency:1 iso_code_3:gil
 #: DB:language/name:147
@@ -1013,7 +1013,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:170
 msgid "Himachali languages"
-msgstr "kulupu toki Imatali"
+msgstr "kulupu toki pi nena Imaleja"
 
 #. frequency:2 iso_code_3:hin
 #: DB:language/name:171
@@ -1068,7 +1068,7 @@ msgstr "toki Ipo"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:183
 msgid "Ijo languages"
-msgstr "kulupu toki Iso"
+msgstr "kulupu toki pi kulupu Ison"
 
 #. frequency:1 iso_code_3:ilo
 #: DB:language/name:186
@@ -1078,12 +1078,12 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:188
 msgid "Indic languages"
-msgstr ""
+msgstr "kulupu toki pi ma Palata"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:190
 msgid "Indo-European languages"
-msgstr ""
+msgstr "kulupu toki pi ma Palata pi ma Elopa"
 
 #. frequency:1 iso_code_3:ind
 #: DB:language/name:189
@@ -1133,7 +1133,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:193
 msgid "Iranian languages"
-msgstr ""
+msgstr "kulupu toki pi ma Ilan"
 
 #. frequency:1 iso_code_3:gle
 #: DB:language/name:149
@@ -1153,7 +1153,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:194
 msgid "Iroquoian languages"
-msgstr ""
+msgstr "kulupu toki pi ma Iwakoja"
 
 #. frequency:2 iso_code_3:ita
 #: DB:language/name:195
@@ -1248,7 +1248,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:207
 msgid "Karen languages"
-msgstr ""
+msgstr "kulupu toki pi jan Kawen"
 
 #. frequency:1 iso_code_3:kas
 #: DB:language/name:208
@@ -1293,7 +1293,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:214
 msgid "Khoisan languages"
-msgstr ""
+msgstr "kulupu toki pi nimi Kosan"
 
 #. frequency:0 iso_code_3:kho
 #: DB:language/name:216
@@ -1368,7 +1368,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
 msgid "Kru languages"
-msgstr ""
+msgstr "kulupu toki pi jan Ku"
 
 #. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
@@ -1438,7 +1438,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:102
 msgid "Land Dayak languages"
-msgstr ""
+msgstr "kulupu toki pi jan Pitaja"
 
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
@@ -1618,7 +1618,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:279
 msgid "Manobo languages"
-msgstr ""
+msgstr "kulupu toki pi ma Pilipinas"
 
 #. frequency:1 iso_code_3:mns
 #: DB:language/name:4358
@@ -1668,7 +1668,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:289
 msgid "Mayan languages"
-msgstr ""
+msgstr "kulupu toki pi jan Maja"
 
 #. frequency:1 iso_code_3:men
 #: DB:language/name:269
