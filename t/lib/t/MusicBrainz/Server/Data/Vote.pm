@@ -5,6 +5,8 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Fatal;
+use Try::Tiny;
 use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Vote }
@@ -407,6 +409,83 @@ test 'Vote statistics for editor' => sub {
             },
         },
     ]);
+};
+
+test 'MBS-10896: Voting does not lock the vote table' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+    my $editor2 = $c->model('Editor')->get_by_id(2);
+
+    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection('TEST', fresh => 1);
+    my $sql2 = Sql->new($foreign_connection->conn);
+    $sql2->begin;
+    $sql2->do('LOCK vote IN ROW EXCLUSIVE MODE');
+
+    $c->sql->do('SET LOCAL lock_timeout = 10');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit->id, vote => $VOTE_YES }],
+    );
+    is($c->sql->select_single_value(
+        'SELECT vote FROM vote WHERE edit = ? AND editor = 2 AND NOT superseded',
+        $edit->id,
+    ), $VOTE_YES, 'Vote is entered while another transaction holds a lock on the vote table');
+
+    $sql2->rollback;
+};
+
+test 'Voting waits for a lock on the edit' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection('TEST', fresh => 1);
+
+    $foreign_connection->dbh->do(<<~'SQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+        VALUES (50, 'owner', '{CLEARTEXT}pass', '3a115bc4f05ea9856bd4611b75c80bca', 'owner@example.com', now());
+        INSERT INTO edit (id, editor, type, status, expire_time)
+        VALUES (12345, 50, 4242, 1, now() + interval '7 days');
+        INSERT INTO edit_data (edit, data) VALUES (12345, '{}');
+        SQL
+
+    my $sql2 = Sql->new($foreign_connection->conn);
+
+    try {
+        MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
+        my $editor2 = $c->model('Editor')->get_by_id(2);
+
+        $sql2->begin;
+        $sql2->select_single_row_array('SELECT 1 FROM edit WHERE id = 12345 FOR UPDATE');
+
+        $c->sql->do('SAVEPOINT lock_test');
+        $c->sql->do('SET LOCAL lock_timeout = 10');
+        like(exception {
+            $c->model('Vote')->enter_votes(
+                $editor2,
+                [{ edit_id => 12345, vote => $VOTE_YES }],
+            );
+        }, qr/lock timeout/, 'Vote waits for a lock held on the edit');
+        $c->sql->do('ROLLBACK TO SAVEPOINT lock_test');
+    }
+    catch {
+        die $_;
+    }
+    finally {
+        $sql2->rollback if $sql2->is_in_transaction;
+        $foreign_connection->dbh->do(<<~'SQL');
+            DELETE FROM edit_data WHERE edit = 12345;
+            DELETE FROM edit WHERE id = 12345;
+            DELETE FROM editor WHERE id = 50;
+            SQL
+    };
 };
 
 1;
