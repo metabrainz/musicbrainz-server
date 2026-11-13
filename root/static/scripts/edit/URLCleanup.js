@@ -1529,16 +1529,16 @@ export const CLEANUPS: CleanupEntries = {
   },
   'bandsintown': {
     hostname: 'bandsintown.com',
-    match: [/^(https?:\/\/)?((m|www)\.)?bandsintown\.com/i],
+    match: [/^(https?:\/\/)?((artists|m|www)\.)?bandsintown\.com/i],
     restrict: [LINK_TYPES.bandsintown],
     clean(url) {
-      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|f|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      let m = url.match(/^(?:https?:\/\/)?(?:(?:artists|m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|f|v(?=enue|\/))[a-z-]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         const prefix = m[1];
         const number = m[2];
         url = 'https://www.bandsintown.com/' + prefix + '/' + number;
       } else {
-        m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/([^/?#]+)(?:[/?#].*)?$/);
+        m = url.match(/^(?:https?:\/\/)?(?:(?:artists|m|www)\.)?bandsintown\.com\/([^/?#]+)(?:[/?#].*)?$/);
         if (m) {
           const name = m[1];
           url = 'https://www.bandsintown.com/' + name.toLowerCase();
