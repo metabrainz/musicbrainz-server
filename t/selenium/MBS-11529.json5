@@ -28,7 +28,7 @@
     },
     {
       command: 'click',
-      target: 'css=div.recording-name button.guessfeat',
+      target: 'css=button.guessfeat',
       value: '',
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       command: 'type',
-      target: 'id=id-edit-recording.edit_note',
+      target: 'name=edit-recording.edit_note',
       value: 'ok',
     },
     {
@@ -134,7 +134,7 @@
     },
     {
       command: 'click',
-      target: 'css=div.recording-name button.guessfeat',
+      target: 'css=button.guessfeat',
       value: '',
     },
     {
@@ -164,7 +164,7 @@
     },
     {
       command: 'type',
-      target: 'id=id-edit-recording.edit_note',
+      target: 'name=edit-recording.edit_note',
       value: 'ok',
     },
     {

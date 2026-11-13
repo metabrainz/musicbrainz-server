@@ -52,6 +52,7 @@ export type StateT<T extends EntityItemT> = {
 export type PropsT<T extends EntityItemT> = {
   readonly children?: React.Node,
   readonly dispatch: (ActionT<T>) => void,
+  readonly onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   readonly state: StateT<T>,
 };
 
