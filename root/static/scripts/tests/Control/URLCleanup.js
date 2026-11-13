@@ -1202,6 +1202,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.bandsintown.com/artist-subscribe/15608364-jose-pineiro-trio',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandsintown',
+            expected_clean_url: 'https://www.bandsintown.com/a/15608364',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://artists.bandsintown.com/artists/13288661/home',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandsintown',
+            expected_clean_url: 'https://www.bandsintown.com/a/13288661',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
              input_entity_type: 'event',
     expected_relationship_type: 'bandsintown',
