@@ -136,6 +136,7 @@ export const FAVICON_CLASSES: {
   'hmv.co.jp': 'hmvbooks',
   'hoerspielforscher.de': 'hoerspielforscher',
   'hoick.jp': 'hoick',
+  'hoopladigital.com': 'hoopla',
   'ibdb.com': 'ibdb',
   'idref.fr': 'idref',
   'imdb.com': 'imdb',
