@@ -3328,6 +3328,28 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // Hoopla
+  {
+                     input_url: 'http://www.hoopladigital.com/artist/pink-floyd/2148154',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.hoopladigital.com/artist/2148154',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.hoopladigital.com/music/the-dark-side-of-the-moon-pink-floyd/11728286?foo=bar#baz',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.hoopladigital.com/music/11728286',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://hoopladigital.com/publisher/pink-floyd-records/4982631245/titles',
+             input_entity_type: 'label',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.hoopladigital.com/publisher/4982631245',
+       only_valid_entity_types: ['label'],
+  },
   // IBDB (Internet Broadway Database)
   {
                      input_url: 'http://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
