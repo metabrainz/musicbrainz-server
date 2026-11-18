@@ -12,7 +12,7 @@ import test from 'tape';
 import isShortenedUrl from '../../edit/utility/isShortenedUrl.js';
 
 test('isShortenedUrl', function (t) {
-  t.plan(11);
+  t.plan(12);
 
   t.ok(isShortenedUrl('https://su.pr/example'));
   t.ok(isShortenedUrl('https://t.co/example'));
@@ -20,6 +20,7 @@ test('isShortenedUrl', function (t) {
   t.ok(isShortenedUrl('http://example.su.pr'));
   t.ok(isShortenedUrl('http://example.t.co'));
   t.ok(isShortenedUrl('http://example.bit.ly'));
+  t.ok(isShortenedUrl('https://www.facebook.com/share/r/18NPQjEuDX'));
 
   // MBS-12566
   t.ok(!isShortenedUrl('https://surprisechef.bandcamp.com' +
