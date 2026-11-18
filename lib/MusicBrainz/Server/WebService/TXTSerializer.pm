@@ -15,6 +15,14 @@ sub serialize {
     return "$text";
 }
 
+sub output_error {
+    my ($self, $err) = @_;
+
+    my $error_text = $err . ' For usage, please see: https://musicbrainz.org/development/mmd';
+
+    return $error_text;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
