@@ -82,6 +82,8 @@
                predicate_link(field.field_name, field, 'area');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
                predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseStatus';
+               predicate_entity_type(field.field_name, release_statuses, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AreaType';
@@ -515,8 +517,9 @@
                    [ 'release_language', l('Release language') ],
                    [ 'release_quality', l('Release data quality') ],
                    [ 'artist_area', l('Artist area') ],
-                   [ 'label_area', l('Label area') ]
-                   [ 'release_country', l('Release country') ]
+                   [ 'label_area', l('Label area') ],
+                   [ 'release_country', l('Release country') ],
+                   [ 'release_status', l('Release status') ],
                    [ 'link_type', l('Relationship type') ],
                    [ 'editor_flag', l('Editor flag'), {requires_login => 1} ],
                    [ 'applied_edits', l('Applied edit count of editor'), {requires_login => 1} ],
@@ -567,6 +570,7 @@
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]
+    [% predicate_entity_type('release_status', release_statuses) %]
     [% predicate_link_type('link_type') %]
     [% predicate_editor_flag('editor_flag') %]
     [% predicate_int('applied_edits') %]
