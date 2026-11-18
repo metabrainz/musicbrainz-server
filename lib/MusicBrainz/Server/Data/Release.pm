@@ -146,6 +146,11 @@ sub _where_filter
                 push @params, $filter->{label_id};
             }
         }
+        if (exists $filter->{format_id}) {
+            push @query, 'medium.format = ?';
+            push @params, $filter->{format_id};
+            push @joins, 'JOIN medium ON release.id = medium.release';
+        }
         if (exists $filter->{status} && $filter->{status}) {
             my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
             if (@statuses) {

@@ -21,6 +21,12 @@ has 'countries' => (
     required => 1,
 );
 
+has 'formats' => (
+    isa => 'ArrayRef[MediumFormat]',
+    is => 'ro',
+    required => 1,
+);
+
 has 'labels' => (
     isa => 'ArrayRef[Label]',
     is => 'ro',
@@ -45,6 +51,10 @@ has_field 'date' => (
     type => 'Text',
 );
 
+has_field 'format_id' => (
+    type => 'Select',
+);
+
 has_field 'label_id' => (
     type => 'Select',
 );
@@ -54,7 +64,7 @@ has_field 'status_id' => (
 );
 
 sub filter_field_names {
-    return qw/ disambiguation name artist_credit_id country_id date label_id status_id /;
+    return qw/ disambiguation name artist_credit_id country_id date format_id label_id status_id /;
 }
 
 sub options_artist_credit_id {
@@ -71,6 +81,14 @@ sub options_country_id {
         { value => '-1', label => lp('[none]', 'release country') },
         map +{ value => $_->id, label => $_->name },
         @{ $self->countries },
+    ];
+}
+
+sub options_format_id {
+    my ($self, $field) = @_;
+    return [
+        map +{ value => $_->id, label => $_->name },
+        @{ $self->formats },
     ];
 }
 
@@ -96,6 +114,7 @@ around TO_JSON => sub {
     my $json = $self->$orig;
     $json->{options_artist_credit_id} = $self->options_artist_credit_id;
     $json->{options_country_id} = $self->options_country_id;
+    $json->{options_format_id} = $self->options_format_id;
     $json->{options_status_id} = $self->options_status_id;
     return $json;
 };

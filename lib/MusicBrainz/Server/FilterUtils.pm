@@ -50,6 +50,8 @@ sub create_artist_releases_form {
         $c->model('ArtistCredit')->find_by_release_artist($artist_id);
     preserve_selected_artist_credit($c, $form_args{artist_credits});
     $form_args{countries} = [$c->model('CountryArea')->get_all];
+    $form_args{formats} =
+        $c->model('MediumFormat')->find_by_release_artist($artist_id);
     $form_args{labels} =
         [$c->model('Label')->find_by_release_artist($artist_id)];
     $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
@@ -90,6 +92,8 @@ sub create_label_releases_form {
         $c->model('ArtistCredit')->find_by_release_label($label_id);
     preserve_selected_artist_credit($c, $form_args{artist_credits});
     $form_args{countries} = [$c->model('CountryArea')->get_all];
+    $form_args{formats} =
+        $c->model('MediumFormat')->find_by_release_label($label_id);
     $form_args{labels} =
         [$c->model('Label')->find_by_release_label($label_id)];
     $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
