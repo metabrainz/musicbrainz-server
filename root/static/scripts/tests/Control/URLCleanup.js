@@ -316,6 +316,12 @@ const testData = [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://fr-ca.7digital.com/artist/83-1/release/récidivistes-12888712',
   },
+  {
+                     input_url: 'https://us.7digital.com/artist/hans-zimmer-&-james-newton-howard/release/the-dark-knight-original-motion-picture-soundtrack-275417',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://us.7digital.com/artist/hans-zimmer-&-james-newton-howard/release/the-dark-knight-original-motion-picture-soundtrack-275417',
+  },
   // ACUM
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
