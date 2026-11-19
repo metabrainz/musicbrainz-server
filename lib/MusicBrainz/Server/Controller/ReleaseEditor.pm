@@ -580,7 +580,7 @@ sub _seeded_url
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my @known_fields = qw( url link_type );
+    my @known_fields = qw( url link_type video );
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {
@@ -602,6 +602,17 @@ sub _seeded_url
             $result->{linkTypeID} = $id + 0;
         } else {
             push @$errors, "Invalid $field_name.link_type: “$id”.";
+        }
+    }
+
+    if (non_empty(my $video = _seeded_string($params->{video}, "$field_name.video", $errors))) {
+        my $lc_video = lc(trim($video));
+        if ($lc_video eq '1' || $lc_video eq 'true') {
+            $result->{video} = \1;
+        } elsif ($lc_video eq '0' || $lc_video eq 'false') {
+            $result->{video} = \0;
+        } else {
+            push @$errors, "Invalid $field_name.video: “$video”.";
         }
     }
 
