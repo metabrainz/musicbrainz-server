@@ -1292,6 +1292,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.beatport.com/fr/artist/blansh/95504',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/artist/blansh/95504',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
