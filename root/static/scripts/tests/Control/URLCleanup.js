@@ -7328,6 +7328,49 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://vndb.org/p149',
        only_valid_entity_types: ['label'],
   },
+  // Volumo
+  {
+                     input_url: 'https://volumo.com/de/artist/435422-kaiwav',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/artist/435422',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://volumo.com/track/404209-what-i-was-running-from-original-mix',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/track/404209',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://volumo.com/album/8790001378445-what-i-was-running-from',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/album/8790001378445',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://volumo.com/label/345983-twnd',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/label/345983',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://volumo.com/de/label/200165-primal-instinct/related',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/label/200165',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'http://www.volumo.com/de/artist/32665-hadone/related',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://volumo.com/artist/32665',
+       only_valid_entity_types: ['artist'],
+  },
   // Weibo
   {
                      input_url: 'www.weibo.com/mchotdog2010#test',
