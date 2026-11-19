@@ -445,6 +445,17 @@
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: '“http://example.com/” is just an example. Please enter the actual link you want to add.',
     },
+    // ListenBrainz link detection (MBS-14444)
+    {
+      command: 'type',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://listenbrainz.org/artist/ed3f4831-e3e0-4dc0-9381-f5649e9df221',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
+      value: 'Links to ListenBrainz URLs are not allowed, as ListenBrainz pages are already linked automatically.',
+    },
     // Google search link detection (MBS-12060)
     {
       command: 'type',
