@@ -6,7 +6,7 @@ use warnings;
 use Encode qw( decode );
 use Moose;
 use namespace::autoclean;
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Try::Tiny;
 
 use MusicBrainz::Server::Authentication::Utils qw( can_user_login );

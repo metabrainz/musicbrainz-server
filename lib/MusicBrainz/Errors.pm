@@ -11,7 +11,7 @@ use DBDefs;
 use Devel::StackTrace;
 use English;
 use IO::File;
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Try::Tiny;
 
 our @EXPORT_OK = qw(

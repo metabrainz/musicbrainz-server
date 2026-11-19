@@ -637,7 +637,7 @@ sub process_edits {
 
     $c->model('Link')->load(@loaded_relationships);
     $c->model('LinkType')->load(map { $_->link } @loaded_relationships);
-    $c->model('Relationship')->load_entities(@loaded_relationships);
+    $c->model('Relationship')->load_entities(\@loaded_relationships);
 
     my $loader = sub {
         my ($id, $model, $setter) = @_;

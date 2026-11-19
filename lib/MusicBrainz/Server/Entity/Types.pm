@@ -38,9 +38,6 @@ subtype 'Edit'
 subtype 'Entity'
     => as class_type 'MusicBrainz::Server::Entity';
 
-subtype 'Relatable'
-    => as role_type 'MusicBrainz::Server::Entity::Role::Relatable';
-
 1;
 
 =head1 COPYRIGHT AND LICENSE

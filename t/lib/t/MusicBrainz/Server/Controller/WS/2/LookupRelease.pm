@@ -1442,14 +1442,14 @@ ws_test 'release lookup, track artists have no aliases',
                 </name-credit>
               </artist-credit>
               <relation-list target-type="artist">
-                <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
+                <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
                   <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                   <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                   </artist>
                 </relation>
-                <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
+                <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                   <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">

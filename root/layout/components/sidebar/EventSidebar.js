@@ -139,7 +139,7 @@ component EventSidebar(event: EventT) {
 
             <MergeLink entity={event} />
 
-            <li className="separator" role="separator" />
+            <li aria-hidden="true" className="separator" />
           </>
         ) : null}
       </EditLinks>
