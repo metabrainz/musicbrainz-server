@@ -74,6 +74,7 @@ declare type ReleaseEditorSeededUrlRelationshipT = {
     readonly entityType: 'url',
     readonly name: string,
   },
+  readonly video?: boolean,
 };
 
 declare type ReleaseEditorSeededReleaseT = {
