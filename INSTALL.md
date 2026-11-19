@@ -453,8 +453,9 @@ If you intend to run a server with translations, there are a few steps to follow
 
     The `.po` files for all language(s) open to translation are
     in the `po/` folder with filenames ending with ISO language code,
-    optionally followed by an underscore and an ISO country code
-    (such as `fr` for French, `fr_CA` for Canadian French).
+    optionally followed by an underscore and an ISO country or script code
+    (such as `fr` for French, `fr_CA` for Canadian French, `zh_Hant` for
+    Traditional Chinese).
 
 4.  Install translations
 
@@ -464,13 +465,20 @@ If you intend to run a server with translations, there are a few steps to follow
     `lib/LocaleData/{language}/LC_MESSAGES/{domain}.mo`.
 
 5.  Add the languages to `MB_LANGUAGES` in DBDefs.pm. These should be formatted
-    {lang}-{country}, such as 'es', or 'fr-ca', in a space-separated list.
+    {lang}-{country} or {lang}-{script}, such as 'es', 'fr-ca' or 'zh-hant',
+    in a space-separated list. A code with both a script and a country, such
+    as 'zh-hant-tw', is not supported.
     The corresponding language packs must be installed.
 
 6.  Ensure you have a system locale for any languages you want to use. For many
     languages, this will suffice:
 
         sudo apt-get install language-pack-{language code}
+
+    The system has no locale for a language with a script. The supported ones
+    are 'zh-hans' and 'zh-hant', which need the 'zh_CN' and 'zh_TW' locales
+    (language-pack-zh-hans and language-pack-zh-hant). 'zh-hans' uses the
+    'zh' translations, which are in Simplified Chinese.
 
 
 Server maintenance
