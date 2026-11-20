@@ -293,7 +293,7 @@ component AutocompleteItem<T extends EntityItemT>(
 }
 
 component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
-  const {dispatch, state} = props;
+  const {dispatch, onFocus: passedOnFocus, state} = props;
 
   const {
     canChangeType,
@@ -488,7 +488,10 @@ component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
     }
   }
 
-  function handleInputFocus() {
+  function handleInputFocus(event: SyntheticEvent<HTMLInputElement>) {
+    if (passedOnFocus) {
+      passedOnFocus(event);
+    }
     dispatch({isFocused: true, type: 'set-input-focus'});
   }
 
