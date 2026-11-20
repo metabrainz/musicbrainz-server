@@ -42,6 +42,7 @@ sub load_noindex_status {
             SELECT $table
               FROM ${table}_noindex
              WHERE $table = any(?)
+               AND active
             SQL
         push @params, \@ids;
     }
@@ -58,6 +59,7 @@ sub load_noindex_status {
               JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
               JOIN artist_noindex an ON an.artist = acn.artist
              WHERE r.id = any(?)
+               AND an.active
             SQL
         push @params, \@ids;
     }
@@ -82,9 +84,9 @@ sub find_noindexed_entities {
 
     my $table = $self->_main_table;
     my $rows = $self->sql->select_list_of_hashes(<<~"SQL");
-          SELECT $table, editor, request_id, added
+          SELECT $table, editor, request_id, active, added
             FROM ${table}_noindex
-        ORDER BY added, $table
+        ORDER BY active DESC, added, $table
         SQL
 
     my $entities = $self->get_by_ids(map { $_->{$table} } @$rows);
@@ -96,28 +98,32 @@ sub find_noindexed_entities {
         entity => $entities->{ $_->{$table} },
         editor => $editors->{ $_->{editor} },
         request_id => $_->{request_id},
+        active => $_->{active},
         added => DateTime::Format::Pg->parse_datetime($_->{added}),
     }, @$rows;
 }
 
 sub add_noindex_status {
-    my ($self, $editor_id, $request_ids_by_id) = @_;
+    my ($self, $editor_id, $statuses_by_id) = @_;
 
-    my @ids = keys %$request_ids_by_id;
+    my @ids = keys %$statuses_by_id;
     return unless $self->_has_noindex_table && @ids;
 
     my $table = $self->_main_table;
     $self->sql->do(
         <<~"SQL",
-            INSERT INTO ${table}_noindex ($table, editor, request_id)
-                 SELECT id, ?, request_id
-                   FROM unnest(?::INTEGER[], ?::TEXT[]) AS entity (id, request_id)
+            INSERT INTO ${table}_noindex ($table, editor, request_id, active)
+                 SELECT id, ?, request_id, active
+                   FROM unnest(?::INTEGER[], ?::TEXT[], ?::BOOLEAN[])
+                     AS entity (id, request_id, active)
             ON CONFLICT ($table) DO UPDATE
-                    SET request_id = excluded.request_id
+                    SET request_id = excluded.request_id,
+                        active = excluded.active
             SQL
         $editor_id,
         \@ids,
-        [map { $request_ids_by_id->{$_} } @ids],
+        [map { $statuses_by_id->{$_}{request_id} } @ids],
+        [map { $statuses_by_id->{$_}{active} ? 1 : 0 } @ids],
     );
     return;
 }

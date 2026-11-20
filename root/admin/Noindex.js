@@ -25,6 +25,7 @@ type NoindexFormT = FormT<{
   readonly csrf_session_key: FieldT<string>,
   readonly csrf_token: FieldT<string>,
   readonly entity: RepeatableFieldT<CompoundFieldT<{
+    readonly active: FieldT<boolean>,
     readonly gid: FieldT<string | null>,
     readonly removed: FieldT<boolean>,
     readonly request_id: FieldT<string>,
@@ -35,6 +36,7 @@ type NoindexableEntityT =
   | ArtistT;
 
 type NoindexEntryT = {
+  readonly active: boolean,
   readonly added: string,
   readonly editor: EditorT,
   readonly entity: NoindexableEntityT,
@@ -70,6 +72,7 @@ component Noindex(
                 <th>{l_admin('Request ID')}</th>
                 <th>{l_admin('Added by')}</th>
                 <th>{l_admin('Date added')}</th>
+                <th className="checkbox-cell">{l_admin('Active')}</th>
                 <th className="checkbox-cell">{l_admin('Remove')}</th>
               </tr>
             </thead>
@@ -77,6 +80,7 @@ component Noindex(
               {form.field.entity.field.map((entityField) => {
                 const gidField = entityField.field.gid;
                 const requestIdField = entityField.field.request_id;
+                const activeField = entityField.field.active;
                 const removedField = entityField.field.removed;
                 const gid = gidField.value;
                 const entry = nonEmpty(gid) ? noindexEntries[gid] : null;
@@ -123,7 +127,16 @@ component Noindex(
                       {entry == null ? null : formatUserDate($c, entry.added)}
                     </td>
                     <td className="checkbox-cell">
-                      {entry == null ? null : (
+                      <input
+                        defaultChecked={activeField.value}
+                        id={'id-' + activeField.html_name}
+                        name={activeField.html_name}
+                        type="checkbox"
+                        value="1"
+                      />
+                    </td>
+                    <td className="checkbox-cell">
+                      {(entry == null || entry.active) ? null : (
                         <input
                           defaultChecked={removedField.value}
                           id={'id-' + removedField.html_name}
@@ -132,6 +145,7 @@ component Noindex(
                           value="1"
                         />
                       )}
+                      <FieldErrors field={removedField} />
                     </td>
                   </tr>
                 );

@@ -620,6 +620,15 @@ test 'Robots meta tag is outputted for a noindexed artist' => sub {
         '<meta content="noindex" name="robots"',
         'The artist page HTML contains the noindex meta tag',
     );
+
+    note('We deactivate the noindex entry for Test Artist');
+    $c->sql->do('UPDATE artist_noindex SET active = FALSE WHERE artist = 3');
+
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The artist page HTML does not contain the noindex meta tag',
+    );
 };
 
 1;

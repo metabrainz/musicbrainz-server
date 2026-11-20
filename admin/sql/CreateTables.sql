@@ -362,6 +362,7 @@ CREATE TABLE artist_noindex (
     artist              INTEGER NOT NULL, -- PK, references artist.id CASCADE
     editor              INTEGER NOT NULL, -- FK, references editor.id
     request_id          TEXT NOT NULL DEFAULT '',
+    active              BOOLEAN NOT NULL DEFAULT TRUE,
     added               TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 

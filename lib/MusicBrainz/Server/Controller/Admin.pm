@@ -16,7 +16,11 @@ use MusicBrainz::Server::Constants qw(
     $VOTE_ADMIN_REJECT
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    datetime_to_iso8601
+    type_to_model
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors SecureForm
@@ -229,11 +233,16 @@ sub noindex : Path('/admin/noindex') Args(1)
     my $form = $c->form(
         form => 'Admin::Noindex',
         entity_type => $entity_type,
+        existing_active_gids => {
+            map { $_->{entity}->gid => 1 }
+            grep { $_->{active} } @noindexed_entities,
+        },
         init_object => {
             entity => [
                 map +{
                     gid => $_->{entity}->gid,
                     request_id => $_->{request_id},
+                    active => $_->{active} ? 1 : 0,
                     removed => 0,
                 }, @noindexed_entities,
             ],
@@ -252,16 +261,22 @@ sub noindex : Path('/admin/noindex') Args(1)
                 $removed{$entity_id} = 1;
                 delete $added{$entity_id};
             } elsif (!exists $removed{$entity_id}) {
-                $added{$entity_id} =
-                    $entity_field->field('request_id')->value // '';
+                $added{$entity_id} = {
+                    request_id =>
+                        $entity_field->field('request_id')->value // '',
+                    active =>
+                        $entity_field->field('active')->value ? 1 : 0,
+                };
             }
         }
 
         my %existing = map {
-            $_->{entity}->id => $_->{request_id}
+            $_->{entity}->id => $_
         } @noindexed_entities;
         my %updated = map { $_ => $added{$_} } grep {
-            !exists $existing{$_} || $existing{$_} ne $added{$_}
+            !exists $existing{$_} ||
+            $existing{$_}{request_id} ne $added{$_}{request_id} ||
+            ($existing{$_}{active} ? 1 : 0) != $added{$_}{active}
         } keys %added;
         my @removed_ids = grep { exists $existing{$_} } keys %removed;
 
@@ -288,6 +303,7 @@ sub noindex : Path('/admin/noindex') Args(1)
             noindexEntries => {
                 map {
                     $_->{entity}->gid => {
+                        active => boolean_to_json($_->{active}),
                         added => datetime_to_iso8601($_->{added}),
                         editor => to_json_object($_->{editor}),
                         entity => to_json_object($_->{entity}),

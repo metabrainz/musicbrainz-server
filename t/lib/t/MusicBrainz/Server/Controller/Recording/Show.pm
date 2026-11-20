@@ -272,6 +272,15 @@ test 'Robots meta tag is outputted for a recording linked to a noindexed artist'
         '<meta content="noindex" name="robots"',
         'The recording page HTML contains the noindex meta tag',
     );
+
+    note('We deactivate the noindex entry for Kate Bush');
+    $c->sql->do('UPDATE artist_noindex SET active = FALSE WHERE artist = 7');
+
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The recording page HTML does not contain the noindex meta tag',
+    );
 };
 
 1;

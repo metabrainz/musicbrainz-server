@@ -17,6 +17,12 @@ has 'entity_type' => (
     required => 1,
 );
 
+has 'existing_active_gids' => (
+    isa => 'HashRef',
+    is => 'ro',
+    default => sub { {} },
+);
+
 has 'entities_by_gid' => (
     isa => 'HashRef',
     is => 'ro',
@@ -30,6 +36,7 @@ has_field 'entity' => (
 );
 has_field 'entity.gid'        => ( type => '+MusicBrainz::Server::Form::Field::GID' );
 has_field 'entity.request_id' => ( type => 'Text', not_nullable => 1 );
+has_field 'entity.active'     => ( type => 'Boolean', default => 1 );
 has_field 'entity.removed'    => ( type => 'Boolean' );
 
 sub _build_entities_by_gid {
@@ -55,7 +62,12 @@ after validate => sub {
         $gid_field->add_error("Could not resolve MBID ${gid}.")
             unless exists $entities->{$gid};
 
-        next if $entity_field->field('removed')->value;
+        my $removed_field = $entity_field->field('removed');
+        if ($removed_field->value) {
+            $removed_field->add_error('Only inactive entries can be removed.')
+                if $self->existing_active_gids->{$gid};
+            next;
+        }
 
         my $request_id_field = $entity_field->field('request_id');
         $request_id_field->add_error('A request ID is required.')

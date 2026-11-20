@@ -5,6 +5,7 @@ CREATE TABLE artist_noindex (
     artist INTEGER NOT NULL,
     editor INTEGER NOT NULL,
     request_id TEXT NOT NULL DEFAULT '',
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     added TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
