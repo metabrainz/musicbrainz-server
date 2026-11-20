@@ -479,6 +479,7 @@ DROP INDEX release_group_primary_type_idx_gid;
 DROP INDEX release_group_rating_raw_idx_editor;
 DROP INDEX release_group_secondary_type_idx_gid;
 DROP INDEX release_group_tag_idx_tag;
+DROP INDEX release_group_tag_idx_tag_count;
 DROP INDEX release_group_tag_raw_idx_editor;
 DROP INDEX release_group_tag_raw_idx_tag;
 DROP INDEX release_idx_artist_credit;

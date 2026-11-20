@@ -627,6 +627,9 @@ CREATE INDEX release_group_attribute_type_allowed_value_idx_name ON release_grou
 CREATE UNIQUE INDEX release_group_attribute_type_allowed_value_idx_gid ON release_group_attribute_type_allowed_value (gid);
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
+CREATE INDEX release_group_tag_idx_tag_count
+    ON release_group_tag (tag, count, release_group)
+    WHERE count > 0;
 
 CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (editor);
 
