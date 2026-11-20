@@ -91,6 +91,7 @@ my %URL_SPECIALIZATIONS = (
     'HMVBooks'            => qr{^https?://(?:www\.)?hmv\.co\.jp/}i,
     'Hoerspielforscher'   => qr{^https?://hoerspielforscher\.de/}i,
     'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,
+    'Hoopla'              => qr{^https?://(?:www\.)?hoopladigital\.com/}i,
     'IBDb'                => qr{^https?://(?:www\.)?ibdb\.com/}i,
     'IdRef'               => qr{^https?://(?:www\.)?idref\.fr/}i,
     'IMDb'                => qr{^https?://(?:www\.)?imdb\.com/}i,
