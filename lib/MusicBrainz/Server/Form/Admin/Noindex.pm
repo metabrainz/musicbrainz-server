@@ -4,7 +4,7 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( is_blank type_to_model );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::CSRFToken';
@@ -54,6 +54,12 @@ after validate => sub {
 
         $gid_field->add_error("Could not resolve MBID ${gid}.")
             unless exists $entities->{$gid};
+
+        next if $entity_field->field('removed')->value;
+
+        my $request_id_field = $entity_field->field('request_id');
+        $request_id_field->add_error('A request ID is required.')
+            if is_blank($request_id_field->value);
     }
 };
 
