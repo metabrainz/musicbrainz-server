@@ -250,4 +250,31 @@ test 'Robots meta tag is outputted for a release linked to a noindexed artist' =
     );
 };
 
+test 'Noindexed recording artist does not noindex a release credited to a different artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    note('We set noindex on the recording artist');
+    $c->sql->do('INSERT INTO artist_noindex (artist, editor) VALUES (1, 1)');
+
+    $mech->get_ok('/release/3b89a7f7-ac01-4b57-ab0a-381b10523b34');
+    $mech->content_contains(
+        '/recording/50a772b0-f0cc-11df-98cf-0800200c9a66',
+        'The release lists the recording by the noindexed artist',
+    );
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The release page HTML does not contain the noindex meta tag',
+    );
+
+    $mech->get_ok('/recording/50a772b0-f0cc-11df-98cf-0800200c9a66');
+    $mech->content_contains(
+        '<meta content="noindex" name="robots"',
+        'The recording page HTML contains the noindex meta tag',
+    );
+};
+
 1;
