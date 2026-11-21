@@ -19,6 +19,7 @@ component Filter(
   initialFilterForm: ?FilterFormT,
   showAllReleaseGroups?: boolean,
   showVAReleaseGroups?: boolean,
+  showTributeReleaseGroups?: boolean,
 ) {
   const [filterForm, setFilterForm] = React.useState<?FilterFormT>(
     initialFilterForm,
@@ -70,6 +71,7 @@ component Filter(
         <FilterForm
           form={filterForm}
           showAllReleaseGroups={showAllReleaseGroups}
+          showTributeReleaseGroups={showTributeReleaseGroups}
           showVAReleaseGroups={showVAReleaseGroups}
         />
       ) : null}
