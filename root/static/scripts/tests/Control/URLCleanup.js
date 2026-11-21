@@ -5584,6 +5584,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.reverbnation.com/littlesparrow',
   },
   {
+                     input_url: 'https://legacy.reverbnation.com/grasshopperpie ',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.reverbnation.com/grasshopperpie',
+  },
+  {
                      input_url: 'http://m.reverbnation.com/venue/602562',
              input_entity_type: 'place',
     expected_relationship_type: 'socialnetwork',
