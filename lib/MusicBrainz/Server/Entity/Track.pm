@@ -58,6 +58,11 @@ has 'is_data_track' => (
     isa => 'Bool',
 );
 
+has 'video' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
