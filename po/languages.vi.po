@@ -1,138 +1,140 @@
 #
 # Translators:
 # Anh Phan <email address hidden>, 2013
+# afterthemagic <nguyentuankhoi000@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Anh Phan <vietnamesel10n@gmail.com>, 2013\n"
-"Language-Team: Vietnamese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/vi/)\n"
+"PO-Revision-Date: 2026-11-07 20:13+0000\n"
+"Last-Translator: afterthemagic <nguyentuankhoi000@gmail.com>\n"
+"Language-Team: Vietnamese <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/vi/>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr "Abkhazian"
+msgstr "Tiếng Abkhaz"
 
 #. frequency:1 iso_code_3:ace
 #: DB:language/name:3
 msgid "Achinese"
-msgstr "Achinese"
+msgstr "Tiếng Aceh"
 
 #. frequency:1 iso_code_3:ach
 #: DB:language/name:4
 msgid "Acoli"
-msgstr "Acoli"
+msgstr "Tiếng Acholi"
 
 #. frequency:1 iso_code_3:ada
 #: DB:language/name:5
 msgid "Adangme"
-msgstr "Adangme"
+msgstr "Tiếng Dangme"
 
 #. frequency:1 iso_code_3:ady
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr "Adyghe"
+msgstr "Tiếng Adygea"
 
 #. frequency:1 iso_code_3:aar
 #: DB:language/name:1
 msgid "Afar"
-msgstr "Afar"
+msgstr "Tiếng Afar"
 
 #. frequency:1 iso_code_3:afh
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr "Afrihili"
+msgstr "Tiếng Afrihili"
 
 #. frequency:1 iso_code_3:afr
 #: DB:language/name:9
 msgid "Afrikaans"
-msgstr "Afrikaans"
+msgstr "Tiếng Afrikaans"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr "Afro-Asiatic languages"
+msgstr "Ngữ hệ Phi-Á"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr "Ainu"
+msgstr "Tiếng Ainu"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
 msgid "Akan"
-msgstr "Akan"
+msgstr "Tiếng Akan"
 
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr "Akkadian"
+msgstr "Tiếng Akkad"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
 msgid "Albanian"
-msgstr "Albanian"
+msgstr "Tiếng Albania"
 
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr "Aleut"
+msgstr "Tiếng Aleut"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr "Algonquian languages"
+msgstr "Ngữ hệ Algonquin"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Tiếng Algonquin"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr "Altaic languages"
+msgstr "Ngữ hệ Altai"
 
 #. frequency:1 iso_code_3:amh
 #: DB:language/name:15
 msgid "Amharic"
-msgstr "Amharic"
+msgstr "Tiếng Amhara"
 
 #. frequency:1 iso_code_3:anp
 #: DB:language/name:475
 msgid "Angika"
-msgstr "Angika"
+msgstr "Tiếng Angika"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr "Apache languages"
+msgstr "Nhóm ngôn ngữ Apache"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "Arabic"
+msgstr "Tiếng Ả Rập"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr "Aragonese"
+msgstr "Tiếng Aragon"
 
 #. frequency:1 iso_code_3:arp
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr "Arapaho"
+msgstr "Tiếng Arapaho"
 
 #. frequency:1 iso_code_3:arw
 #: DB:language/name:25
 msgid "Arawak"
-msgstr "Arawak"
+msgstr "Tiếng Arawak"
 
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
@@ -142,47 +144,47 @@ msgstr ""
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "Armenian"
+msgstr "Tiếng Armenia"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr "Aromanian"
+msgstr "Tiếng Aromania"
 
 #. frequency:1 iso_code_3:asm
 #: DB:language/name:26
 msgid "Assamese"
-msgstr "Assamese"
+msgstr "Tiếng Assam"
 
 #. frequency:1 iso_code_3:ast
 #: DB:language/name:27
 msgid "Asturian"
-msgstr "Asturian"
+msgstr "Tiếng Asturias"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr "Athapascan languages"
+msgstr "Nhóm ngôn ngữ Athabaska"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Tiếng Atikamekw"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
 msgid "Australian languages"
-msgstr "Australian languages"
+msgstr "Ngữ hệ thổ dân Úc"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr "Austronesian languages"
+msgstr "Ngữ hệ Nam Đảo"
 
 #. frequency:1 iso_code_3:ava
 #: DB:language/name:30
 msgid "Avaric"
-msgstr "Avaric"
+msgstr "Tiếng Avar"
 
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
