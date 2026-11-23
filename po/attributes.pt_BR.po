@@ -2,11 +2,12 @@
 # DenilsonSama <denilsongomesdesouza1@gmail.com>, 2026.
 # joao_over9k <joaorspaiva@hotmail.com>, 2026.
 # Kolesteraw <leonaribas00@gmail.com>, 2026.
+# "fernando.rey1987" <fernando.rey.caires@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-10-01 00:13+0000\n"
-"Last-Translator: Kolesteraw <leonaribas00@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 15:13+0000\n"
+"Last-Translator: \"fernando.rey1987\" <fernando.rey.caires@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -362,34 +363,29 @@ msgstr ""
 "(embora não sempre) creditado de forma proeminente."
 
 #: DB:work_attribute_type_allowed_value/value:794
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr "Dórico"
+msgstr "Dórico em Lá"
 
 #: DB:work_attribute_type_allowed_value/value:1070
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Locrian"
-msgstr "Lócrio"
+msgstr "Lá Lócrio"
 
 #: DB:work_attribute_type_allowed_value/value:1063
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Lydian"
-msgstr "Lídio"
+msgstr "Lá Lídio"
 
 #: DB:work_attribute_type_allowed_value/value:806
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr "Mixolídio"
+msgstr "Lá Mixolídio"
 
 #: DB:work_attribute_type_allowed_value/value:1056
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr "Frígio"
+msgstr "Lá Frígio"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -442,6 +438,10 @@ msgid ""
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
 msgstr ""
+"Um cartão (ou outro suporte físico semelhante) que não contém a música em "
+"si, mas fornece um código para baixá-la digitalmente. Frequentemente "
+"incluído em lançamentos físicos, mas às vezes vendido como um item avulso "
+"(especialmente na Ásia)."
 
 #. name:Manufacturer
 #: DB:label_type/description:10
@@ -450,6 +450,8 @@ msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
 msgstr ""
+"Uma empresa que fabrica lançamentos físicos (como a prensagem de CDs ou "
+"discos de vinil)."
 
 #. name:Concerto
 #: DB:work_type/description:4
@@ -457,6 +459,8 @@ msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
 msgstr ""
+"Um concerto é uma obra musical para solista(s) acompanhado(s) por uma "
+"orquestra."
 
 #. name:Convention/Expo
 #: DB:event_type/description:4
@@ -466,6 +470,9 @@ msgid ""
 "orientated around music performances, but can include them as side "
 "activities."
 msgstr ""
+"Uma convenção, exposição ou feira comercial é um evento que, tipicamente, "
+"não tem como foco apresentações musicais, mas pode incluí-las como "
+"atividades paralelas."
 
 #. name:Flyer
 #: DB:event_art_archive.art_type/description:6
@@ -477,6 +484,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Um documento geralmente menor que um cartaz, destinado a ser impresso e "
+"distribuído ao público para divulgar um evento com antecedência ou fornecer "
+"informações adicionais aos participantes. Se o folheto de um evento for "
+"apenas uma versão reduzida do cartaz, ambos os itens podem ser incluídos na "
+"mesma imagem."
 
 #. name:Ticket
 #: DB:event_art_archive.art_type/description:2
@@ -485,6 +497,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Um documento geralmente utilizado para a admissão ao evento, seja físico ou "
+"digital. Utilize-o também para canhoto de ingresso e credenciais de acesso."
 
 #. name:Slipcase
 #: DB:release_packaging/description:122
@@ -493,6 +507,8 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
+"Uma caixa de quatro ou cinco lados, geralmente feita de papelão ou plástico, "
+"que envolve uma segunda embalagem interna, como um estojo de jóias."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -502,6 +518,9 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
+"Um lançamento gratuito ou destinado a promover um lançamento oficial futuro "
+"(por exemplo, versões de pré-lançamento, lançamentos incluídos em revistas "
+"ou versões fornecidas a DJs de rádio para transmissão)."
 
 #. name:Group
 #: DB:artist_type/description:2
@@ -510,6 +529,9 @@ msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
+"Um grupo de vários músicos que se apresentam juntos (em alguns casos, alguns "
+"ou todos os integrantes podem variar entre diferentes apresentações ou "
+"gravações)."
 
 #. name:Family
 #: DB:instrument_type/description:7
@@ -518,6 +540,8 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr ""
+"Um agrupamento de instrumentos relacionados, porém distintos, como os "
+"diferentes instrumentos semelhantes ao violino"
 
 #. name:Bootleg Production
 #: DB:label_type/description:5
