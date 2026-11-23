@@ -277,7 +277,7 @@
       "20260602-new-sitemaps-indexes.sql",
       "20260623-mbs-12379.sql",
       "20260723-mbs-14386.sql",
-      "20261120-release-group-tag-vote-count-index.sql"
+      "20261120-tag-vote-count-indexes.sql"
     ]
   }
 }

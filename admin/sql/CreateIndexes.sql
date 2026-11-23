@@ -30,6 +30,9 @@ CREATE UNIQUE INDEX area_attribute_type_allowed_value_idx_gid ON area_attribute_
 CREATE INDEX area_containment_idx_parent ON area_containment (parent);
 
 CREATE INDEX area_tag_idx_tag ON area_tag (tag);
+CREATE INDEX area_tag_idx_tag_count
+    ON area_tag (tag, count, area)
+    WHERE count > 0;
 
 CREATE INDEX area_tag_raw_idx_area ON area_tag_raw (area);
 CREATE INDEX area_tag_raw_idx_tag ON area_tag_raw (tag);
@@ -63,6 +66,9 @@ CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
 CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
+CREATE INDEX artist_tag_idx_tag_count
+    ON artist_tag (tag, count, artist)
+    WHERE count > 0;
 
 CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
 
@@ -193,6 +199,9 @@ CREATE UNIQUE INDEX event_attribute_type_allowed_value_idx_gid ON event_attribut
 CREATE INDEX event_rating_raw_idx_editor ON event_rating_raw (editor);
 
 CREATE INDEX event_tag_idx_tag ON event_tag (tag);
+CREATE INDEX event_tag_idx_tag_count
+    ON event_tag (tag, count, event)
+    WHERE count > 0;
 
 CREATE INDEX event_tag_raw_idx_tag ON event_tag_raw (tag);
 CREATE INDEX event_tag_raw_idx_editor ON event_tag_raw (editor);
@@ -211,6 +220,9 @@ CREATE INDEX instrument_attribute_type_allowed_value_idx_name ON instrument_attr
 CREATE UNIQUE INDEX instrument_attribute_type_allowed_value_idx_gid ON instrument_attribute_type_allowed_value (gid);
 
 CREATE INDEX instrument_tag_idx_tag ON instrument_tag (tag);
+CREATE INDEX instrument_tag_idx_tag_count
+    ON instrument_tag (tag, count, instrument)
+    WHERE count > 0;
 
 CREATE INDEX instrument_tag_raw_idx_instrument ON instrument_tag_raw (instrument);
 CREATE INDEX instrument_tag_raw_idx_tag ON instrument_tag_raw (tag);
@@ -487,6 +499,9 @@ CREATE INDEX label_attribute_type_allowed_value_idx_name ON label_attribute_type
 CREATE UNIQUE INDEX label_attribute_type_allowed_value_idx_gid ON label_attribute_type_allowed_value (gid);
 
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
+CREATE INDEX label_tag_idx_tag_count
+    ON label_tag (tag, count, label)
+    WHERE count > 0;
 
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_editor ON label_tag_raw (editor);
@@ -551,6 +566,9 @@ CREATE UNIQUE INDEX place_alias_type_idx_gid ON place_alias_type (gid);
 CREATE INDEX place_rating_raw_idx_editor ON place_rating_raw (editor);
 
 CREATE INDEX place_tag_idx_tag ON place_tag (tag);
+CREATE INDEX place_tag_idx_tag_count
+    ON place_tag (tag, count, place)
+    WHERE count > 0;
 
 CREATE INDEX place_tag_raw_idx_tag ON place_tag_raw (tag);
 CREATE INDEX place_tag_raw_idx_editor ON place_tag_raw (editor);
@@ -574,6 +592,9 @@ CREATE INDEX recording_attribute_type_allowed_value_idx_name ON recording_attrib
 CREATE UNIQUE INDEX recording_attribute_type_allowed_value_idx_gid ON recording_attribute_type_allowed_value (gid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
+CREATE INDEX recording_tag_idx_tag_count
+    ON recording_tag (tag, count, recording)
+    WHERE count > 0;
 
 CREATE INDEX recording_rating_raw_idx_editor ON recording_rating_raw (editor);
 
@@ -597,6 +618,9 @@ CREATE INDEX release_attribute_type_allowed_value_idx_name ON release_attribute_
 CREATE UNIQUE INDEX release_attribute_type_allowed_value_idx_gid ON release_attribute_type_allowed_value (gid);
 
 CREATE INDEX release_tag_idx_tag ON release_tag (tag);
+CREATE INDEX release_tag_idx_tag_count
+    ON release_tag (tag, count, release)
+    WHERE count > 0;
 
 CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
 CREATE INDEX release_tag_raw_idx_editor ON release_tag_raw (editor);
@@ -662,6 +686,9 @@ CREATE INDEX series_attribute_type_allowed_value_idx_name ON series_attribute_ty
 CREATE UNIQUE INDEX series_attribute_type_allowed_value_idx_gid ON series_attribute_type_allowed_value (gid);
 
 CREATE INDEX series_tag_idx_tag ON series_tag (tag);
+CREATE INDEX series_tag_idx_tag_count
+    ON series_tag (tag, count, series)
+    WHERE count > 0;
 
 CREATE INDEX series_tag_raw_idx_series ON series_tag_raw (series);
 CREATE INDEX series_tag_raw_idx_tag ON series_tag_raw (tag);
@@ -704,6 +731,9 @@ CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_a
 CREATE UNIQUE INDEX work_attribute_type_allowed_value_idx_gid ON work_attribute_type_allowed_value (gid);
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
+CREATE INDEX work_tag_idx_tag_count
+    ON work_tag (tag, count, work)
+    WHERE count > 0;
 
 CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
 
