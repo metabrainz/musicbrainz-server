@@ -94,7 +94,7 @@ test all => sub {
         '--without-full-export',
         '--with-replication',
     );
-    $test->load_replication_changes;
+    is($test->load_replication_changes, 0, 'replication succeeds');
 
     $new_artist = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM artist WHERE id = ?',
@@ -174,7 +174,7 @@ test all => sub {
         '--without-full-export',
         '--with-replication',
     );
-    $test->load_replication_changes;
+    is($test->load_replication_changes, 0, 'replication succeeds');
 
     $to_be_deleted_artist = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM artist WHERE id = ?',
@@ -186,6 +186,21 @@ test all => sub {
         'SELECT * FROM json_column_test WHERE id = 1',
     );
     ok(!defined $json_test_row);
+
+    # MBS-14551: a failure to apply a packet must be visible in the exit status
+    $mirror_c->sql->auto_commit;
+    $mirror_c->sql->do('INSERT INTO json_column_test (id) VALUES (2)');
+    $master_c->sql->auto_commit;
+    $master_c->sql->do('INSERT INTO json_column_test (id) VALUES (2)');
+
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
+    isnt(
+        $test->load_replication_changes, 0,
+        'replication fails if a row already exists on the mirror',
+    );
 };
 
 run_me;

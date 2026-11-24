@@ -75,7 +75,7 @@ for my $arg (@ARGV)
     my $dir = make_tmp_dir();
     print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
     system "tar -C $dir --$mode -xvf $arg";
-    exit $CHILD_ERROR if $CHILD_ERROR;
+    exit($CHILD_ERROR >> 8 || 1) if $CHILD_ERROR;
     $arg = $dir;
 }
 
