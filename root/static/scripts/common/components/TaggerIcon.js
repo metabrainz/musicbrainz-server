@@ -52,7 +52,7 @@ component TaggerIcon(entityType: 'recording' | 'release', gid: string) {
      * dynamically. If window.opera does not exist, we continue to use the
      * new Image technique.
      */
-    if (window.opera) {
+    if ('opera' in window) {
       const iframe = document.createElement('iframe');
       iframe.src = target.href;
       iframe.style.display = 'none';
@@ -78,9 +78,7 @@ component TaggerIcon(entityType: 'recording' | 'release', gid: string) {
   );
 }
 
-export default (
-  hydrate<React.PropsOf<TaggerIcon>>(
-    'span.tagger-icon',
-    TaggerIcon,
-  ): component(...React.PropsOf<TaggerIcon>)
-);
+export default hydrate<React.PropsOf<TaggerIcon>>(
+  'span.tagger-icon',
+  TaggerIcon,
+) as component(...React.PropsOf<TaggerIcon>);

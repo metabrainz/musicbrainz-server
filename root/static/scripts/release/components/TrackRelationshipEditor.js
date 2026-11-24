@@ -159,7 +159,7 @@ component NewRelatedWorkHeading(
 
   const buildEditWorkPopoverContent = React.useCallback((
     closeAndReturnFocus: () => void,
-    initialFocusRef: {-current: HTMLElement | null},
+    initialFocusRef: {writeonly current: HTMLElement | null},
   ) => (
     <EditWorkDialog
       closeDialog={closeAndReturnFocus}
@@ -234,7 +234,7 @@ component _RelatedWorkRelationshipEditor(
           });
         }
       })
-      .catch((caughtError: mixed) => {
+      .catch((caughtError: unknown) => {
         setLoadingError(coerceToError(caughtError));
       });
   }, [

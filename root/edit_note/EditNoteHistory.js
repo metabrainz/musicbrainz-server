@@ -18,7 +18,7 @@ import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
-component EditNoteHistoryTable(changes: $ReadOnlyArray<EditNoteChangeT>) {
+component EditNoteHistoryTable(changes: ReadonlyArray<EditNoteChangeT>) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   return (
@@ -66,7 +66,7 @@ component EditNoteHistoryTable(changes: $ReadOnlyArray<EditNoteChangeT>) {
 }
 
 component EditNoteHistory(
-  changes: $ReadOnlyArray<EditNoteChangeT>,
+  changes: ReadonlyArray<EditNoteChangeT>,
   noteUrl: string,
   pager: PagerT,
 ) {

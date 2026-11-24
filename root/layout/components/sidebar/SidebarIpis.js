@@ -19,7 +19,7 @@ const buildSidebarIpi = (ipi: IpiCodeT) => (
   </SidebarProperty>
 );
 
-component SidebarIpis(entity: $ReadOnly<{...IpiCodesRoleT, ...}>) {
+component SidebarIpis(entity: Readonly<{...IpiCodesRoleT, ...}>) {
   return (
     entity.ipi_codes.map(buildSidebarIpi)
   );

@@ -5993,7 +5993,7 @@ msgstr ""
 msgid "Central Cagayan Agta"
 msgstr ""
 
-#. frequency:0 iso_code_3:dtp
+#. frequency:1 iso_code_3:dtp
 #: DB:language/name:2109
 msgid "Central Dusun"
 msgstr ""
@@ -6883,7 +6883,7 @@ msgstr ""
 msgid "Classical Mongolian"
 msgstr ""
 
-#. frequency:0 iso_code_3:nci
+#. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
 msgid "Classical Nahuatl"
 msgstr ""
@@ -8878,7 +8878,7 @@ msgstr ""
 msgid "Eastern Muria"
 msgstr ""
 
-#. frequency:0 iso_code_3:nea
+#. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
 msgstr ""
@@ -9228,7 +9228,7 @@ msgstr ""
 msgid "Emerillon"
 msgstr ""
 
-#. frequency:0 iso_code_3:egl
+#. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
 msgid "Emilian"
 msgstr ""
@@ -12813,6 +12813,11 @@ msgstr ""
 msgid "International Sign"
 msgstr ""
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr ""
+
 #. frequency:0 iso_code_3:int
 #: DB:language/name:2909
 msgid "Intha"
@@ -15123,7 +15128,7 @@ msgstr ""
 msgid "Keapara"
 msgstr ""
 
-#. frequency:0 iso_code_3:meo
+#. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
 msgid "Kedah Malay"
 msgstr ""
@@ -20008,7 +20013,7 @@ msgstr ""
 msgid "Male (Papua New Guinea)"
 msgstr ""
 
-#. frequency:0 iso_code_3:pqm
+#. frequency:1 iso_code_3:pqm
 #: DB:language/name:5515
 msgid "Malecite-Passamaquoddy"
 msgstr ""
@@ -22553,7 +22558,7 @@ msgstr ""
 msgid "Morigi"
 msgstr ""
 
-#. frequency:0 iso_code_3:mfe
+#. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
 msgstr ""
@@ -23898,7 +23903,7 @@ msgstr ""
 msgid "Negerhollands"
 msgstr ""
 
-#. frequency:0 iso_code_3:zmi
+#. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
 msgstr ""
@@ -24028,7 +24033,7 @@ msgstr ""
 msgid "Ngaanyatjarra"
 msgstr ""
 
-#. frequency:0 iso_code_3:nxg
+#. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
 msgstr ""
@@ -24458,7 +24463,7 @@ msgstr ""
 msgid "Nigerian Fulfulde"
 msgstr ""
 
-#. frequency:0 iso_code_3:pcm
+#. frequency:1 iso_code_3:pcm
 #: DB:language/name:5322
 msgid "Nigerian Pidgin"
 msgstr ""
@@ -27208,7 +27213,7 @@ msgstr ""
 msgid "Pattani"
 msgstr ""
 
-#. frequency:0 iso_code_3:mfa
+#. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
 msgstr ""
@@ -27758,7 +27763,7 @@ msgstr ""
 msgid "Piya-Kwonci"
 msgstr ""
 
-#. frequency:0 iso_code_3:crk
+#. frequency:1 iso_code_3:crk
 #: DB:language/name:1800
 msgid "Plains Cree"
 msgstr ""
@@ -31763,7 +31768,7 @@ msgstr ""
 msgid "Southern Dong"
 msgstr ""
 
-#. frequency:0 iso_code_3:crj
+#. frequency:1 iso_code_3:crj
 #: DB:language/name:1799
 msgid "Southern East Cree"
 msgstr ""
@@ -37078,6 +37083,11 @@ msgstr ""
 msgid "Weme Gbe"
 msgstr ""
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:0 iso_code_3:wer
 #: DB:language/name:7029
 msgid "Weri"
@@ -37748,8 +37758,8 @@ msgstr ""
 msgid "Wuzlam"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

@@ -451,8 +451,10 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
     # Expire the notification in 30 days.
     $store->expire($notes_viewed_key, 60 * 60 * 24 * 30);
 
+    my $modbot_condition = $c->req->params->{modbot_condition};
+
     my $edit_notes = $self->_load_paged($c, sub {
-        $c->model('EditNote')->find_by_recipient($c->user->id, shift, shift);
+        $c->model('EditNote')->find_by_recipient($c->user->id, $modbot_condition, shift, shift);
     });
 
     $c->model('Editor')->load(@$edit_notes);
@@ -465,6 +467,7 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
         component_path => 'edit/NotesReceived',
         component_props => {
             editNotes => to_json_array($edit_notes),
+            modbotCondition => $modbot_condition,
             pager => serialize_pager($c->stash->{pager}),
         },
     );

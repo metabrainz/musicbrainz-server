@@ -137,9 +137,11 @@ $MusicBrainz::Script::EntityDump::relationships_cardinality = undef;
 $MusicBrainz::Script::EntityDump::handle_inserts = sub {
     my ($c, $schema, $table, $rows) = @_;
 
-    $table_map{$table} = 1;
+    my $qualified_table = $schema eq 'musicbrainz' ? $table : "$schema.$table";
 
-    $mbdump_handle->dump_rows($schema, $table, $rows);
+    $table_map{$qualified_table} = 1;
+
+    $mbdump_handle->dump_rows($qualified_table, $rows);
 };
 
 sub run {
@@ -154,7 +156,7 @@ sub run {
         c => $c,
         compression => 'xz',
         output_dir => $self->output_dir,
-        isolation_level => 'READ COMMITTED',
+        isolation_level => 'SERIALIZABLE READ ONLY DEFERRABLE',
     );
     $mbdump_handle = $mbdump;
     $sample_dump = $self;
@@ -162,10 +164,10 @@ sub run {
     my $sample_artist_gids = [
         # Nine Inch Nails
         'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
-        # Kanye West
-        '164f0d73-1234-4e2c-8743-d77bf2191051',
-        # Пётр Ильич Чайковский
-        '9ddd7abc-9e1b-471d-8031-583bc6bc8be9',
+        # Ice Cube
+        '1d11e2a1-4531-4d61-a8c7-7b5c6a608fd2',
+        # Игорь Стравинский
+        'c278de2c-9696-4fdf-a919-0781cd945e2c',
     ];
 
     my $total = scalar @{$sample_artist_gids};

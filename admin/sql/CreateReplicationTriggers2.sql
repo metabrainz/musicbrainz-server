@@ -143,6 +143,10 @@ CREATE TRIGGER reptg2_country_area
 AFTER INSERT OR DELETE OR UPDATE ON country_area
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
 
+CREATE TRIGGER reptg2_editor
+AFTER INSERT OR DELETE OR UPDATE ON editor
+FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
+
 CREATE TRIGGER reptg2_editor_collection_type
 AFTER INSERT OR DELETE OR UPDATE ON editor_collection_type
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
@@ -913,6 +917,10 @@ FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
 
 CREATE TRIGGER reptg2_recording_attribute_type_allowed_value
 AFTER INSERT OR DELETE OR UPDATE ON recording_attribute_type_allowed_value
+FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
+
+CREATE TRIGGER reptg2_recording_first_release_date
+AFTER INSERT OR DELETE OR UPDATE ON recording_first_release_date
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
 
 CREATE TRIGGER reptg2_recording_gid_redirect

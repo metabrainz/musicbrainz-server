@@ -31,7 +31,7 @@ fi
 # used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
 : ${PGPORT:=5432}
 : ${KEEP_TEST_DBS:=0}
-: ${PENDING_SO:='/usr/lib/postgresql/16/lib/pending.so'}
+: ${PENDING_SO:="$(pg_config --pkglibdir)/pending.so"}
 
 function drop_test_dbs() {
     if [[ "$KEEP_TEST_DBS" == "0" ]]; then
@@ -86,7 +86,7 @@ pg_dump \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_1 \
-    --username musicbrainz > "$DB1SCHEMA"
+    --username musicbrainz | grep -Ev '^\\(un)?restrict ' > "$DB1SCHEMA"
 
 pg_dump \
     --host localhost \
@@ -94,7 +94,7 @@ pg_dump \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_2 \
-    --username musicbrainz > "$DB2SCHEMA"
+    --username musicbrainz | grep -Ev '^\\(un)?restrict ' > "$DB2SCHEMA"
 
 drop_test_dbs
 

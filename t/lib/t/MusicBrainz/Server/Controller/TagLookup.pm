@@ -6,6 +6,7 @@ use warnings;
 use HTTP::Response;
 use HTTP::Status qw( :constants );
 use LWP::UserAgent::Mockable;
+use Test::More;
 use Test::Routine;
 
 use MusicBrainz::Server::Test qw( html_ok );
@@ -178,6 +179,37 @@ test 'Can perform tag lookups with artist and release titles' => sub {
     $test->mech->content_contains('中島', 'has correct artist result');
     $test->mech->content_contains('LOVE', 'has correct release result');
     $test->mech->content_contains('Make a donation now', 'has nag screen');
+};
+
+test 'MBS-14455: Tag lookup is filtered on depth' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    no warnings 'redefine';
+    local *DBDefs::MAX_SEARCH_RESULTS = sub { 500 };
+
+    # limit 25 * page 21 = depth 525 > 500
+    $mech->get('/taglookup/index?tag-lookup.release=love&page=21');
+    is($mech->status, HTTP_BAD_REQUEST, 'Deep tag lookup gives a bad request error');
+    html_ok($mech->content);
+    $mech->content_contains('deemed invalid', 'Deep tag lookup gives an invalid search message');
+
+    # limit 25 * page 20 = depth 500
+    $mech->get_ok('/taglookup/index?tag-lookup.release=love&page=20',
+                  'Last page of tag lookup still works');
+    html_ok($mech->content);
+    $mech->content_contains('Only the first 500 results can be returned',
+        'Last capped page contains an explanation');
+
+    # limit 25 * page 1 = depth 25 < 500
+    $mech->get_ok('/taglookup/index?tag-lookup.release=love',
+                  'First page of tag lookup still works');
+    html_ok($mech->content);
+    $mech->content_contains('20,859 results', 'Show uncapped total hits');
+    # max search results 500 / limit 25 = last capped page 20
+    $mech->content_contains('page=20', 'Last page button matches the cap');
+    # uncapped total hits 20859 / limit 25 =< last uncapped page 835
+    $mech->content_lacks('page=835', 'Pager does not offer pages beyond the cap');
 
     LWP::UserAgent::Mockable->finished;
 };

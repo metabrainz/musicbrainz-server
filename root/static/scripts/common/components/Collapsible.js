@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 type Props = {
-  +className: string,
-  +html: string,
+  readonly className: string,
+  readonly html: string,
 };
 
 type State = {

@@ -134,7 +134,7 @@ function reducer(
 
 component _EditWorkDialog(
   closeDialog: () => void,
-  initialFocusRef?: {-current: HTMLElement | null},
+  initialFocusRef?: {writeonly current: HTMLElement | null},
   rootDispatch: (ReleaseRelationshipEditorActionT) => void,
   work: WorkT,
 ) {

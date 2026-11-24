@@ -8,7 +8,7 @@
  */
 
 component ErrorInfo(
-  formattedErrors?: $ReadOnlyArray<string>,
+  formattedErrors?: ReadonlyArray<string>,
   message?: string,
 ) {
   return (

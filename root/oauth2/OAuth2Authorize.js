@@ -16,7 +16,7 @@ component OAuth2Authorize(
   application: ApplicationT,
   form: SecureConfirmFormT,
   offline: boolean,
-  permissions: $ReadOnlyArray<number>,
+  permissions: ReadonlyArray<number>,
 ) {
   return (
     <Layout fullWidth title={l('OAuth authorization')}>

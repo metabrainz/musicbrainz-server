@@ -22,7 +22,7 @@ import {commaOnlyListText}
 import ReleaseLayout from './ReleaseLayout.js';
 
 component CoverArt(
-  coverArt: $ReadOnlyArray<ReleaseArtT>,
+  coverArt: ReadonlyArray<ReleaseArtT>,
   release: ReleaseT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

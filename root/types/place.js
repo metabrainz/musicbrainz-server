@@ -11,12 +11,12 @@
 
 // MusicBrainz::Server::Entity::Coordinates::TO_JSON
 declare type CoordinatesT = {
-  +latitude: number,
-  +longitude: number,
+  readonly latitude: number,
+  readonly longitude: number,
 };
 
 // MusicBrainz::Server::Entity::Place::TO_JSON
-declare type PlaceT = $ReadOnly<{
+declare type PlaceT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'place'>,
@@ -24,10 +24,10 @@ declare type PlaceT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<PlaceTypeT>,
-  +address: string,
-  +area: AreaT | null,
-  +coordinates: CoordinatesT | null,
-  +primaryAlias?: string | null,
+  readonly address: string,
+  readonly area: AreaT | null,
+  readonly coordinates: CoordinatesT | null,
+  readonly primaryAlias?: string | null,
 }>;
 
 declare type PlaceTypeT = OptionTreeT<'place_type'>;

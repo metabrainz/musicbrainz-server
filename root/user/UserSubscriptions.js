@@ -28,7 +28,7 @@ const titleByEntityType = {
 };
 
 component UserSubscriptionsTable(
-  entities: $ReadOnlyArray<SubscribableEntityT>,
+  entities: ReadonlyArray<SubscribableEntityT>,
   viewingOwnProfile: boolean,
 ) {
   return (
@@ -65,7 +65,7 @@ component UserSubscriptionsTable(
 
 component UserSubscriptionsSection(
   action: string,
-  entities: $ReadOnlyArray<SubscribableEntityT>,
+  entities: ReadonlyArray<SubscribableEntityT>,
   pager: PagerT,
   viewingOwnProfile: boolean,
 ) {
@@ -94,21 +94,21 @@ component UserSubscriptionsSection(
 }
 
 type SubscriptionsSummaryT = {
-  +artist: number,
-  +collection: number,
-  +editor: number,
-  +label: number,
-  +series: number,
+  readonly artist: number,
+  readonly collection: number,
+  readonly editor: number,
+  readonly label: number,
+  readonly series: number,
 };
 
 component UserSubscriptions(
-  entities: $ReadOnlyArray<SubscribableEntityT>,
+  entities: ReadonlyArray<SubscribableEntityT>,
   hiddenPrivateCollectionCount?: number,
   pager: PagerT,
   summary: SubscriptionsSummaryT,
   type: SubscribableEntityTypeT,
   user: AccountLayoutUserT,
-  visiblePrivateCollections?: $ReadOnlyArray<CollectionT>,
+  visiblePrivateCollections?: ReadonlyArray<CollectionT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);

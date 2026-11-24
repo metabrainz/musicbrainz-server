@@ -37,7 +37,7 @@ import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
 function buildReleaseStatusTable(
   $c: CatalystContextT,
-  releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
+  releaseStatusGroup: ReadonlyArray<ReleaseT>,
   releaseGroupCreditId: number | void,
   showArtworkPresence: boolean,
 ) {
@@ -116,7 +116,7 @@ component ReleaseGroupIndex(
   numberOfRevisions: number,
   pager: PagerT,
   releaseGroup: ReleaseGroupT,
-  releases: $ReadOnlyArray< $ReadOnlyArray< ReleaseT >>,
+  releases: ReadonlyArray< ReadonlyArray< ReleaseT >>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const $c = React.useContext(CatalystContext);

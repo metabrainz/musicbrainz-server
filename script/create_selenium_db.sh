@@ -5,7 +5,7 @@ set -o errexit -o nounset -o pipefail
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
-./script/create_test_db.sh SELENIUM
+REPLICATION_TYPE=1 ./script/create_test_db.sh SELENIUM
 
 ./admin/psql SELENIUM < ./t/sql/selenium.sql
 
@@ -18,8 +18,8 @@ fi
 
 DROP_SQL=$(cat <<'SQL'
 \set ON_ERROR_STOP 1
-DROP EXTENSION IF EXISTS amqp CASCADE;
 DROP SCHEMA IF EXISTS artwork_indexer CASCADE;
+DROP SCHEMA IF EXISTS sir CASCADE;
 SQL
 )
 echo "$DROP_SQL" | ./admin/psql --system SELENIUM
@@ -27,7 +27,7 @@ echo "$DROP_SQL" | ./admin/psql --system SELENIUM
 SIR_DIR="${SIR_DIR:="$MB_SERVER_ROOT"/../sir}"
 
 if [ -d "$SIR_DIR" ]; then
-    ./admin/psql --system SELENIUM < "$SIR_DIR"/sql/CreateExtension.sql
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTables.sql
     ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateFunctions.sql
     ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTriggers.sql
 fi
@@ -36,7 +36,7 @@ ARTWORK_INDEXER_DIR="${ARTWORK_INDEXER_DIR:="$MB_SERVER_ROOT"/../artwork-indexer
 
 if [ -d "$ARTWORK_INDEXER_DIR" ]; then
     pushd "$ARTWORK_INDEXER_DIR"
-    # pipx installs poetry into ~/.local/bin.
+    # uv installs poetry into ~/.local/bin.
     export PATH="$HOME/.local/bin:$PATH"
     # Install the artwork_indexer schema into musicbrainz_selenium.
     poetry run python indexer.py --config=config.selenium.ini --setup-schema

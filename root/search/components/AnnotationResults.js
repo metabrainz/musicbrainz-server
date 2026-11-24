@@ -45,6 +45,7 @@ component AnnotationResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<AnnotationT>) {
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -60,6 +61,7 @@ component AnnotationResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
     </ResultsLayout>
   );

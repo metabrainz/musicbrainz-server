@@ -3,11 +3,12 @@
 # Nao3Line Prez, 2022
 # Theodore Fabian <email address hidden>, 2018
 # koukei07 <teamedia@duck.com>, 2024.
+# naturbrilian <gingalibadeidara@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-05 00:42+0000\n"
-"Last-Translator: koukei07 <teamedia@duck.com>\n"
+"PO-Revision-Date: 2026-09-14 09:13+0000\n"
+"Last-Translator: naturbrilian <gingalibadeidara@gmail.com>\n"
 "Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/id/>\n"
 "Language: id\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -96,7 +97,7 @@ msgstr "5.25\" Disket"
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" Acetate"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -145,7 +146,7 @@ msgstr "8cm CD"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "8cm DVD, digunakan untuk video single."
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -303,6 +304,8 @@ msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
 msgstr ""
+"Area (biasanya bewarna hijau) tetap tersedia untuk rekreasi jika tidak "
+"dibuat dan area populasi."
 
 #. name:CD-i
 #: DB:medium_format/description:209
@@ -312,6 +315,9 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
+"Format CD adalah kombinasi data/video dan audio, digunakan untuk tujuan yang "
+"berbeda termasuk pada tahun 1990, di beberapa kasus, rilisan musik yang "
+"disertakan dengan konten video."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -321,6 +327,9 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"CD yang berisi keduanya audio dan data di sesi yang sama. Data tersebut "
+"sering kali berada di trek pertama., hal itu harus dilewati di banyak "
+"pemutar audio. Relatif pada umumnya di CD gim video lama."
 
 #. name:Enhanced CD
 #: DB:medium_format/description:42
@@ -540,6 +549,15 @@ msgid ""
 "use by the artist."
 msgstr ""
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -743,6 +761,15 @@ msgstr ""
 "terbatas dan menunjukkan suara artis untuk merekam label, penerbit dan artis "
 "lainnya."
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -880,6 +907,26 @@ msgstr "Serangkaian grup rilis."
 msgctxt "series_type"
 msgid "A series of releases."
 msgstr "Serangkaian rilis."
+
+#. name:Series award
+#: DB:series_type/description:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of artists honoured by the same award."
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr "Serangkaian artis dihormati dengan penghargaan yang sama."
+
+#. name:Series series
+#: DB:series_type/description:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of events."
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "Serangkaian acara."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1271,6 +1318,11 @@ msgstr "Alahaiyā bilāval"
 msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Album"
+
+#: DB:work_attribute_type/name:216
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr ""
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -4788,6 +4840,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr ""
 
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr ""
+
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
@@ -5664,6 +5722,11 @@ msgstr ""
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:636
@@ -7815,6 +7878,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr ""
 
+#: DB:series_type/name:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist award"
+msgctxt "series_type"
+msgid "Series award"
+msgstr "Penghargaan artis"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7824,6 +7895,14 @@ msgstr ""
 msgctxt "alias_type"
 msgid "Series name"
 msgstr ""
+
+#: DB:series_type/name:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist series"
+msgctxt "series_type"
+msgid "Series series"
+msgstr "Serial artis"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"

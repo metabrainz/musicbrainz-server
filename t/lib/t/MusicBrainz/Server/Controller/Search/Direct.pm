@@ -2,6 +2,8 @@ package t::MusicBrainz::Server::Controller::Search::Direct;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok );
 
@@ -80,6 +82,37 @@ $mech->content_contains('1 result', 'has result count');
 $mech->content_contains('musical', 'has correct search result');
 $mech->content_contains('/tag/musical', 'has link to the tag');
 
+};
+
+test 'MBS-14455: Direct search is filtered on depth' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    no warnings 'redefine';
+    local *DBDefs::MAX_SEARCH_RESULTS = sub { 500 };
+
+    # limit 25 * page 21 = depth 525 > 500
+    $mech->get('/search?limit=25&method=direct&page=21&query=Kate&type=artist');
+    is($mech->status, HTTP_BAD_REQUEST, 'Deep direct search gives a bad request error');
+    html_ok($mech->content);
+    $mech->content_contains('deemed invalid', 'Deep direct search gives an invalid search message');
+
+    # limit 25 * page 20 = depth 500
+    $mech->get_ok('/search?limit=25&method=direct&page=20&query=Kate&type=artist',
+                  'Last page of direct search still works');
+    html_ok($mech->content);
+
+    # limit 25 * page 1 = depth 25 < 500
+    $mech->get_ok('/search?limit=25&method=direct&query=Kate&type=artist',
+                  'First page of indexed search still works');
+    html_ok($mech->content);
+
+    # Note: Since direct search is implemented with hard_search_limit,
+    # the returned total number of hits is not accurate, it actually
+    # depends on the requested page, thus not testing the pager here.
 };
 
 1;

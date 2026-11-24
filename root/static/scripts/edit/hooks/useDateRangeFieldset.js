@@ -17,12 +17,13 @@ import type {
 } from '../components/FormRowPartialDate.js';
 
 type DateRangeFieldsetHooksT = {
-  +beginDateDispatch: (FormRowPartialDateActionT) => void,
-  +beginYearInputRef: {current: HTMLInputElement | null},
-  +endDateDispatch: (FormRowPartialDateActionT) => void,
-  +endYearInputRef: {current: HTMLInputElement | null},
-  +handleDateCopy: () => void,
-  +handleEndedChange: (event: SyntheticEvent<HTMLInputElement>) => void,
+  readonly beginDateDispatch: (FormRowPartialDateActionT) => void,
+  readonly beginYearInputRef: {current: HTMLInputElement | null},
+  readonly endDateDispatch: (FormRowPartialDateActionT) => void,
+  readonly endYearInputRef: {current: HTMLInputElement | null},
+  readonly handleDateCopy: () => void,
+  readonly handleEndedChange:
+    (event: SyntheticEvent<HTMLInputElement>) => void,
 };
 
 export default function useDateRangeFieldset(

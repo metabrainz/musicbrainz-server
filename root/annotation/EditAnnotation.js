@@ -16,11 +16,11 @@ import FormRowTextArea
   from '../static/scripts/edit/components/FormRowTextArea.js';
 
 type EditAnnotationFormT = FormT<{
-  +changelog: FieldT<string>,
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +preview: FieldT<string>,
-  +text: FieldT<string>,
+  readonly changelog: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly preview: FieldT<string>,
+  readonly text: FieldT<string>,
 }>;
 
 component EditAnnotation(

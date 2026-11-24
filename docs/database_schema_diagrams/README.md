@@ -1,4 +1,4 @@
-# Database Schema Diagrams
+# Database Schema Diagrams
 
 Diagrams for the database schemas are:
 - defined in JSON format under the subdirectory `source/`,

@@ -13,21 +13,21 @@ $(function () {
       .next('.reldetails')
       .is(':hidden');
     if (isHidden) {
-      $(this).text('more');
+      $(this).text(l('more'));
     } else {
-      $(this).text('less');
+      $(this).text(l('less'));
     }
   });
 
   $('#showAll').click(function () {
     $('.reldetails, #hideAll').show();
     $('#showAll').hide();
-    $('.toggle').text('less');
+    $('.toggle').text(l('less'));
   });
 
   $('#hideAll').click(function () {
     $('.reldetails, #hideAll').hide();
     $('#showAll').show();
-    $('.toggle').text('more');
+    $('.toggle').text(l('more'));
   });
 });

@@ -8,8 +8,8 @@
  */
 
 export type GenreFormT = FormT<{
-  +comment: FieldT<string>,
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +name: FieldT<string | null>,
+  readonly comment: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly name: FieldT<string | null>,
 }>;

@@ -91,8 +91,8 @@ test 'Cache is transactional (MBS-7241)' => sub {
     #  3. Process A finally adds artist 3 to the cache.
     # Expectation: artist 3 should not exist in the cache.
 
-    my $set_multi = MusicBrainz::Server::CacheWrapper::Redis->can('set_multi');
-    *MusicBrainz::Server::CacheWrapper::Redis::set_multi = sub {
+    my $set_multi = MusicBrainz::Server::CacheWrapper::Valkey->can('set_multi');
+    *MusicBrainz::Server::CacheWrapper::Valkey::set_multi = sub {
         if ($do_update) {
             $do_update = 0;
             $c2->sql->begin;
@@ -121,7 +121,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
     } catch {
         $error = $_;
     } finally {
-        *MusicBrainz::Server::CacheWrapper::Redis::set_multi = $set_multi; ## no critic (ProtectPrivateVars)
+        *MusicBrainz::Server::CacheWrapper::Valkey::set_multi = $set_multi; ## no critic (ProtectPrivateVars)
     };
 
     if ($error) {

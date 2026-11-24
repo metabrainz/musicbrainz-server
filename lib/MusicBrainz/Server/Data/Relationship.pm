@@ -94,7 +94,12 @@ sub _new_from_row
 
     my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
     # XXX MASSIVE MASSIVE HACK.
-    weaken($rel->{$weaken}) if $obj;
+    # Avoid ref cycles that can't be garbage collected:
+    # ($obj -> relationships -> $rel -> entity0/entity1/source -> $obj).
+    if ($obj) {
+        weaken($rel->{$weaken});
+        weaken($rel->{source});
+    }
 
     return $rel;
 }
@@ -876,7 +881,9 @@ sub insert
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq 'series';
+    # Check for incorrect part of series relationships
+    # If both sides are series, check only type0 (since type1 is the part and could be any series type)
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq 'series' && $type1 ne 'series';
     $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq 'series';
 
     my $row = {

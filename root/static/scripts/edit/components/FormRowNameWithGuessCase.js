@@ -23,24 +23,27 @@ import {
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover.js';
 
 type NamedEntityT = {
-  +entityType: EditableEntityTypeT,
-  +name: string,
+  readonly entityType: EditableEntityTypeT,
+  readonly name: string,
   ...
 };
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
-  | {+type: 'guess-case', +entity: NamedEntityT}
-  | {+type: 'open-guess-case-options'}
-  | {+type: 'close-guess-case-options'}
-  | {+type: 'update-guess-case-options', +action: GuessCaseOptionsActionT}
-  | {+type: 'set-name', +name: string};
+  | {readonly type: 'guess-case', readonly entity: NamedEntityT}
+  | {readonly type: 'open-guess-case-options'}
+  | {readonly type: 'close-guess-case-options'}
+  | {
+      readonly type: 'update-guess-case-options',
+      readonly action: GuessCaseOptionsActionT,
+    }
+  | {readonly type: 'set-name', readonly name: string};
 /* eslint-enable ft-flow/sort-keys */
 
 export type StateT = {
-  +field: FieldT<string | null>,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +isGuessCaseOptionsOpen: boolean,
+  readonly field: FieldT<string | null>,
+  readonly guessCaseOptions: GuessCaseOptionsStateT,
+  readonly isGuessCaseOptionsOpen: boolean,
 };
 
 export function createInitialState(

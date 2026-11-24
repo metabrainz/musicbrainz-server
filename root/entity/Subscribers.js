@@ -24,7 +24,7 @@ type SubscribersLayoutEntityT =
 component Subscribers(
   entity: SubscribersLayoutEntityT,
   privateEditors: number,
-  publicEditors: $ReadOnlyArray<EditorT>,
+  publicEditors: ReadonlyArray<EditorT>,
   subscribed: boolean,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

@@ -126,6 +126,7 @@ export component RecordingResultsInline(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: InlineResultsPropsT<RecordingT>) {
   const $c = React.useContext(CatalystContext);
 
@@ -150,6 +151,7 @@ export component RecordingResultsInline(...{
       pager={pager}
       query={query}
       results={results}
+      uncappedTotalHits={uncappedTotalHits}
     />
   );
 }
@@ -160,6 +162,7 @@ component RecordingResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<RecordingT>) {
   const $c = React.useContext(CatalystContext);
   linenum = 0;
@@ -169,6 +172,7 @@ component RecordingResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

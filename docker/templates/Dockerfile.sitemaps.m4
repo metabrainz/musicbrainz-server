@@ -1,7 +1,7 @@
 m4_include(`server_base.m4')m4_dnl
 
 COPY --chmod=0755 \
-    docker/musicbrainz-website/website.service \
+    docker/musicbrainz-sitemaps/website.service \
     /etc/service/website/run
 RUN touch /etc/service/website/down
 

@@ -23,7 +23,7 @@ component InstrumentReleases(
   instrument: InstrumentT,
   instrumentCreditsAndRelTypes: InstrumentCreditsAndRelTypesT,
   pager: PagerT,
-  releases: $ReadOnlyArray<ReleaseT>,
+  releases: ReadonlyArray<ReleaseT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

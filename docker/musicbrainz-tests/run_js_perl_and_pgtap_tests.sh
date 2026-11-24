@@ -23,7 +23,7 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
-sv_start_if_down chrome postgresql redis
+sv_start_if_down chrome postgresql valkey
 
 sudo -E -H -u musicbrainz carton exec -- ./bin/babel-node \
     t/web.js \
@@ -54,6 +54,7 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/MergeDuplicateArtistCredits.t \
+    t/script/RemoveResidualUserData.t \
     t/script/BuildSitemaps.t \
     t/script/DumpJSON.t \
     t/script/ExportAllTables.t \

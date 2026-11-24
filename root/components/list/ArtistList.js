@@ -26,12 +26,12 @@ import {
 } from '../../utility/tableColumns.js';
 
 component ArtistList(
-  artists: $ReadOnlyArray<ArtistT>,
+  artists: ReadonlyArray<ArtistT>,
   checkboxes?: string,
   instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
   mergeForm?: MergeFormT,
   order?: string,
-  seriesItemNumbers?: $ReadOnlyArray<string>,
+  seriesItemNumbers?: ReadonlyArray<string>,
   showBeginEnd: boolean = false,
   showInstrumentCreditsAndRelTypes: boolean = false,
   showRatings: boolean = false,

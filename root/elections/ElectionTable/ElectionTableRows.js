@@ -54,7 +54,7 @@ component ElectionTableRow(election: AutoEditorElectionT, index: number) {
   );
 }
 
-component ElectionTableRows(elections: $ReadOnlyArray<AutoEditorElectionT>) {
+component ElectionTableRows(elections: ReadonlyArray<AutoEditorElectionT>) {
   return (
     elections.map((election, index) => (
       <ElectionTableRow

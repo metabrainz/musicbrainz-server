@@ -64,7 +64,7 @@ function showExtraInfoLine(
   );
 }
 
-function formatName<T: EntityItemT>(entity: T): string {
+function formatName<T extends EntityItemT>(entity: T): string {
   return unwrapNl<string>(entity.name);
 }
 
@@ -144,7 +144,7 @@ function formatArtist(artist: ArtistT) {
 
 function showLabeledTextList(
   label: string,
-  items: $ReadOnlyArray<string>,
+  items: ReadonlyArray<string>,
   className?: string = 'comment',
 ) {
   return showExtraInfoLine(
@@ -170,7 +170,7 @@ function showRelatedEntities(
   return null;
 }
 
-const getName = (item: {+name: string, ...}) => item.name;
+const getName = (item: {readonly name: string, ...}) => item.name;
 
 function pushContainmentInfo(area: AreaT, extraInfo: Array<string>) {
   const containment = area.containment;
@@ -564,10 +564,10 @@ function formatWork(work: WorkT) {
 }
 
 export type FormatOptionsT = {
-  +showDescriptions?: boolean,
+  readonly showDescriptions?: boolean,
 };
 
-export default function formatItem<T: EntityItemT>(
+export default function formatItem<T extends EntityItemT>(
   item: ItemT<T>,
   options?: ?FormatOptionsT,
 ): Expand2ReactOutput {

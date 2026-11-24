@@ -12,13 +12,13 @@ import Layout from '../layout/index.js';
 import UserInlineList from './components/UserInlineList.js';
 
 component PrivilegedUsers(
-  accountAdmins: $ReadOnlyArray<EditorT>,
-  autoEditors: $ReadOnlyArray<EditorT>,
-  bannerEditors: $ReadOnlyArray<EditorT>,
-  bots: $ReadOnlyArray<EditorT>,
-  locationEditors: $ReadOnlyArray<EditorT>,
-  relationshipEditors: $ReadOnlyArray<EditorT>,
-  transclusionEditors: $ReadOnlyArray<EditorT>,
+  accountAdmins: ReadonlyArray<EditorT>,
+  autoEditors: ReadonlyArray<EditorT>,
+  bannerEditors: ReadonlyArray<EditorT>,
+  bots: ReadonlyArray<EditorT>,
+  locationEditors: ReadonlyArray<EditorT>,
+  relationshipEditors: ReadonlyArray<EditorT>,
+  transclusionEditors: ReadonlyArray<EditorT>,
 ) {
   return (
     <Layout fullWidth title={l('Privileged user accounts')}>

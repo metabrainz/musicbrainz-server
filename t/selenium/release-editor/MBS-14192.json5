@@ -1,0 +1,76 @@
+{
+  title: 'MBS-14192',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-14192.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+
+    // Going straight to the edit note panel should trigger a warning.
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "[...document.querySelectorAll('#edit-note div.warning')].some(x => x.textContent.includes('You didn’t visit the tracklist tab.'))",
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('a[href=\"#tracklist\"]').parentNode.classList.contains('error-tab')",
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#enter-edit').disabled",
+      value: 'true',
+    },
+
+    // Switching to the tracklist should make the warning icon disappear.
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('a[href=\"#tracklist\"]').parentNode.classList.contains('error-tab')",
+      value: 'false',
+    },
+
+    // We should be able to add the release now.
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#edit-note div.warning').length",
+      value: '0',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('a[href=\"#tracklist\"]').parentNode.classList.contains('error-tab')",
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#enter-edit').disabled",
+      value: 'false',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+  ],
+}

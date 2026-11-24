@@ -9,7 +9,8 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => {
         cardinal    => ['edit'],
         subset      => {
-            show => [qw( area artist genre label place series instrument release_group url )],
+            show => [qw( area artist genre place series instrument release_group url )],
+            labels => ['label'],
         },
         subset_cardinal => {
             show => [qw( work )],

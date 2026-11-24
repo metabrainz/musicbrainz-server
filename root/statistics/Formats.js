@@ -18,16 +18,16 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type FormatStatT = {
-  +entity: MediumFormatT | null,
-  +medium_count: number,
-  +medium_stat: string,
-  +release_count: number,
-  +release_stat: string,
+  readonly entity: MediumFormatT | null,
+  readonly medium_count: number,
+  readonly medium_stat: string,
+  readonly release_count: number,
+  readonly release_stat: string,
 };
 
 component Formats(
   dateCollected: string,
-  formatStats: $ReadOnlyArray<FormatStatT>,
+  formatStats: ReadonlyArray<FormatStatT>,
   stats: {[statName: string]: number},
 ) {
   const $c = React.useContext(CatalystContext);

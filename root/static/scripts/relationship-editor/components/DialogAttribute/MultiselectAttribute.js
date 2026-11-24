@@ -68,11 +68,11 @@ export function _createLinkAttributeTypeOptions(
  */
 const linkAttributeTypeOptionsCache = new Map<
   number,
-  $ReadOnlyArray<OptionItemT<LinkAttrTypeT>>,
+  ReadonlyArray<OptionItemT<LinkAttrTypeT>>,
 >();
 export function createLinkAttributeTypeOptions(
   rootAttributeType: LinkAttrTypeT,
-): $ReadOnlyArray<OptionItemT<LinkAttrTypeT>> {
+): ReadonlyArray<OptionItemT<LinkAttrTypeT>> {
   const rootId = rootAttributeType.id;
   let options = linkAttributeTypeOptionsCache.get(rootId);
   if (options) {

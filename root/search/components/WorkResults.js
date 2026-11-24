@@ -43,6 +43,7 @@ component WorkResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<WorkT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -63,6 +64,7 @@ component WorkResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

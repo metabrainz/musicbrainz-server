@@ -28,7 +28,7 @@ component ArtistReleases(
   filterForm: ?ReleaseFilterT,
   hasFilter: boolean,
   pager: PagerT,
-  releases: $ReadOnlyArray<ReleaseT>,
+  releases: ReadonlyArray<ReleaseT>,
   showingVariousArtistsOnly: boolean,
   wantVariousArtistsOnly: boolean,
 ) {

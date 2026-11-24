@@ -13,13 +13,13 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # GABG <musicbrainz@gabg.email>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-25 19:11+0000\n"
+"PO-Revision-Date: 2026-04-07 00:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -329,6 +329,9 @@ msgid "afoxé"
 msgstr "afoxé"
 
 #: DB:instrument/name:487
+#, fuzzy
+#| msgid "agogô"
+msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr "agogô"
 
@@ -409,6 +412,14 @@ msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr "incudine"
 
+#: DB:instrument/name:583
+#, fuzzy
+#| msgctxt "generic member of the viol family, use for \"viol\" credits"
+#| msgid "viola da gamba"
+msgctxt "Three-toned samba whistle"
+msgid "apito de samba"
+msgstr "viola da gamba"
+
 #: DB:instrument/name:507
 msgid "archlute"
 msgstr "arciliuto"
@@ -432,7 +443,10 @@ msgid "arrabel"
 msgstr "arrabel"
 
 #: DB:instrument/name:812
-msgctxt "cone shaped west african frame-drum"
+#, fuzzy
+#| msgctxt "cone shaped west african frame-drum"
+#| msgid "ashiko"
+msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "ashiko"
 
@@ -644,6 +658,11 @@ msgstr "corno di bassetto"
 #: DB:instrument/name:5
 msgid "bassoon"
 msgstr "fagotto"
+
+#: DB:instrument/name:1218
+msgctxt "Brazilian samba drum ensemble"
+msgid "bateria"
+msgstr ""
 
 #: DB:instrument/name:483
 msgid "bawu"
@@ -905,7 +924,10 @@ msgid "cabrette"
 msgstr "cabrette"
 
 #: DB:instrument/name:903
-msgctxt "Brazilian Samba snare-drum"
+#, fuzzy
+#| msgctxt "Brazilian Samba snare-drum"
+#| msgid "caixa"
+msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "caixa"
 
@@ -937,7 +959,10 @@ msgid "castanets"
 msgstr "nacchere"
 
 #: DB:instrument/name:524
-msgctxt "Small four-stringed Portugesian lute"
+#, fuzzy
+#| msgctxt "Small four-stringed Portugesian lute"
+#| msgid "cavaquinho"
+msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr "cavaquinho"
 
@@ -1743,6 +1768,9 @@ msgid "gamelan"
 msgstr "gamelan"
 
 #: DB:instrument/name:383
+#, fuzzy
+#| msgid "gankogui"
+msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr "gankogui"
 
@@ -2790,6 +2818,7 @@ msgid "musical saw"
 msgstr "sega musicale"
 
 #: DB:instrument/name:684
+msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr "nabal"
 
@@ -3424,10 +3453,6 @@ msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
 msgstr "saluang"
 
-#: DB:instrument/name:583
-msgid "samba whistle"
-msgstr "fischietto da samba"
-
 #: DB:instrument/name:830
 msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
@@ -3503,8 +3528,6 @@ msgid "sasando"
 msgstr "sasando"
 
 #: DB:instrument/name:580
-#, fuzzy
-#| msgid "satsuma biwa"
 msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "satsuma biwa"
@@ -3928,6 +3951,9 @@ msgid "talking drum"
 msgstr "tamburo parlante"
 
 #: DB:instrument/name:723
+#, fuzzy
+#| msgid "tamborim"
+msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "tamborim"
 
@@ -3988,6 +4014,14 @@ msgstr "tar"
 #: DB:instrument/name:440
 msgid "taragot"
 msgstr "taragot"
+
+#: DB:instrument/name:1219
+#, fuzzy
+#| msgctxt "Wooden keyless shawm from Catalonia"
+#| msgid "tarota"
+msgctxt "Brazilian shallow samba snare-drum"
+msgid "tarol"
+msgstr "tarota"
 
 #: DB:instrument/name:870
 msgctxt "Wooden keyless shawm from Catalonia"
@@ -4642,8 +4676,6 @@ msgid "yueqin"
 msgstr "yueqin"
 
 #: DB:instrument/name:715
-#, fuzzy
-#| msgid "zabumba"
 msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "zabumba"
@@ -4776,6 +4808,9 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "samba whistle"
+#~ msgstr "fischietto da samba"
 
 #~ msgid "Tibetan water drum"
 #~ msgstr "tamburo ad acqua tibetano"

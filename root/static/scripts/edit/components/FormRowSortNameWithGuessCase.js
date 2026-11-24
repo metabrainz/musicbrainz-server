@@ -16,21 +16,21 @@ import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 import FormRowText from './FormRowText.js';
 
 type SortNamedEntityT = {
-  +entityType: EditableEntityTypeT,
-  +typeID?: number | null,
+  readonly entityType: EditableEntityTypeT,
+  readonly typeID?: number | null,
   ...
 };
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
-  | {+type: 'guess-case-sortname', +entity: SortNamedEntityT}
-  | {+type: 'set-sortname', +sortName: string}
-  | {+type: 'copy-sortname'};
+  | {readonly type: 'guess-case-sortname', readonly entity: SortNamedEntityT}
+  | {readonly type: 'set-sortname', readonly sortName: string}
+  | {readonly type: 'copy-sortname'};
 /* eslint-enable ft-flow/sort-keys */
 
 export type StateT = {
-  +nameField: FieldT<string | null>,
-  +sortNameField: FieldT<string | null>,
+  readonly nameField: FieldT<string | null>,
+  readonly sortNameField: FieldT<string | null>,
 };
 
 export function runReducer(

@@ -17,10 +17,10 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component RecordingList<D: {+recording: ?RecordingT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+component RecordingList<D extends {readonly recording: ?RecordingT, ...}>(
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingRecordingItems = items.reduce((

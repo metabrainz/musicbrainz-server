@@ -9,23 +9,23 @@
 
 declare module 'tabbable' {
   declare type CommonOptions = {
-    +displayCheck?:
+    readonly displayCheck?:
       | 'full'
       | 'legacy-full'
       | 'non-zero-area'
       | 'none',
-    +getShadowRoot?:
+    readonly getShadowRoot?:
       | boolean
       | ((HTMLElement) => ShadowRoot | boolean | void),
     };
 
   declare type FocusableOptions = {
-    +includeContainer?: boolean,
+    readonly includeContainer?: boolean,
   };
 
   declare export function focusable(
     container: Node,
-    options?: $ReadOnly<{
+    options?: Readonly<{
       ...CommonOptions,
       ...FocusableOptions,
     }>,
@@ -33,7 +33,7 @@ declare module 'tabbable' {
 
   declare export function tabbable(
     container: Node,
-    options?: $ReadOnly<{
+    options?: Readonly<{
       ...CommonOptions,
       ...FocusableOptions,
     }>,

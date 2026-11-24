@@ -5,6 +5,7 @@ use warnings;
 use HTTP::Response;
 use HTTP::Status qw( :constants );
 use LWP::UserAgent::Mockable;
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok );
 
@@ -103,6 +104,37 @@ test all => sub {
     $mech->content_contains('L.O.V.E.', 'has correct search result');
     $mech->content_contains('Love, Laura', 'has artist sortname');
     $mech->content_contains('/artist/406bca37-056f-405e-a974-624864c9f641', 'has link to artist');
+};
+
+test 'MBS-14455: Indexed search is filtered on depth' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    no warnings 'redefine';
+    local *DBDefs::MAX_SEARCH_RESULTS = sub { 500 };
+
+    # limit 25 * page 21 = depth 525 > 500
+    $mech->get('/search?query=Love&type=artist&limit=25&page=21');
+    is($mech->status, HTTP_BAD_REQUEST, 'Deep indexed search gives a bad request error');
+    html_ok($mech->content);
+    $mech->content_contains('deemed invalid', 'Deep indexed search gives an invalid search message');
+
+    # limit 25 * page 20 = depth 500
+    $mech->get_ok('/search?query=Love&type=artist&limit=25&page=20',
+                  'Last page of indexed search still works');
+    html_ok($mech->content);
+    $mech->content_contains('Only the first 500 results can be returned',
+        'Last capped page contains an explanation');
+
+    # limit 25 * page 1 = depth 25 < 500
+    $mech->get_ok('/search?query=Love&type=artist&limit=25',
+                  'First page of indexed search still works');
+    html_ok($mech->content);
+    $mech->content_contains('784 results', 'Show uncapped total hits');
+    # max search results 500 / limit 25 = last capped page 20
+    $mech->content_contains('page=20', 'Last page button matches the cap');
+    # uncapped total hits 784 / limit 25 =< last uncapped page 32
+    $mech->content_lacks('page=32', 'Pager does not offer pages beyond the cap');
 
     LWP::UserAgent::Mockable->finished;
 };

@@ -45,7 +45,7 @@ function calculateAllowedRelations(user: ActiveEditorT) {
     const typeString = entityTypePairs[i];
     const [type0, type1] =
       // $FlowFixMe[incompatible-type]
-      (typeString.split('-'): $ReadOnlyArray<RelatableEntityTypeT>);
+      typeString.split('-') as ReadonlyArray<RelatableEntityTypeT>;
 
     if (editorMayEditTypes(user, typeString)) {
       // Only allow URL as a source type.
@@ -90,7 +90,7 @@ export default function getTargetTypeOptions(
     calculateAllowedRelations(user);
   }
 
-  const typeList: $ReadOnlyArray<RelatableEntityTypeT> =
+  const typeList: ReadonlyArray<RelatableEntityTypeT> =
     allowedRelations.get(sourceType) ?? [];
 
   return typeList

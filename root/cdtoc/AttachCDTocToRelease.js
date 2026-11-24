@@ -29,7 +29,7 @@ component AttachCDTocToRelease(
   cdToc: CDTocT,
   form: SearchFormT,
   pager?: PagerT,
-  results?: $ReadOnlyArray<
+  results?: ReadonlyArray<
     SearchResultT<ReleaseWithMediumsAndReleaseGroupT>
   >,
   tocString: StrOrNum,

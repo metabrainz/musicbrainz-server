@@ -252,24 +252,6 @@ sub merge {
     return;
 }
 
-sub clear {
-    my ($self, $editor_id) = @_;
-
-    my $entity_type = $self->type;
-    my $table = $self->tag_table . '_raw';
-
-    for my $row (@{
-        $self->sql->select_list_of_hashes(
-            "SELECT $entity_type, t.name AS tag FROM $table
-             JOIN tag t ON t.id = $table.tag
-             WHERE editor = ?",
-            $editor_id,
-        );
-    }) {
-        $self->withdraw($editor_id, $row->{$entity_type}, $row->{tag});
-    }
-}
-
 sub _vote {
     my ($self, $user_id, $entity_id, $tag_name, $is_upvote) = @_;
 

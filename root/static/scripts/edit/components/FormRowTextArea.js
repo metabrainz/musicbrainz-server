@@ -15,19 +15,19 @@ type TextAreaOnChange =
   (SyntheticEvent<HTMLTextAreaElement>) => void;
 
 type TextAreaProps = {
-  +cols: number,
+  readonly cols: number,
   defaultValue?: string,
-  +id: string,
-  +name: string,
+  readonly id: string,
+  readonly name: string,
   onChange?: TextAreaOnChange,
-  +required: boolean,
-  +rows: number,
+  readonly required: boolean,
+  readonly rows: number,
   value?: string,
 };
 
 type ControlledPropsT =
-  | $ReadOnly<{onChange: TextAreaOnChange, uncontrolled?: false}>
-  | $ReadOnly<{uncontrolled: true}>;
+  | Readonly<{onChange: TextAreaOnChange, uncontrolled?: false}>
+  | Readonly<{uncontrolled: true}>;
 
 component FormRowTextArea(
   cols: number = 80,

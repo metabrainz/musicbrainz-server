@@ -40,8 +40,8 @@ export default function compareDates(
 }
 
 export function compareDatePeriods(
-  a: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
-  b: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
+  a: ?Readonly<{...DatePeriodRoleT, ...}>,
+  b: ?Readonly<{...DatePeriodRoleT, ...}>,
 ): number {
   const aOrEmpty = a ?? NULL_DATE_PERIOD;
   const bOrEmpty = b ?? NULL_DATE_PERIOD;

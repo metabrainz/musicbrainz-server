@@ -25,7 +25,7 @@ import ArtistLayout from './ArtistLayout.js';
 component ArtistEvents(
   ajaxFilterFormUrl: string,
   artist: ArtistT,
-  events: $ReadOnlyArray<EventT>,
+  events: ReadonlyArray<EventT>,
   filterForm: ?EventFilterT,
   hasFilter: boolean,
   pager: PagerT,

@@ -16,28 +16,28 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type CoverArtReleaseFormatStatT = {
-  +format: string,
-  +stat_name: string,
+  readonly format: string,
+  readonly stat_name: string,
 };
 
 type CoverArtReleaseStatusStatT = {
-  +stat_name: string,
-  +status: string,
+  readonly stat_name: string,
+  readonly status: string,
 };
 
 type CoverArtReleaseTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 type EventArtEventTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 type ArtTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 const nameOrNull = (name: string, defaultName: string) => {
@@ -49,13 +49,13 @@ const nameOrNull = (name: string, defaultName: string) => {
 };
 
 component Images(
-  coverArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
+  coverArtTypeStats: ReadonlyArray<ArtTypeStatT>,
   dateCollected: string,
-  eventArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
-  eventTypeStats: $ReadOnlyArray<EventArtEventTypeStatT>,
-  releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
-  releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
-  releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
+  eventArtTypeStats: ReadonlyArray<ArtTypeStatT>,
+  eventTypeStats: ReadonlyArray<EventArtEventTypeStatT>,
+  releaseFormatStats: ReadonlyArray<CoverArtReleaseFormatStatT>,
+  releaseStatusStats: ReadonlyArray<CoverArtReleaseStatusStatT>,
+  releaseTypeStats: ReadonlyArray<CoverArtReleaseTypeStatT>,
   stats: {[statName: string]: number},
 ) {
   const $c = React.useContext(CatalystContext);

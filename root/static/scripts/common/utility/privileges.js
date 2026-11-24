@@ -25,7 +25,7 @@ import {
   WIKI_TRANSCLUSION_FLAG,
 } from '../../../../constants.js';
 
-type EditorPropT = ?{+privileges: number, ...};
+type EditorPropT = ?{readonly privileges: number, ...};
 
 export function isAutoEditor(editor: EditorPropT): boolean {
   if (editor == null) {

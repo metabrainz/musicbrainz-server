@@ -15,7 +15,7 @@ import UserList from './components/UserList.js';
 component IpLookup(
   ipHash: string,
   pager: PagerT,
-  users: $ReadOnlyArray<UnsanitizedEditorT>,
+  users: ReadonlyArray<UnsanitizedEditorT>,
 ) {
   return (
     <Layout fullWidth title="IP lookup">

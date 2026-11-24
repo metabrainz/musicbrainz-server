@@ -31,7 +31,7 @@ function canonicalize(url: string) {
     : url;
 }
 
-function getTitle(title?: string, isHomepage: boolean, pager?: PagerT) {
+function getTitle(title: ?string, isHomepage: boolean, pager?: PagerT) {
   let finalTitle = title;
 
   if (!isHomepage) {
@@ -52,7 +52,7 @@ function getTitle(title?: string, isHomepage: boolean, pager?: PagerT) {
   return finalTitle;
 }
 
-const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
+const CanonicalLink = ({requestUri}: {readonly requestUri: string}) => {
   const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
     return <link href={canonUri} rel="canonical" />;
@@ -138,15 +138,15 @@ component Head(
 
       {manifest('vendors')}
 
+      {$c.stash.current_language === 'en'
+        ? null
+        : manifest('jed-' + $c.stash.current_language)}
+
       {manifest('common-chunks')}
 
       {manifest('common/jquery-global')}
 
       {manifest('common/sentry')}
-
-      {$c.stash.current_language === 'en'
-        ? null
-        : manifest('jed-' + $c.stash.current_language)}
 
       {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 

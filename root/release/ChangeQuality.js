@@ -18,10 +18,10 @@ import {expect} from '../utility/invariant.js';
 import ReleaseLayout from './ReleaseLayout.js';
 
 type ChangeQualityFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +quality: FieldT<'advanced' | 'direct' | 'indexed'>,
-  +submit: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly quality: FieldT<'advanced' | 'direct' | 'indexed'>,
+  readonly submit: FieldT<string>,
 }>;
 
 component ChangeQuality(form: ChangeQualityFormT, release: ReleaseT) {

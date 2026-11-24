@@ -1,13 +1,12 @@
 [ignore]
-<PROJECT_ROOT>/.cpanm/.*
-<PROJECT_ROOT>/.nyc_output/.*
-<PROJECT_ROOT>/coverage/.*
-<PROJECT_ROOT>/lib/.*
-<PROJECT_ROOT>/node_modules/.*resolve/test/resolver/malformed_package_json/package.json
-<PROJECT_ROOT>/root/static/build/.*
-<PROJECT_ROOT>/perl_modules/.*
-<PROJECT_ROOT>/t/.*
-/Volumes/.*
+.cpanm/.*
+.nyc_output/.*
+coverage/.*
+lib/.*
+node_modules/.*resolve/test/resolver/malformed_package_json/package.json
+root/static/build/.*
+perl_modules/.*
+t/.*
 
 [include]
 
@@ -21,13 +20,10 @@ unused-promise=error
 
 [options]
 autoimports=true
-exact_by_default=true
 format.bracket_spacing=false
 format.single_quotes=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/lessstub.js.flow'
 react.runtime=automatic
-component_syntax=true
-experimental.pattern_matching=true
 
 [strict]
 nonstrict-import

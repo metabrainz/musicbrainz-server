@@ -1,5 +1,9 @@
-// flow-typed signature: dce13fe32697e8af512785bcee9afd53
-// flow-typed version: 591bf2a67c/node/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the same directory of this source tree.
+ */
 
 interface ErrnoError extends Error {
   address?: string;
@@ -11,6 +15,12 @@ interface ErrnoError extends Error {
   port?: number;
   syscall?: string;
 }
+
+type Node$Conditional<T extends boolean, IfTrue, IfFalse> = T extends true
+  ? IfTrue
+  : T extends false
+    ? IfFalse
+    : IfTrue | IfFalse;
 
 type buffer$NonBufferEncoding =
   'hex' | 'HEX' |
@@ -37,7 +47,7 @@ declare class Buffer extends Uint8Array {
 
   compare(otherBuffer: Buffer): number;
   copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-  entries(): Iterator<[number, number]>;
+  entries(): ArrayIterator<[number, number]>;
   equals(otherBuffer: Buffer): boolean;
   fill(value: string | Buffer | number, offset?: number, end?: number, encoding?: string): this;
   fill(value: string, encoding?: string): this;
@@ -52,7 +62,7 @@ declare class Buffer extends Uint8Array {
     encoding?: buffer$Encoding
   ): number;
   inspect(): string;
-  keys(): Iterator<number>,
+  keys(): ArrayIterator<number>,
   lastIndexOf(
     value: string | Buffer | number,
     offsetOrEncoding?: number | buffer$Encoding,
@@ -82,7 +92,7 @@ declare class Buffer extends Uint8Array {
   swap64(): Buffer;
   toJSON(): buffer$ToJSONRet;
   toString(encoding?: buffer$Encoding, start?: number, end?: number): string;
-  values(): Iterator<number>;
+  values(): ArrayIterator<number>;
   write(string: string, offset?: number, length?: number, encoding?: buffer$Encoding): number;
   writeDoubleBE(value: number, offset?: number, noAssert?: boolean): number;
   writeDoubleLE(value: number, offset?: number, noAssert?: boolean): number;
@@ -113,7 +123,7 @@ declare class Buffer extends Uint8Array {
   static from(value: Buffer): Buffer;
   static from(value: string, encoding?: buffer$Encoding): Buffer;
   static from(value: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
-  static from(value: Iterable<number>): this;
+  static from<This = void>(iterable: ArrayLike<number> | Iterable<number>, mapFn?: (this : This, element: number) => number, thisArg?: This): this;
   static isBuffer(obj: any): boolean;
   static isEncoding(encoding: string): boolean;
 }
@@ -691,7 +701,7 @@ declare module "crypto" {
     callback: (err: ?Error, buffer: Buffer) => void
   ): void
   declare function randomUUID(
-    options?: $ReadOnly<{|disableEntropyCache?: boolean|}>,
+    options?: Readonly<{|disableEntropyCache?: boolean|}>,
   ): string;
   declare function timingSafeEqual(
     a: Buffer | $TypedArray | DataView,
@@ -724,7 +734,7 @@ declare class dgram$Socket extends events$EventEmitter {
     msg: Buffer,
     port: number,
     address: string,
-    callback?: (err: ?Error, bytes: any) => mixed,
+    callback?: (err: ?Error, bytes: any) => unknown,
   ): void;
   send(
     msg: Buffer,
@@ -732,7 +742,7 @@ declare class dgram$Socket extends events$EventEmitter {
     length: number,
     port: number,
     address: string,
-    callback?: (err: ?Error, bytes: any) => mixed,
+    callback?: (err: ?Error, bytes: any) => unknown,
   ): void;
   setBroadcast(flag: boolean): void;
   setMulticastLoopback(flag: boolean): void;
@@ -1310,6 +1320,71 @@ declare module "fs" {
   declare function copyFile(src: string, dest: string, flags?: number, callback: (err: ErrnoError) => void): void;
   declare function copyFileSync(src: string, dest: string, flags?: number): void;
 
+  declare type GlobOptions<WithFileTypes extends boolean> = Readonly<{
+    /**
+     * Current working directory.
+     * @default process.cwd()
+     */
+    cwd?: string | void,
+    /**
+     * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+     * @default false
+     * @since v22.2.0
+     */
+    withFileTypes?: WithFileTypes,
+    /**
+     * Function to filter out files/directories or a
+     * list of glob patterns to be excluded. If a function is provided, return
+     * `true` to exclude the item, `false` to include it.
+     * @default undefined
+     */
+    exclude?:
+      | ((fileName: Node$Conditional<WithFileTypes, Dirent, string>) => boolean)
+      | ReadonlyArray<string>,
+    ...
+  }>;
+
+  /**
+   * Retrieves the files matching the specified pattern.
+   *
+   * ```js
+   * import { glob } from 'node:fs';
+   *
+   * glob('*.js', (err, matches) => {
+   *   if (err) throw err;
+   *   console.log(matches);
+   * });
+   * ```
+   * @since v22.0.0
+   */
+  declare function glob(
+    pattern: string | ReadonlyArray<string>,
+    callback: (err: ?ErrnoError, matches: Array<string>) => void,
+  ): void;
+
+  declare function glob<WithFileTypes extends boolean = false>(
+    pattern: string | ReadonlyArray<string>,
+    options: GlobOptions<WithFileTypes>,
+    callback: (
+      err: ?ErrnoError,
+      matches: Node$Conditional<WithFileTypes, Array<Dirent>, Array<string>>,
+    ) => void,
+  ): void;
+
+  /**
+   * ```js
+   * import { globSync } from 'node:fs';
+   *
+   * console.log(globSync('*.js'));
+   * ```
+   * @since v22.0.0
+   * @returns paths of files that match the pattern.
+   */
+  declare function globSync<WithFileTypes extends boolean = false>(
+    pattern: string | ReadonlyArray<string>,
+    options?: GlobOptions<WithFileTypes>,
+  ): Node$Conditional<WithFileTypes, Array<Dirent>, Array<string>>;
+
   declare var F_OK: number;
   declare var R_OK: number;
   declare var W_OK: number;
@@ -1377,7 +1452,7 @@ declare module "fs" {
     close(): Promise<void>;
     datasync(): Promise<void>;
     fd: number;
-    read<T: Buffer | Uint8Array>(
+    read<T extends Buffer | Uint8Array>(
       buffer: T,
       offset: number,
       length: number,
@@ -1412,6 +1487,14 @@ declare module "fs" {
     ftruncate(filehandle: FileHandle, len?: number): Promise<void>,
     futimes(filehandle: FileHandle, atime: number | string | Date, mtime: number | string | Date): Promise<void>,
     lchmod(path: FSPromisePath, mode: number): Promise<void>,
+    glob<WithFileTypes extends boolean = false>(
+      pattern: string | ReadonlyArray<string>,
+      options?: GlobOptions<WithFileTypes>,
+    ): Node$Conditional<
+      WithFileTypes,
+      AsyncIterator<Dirent>,
+      AsyncIterator<string>,
+    >,
     lchown(path: FSPromisePath, uid: number, guid: number): Promise<void>,
     link(existingPath: FSPromisePath, newPath: FSPromisePath): Promise<void>,
     lstat(path: FSPromisePath): Promise<Stats>,
@@ -1422,7 +1505,7 @@ declare module "fs" {
     }): Promise<void>,
     mkdtemp(prefix: string, options?: EncodingOptions): Promise<string>,
     open(path: FSPromisePath, flags?: string | number, mode?: number): Promise<FileHandle>,
-    read<T: Buffer | Uint8Array>(
+    read<T extends Buffer | Uint8Array>(
       filehandle: FileHandle,
       buffer: T,
       offset: number,
@@ -1454,7 +1537,7 @@ declare module "fs" {
     truncate(path: FSPromisePath, len?: number): Promise<void>,
     unlink(path: FSPromisePath): Promise<void>,
     utimes(path: FSPromisePath, atime: number | string | Date, mtime: number | string | Date): Promise<void>,
-    write<T: Buffer | Uint8Array>(
+    write<T extends Buffer | Uint8Array>(
       filehandle: FileHandle,
       buffer: T,
       offset: number,
@@ -1484,10 +1567,11 @@ type http$agentOptions = {
   ...
 }
 
-declare class http$Agent<+SocketT = net$Socket> {
+declare class http$Agent<out SocketT = net$Socket> {
   constructor(options: http$agentOptions): void;
   destroy(): void;
-  freeSockets: { [name: string]: $ReadOnlyArray<SocketT>, ... };
+  // $FlowExpectedError[incompatible-variance]
+  freeSockets: { [name: string]: ReadonlyArray<SocketT>, ... };
   getName(options: {
     host: string,
     port: number,
@@ -1496,8 +1580,10 @@ declare class http$Agent<+SocketT = net$Socket> {
   }): string;
   maxFreeSockets: number;
   maxSockets: number;
-  requests: { [name: string]: $ReadOnlyArray<http$ClientRequest<SocketT>>, ... };
-  sockets: { [name: string]: $ReadOnlyArray<SocketT>, ... };
+  // $FlowExpectedError[incompatible-variance]
+  requests: { [name: string]: ReadonlyArray<http$ClientRequest<SocketT>>, ... };
+  // $FlowExpectedError[incompatible-variance]
+  sockets: { [name: string]: ReadonlyArray<SocketT>, ... };
 }
 
 declare class http$IncomingMessage<SocketT = net$Socket> extends stream$Readable {
@@ -1516,10 +1602,10 @@ declare class http$IncomingMessage<SocketT = net$Socket> extends stream$Readable
   rawTrailers: Array<string>;
 }
 
-declare class http$ClientRequest<+SocketT = net$Socket> extends stream$Writable {
+declare class http$ClientRequest<out SocketT = net$Socket> extends stream$Writable {
   abort(): void;
   aborted: boolean;
-  +connection: SocketT | null;
+  readonly connection: SocketT | null;
   flushHeaders(): void;
   getHeader(name: string): string;
   removeHeader(name: string): void;
@@ -1527,7 +1613,7 @@ declare class http$ClientRequest<+SocketT = net$Socket> extends stream$Writable 
   setNoDelay(noDelay?: boolean): void;
   setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
   setTimeout(msecs: number, callback?: Function): void;
-  +socket: SocketT | null;
+  readonly socket: SocketT | null;
 }
 
 declare class http$ServerResponse extends stream$Writable {
@@ -1572,7 +1658,7 @@ declare class http$Server extends net$Server {
     ...
   }, callback?: Function): this;
   listening: boolean;
-  close(callback?: (error: ?Error) => mixed): this;
+  close(callback?: (error: ?Error) => unknown): this;
   closeAllConnections(): void;
   closeIdleConnections(): void;
   maxHeadersCount: number;
@@ -1600,7 +1686,7 @@ declare class https$Server extends tls$Server {
     ipv6Only?: boolean,
     ...
   }, callback?: Function): this;
-  close(callback?: (error: ?Error) => mixed): this;
+  close(callback?: (error: ?Error) => unknown): this;
   closeAllConnections(): void;
   closeIdleConnections(): void;
   keepAliveTimeout: number;
@@ -1613,7 +1699,7 @@ type requestOptions = {|
   auth?: string,
   defaultPort?: number,
   family?: number,
-  headers?: { [key: string] : mixed, ... },
+  headers?: { [key: string] : unknown, ... },
   host?: string,
   hostname?: string,
   localAddress?: string,
@@ -1732,10 +1818,10 @@ declare class net$Socket extends stream$Duplex {
   bufferSize: number;
   bytesRead: number;
   bytesWritten: number;
-  connect(path: string, connectListener?: () => mixed): net$Socket;
-  connect(port: number, host?: string, connectListener?: () => mixed): net$Socket;
-  connect(port: number, connectListener?: () => mixed): net$Socket;
-  connect(options: Object, connectListener?: () => mixed): net$Socket;
+  connect(path: string, connectListener?: () => unknown): net$Socket;
+  connect(port: number, host?: string, connectListener?: () => unknown): net$Socket;
+  connect(port: number, connectListener?: () => unknown): net$Socket;
+  connect(options: Object, connectListener?: () => unknown): net$Socket;
   destroyed: boolean;
   end(
     chunkOrEncodingOrCallback?: Buffer | Uint8Array | string | (data: any) => void,
@@ -1787,7 +1873,7 @@ type net$connectOptions = {
     domain: string,
     options?: ?number | ?Object,
     callback?: (err: ?Error, address: string, family: number) => void
-  ) => mixed,
+  ) => unknown,
   path?: string,
   ...
 };
@@ -2037,7 +2123,7 @@ declare class stream$Readable extends stream$Stream {
   destroy(error?: Error): this;
   isPaused(): boolean;
   pause(): this;
-  pipe<T: stream$Writable>(dest: T, options?: { end? : boolean, ... }): T;
+  pipe<T extends stream$Writable>(dest: T, options?: { end? : boolean, ... }): T;
   read(size?: number): ?(string | Buffer);
   readable: boolean;
   readableHighWaterMark: number;
@@ -2150,25 +2236,25 @@ declare module "stream" {
     },
     callback: (error?: Error) => void,
   ): () => void;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     last: T,
     cb: (error?: Error) => void,
   ): T;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     s2: stream$Duplex,
     last: T,
     cb: (error?: Error) => void,
   ): T;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     s2: stream$Duplex,
     s3: stream$Duplex,
     last: T,
     cb: (error?: Error) => void,
   ): T;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     s2: stream$Duplex,
     s3: stream$Duplex,
@@ -2176,7 +2262,7 @@ declare module "stream" {
     last: T,
     cb: (error?: Error) => void,
   ): T;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     s2: stream$Duplex,
     s3: stream$Duplex,
@@ -2185,7 +2271,7 @@ declare module "stream" {
     last: T,
     cb: (error?: Error) => void,
   ): T;
-  declare function pipeline<T: stream$Writable>(
+  declare function pipeline<T extends stream$Writable>(
     s1: stream$Readable,
     s2: stream$Duplex,
     s3: stream$Duplex,
@@ -2201,8 +2287,8 @@ declare module "stream" {
   ): stream$Stream;
 
   declare interface StreamPipelineOptions {
-    +signal?: AbortSignal,
-    +end?: boolean
+    readonly signal?: AbortSignal,
+    readonly end?: boolean
   }
 
   declare type StreamPromise = {
@@ -2252,7 +2338,7 @@ declare module "stream" {
       options?: StreamPipelineOptions,
     ): Promise<void>,
     pipeline(
-      streams: $ReadOnlyArray<stream$Stream>,
+      streams: ReadonlyArray<stream$Stream>,
       options?: StreamPipelineOptions,
     ): Promise<void>;
     ...
@@ -2362,7 +2448,7 @@ type tls$connectOptions = {
     domain: string,
     options?: ?number | ?Object,
     callback?: (err: ?Error, address: string, family: number) => void
-  ) => mixed,
+  ) => unknown,
   requestOCSP?: boolean,
   ...
 };
@@ -2451,17 +2537,17 @@ declare module "tls" {
 }
 
 type url$urlObject = {
-  +href?: string,
-  +protocol?: string | null,
-  +slashes?: boolean | null,
-  +auth?: string | null,
-  +hostname?: string | null,
-  +port?: string | number | null,
-  +host?: string | null,
-  +pathname?: string | null,
-  +search?: string | null,
-  +query?: Object | null,
-  +hash?: string | null,
+  readonly href?: string,
+  readonly protocol?: string | null,
+  readonly slashes?: boolean | null,
+  readonly auth?: string | null,
+  readonly hostname?: string | null,
+  readonly port?: string | number | null,
+  readonly host?: string | null,
+  readonly pathname?: string | null,
+  readonly search?: string | null,
+  readonly query?: Object | null,
+  readonly hash?: string | null,
   ...
 };
 
@@ -2509,7 +2595,7 @@ declare module "url" {
     append(name: string, value: string): void;
     delete(name: string, value?: void): void;
     entries(): Iterator<[string, string]>;
-    forEach<This>(callback: (this : This, value: string, name: string, searchParams: URLSearchParams) => mixed, thisArg?: This): void;
+    forEach<This>(callback: (this : This, value: string, name: string, searchParams: URLSearchParams) => unknown, thisArg?: This): void;
     get(name: string): string | null;
     getAll(name: string): string[];
     has(name: string, value?: string): boolean;
@@ -2529,13 +2615,13 @@ declare module "url" {
     host: string;
     hostname: string;
     href: string;
-    +origin: string;
+    readonly origin: string;
     password: string;
     pathname: string;
     port: string;
     protocol: string;
     search: string;
-    +searchParams: URLSearchParams;
+    readonly searchParams: URLSearchParams;
     username: string;
     toString(): string;
     toJSON(): string;
@@ -2552,28 +2638,28 @@ type util$InspectOptions = {
 
 declare type util$ParseArgsOption =
 | {|
-    type: 'boolean',
-    multiple?: false,
-    short?: string,
-    default?: boolean,
+    readonly type: 'boolean',
+    readonly multiple?: false,
+    readonly short?: string,
+    readonly default?: boolean,
   |}
 | {|
-    type: 'boolean',
-    multiple: true,
-    short?: string,
-    default?: Array<boolean>,
+    readonly type: 'boolean',
+    readonly multiple: true,
+    readonly short?: string,
+    readonly default?: Array<boolean>,
   |}
 | {|
-    type: 'string',
-    multiple?: false,
-    short?: string,
-    default?: string,
+    readonly type: 'string',
+    readonly multiple?: false,
+    readonly short?: string,
+    readonly default?: string,
   |}
 | {|
-    type: 'string',
-    multiple: true,
-    short?: string,
-    default?: Array<string>,
+    readonly type: 'string',
+    readonly multiple: true,
+    readonly short?: string,
+    readonly default?: Array<string>,
   |};
 
 type util$ParseArgsOptionToValue<TOption> =
@@ -2626,7 +2712,7 @@ declare module "util" {
   declare function stripVTControlCharacters(str: string): string;
 
   declare function parseArgs<
-    TOptions: {[string]: util$ParseArgsOption} = {||},
+    TOptions extends {readonly [string]: util$ParseArgsOption} = {||},
   >(config: {|
     args?: Array<string>,
     options?: TOptions,
@@ -2639,7 +2725,7 @@ declare module "util" {
   |};
 
   declare function parseArgs<
-    TOptions: {[string]: util$ParseArgsOption} = {||},
+    TOptions extends {readonly [string]: util$ParseArgsOption} = {||},
   >(config: {|
     args?: Array<string>,
     options?: TOptions,
@@ -2671,45 +2757,45 @@ declare module "util" {
   }
 
   declare var types: {
-    isAnyArrayBuffer: (value: mixed) => boolean;
-    isArgumentsObject:(value: mixed) => boolean;
-    isArrayBuffer:(value: mixed) => boolean;
-    isAsyncFunction:(value: mixed) => boolean;
-    isBigInt64Array:(value: mixed) => boolean;
-    isBigUint64Array:(value: mixed) => boolean;
-    isBooleanObject:(value: mixed) => boolean;
-    isBoxedPrimitive:(value: mixed) => boolean;
-    isDataView:(value: mixed) => boolean;
-    isDate:(value: mixed) => boolean;
-    isExternal:(value: mixed) => boolean;
-    isFloat32Array:(value: mixed) => boolean;
-    isFloat64Array:(value: mixed) => boolean;
-    isGeneratorFunction:(value: mixed) => boolean;
-    isGeneratorObject:(value: mixed) => boolean;
-    isInt8Array:(value: mixed) => boolean;
-    isInt16Array:(value: mixed) => boolean;
-    isInt32Array:(value: mixed) => boolean;
-    isMap:(value: mixed) => boolean;
-    isMapIterator:(value: mixed) => boolean;
-    isModuleNamespaceObject:(value: mixed) => boolean;
-    isNativeError:(value: mixed) => boolean;
-    isNumberObject:(value: mixed) => boolean;
-    isPromise:(value: mixed) => boolean;
-    isProxy:(value: mixed) => boolean;
-    isRegExp:(value: mixed) => boolean;
-    isSet:(value: mixed) => boolean;
-    isSetIterator:(value: mixed) => boolean;
-    isSharedArrayBuffer:(value: mixed) => boolean;
-    isStringObject:(value: mixed) => boolean;
-    isSymbolObject:(value: mixed) => boolean;
-    isTypedArray:(value: mixed) => boolean;
-    isUint8Array:(value: mixed) => boolean;
-    isUint8ClampedArray:(value: mixed) => boolean;
-    isUint16Array:(value: mixed) => boolean;
-    isUint32Array:(value: mixed) => boolean;
-    isWeakMap:(value: mixed) => boolean;
-    isWeakSet:(value: mixed) => boolean;
-    isWebAssemblyCompiledModule:(value: mixed) => boolean;
+    isAnyArrayBuffer: (value: unknown) => boolean;
+    isArgumentsObject:(value: unknown) => boolean;
+    isArrayBuffer:(value: unknown) => boolean;
+    isAsyncFunction:(value: unknown) => boolean;
+    isBigInt64Array:(value: unknown) => boolean;
+    isBigUint64Array:(value: unknown) => boolean;
+    isBooleanObject:(value: unknown) => boolean;
+    isBoxedPrimitive:(value: unknown) => boolean;
+    isDataView:(value: unknown) => boolean;
+    isDate:(value: unknown) => boolean;
+    isExternal:(value: unknown) => boolean;
+    isFloat32Array:(value: unknown) => boolean;
+    isFloat64Array:(value: unknown) => boolean;
+    isGeneratorFunction:(value: unknown) => boolean;
+    isGeneratorObject:(value: unknown) => boolean;
+    isInt8Array:(value: unknown) => boolean;
+    isInt16Array:(value: unknown) => boolean;
+    isInt32Array:(value: unknown) => boolean;
+    isMap:(value: unknown) => boolean;
+    isMapIterator:(value: unknown) => boolean;
+    isModuleNamespaceObject:(value: unknown) => boolean;
+    isNativeError:(value: unknown) => boolean;
+    isNumberObject:(value: unknown) => boolean;
+    isPromise:(value: unknown) => boolean;
+    isProxy:(value: unknown) => boolean;
+    isRegExp:(value: unknown) => boolean;
+    isSet:(value: unknown) => boolean;
+    isSetIterator:(value: unknown) => boolean;
+    isSharedArrayBuffer:(value: unknown) => boolean;
+    isStringObject:(value: unknown) => boolean;
+    isSymbolObject:(value: unknown) => boolean;
+    isTypedArray:(value: unknown) => boolean;
+    isUint8Array:(value: unknown) => boolean;
+    isUint8ClampedArray:(value: unknown) => boolean;
+    isUint16Array:(value: unknown) => boolean;
+    isUint32Array:(value: unknown) => boolean;
+    isWeakMap:(value: unknown) => boolean;
+    isWeakSet:(value: unknown) => boolean;
+    isWebAssemblyCompiledModule:(value: unknown) => boolean;
     ...
   }
 }
@@ -3275,9 +3361,9 @@ type repl$DefineCommandOptions =
   ...
 };
 
-declare class $SymbolReplModeMagic mixins Symbol {}
-declare class $SymbolReplModeSloppy mixins Symbol {}
-declare class $SymbolReplModeStrict mixins Symbol {}
+declare class $SymbolReplModeMagic extends Symbol {}
+declare class $SymbolReplModeSloppy extends Symbol {}
+declare class $SymbolReplModeStrict extends Symbol {}
 
 declare module 'repl' {
   declare var REPL_MODE_MAGIC: $SymbolReplModeMagic;
@@ -3359,13 +3445,13 @@ declare class Process extends events$EventEmitter {
   domain? : domain$Domain;
   env : { [key: string] : string | void, ... };
   emitWarning(warning: string | Error): void;
-  emitWarning(warning: string, typeOrCtor: string | (...empty) => mixed): void;
-  emitWarning(warning: string, type: string, codeOrCtor: string | (...empty) => mixed): void;
+  emitWarning(warning: string, typeOrCtor: string | (...empty) => unknown): void;
+  emitWarning(warning: string, type: string, codeOrCtor: string | (...empty) => unknown): void;
   emitWarning(
     warning: string,
     type: string,
     code: string,
-    ctor?: (...empty) => mixed
+    ctor?: (...empty) => unknown
   ): void;
   execArgv : Array<string>;
   execPath : string;
@@ -3392,7 +3478,7 @@ declare class Process extends events$EventEmitter {
     external : number,
     ...
   };
-  nextTick: <T>(cb: (...T) => mixed, ...T) => void;
+  nextTick: <T>(cb: (...T) => unknown, ...T) => void;
   pid : number;
   platform : string;
   release : {
@@ -3409,7 +3495,7 @@ declare class Process extends events$EventEmitter {
   setegid? : (id : number | string) => void;
   seteuid? : (id : number | string) => void;
   setgid? : (id : number | string) => void;
-  setgroups? : <Group: string | number>(groups : Array<Group>) => void;
+  setgroups? : <Group extends string | number>(groups : Array<Group>) => void;
   setuid? : (id : number | string) => void;
   stderr : stream$Writable | tty$WriteStream;
   stdin : stream$Readable | tty$ReadStream;
@@ -3430,7 +3516,7 @@ declare var process: Process;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setImmediate(callback: ((...args: Array<any>) => mixed), ...args: Array<any>): Object;
+declare function setImmediate(callback: ((...args: Array<any>) => unknown), ...args: Array<any>): Object;
 declare function clearImmediate(immediateObject: any): Object;
 
 // https://nodejs.org/api/esm.html#node-imports
@@ -3459,10 +3545,6 @@ declare module 'node:os' {
   declare module.exports: $Exports<'os'>;
 }
 
-declare module 'node:readline' {
-  declare module.exports: $Exports<'readline'>;
-}
-
 declare module 'fs/promises' {
   declare module.exports: $Exports<'fs'>['promises'];
 }
@@ -3483,6 +3565,10 @@ declare module 'node:process' {
   declare module.exports: $Exports<'process'>;
 }
 
+declare module 'node:readline' {
+  declare module.exports: $Exports<'readline'>;
+}
+
 declare module 'node:util' {
   declare module.exports: $Exports<'util'>;
 }
@@ -3498,8 +3584,8 @@ declare module 'worker_threads' {
   declare var workerData: any;
 
   declare class MessageChannel {
-    +port1: MessagePort;
-    +port2: MessagePort;
+    readonly port1: MessagePort;
+    readonly port2: MessagePort;
   }
 
   declare class MessagePort extends events$EventEmitter {
@@ -3553,10 +3639,10 @@ declare module 'worker_threads' {
   |}
 
   declare class Worker extends events$EventEmitter {
-    +stdin: stream$Writable | null;
-    +stdout: stream$Readable;
-    +stderr: stream$Readable;
-    +threadId: number;
+    readonly stdin: stream$Writable | null;
+    readonly stdout: stream$Readable;
+    readonly stderr: stream$Readable;
+    readonly threadId: number;
 
     constructor(filename: string, options?: WorkerOptions): void;
 

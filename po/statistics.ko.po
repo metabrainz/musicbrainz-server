@@ -1,12 +1,13 @@
 #
 # Translators:
 # hashflu <minwuekim@gmail.com>, 2024.
+# meze <jayeolchun@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-26 13:28+0000\n"
-"Last-Translator: hashflu <minwuekim@gmail.com>\n"
+"PO-Revision-Date: 2026-05-15 00:12+0000\n"
+"Last-Translator: meze <jayeolchun@gmail.com>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ko/>\n"
 "Language: ko\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1129,10 +1130,8 @@ msgid "Event collections (all types)"
 msgstr ""
 
 #: ../root/statistics/stats.js:226
-#, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
-msgstr "컬렉션"
+msgstr "장르 컬렉션"
 
 #: ../root/statistics/stats.js:231
 msgid "Instrument collections"

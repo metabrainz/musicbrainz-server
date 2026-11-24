@@ -15,7 +15,7 @@ import type {ReportLabelUrlT} from '../types.js';
 import RemovedUrlRow from './RemovedUrlRow.js';
 
 component LabelUrlList(
-  items: $ReadOnlyArray<ReportLabelUrlT>,
+  items: ReadonlyArray<ReportLabelUrlT>,
   pager: PagerT,
 ) {
   let lastGID: string = '';

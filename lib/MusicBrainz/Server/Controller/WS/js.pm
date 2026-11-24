@@ -25,7 +25,7 @@ use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( generate_token type_to_model );
 use MusicBrainz::Server::Constants qw(
     entities_with
     %ENTITIES
@@ -262,7 +262,9 @@ sub disc_search {
 
     $query = join(' AND ', @query);
 
-    my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
+    my $source_endpoint = $type eq 'release' ? '/ws/js/medium' : '/ws/js/cdstub';
+    my $response = $c->model('Search')->external_search(
+        $type, $query, $limit, $page, 1, source_endpoint => $source_endpoint);
     my @output;
 
     if ($response->{pager})
@@ -563,7 +565,7 @@ sub _art_upload {
     if ($existing_nonce) {
         $self->detach_with_error($c, {message => "The ID $id is already in use (2)."});
     }
-    my $nonce = $c->generate_nonce;
+    my $nonce = generate_token();
     $context->store->set($nonce_key, $nonce);
     # Expire the nonce in 1 hour.
     $context->store->expire($nonce_key, 60 * 60);
@@ -592,7 +594,11 @@ sub _art_upload {
         nonce => $nonce,
     };
 
-    $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
+    $c->res->headers->header(
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
+        'Pragma' => 'no-cache',
+    );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
 }
@@ -1029,7 +1035,8 @@ sub check_login : Chained('root') PathPart('check-login') {
 
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->headers->header(
-        'Cache-Control' => 'no-store',
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
     $c->res->status(HTTP_OK);

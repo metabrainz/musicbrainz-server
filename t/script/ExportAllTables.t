@@ -1,44 +1,37 @@
 use strict;
 use warnings;
 
-use DBDefs;
 use English;
 use File::Spec;
 use File::Temp qw( tempdir );
+use lib 't/lib';
 use String::ShellQuote;
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
 use Test::Deep qw( cmp_deeply ignore );
 use MusicBrainz::Server::Test;
-use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 use utf8;
 
+use DBDefs;
+use MusicBrainz::Server::Context;
+use aliased 't::script::ReplicationTest';
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
 test all => sub {
-    # Because this test invokes external scripts that rely on certain test data
-    # existing, it can't use t::Context or anything that would be contained
-    # inside a transaction.
-
     my $root = DBDefs->MB_SERVER_ROOT;
-    my $psql = File::Spec->catfile($root, 'admin/psql');
-
-    my $exec_sql = sub {
-        my $sql = shell_quote(shift);
-
-        system 'sh', '-c' => "echo $sql | $psql TEST_FULL_EXPORT";
-    };
-
     my $output_dir = tempdir('t-fullexport-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
-    my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
+    my $test = ReplicationTest->new(output_dir => $output_dir);
+    my $master_c = $test->master_c;
+    my $mirror_c = $test->mirror_c;
 
     # MBS-9342
     my $long_unicode_tag1 = '松' x 255;
     my $long_unicode_tag2 = '変' x 255;
 
-    $exec_sql->(<<~"SQL");
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~"SQL");
         BEGIN;
-        INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
-            VALUES ($schema_seq, 1, now() - interval '1 hour');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (666, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
         INSERT INTO tag (id, name, ref_count)
@@ -69,13 +62,9 @@ test all => sub {
         COMMIT;
         SQL
 
-    system (
-        File::Spec->catfile($root, 'admin/ExportAllTables'),
+    $test->export_all_tables(
         '--with-full-export',
-        '--without-replication',
-        '--output-dir', $output_dir,
-        '--database', 'TEST_FULL_EXPORT',
-        '--compress',
+        '--with-replication',
     );
 
     my $quoted_output_dir = shell_quote($output_dir);
@@ -84,69 +73,47 @@ test all => sub {
     system("cd $quoted_output_dir && sha256sum -c SHA256SUMS") == 0
         or die $OS_ERROR;
 
-    $exec_sql->(<<~"SQL");
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~"SQL");
         SET client_min_messages TO WARNING;
-        INSERT INTO dbmirror_pending
-            VALUES (1, '"musicbrainz"."artist"', 'i', 1),
-                   (2, '"musicbrainz"."artist"', 'u', 2),
-                   (3, '"musicbrainz"."tag"', 'i', 3),
-                   (4, '"musicbrainz"."artist_tag"', 'i', 3);
-        INSERT INTO dbmirror_pendingdata
-            VALUES (1, 'f', '"id"=''667'' "gid"=''b3d9590e-cd28-47a9-838a-ed41a78002f5'' "name"=''B'' "sort_name"=''B'' "last_updated"=''2016-05-03 20:00:00+00'' '),
-                   (2, 't', '"id"=''666'' '),
-                   (2, 'f', '"name"=''Updated A'' '),
-                   (3, 'f', '"id"=''2'' "name"=''$long_unicode_tag2'' "ref_count"=''1'' '),
-                   (4, 'f', '"artist"=''667'' "tag"=''2'' "count"=''1'' "last_updated"=''2016-05-03 20:00:00+00'' ');
+        BEGIN;
+        INSERT INTO artist (id, gid, name, sort_name, last_updated)
+            VALUES (667, 'b3d9590e-cd28-47a9-838a-ed41a78002f5', 'B', 'B', '2016-05-03 20:00:00+00');
+        UPDATE artist SET name = 'Updated A' WHERE id = 666;
+        INSERT INTO tag (id, name, ref_count)
+            VALUES (2, '$long_unicode_tag2', 1);
+        INSERT INTO artist_tag (artist, tag, count, last_updated)
+            VALUES (667, 2, 1, '2016-05-03 20:00:00+00');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (909, 'ZZZ', '{CLEARTEXT}mb', '');
+        COMMIT;
         SQL
 
-    system (
-        File::Spec->catfile($root, 'admin/ExportAllTables'),
+    $test->export_all_tables(
         '--without-full-export',
         '--with-replication',
-        '--output-dir', $output_dir,
-        '--database', 'TEST_FULL_EXPORT',
-        '--compress',
     );
 
-    my $system_db = Databases->get('SYSTEM');
-    my $test_db = Databases->get('TEST_FULL_EXPORT');
-    $ENV{PGPASSWORD} = $test_db->password;
-    system 'dropdb',
-        '-h', $test_db->host,
-        '-p', $test_db->port,
-        '-U', $system_db->username,
-        $test_db->database;
-
-    $ENV{REPLICATION_TYPE} = 1; # master
     system(
-        File::Spec->catfile($root, 'admin/InitDb.pl'),
-        '--database', 'TEST_FULL_EXPORT',
-        '--createdb',
-        '--import',
-            File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
-            File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
-            File::Spec->catfile($output_dir, 'mbdump-editor.tar.bz2'),
-            File::Spec->catfile($output_dir, 'mbdump-cover-art-archive.tar.bz2'),
-            File::Spec->catfile($output_dir, 'mbdump-event-art-archive.tar.bz2'),
+        File::Spec->catfile($root, 'admin/MBImport.pl'),
+        '--database', 'TEST_MIRROR',
+        '--delete-first',
+        File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
+        File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
+        File::Spec->catfile($output_dir, 'mbdump-editor.tar.bz2'),
+        File::Spec->catfile($output_dir, 'mbdump-cover-art-archive.tar.bz2'),
+        File::Spec->catfile($output_dir, 'mbdump-event-art-archive.tar.bz2'),
     );
-
-    $exec_sql->(<<~"SQL");
-        SET client_min_messages TO WARNING;
-        TRUNCATE replication_control CASCADE;
-        INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
-            VALUES ($schema_seq, 1, now() - interval '1 hour');
-        SQL
 
     system (
         File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
         '--base-uri', 'file://' . $output_dir,
-        '--database', 'TEST_FULL_EXPORT',
-        '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_FULL_EXPORT',
+        '--database', 'TEST_MIRROR',
+        '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_MIRROR',
         '--nodbmirror2',
     );
 
-    my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST_FULL_EXPORT');
-    my $artists = $c->sql->select_list_of_hashes('SELECT * FROM artist ORDER BY id');
+    my $artists = $mirror_c->sql->select_list_of_hashes('SELECT * FROM artist ORDER BY id');
 
     cmp_deeply($artists, [
         {
@@ -193,7 +160,7 @@ test all => sub {
         },
     ]);
 
-    my $tags = $c->sql->select_list_of_hashes('SELECT * FROM tag ORDER BY id');
+    my $tags = $mirror_c->sql->select_list_of_hashes('SELECT * FROM tag ORDER BY id');
 
     cmp_deeply($tags, [
         {
@@ -208,7 +175,7 @@ test all => sub {
         },
     ]);
 
-    my $editors = $c->sql->select_list_of_hashes('SELECT * FROM editor ORDER BY id');
+    my $editors = $mirror_c->sql->select_list_of_hashes('SELECT * FROM editor ORDER BY id');
 
     cmp_deeply($editors, [
         {
@@ -254,7 +221,7 @@ test all => sub {
     # tables' file names might be tables like event_art_archive.art_type and
     # cover_art_archive.art_type clobbering each other.
 
-    my $cover_art_types = $c->sql->select_list_of_hashes('SELECT * FROM cover_art_archive.art_type WHERE id = 1');
+    my $cover_art_types = $mirror_c->sql->select_list_of_hashes('SELECT * FROM cover_art_archive.art_type WHERE id = 1');
 
     cmp_deeply($cover_art_types, [
         {
@@ -267,7 +234,7 @@ test all => sub {
         },
     ]);
 
-    my $event_art_types = $c->sql->select_list_of_hashes('SELECT * FROM event_art_archive.art_type WHERE id = 1');
+    my $event_art_types = $mirror_c->sql->select_list_of_hashes('SELECT * FROM event_art_archive.art_type WHERE id = 1');
 
     cmp_deeply($event_art_types, [
         {
@@ -279,13 +246,6 @@ test all => sub {
             gid => '7ced53fc-bb27-33ae-aeef-79d6e24fec3c',
         },
     ]);
-
-    $exec_sql->(<<~'SQL');
-        SET client_min_messages TO WARNING;
-        TRUNCATE artist CASCADE;
-        TRUNCATE artist_tag CASCADE;
-        TRUNCATE tag CASCADE;
-        SQL
 };
 
 run_me;

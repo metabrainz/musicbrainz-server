@@ -43,6 +43,8 @@ export default {
     },
   },
 
+  experiments: {typescript: false},
+
   externals: [
     nodeExternals({
       /*
@@ -92,5 +94,5 @@ export default {
     ),
   ],
 
-  target: 'node20',
+  target: 'node24',
 };

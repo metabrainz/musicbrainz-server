@@ -42,4 +42,7 @@ then
     ./admin/cleanup/MergeDuplicateArtistCredits --limit 100
 fi
 
+echo Removing residual data of deleted users
+./admin/cleanup/RemoveResidualUserData
+
 ./admin/RunExport

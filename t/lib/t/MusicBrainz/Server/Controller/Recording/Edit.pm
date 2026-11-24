@@ -175,7 +175,6 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                     id => 1,
                     name => 'Dancing Queen',
                 },
-                source => 0,
             } ],
             client_version => JSON::null,
         },

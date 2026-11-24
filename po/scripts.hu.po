@@ -1,22 +1,24 @@
 #
 # Translators:
+# pXF <pxf@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Hungarian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/hu/)\n"
+"PO-Revision-Date: 2026-09-17 18:13+0000\n"
+"Last-Translator: pXF <pxf@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Hungarian <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
-msgstr ""
+msgstr "Afaka"
 
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
@@ -31,7 +33,7 @@ msgstr "Örmény"
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
-msgstr ""
+msgstr "Avesztai"
 
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
@@ -501,7 +503,7 @@ msgstr ""
 #. frequency:3 iso_code:Mymr
 #: DB:script/name:64
 msgid "Myanmar"
-msgstr ""
+msgstr "Mianmar"
 
 #. frequency:2 iso_code:Nkoo
 #: DB:script/name:103

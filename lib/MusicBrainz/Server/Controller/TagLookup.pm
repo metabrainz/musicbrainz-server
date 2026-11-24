@@ -177,7 +177,8 @@ sub external : Private
     $c->controller('Search')->do_external_search($c,
                                                  query    => join(' ', @search_modifiers),
                                                  type     => $type,
-                                                 advanced => 1);
+                                                 advanced => 1,
+                                                 source_endpoint => '/taglookup');
 }
 
 sub not_found : Private
@@ -232,6 +233,7 @@ sub index : Path('')
             pager => serialize_pager($c->stash->{pager}),
             query => $c->stash->{query},
             results => to_json_array($c->stash->{results}),
+            uncappedTotalHits => $c->stash->{uncapped_total_hits},
         },
     );
 }

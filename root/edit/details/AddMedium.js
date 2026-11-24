@@ -37,7 +37,7 @@ component CondensedTrackACsRow(
   );
 }
 
-component CondensedTrackACs(tracks?: $ReadOnlyArray<TrackT>) {
+component CondensedTrackACs(tracks?: ReadonlyArray<TrackT>) {
   if (!tracks) {
     return [];
   }

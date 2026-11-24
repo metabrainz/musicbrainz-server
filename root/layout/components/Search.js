@@ -15,11 +15,11 @@ type SearchOptionValueT =
   (() => string) | null;
 
 type SearchOptionGroupT = {
-  +[optionName: string]: SearchOptionValueT,
+  readonly [optionName: string]: SearchOptionValueT,
   ...
 };
 
-const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
+const TYPE_OPTION_GROUPS: ReadonlyArray<SearchOptionGroupT> = [
   {
     artist:        N_l('Artist'),
   },

@@ -19,7 +19,7 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 component WorkMerge(
   form: MergeFormT,
   iswcsDiffer?: boolean = false,
-  toMerge: $ReadOnlyArray<WorkT>,
+  toMerge: ReadonlyArray<WorkT>,
 ) {
   return (
     <Layout fullWidth title={l('Merge works')}>

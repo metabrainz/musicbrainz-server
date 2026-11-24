@@ -19,7 +19,7 @@ import {
 } from '../../utility/tableColumns.js';
 
 component AreaList(
-  areas: $ReadOnlyArray<AreaT>,
+  areas: ReadonlyArray<AreaT>,
   checkboxes?: string,
   mergeForm?: MergeFormT,
   order?: string,

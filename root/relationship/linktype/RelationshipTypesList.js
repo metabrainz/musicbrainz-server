@@ -13,9 +13,9 @@ import formatEntityTypeName
 import RelationshipsHeader from '../RelationshipsHeader.js';
 
 component TypesTable(
-  table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,
-  types: $ReadOnlyArray<string>,
-  usedTypes: {+[pairString: string]: 1},
+  table: ReadonlyArray<ReadonlyArray<ReadonlyArray<string>>>,
+  types: ReadonlyArray<string>,
+  usedTypes: {readonly [pairString: string]: 1},
 ) {
   return (
     <table className="wikitable">

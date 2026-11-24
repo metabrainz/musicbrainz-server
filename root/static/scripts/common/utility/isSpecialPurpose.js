@@ -17,9 +17,9 @@ import {
 
 export default function isSpecialPurpose(
   entity: {
-    +entityType: string,
-    +gid?: string,
-    +id: number,
+    readonly entityType: string,
+    readonly gid?: string,
+    readonly id: number,
     ...
   },
 ): boolean {

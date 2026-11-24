@@ -8,13 +8,13 @@
  */
 
 type TocDetails = {
-  +leadout_offset: number | null,
-  +track_count: number,
-  +track_offset: $ReadOnlyArray<number> | null,
+  readonly leadout_offset: number | null,
+  readonly track_count: number,
+  readonly track_offset: ReadonlyArray<number> | null,
 };
 
 export default function calculateFullToc(
-  cdtoc: $ReadOnly<{...TocDetails, ...}>,
+  cdtoc: Readonly<{...TocDetails, ...}>,
 ): string {
   const trackOffset = cdtoc.track_offset;
   invariant(trackOffset != null, 'Expected a defined track offset');

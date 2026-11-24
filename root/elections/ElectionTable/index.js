@@ -9,7 +9,7 @@
 
 import Rows from './ElectionTableRows.js';
 
-component ElectionTable(elections: $ReadOnlyArray<AutoEditorElectionT>) {
+component ElectionTable(elections: ReadonlyArray<AutoEditorElectionT>) {
   return (
     <table className="tbl" style={{width: 'auto'}}>
       <thead>

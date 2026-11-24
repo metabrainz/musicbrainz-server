@@ -8,8 +8,8 @@
  */
 
 export type EditArtistCreditFormT = FormT<{
-  +artist_credit: FieldT<ArtistCreditT>,
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +preview: FieldT<string>,
+  readonly artist_credit: FieldT<ArtistCreditT>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly preview: FieldT<string>,
 }>;

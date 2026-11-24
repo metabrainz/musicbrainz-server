@@ -14,15 +14,15 @@ import {ENTITIES} from '../constants.js';
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
-  | {+discid: string, +entityType: 'cdtoc', ...}
-  | {+discid: string, +entityType: 'cdstub', ...}
-  | {+entityType: 'editor', +name: string, ...}
-  | {+entityType: 'isrc', +isrc: string, ...}
-  | {+entityType: 'iswc', +iswc: string, ...}
-  | {+entityType: RelatableEntityTypeT, +gid: string, ...}
-  | {+entityType: 'collection', +gid: string, ...}
-  | {+entityType: 'link_type', +gid: string, ...}
-  | {+entityType: 'track', +gid?: string, ...};
+  | {readonly discid: string, readonly entityType: 'cdtoc', ...}
+  | {readonly discid: string, readonly entityType: 'cdstub', ...}
+  | {readonly entityType: 'editor', readonly name: string, ...}
+  | {readonly entityType: 'isrc', readonly isrc: string, ...}
+  | {readonly entityType: 'iswc', readonly iswc: string, ...}
+  | {readonly entityType: RelatableEntityTypeT, readonly gid: string, ...}
+  | {readonly entityType: 'collection', readonly gid: string, ...}
+  | {readonly entityType: 'link_type', readonly gid: string, ...}
+  | {readonly entityType: 'track', readonly gid?: string, ...};
 
 function generateHref(
   path: string,

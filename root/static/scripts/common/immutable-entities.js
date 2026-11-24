@@ -47,7 +47,7 @@ export const reduceArtistCredit =
  * join phrase is omitted from the returned string.
  */
 export function reduceArtistCreditNames(
-  names: $ReadOnlyArray<ArtistCreditNameT>,
+  names: ReadonlyArray<ArtistCreditNameT>,
   dropFinalJoinPhrase?: boolean = false,
 ): string {
   let s = names.reduce(reduceName, '');

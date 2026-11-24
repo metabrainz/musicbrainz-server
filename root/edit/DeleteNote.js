@@ -13,9 +13,9 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import EditNoteListEntry from './components/EditNoteListEntry.js';
 
 type DeleteNoteFormT = FormT<{
-  +cancel: FieldT<string>,
-  +reason: FieldT<string>,
-  +submit: FieldT<string>,
+  readonly cancel: FieldT<string>,
+  readonly reason: FieldT<string>,
+  readonly submit: FieldT<string>,
 }>;
 
 component DeleteNote(

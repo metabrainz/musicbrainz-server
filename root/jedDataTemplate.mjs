@@ -11,8 +11,8 @@ import deepFreezeStrict from 'deep-freeze-strict';
 import type {JedOptions} from 'jed';
 
 type JedData = {
-  +locale: string,
-  +[locale: string]: JedOptions,
+  readonly locale: string,
+  readonly [locale: string]: JedOptions,
 };
 
 const jedData: JedData = deepFreezeStrict({

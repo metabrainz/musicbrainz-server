@@ -27,16 +27,16 @@ declare type AnnotatedEntityTypeT = AnnotatedEntityT['entityType'];
 
 // MusicBrainz::Server::Entity::Role::Annotation::TO_JSON
 declare type AnnotationRoleT = {
-  +latest_annotation?: AnnotationT,
+  readonly latest_annotation?: AnnotationT,
 };
 
 // MusicBrainz::Server::Entity::Annotation::TO_JSON
 declare type AnnotationT = {
-  +changelog: string,
-  +creation_date: string,
-  +editor: EditorT | null,
-  +html: string,
-  +id: number,
-  +parent: AnnotatedEntityT | null,
-  +text: string | null,
+  readonly changelog: string,
+  readonly creation_date: string,
+  readonly editor: EditorT | null,
+  readonly html: string,
+  readonly id: number,
+  readonly parent: AnnotatedEntityT | null,
+  readonly text: string | null,
 };

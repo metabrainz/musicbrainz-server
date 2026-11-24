@@ -9,7 +9,7 @@
 
 export default function mediumHasMultipleArtists(
   release: ReleaseT,
-  tracks: ?$ReadOnlyArray<TrackT>,
+  tracks: ?ReadonlyArray<TrackT>,
 ): boolean {
   if (!tracks || !tracks.length) {
     return false;

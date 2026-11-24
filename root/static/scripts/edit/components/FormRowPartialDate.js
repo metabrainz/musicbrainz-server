@@ -18,11 +18,11 @@ import PartialDateInput, {
 export type ActionT = PartialDateInputActionT;
 
 type ControlledPropsT =
-  | $ReadOnly<{
-      +dispatch: (PartialDateInputActionT) => void,
-      +uncontrolled?: false,
+  | Readonly<{
+      readonly dispatch: (PartialDateInputActionT) => void,
+      readonly uncontrolled?: false,
     }>
-  | $ReadOnly<{+uncontrolled: true}>;
+  | Readonly<{readonly uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 

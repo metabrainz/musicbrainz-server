@@ -10,7 +10,7 @@
 import {CatalystContext} from '../../../context.mjs';
 import formatUserDate from '../../../utility/formatUserDate.js';
 
-component LastUpdated(entity: $ReadOnly<{...LastUpdateRoleT, ...}>) {
+component LastUpdated(entity: Readonly<{...LastUpdateRoleT, ...}>) {
   const lastUpdated = entity.last_updated;
   return (
     <p className="lastupdate">

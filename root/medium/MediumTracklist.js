@@ -24,7 +24,7 @@ component MediumTracklist(
   allowNew?: boolean,
   showArtists: boolean = false,
   showRatings: boolean = false,
-  tracks?: $ReadOnlyArray<TrackT>,
+  tracks?: ReadonlyArray<TrackT>,
 ) {
   if (!tracks) {
     return [];

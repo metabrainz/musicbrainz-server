@@ -34,11 +34,12 @@ sub _init_release_editor
         $c->req->body_params->{redirect_uri}
     );
 
-    $options{seeded_data} = $c->json->encode($self->_seeded_data($c) // {});
+    $options{seeded_release_data} = $self->_seeded_data($c);
 
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
     my %medium_format_dates = map { $_->id => $_->year } @medium_formats;
+    my $release = $c->stash->{release};
 
     $c->stash(
         template            => 'release/edit/layout.tt',
@@ -48,7 +49,7 @@ sub _init_release_editor
         statuses            => select_options_tree($c, 'ReleaseStatus'),
         languages           => build_grouped_options($c, language_options($c)),
         scripts             => build_grouped_options($c, script_options($c)),
-        source_entity       => to_json_object($c->stash->{release}),
+        source_entity       => to_json_object($release) // {entityType => 'release', isNewEntity => \1},
         packagings          => select_options_tree($c, 'ReleasePackaging'),
         countries           => select_options($c, 'CountryArea'),
         formats             => select_options_tree($c, 'MediumFormat'),
@@ -101,6 +102,9 @@ sub add : Path('/release/add') Edit RequireAuth
 
     $self->_init_release_editor($c, return_to => $return_to);
 }
+
+# NOTE-SEEDED-DATA-TYPES-1: The types of the final seeded data format
+# are to be kept in sync with root/types/releaseeditor.js.
 
 sub _seeded_data
 {

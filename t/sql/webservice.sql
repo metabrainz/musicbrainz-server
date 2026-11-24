@@ -450,23 +450,23 @@ UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621511;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621512;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621513;
 
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189218, 'GBAAA9900303', 1062699, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189222, 'GBAAA9900297', 1353886, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189217, 'GBAAA9900301', 2726277, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189216, 'GBAAA9900295', 2726271, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189215, 'GBAAA9900298', 2726274, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189224, 'GBAAA9900300', 2726276, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189223, 'GBAAA9900305', 2726281, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 38816, 'GBAAA9900299', 2726275, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189220, 'GBAAA9900296', 2726272, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189219, 'GBAAA9900302', 2726278, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189225, 'GBAAA9900304', 2726280, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176395, 'GBAAA9900309', 4844121, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176392, 'GBAAA9900528', 4844122, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176393, 'GBAAA9900529', 4844123, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4255, 'JPA600102450', 4223059, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4256, 'JPA600102460', 4223060, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4257, 'JPA600102459', 4223061, 0);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189218, 'GBAAA9900303', 1062699);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189222, 'GBAAA9900297', 1353886);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189217, 'GBAAA9900301', 2726277);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189216, 'GBAAA9900295', 2726271);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189215, 'GBAAA9900298', 2726274);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189224, 'GBAAA9900300', 2726276);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189223, 'GBAAA9900305', 2726281);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 38816, 'GBAAA9900299', 2726275);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189220, 'GBAAA9900296', 2726272);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189219, 'GBAAA9900302', 2726278);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189225, 'GBAAA9900304', 2726280);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176395, 'GBAAA9900309', 4844121);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176392, 'GBAAA9900528', 4844122);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176393, 'GBAAA9900529', 4844123);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4255, 'JPA600102450', 4223059);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4256, 'JPA600102460', 4223060);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4257, 'JPA600102459', 4223061);
 
 -- Releases
 
@@ -1604,7 +1604,7 @@ INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link
 INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2882, 194975, 15097, '2011-01-18 16:23:37.789736+00', 23778);
 INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2988, 195251, 21646, '2011-01-18 16:23:37.789736+00', 23776);
 
-INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (1, 'cc8cd8ee-6477-47d5-a16d-adac11ed9f30', 95821, 'public area collection', TRUE, '', 7);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (1, 'cc8cd8ee-6477-47d5-a16d-adac11ed9f30', 95821, 'public area collection', TRUE, 'awesome regions of space', 7);
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (2, '9ece2fbd-3f4e-431d-9424-da8af38374e0', 95821, 'private area collection', FALSE, '', 7);
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (3, '9c782444-f9f4-4a4f-93cb-92d132c79887', 95821, 'public artist collection', TRUE, '', 8);
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (4, '5f0831af-c84c-44a3-849d-abdf0a18cdd9', 95821, 'private artist collection', FALSE, '', 8);

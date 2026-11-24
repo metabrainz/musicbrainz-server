@@ -16,8 +16,6 @@ test all => sub {
     my $mech = $test->mech;
     my $c    = $test->c;
 
-    $test->skip_unless_mailpit_configured;
-
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
     $mech->get('/login');
@@ -45,20 +43,6 @@ test all => sub {
         'profile.birth_date.day' => '',
     } );
     $mech->content_contains('Your profile has been updated');
-    $mech->content_contains('We have sent you a verification email');
-
-    my @emails = $test->get_emails;
-    my $email = shift @emails;
-    is($email->{headers}{To}, 'new_email@example.com', 'Verification email sent to correct address');
-    is($email->{headers}{Subject}, 'Verify your email', 'Verification email has correct subject');
-
-    my $email_body = $email->{body};
-    like($email_body, qr{http://localhost/verify-email.*}, 'Verification email contains verification link');
-
-    $email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
-    my $verify_email_path = ($1 =~ s/\R//gr);
-    $mech->get_ok($verify_email_path);
-    $mech->content_contains('Thank you, your email address has now been verified!');
 
     $mech->get('/user/new_editor');
     $mech->content_contains('new_email@example.com');

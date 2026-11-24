@@ -15,8 +15,8 @@ import FormRowTextArea
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type EditBannerForm = FormT<{
-  +csrf_token: FieldT<string>,
-  +message: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly message: FieldT<string>,
 }>;
 
 component EditBanner(form: EditBannerForm) {

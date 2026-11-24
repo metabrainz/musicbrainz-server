@@ -14,9 +14,9 @@ import CollapsibleList from './CollapsibleList.js';
 import EntityLink from './EntityLink.js';
 
 type RelationT = {
-  +credit: string,
-  +entity: ArtistT,
-  +roles: $ReadOnlyArray<string>,
+  readonly credit: string,
+  readonly entity: ArtistT,
+  readonly roles: ReadonlyArray<string>,
 };
 
 const buildArtistRoleRow = (relation: RelationT) => {
@@ -35,7 +35,7 @@ const buildArtistRoleRow = (relation: RelationT) => {
   );
 };
 
-component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
+component ArtistRoles(relations: ReadonlyArray<RelationT>) {
   return (
     <CollapsibleList
       ariaLabel={l('Artist roles')}
@@ -50,7 +50,7 @@ component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
   );
 }
 
-export default (hydrate<React.PropsOf<ArtistRoles>>(
+export default hydrate<React.PropsOf<ArtistRoles>>(
   'div.artist-roles-container',
   ArtistRoles,
-): component(...React.PropsOf<ArtistRoles>));
+) as component(...React.PropsOf<ArtistRoles>);

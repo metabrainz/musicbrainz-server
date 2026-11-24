@@ -422,6 +422,11 @@ msgstr ""
 msgid "Central American Indian languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+msgid "Central Dusun"
+msgstr ""
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -505,6 +510,11 @@ msgstr ""
 #. frequency:1 iso_code_3:chv
 #: DB:language/name:84
 msgid "Chuvash"
+msgstr ""
+
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+msgid "Classical Nahuatl"
 msgstr ""
 
 #. frequency:0 iso_code_3:nwc
@@ -662,6 +672,11 @@ msgstr "Dzongkha"
 msgid "Eastern Arrernte"
 msgstr ""
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -681,6 +696,13 @@ msgstr ""
 #: DB:language/name:119
 msgid "Elamite"
 msgstr ""
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Sicilian"
+msgid "Emilian"
+msgstr "Sisiliansk"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1097,6 +1119,11 @@ msgstr ""
 msgid "Interlingue"
 msgstr ""
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr ""
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1245,6 +1272,11 @@ msgstr ""
 #. frequency:1 iso_code_3:kaz
 #: DB:language/name:211
 msgid "Kazakh"
+msgstr ""
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+msgid "Kedah Malay"
 msgstr ""
 
 #. frequency:1 iso_code_3:kca
@@ -1552,6 +1584,11 @@ msgstr ""
 msgid "Malayalam"
 msgstr ""
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1702,6 +1739,11 @@ msgstr ""
 msgid "Mongolian"
 msgstr "Mongolsk"
 
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr ""
+
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
@@ -1752,6 +1794,11 @@ msgstr ""
 msgid "Neapolitan"
 msgstr ""
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1761,6 +1808,11 @@ msgstr ""
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "Nepalsk"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr ""
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1775,6 +1827,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
 msgstr ""
 
 #. frequency:0 iso_code_3:null
@@ -1922,6 +1979,11 @@ msgstr ""
 msgid "Papuan languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
 msgid "Persian"
@@ -1945,6 +2007,11 @@ msgstr ""
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
+msgstr ""
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+msgid "Plains Cree"
 msgstr ""
 
 #. frequency:1 iso_code_3:pon
@@ -2321,6 +2388,11 @@ msgstr "Sør-Amerika Indianske språk"
 msgid "Southern Altai"
 msgstr ""
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+msgid "Southern East Cree"
+msgstr ""
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2671,6 +2743,11 @@ msgstr ""
 msgid "Welsh"
 msgstr "Walisisk"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2686,8 +2763,8 @@ msgstr ""
 msgid "Wolof"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

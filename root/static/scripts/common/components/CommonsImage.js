@@ -31,7 +31,7 @@ function loadCommonsImage(
         Sentry.captureException(error);
       }
     })
-    .catch(console.error);
+    .catch(error => console.error(error));
 }
 
 component CommonsImage(
@@ -59,8 +59,8 @@ component CommonsImage(
   ) : null;
 }
 
-export default (hydrate<React.PropsOf<CommonsImage>>(
+export default hydrate<React.PropsOf<CommonsImage>>(
   'div.commons-image',
   CommonsImage,
   minimalEntity,
-): component(...React.PropsOf<CommonsImage>));
+) as component(...React.PropsOf<CommonsImage>);

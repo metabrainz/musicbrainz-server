@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Search;
 
+use builtin qw( refaddr );
 use Carp;
 use Try::Tiny;
 use Moose;
@@ -9,6 +10,7 @@ use JSON;
 use Sql;
 use Data::Dumper;
 use Data::Page;
+use List::AllUtils qw( uniq_by );
 use URI::Escape qw( uri_escape_utf8 );
 use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::Annotation;
@@ -71,6 +73,7 @@ use DateTime::Format::ISO8601;
 use Readonly;
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::SearchRequestHeaders';
 
 use Sub::Exporter -setup => {
     exports => [qw( escape_query )],
@@ -823,11 +826,23 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv) = @_;
+    my ($self, $type, $query, $limit, $page, $adv, %tags) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
     my $offset = ($page - 1) * $limit;
+
+    if (defined DBDefs->MAX_SEARCH_RESULTS) {
+        my $depth = $offset + $limit;
+        if ($depth > DBDefs->MAX_SEARCH_RESULTS) {
+            return {
+                error => 'Must retrieve at most ' .
+                    DBDefs->MAX_SEARCH_RESULTS .
+                    " search results, not $depth.",
+                code  => HTTP_BAD_REQUEST,
+            };
+        }
+    }
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
@@ -854,8 +869,10 @@ sub external_search
                                  $offset,
                                  $limit);
 
-    # Dispatch the search request.
-    my $response = get_chunked_with_retry($self->c->lwp, $search_url);
+    # Build HTTP X-MB-* headers from key/value pair tags.
+    my @headers = $self->build_search_request_headers(%tags);
+    # Dispatch the search request, tagged with X-MB-* headers.
+    my $response = get_chunked_with_retry($self->c->lwp, $search_url, @headers);
     if (!defined $response) {
         return { code => HTTP_INTERNAL_SERVER_ERROR, error => 'We could not fetch the document from the search server. Please try again.' };
     }
@@ -962,6 +979,15 @@ sub external_search
             $self->c->model('Area')->load_containment(@areas);
         }
 
+        if ($type eq 'artist')
+        {
+            my @entities = map { $_->entity } @results;
+            my @areas = uniq_by { refaddr $_ } grep { defined $_ }
+                map { ($_->area, $_->begin_area, $_->end_area) } @entities;
+            $self->c->model('Area')->load_ids(@areas);
+            $self->c->model('Area')->load_containment(@areas);
+        }
+
         if ($type eq 'release-group')
         {
             my @entities = map { $_->entity } @results;
@@ -976,12 +1002,22 @@ sub external_search
             $self->c->model('Series')->load_entity_count(@entities);
         }
 
+        my $capped_total_hits = $total_hits;
+        $capped_total_hits = DBDefs->MAX_SEARCH_RESULTS if defined DBDefs->MAX_SEARCH_RESULTS &&
+            $total_hits > DBDefs->MAX_SEARCH_RESULTS;
+
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);
-        $pager->total_entries($total_hits);
+        $pager->total_entries($capped_total_hits);
 
-        return { pager => $pager, offset => $offset, results => \@results, last_updated => $last_updated };
+        return {
+            pager => $pager,
+            offset => $offset,
+            results => \@results,
+            last_updated => $last_updated,
+            uncapped_total_hits => $total_hits,
+        };
     }
 }
 

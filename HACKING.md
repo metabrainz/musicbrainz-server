@@ -86,6 +86,26 @@ Important folders are documented here, in alphabetical order.
 
    Where the server tests live.
 
+Accounts
+--------
+
+By default, MusicBrainz Server expects to communicate with a
+[MetaBrainz](github.com/metabrainz/metabrainz.org) server for user
+registration and authentication. That requires registering OAuth and webhook
+callbacks in the MetaBrainz admin UI, and configuring various `METABRAINZ_*`
+DBDefs settings here. It's not very realistic for a development server.
+
+For development, you can instead add `sub LOCAL_ACCOUNTS_ENABLED { 1 }` to
+lib/DBDefs.pm to enable local account registration and login.
+If you've already imported mbdump-editor.tar.bz2 or a sample database dump,
+you should be able to login as any editor using the password `mb`;
+alternatively, you can create a new account with your own password. Note that
+there's no UI to change an account's password, but you do so with the
+script `./admin/ChangePassword`.
+
+The local accounts feature doesn't have a "remember login" cookie. If you
+are frequently logged out, adjust the `SESSION_EXPIRE` DBDefs value, which
+defaults to 3 hours of inactivity.
 
 Testing
 -------
@@ -260,13 +280,13 @@ Some Selenium tests make search queries and require a working search setup.
    As it listens on port 8983 by default, make sure `SEARCH_SERVER` is set to
    `127.0.0.1:8983/solr` in DBDefs.pm.
 
- * Set up [sir](https://github.com/metabrainz/sir) with a virtual environment
-   under `./venv` (relative to the sir checkout). You don't have to start it:
+ * Set up [sir](https://github.com/metabrainz/sir) using
+   [uv](https://docs.astral.sh/uv/), with a virtual environment
+   under `.venv` (relative to the sir checkout). You don't have to start it:
    this is done by script/reset_selenium_env.sh, which is invoked by
    t/selenium.js before each test. (If you need to inspect the sir logs of
    each run, they get saved to t/selenium/.sir-reindex.log and
-   t/selenium/.sir-amqp_watch.log for the reindex and amqp_watch commands
-   respectively.)
+   t/selenium/.sir-live.log for the reindex and live commands respectively.)
 
    Extensions and functions should be installed to the `musicbrainz_selenium`
    database. (reset_selenium_env.sh takes care of triggers for you.) You can
@@ -405,7 +425,7 @@ script:
  * `PENDING_SO` - if also specifying `REPLICATION_TYPE=1` (master), this is
    the path to dbmirror's pending.so, which will be forwarded to InitDb.pl
    via the `--with-pending` flag.
-   (default: /usr/lib/postgresql/16/lib/pending.so)
+   (default: /usr/lib/postgresql/18/lib/pending.so)
 
 To check the migration scripts for a standalone setup with postgres running
 on port 25432, you may for example run:
@@ -710,7 +730,7 @@ components, it also creates two issues that you need to manage:
     } from './Child.js';
 
     type ActionT =
-      | {+type: 'update-child', +action: ChildActionT}
+      | {readonly type: 'update-child', readonly action: ChildActionT}
       // ...
       ;
 

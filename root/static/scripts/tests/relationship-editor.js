@@ -9,9 +9,6 @@
 
 import test from 'tape';
 import * as tree from 'weight-balanced-tree';
-import {
-  onConflictUseSecondValue,
-} from 'weight-balanced-tree/union';
 
 import searchItems, {
   indexItems,
@@ -100,6 +97,8 @@ const initialState = createInitialState({
 const initialReleaseState = createInitialReleaseState(
   releaseWithMediumsAndReleaseGroup,
 );
+
+const onConflictUseSecondValue = <T>(v1: T, v2: T): T => v2;
 
 test('merging duplicate relationships', function (t) {
   const nonEndedRelationshipWithBeginDate = {
@@ -455,7 +454,7 @@ test('splitRelationshipByAttributes', function (t) {
    * this particular (existing) relationship doesn't have any.  It should
    * be returned unmodified.
    */
-  const existingRelationship2 = ({
+  const existingRelationship2 = {
     _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
@@ -480,7 +479,7 @@ test('splitRelationshipByAttributes', function (t) {
     id: 1,
     linkOrder: 0,
     linkTypeID: 798,
-  }: RelationshipStateT);
+  } as RelationshipStateT;
   // $FlowExpectedError[cannot-write]
   existingRelationship2._original = existingRelationship2;
   Object.freeze(existingRelationship2);
@@ -936,7 +935,7 @@ function getAddRelationshipAction(
 function addRelationships(
   rootState: RelationshipEditorStateT,
   source: RelatableEntityT,
-  relationships: $ReadOnlyArray<RelationshipStateT>,
+  relationships: ReadonlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   let newState = rootState;
   relationships.forEach((relationship) => {
@@ -948,7 +947,7 @@ function addRelationships(
 function addRelationshipsToRelease(
   rootState: ReleaseRelationshipEditorStateT,
   source: RelatableEntityT,
-  relationships: $ReadOnlyArray<RelationshipStateT>,
+  relationships: ReadonlyArray<RelationshipStateT>,
 ): ReleaseRelationshipEditorStateT {
   let newState = rootState;
   relationships.forEach((relationship) => {
@@ -984,7 +983,7 @@ function currentRelationshipsEqual(
   rootState:
     | RelationshipEditorStateT
     | ReleaseRelationshipEditorStateT,
-  relationships: $ReadOnlyArray<RelationshipStateT | null>,
+  relationships: ReadonlyArray<RelationshipStateT | null>,
   msg: string,
 ) {
   t.ok(tree.equals(
@@ -995,7 +994,7 @@ function currentRelationshipsEqual(
 }
 
 function createRelationshipSourceGroups(
-  relationships: $ReadOnlyArray<RelationshipStateT | null>,
+  relationships: ReadonlyArray<RelationshipStateT | null>,
 ): RelationshipSourceGroupsT {
   const writableRootState = {...initialState};
   updateRelationships(
@@ -1080,7 +1079,7 @@ function id2attr(id: number): LinkAttrT {
 }
 
 function ids2attrs(
-  ids: $ReadOnlyArray<number>,
+  ids: ReadonlyArray<number>,
 ): tree.ImmutableTree<LinkAttrT> {
   return tree.fromDistinctAscArray(
     ids.map(id2attr).sort(compareLinkAttributeIds),

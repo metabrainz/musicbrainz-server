@@ -10,7 +10,7 @@
 import ReleaseList from '../components/list/ReleaseList.js';
 import Layout from '../layout/index.js';
 
-component OtherLookupReleaseResults(results: $ReadOnlyArray<ReleaseT>) {
+component OtherLookupReleaseResults(results: ReadonlyArray<ReleaseT>) {
   return (
     <Layout fullWidth title={l('Search results')}>
       <h1>{l('Search results')}</h1>

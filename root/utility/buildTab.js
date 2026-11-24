@@ -8,7 +8,7 @@
  */
 
 const buildTab = (
-  page?: string,
+  page: ?string,
   title: string,
   path: string,
   tabPage: string,

@@ -15,15 +15,22 @@ import {applyPendingErrors} from '../utility/subfieldErrors.js';
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {
-      +type: 'set-date',
-      +date: {+year?: string, +month?: string, +day?: string},
+      readonly type: 'set-date',
+      readonly date: {
+        readonly year?: string,
+        readonly month?: string,
+        readonly day?: string,
+      },
     }
-  | {+type: 'show-pending-errors'};
+  | {readonly type: 'show-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
 
 type ControlledPropsT =
-  | $ReadOnly<{+dispatch: (ActionT) => void, +uncontrolled?: false}>
-  | $ReadOnly<{+dispatch?: void, +uncontrolled: true}>;
+  | Readonly<{
+    readonly dispatch: (ActionT) => void,
+    readonly uncontrolled?: false,
+  }>
+  | Readonly<{readonly dispatch?: void, readonly uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 

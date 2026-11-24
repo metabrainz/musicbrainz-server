@@ -10,65 +10,70 @@
 /* eslint-disable no-unused-vars */
 
 declare type ConfirmFormT = FormT<{
-  +cancel: FieldT<string>,
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +submit: FieldT<string>,
+  readonly cancel: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly submit: FieldT<string>,
+}>;
+
+declare type DigestAuthFormT = FormT<{
+  readonly action: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
 }>;
 
 declare type TextListItemFieldT = CompoundFieldT<{
-  +removed: FieldT<boolean>,
-  +value: FieldT<string>,
+  readonly removed: FieldT<boolean>,
+  readonly value: FieldT<string>,
 }>;
 
 declare type TextListFieldT = RepeatableFieldT<TextListItemFieldT>;
 
 declare type MediumFieldT = CompoundFieldT<{
-  +id: FieldT<number>,
-  +name: FieldT<string>,
-  +position: FieldT<number>,
-  +release_id: FieldT<number>,
+  readonly id: FieldT<number>,
+  readonly name: FieldT<string>,
+  readonly position: FieldT<number>,
+  readonly release_id: FieldT<number>,
 }>;
 
 declare type MergeFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +merging: RepeatableFieldT<FieldT<number>>,
-  +rename: FieldT<boolean>,
-  +target: FieldT<number>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly merging: RepeatableFieldT<FieldT<number>>,
+  readonly rename: FieldT<boolean>,
+  readonly target: FieldT<number>,
 }>;
 
 declare type MergeReleasesFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +medium_positions: CompoundFieldT<{
-    +map: CompoundFieldT<$ReadOnlyArray<MediumFieldT | void>>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly medium_positions: CompoundFieldT<{
+    readonly map: CompoundFieldT<ReadonlyArray<MediumFieldT | void>>,
   }>,
-  +merge_rgs: FieldT<boolean>,
-  +merge_strategy: FieldT<StrOrNum>,
-  +merging: RepeatableFieldT<FieldT<StrOrNum>>,
-  +rename: FieldT<boolean>,
-  +target: FieldT<StrOrNum>,
+  readonly merge_rgs: FieldT<boolean>,
+  readonly merge_strategy: FieldT<StrOrNum>,
+  readonly merging: RepeatableFieldT<FieldT<StrOrNum>>,
+  readonly rename: FieldT<boolean>,
+  readonly target: FieldT<StrOrNum>,
 }>;
 
 declare type SearchFormT = FormT<{
-  +limit: FieldT<number>,
-  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
-  +query: FieldT<string>,
-  +type: FieldT<string>,
+  readonly limit: FieldT<number>,
+  readonly method: FieldT<'advanced' | 'direct' | 'indexed'>,
+  readonly query: FieldT<string>,
+  readonly type: FieldT<string>,
 }>;
 
 declare type SecureConfirmFormT = FormT<{
-  +cancel: FieldT<string>,
-  +csrf_token: FieldT<string>,
-  +submit: FieldT<string>,
+  readonly cancel: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly submit: FieldT<string>,
 }>;
 
 declare type TagLookupFormT = FormT<{
-  +artist: FieldT<string>,
-  +duration: FieldT<string>,
-  +filename: FieldT<string>,
-  +release: FieldT<string>,
-  +track: FieldT<string>,
-  +tracknum: FieldT<string>,
+  readonly artist: FieldT<string>,
+  readonly duration: FieldT<string>,
+  readonly filename: FieldT<string>,
+  readonly release: FieldT<string>,
+  readonly track: FieldT<string>,
+  readonly tracknum: FieldT<string>,
 }, 'tag-lookup'>;

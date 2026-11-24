@@ -15,9 +15,9 @@ import {EntityListContent} from '../tag/EntityList.js';
 
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 
-type EntityTagsT = $ReadOnlyArray<{
-  +entity: TaggableEntityT,
-  +entity_id: number,
+type EntityTagsT = ReadonlyArray<{
+  readonly entity: TaggableEntityT,
+  readonly entity_id: number,
 }>;
 
 function getAllEntitiesTagUrl(

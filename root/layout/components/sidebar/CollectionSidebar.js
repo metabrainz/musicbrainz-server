@@ -23,7 +23,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
 component CollectionSidebar(
   collection: CollectionT,
-  recordingMbids?: $ReadOnlyArray<string> | null,
+  recordingMbids?: ReadonlyArray<string> | null,
 ) {
   const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;

@@ -44,7 +44,7 @@ component ConfirmSeedButtons(autoSubmit: boolean) {
   );
 }
 
-export default (hydrate(
+export default hydrate(
   'span.buttons.confirm-seed',
   ConfirmSeedButtons,
-): component(...React.PropsOf<ConfirmSeedButtons>));
+) as component(...React.PropsOf<ConfirmSeedButtons>);

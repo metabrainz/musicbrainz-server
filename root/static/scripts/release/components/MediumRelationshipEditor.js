@@ -39,7 +39,7 @@ function compareRecordingWithRecordingState(
 }
 
 function handleLinkedEntitiesForMedium(
-  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
+  update: ?Readonly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     /*
@@ -68,7 +68,7 @@ component _MediumRelationshipEditor(
   recordingStates: MediumRecordingStateTreeT,
   release: ReleaseWithMediumsT,
   releaseHasUnloadedTracks: boolean,
-  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
+  tracks: ReadonlyArray<TrackWithRecordingT> | null,
 ) {
   const tableVars = usePagedMediumTable({
     dispatch,

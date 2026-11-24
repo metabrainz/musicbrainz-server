@@ -9,7 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
-import {createRoot} from 'react-dom/client';
+import * as ReactDOMClient from 'react-dom/client';
+import * as tree from 'weight-balanced-tree';
 
 import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../lib/knockout/knockout-delegatedEvents.js';
@@ -32,7 +33,6 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
 import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
-import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
@@ -49,6 +49,7 @@ import releaseEditor from './viewModel.js';
 Object.assign(releaseEditor, {
   activeTabID: ko.observable('#information'),
   activeTabIndex: ko.observable(0),
+  addingWithoutVisitingTracklist: ko.observable(false),
   loadError: ko.observable(''),
   loadErrorMessage() {
     return texp.l(
@@ -56,16 +57,18 @@ Object.assign(releaseEditor, {
       {error: releaseEditor.loadError()},
     );
   },
-  externalLinksEditData: ko.observable({}),
+  externalLinksData: ko.observable(tree.empty),
   hasInvalidLinks: errorField(ko.observable(false)),
 });
 
 releaseEditor.init = function (options) {
   var self = this;
 
+  const $c = getCatalystContext();
+
   $.extend(this, {
     action: options.action,
-    isBeginner: isBeginner(getCatalystContext().user),
+    isBeginner: isBeginner($c.user),
     redirectURI: options.redirectURI,
     returnTo: options.returnTo,
   });
@@ -203,6 +206,21 @@ releaseEditor.init = function (options) {
     }
   });
 
+  // Monitor tab changes to check that the user visits the tracklist.
+
+  if (self.action === 'add') {
+    let visitedTracklist = false;
+    $('#release-editor').on('tabsbeforeactivate', function (event, ui) {
+      const id = ui.newPanel.attr('id');
+      if (id === 'tracklist') {
+        releaseEditor.addingWithoutVisitingTracklist(false);
+        visitedTracklist = true;
+      } else if (id === 'edit-note' && !visitedTracklist) {
+        releaseEditor.addingWithoutVisitingTracklist(true);
+      }
+    });
+  }
+
   // Display documentation bubbles for external components.
 
   $(document).on(
@@ -226,7 +244,10 @@ releaseEditor.init = function (options) {
     const releaseACChanged =
       !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
-    if (tabID === '#tracklist' && releaseACChanged) {
+    if (
+      releaseACChanged &&
+      (tabID === '#tracklist' || release.needsTrackArtists())
+    ) {
       if (!hasVariousArtists(releaseAC)) {
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
@@ -351,15 +372,10 @@ releaseEditor.init = function (options) {
     return isInvalidEditNote(self.rootField.editNote());
   };
 
-  this.seed(options.seed);
+  this.seed($c.stash.seeded_release_data);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(getSourceEntityData());
-  } else {
-    releaseEditor.createExternalLinksEditor(
-      {entityType: 'release'},
-      $('#external-links-editor-container')[0],
-    );
+    this.releaseLoaded(getSourceEntityData($c, 'release'));
   }
 
   this.getEditPreviews();
@@ -371,7 +387,7 @@ releaseEditor.init = function (options) {
   // Keep the React EditNoteTab component in sync.
 
   const editNoteTabContainer = document.getElementById('edit-note');
-  const editNoteTabRoot = createRoot(editNoteTabContainer);
+  const editNoteTabRoot = ReactDOMClient.createRoot(editNoteTabContainer);
   let releaseEditorForm = {
     field: {
       edit_note: createField('edit_note', ''),
@@ -399,6 +415,9 @@ releaseEditor.init = function (options) {
       .final();
     editNoteTabRoot.render(
       <EditNoteTab
+        addingWithoutVisitingTracklist={
+          releaseEditor.addingWithoutVisitingTracklist()
+        }
         editPreviews={releaseEditor.editPreviews()}
         editsExist={releaseEditor.allEdits().length > 0}
         errorsExist={errorsExist()}
@@ -432,7 +451,7 @@ releaseEditor.loadRelease = function (gid, callback) {
   };
 
   return request(args, this)
-    .done(callback || this.releaseLoaded)
+    .done(callback)
     .fail(function (jqXHR, status, error) {
       error = jqXHR.status + ' (' + error + ')';
 
@@ -448,18 +467,9 @@ releaseEditor.loadRelease = function (gid, callback) {
 releaseEditor.releaseLoaded = function (data) {
   this.loadError('');
 
-  var seed = this.seededReleaseData;
-
-  // Setup the external links editor
-  setTimeout(function () {
-    releaseEditor.createExternalLinksEditor(
-      data,
-      $('#external-links-editor-container')[0],
-    );
-  }, 1);
-
   var release = new fields.Release(data);
 
+  const seed = getCatalystContext().stash.seeded_release_data?.seed;
   if (seed) {
     this.seedRelease(release, seed);
   }
@@ -469,29 +479,6 @@ releaseEditor.releaseLoaded = function (data) {
   }
 
   this.rootField.release(release);
-};
-
-releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
-  if (!mountPoint) {
-    // XXX undefined in some tape tests
-    return null;
-  }
-
-  var seed = this.seededReleaseData;
-  delete this.seededReleaseData;
-
-  if (seed && seed.relationships) {
-    data.relationships = (data.relationships || [])
-      .concat(seed.relationships);
-  }
-
-  this.externalLinks = externalLinks.createExternalLinksEditor({
-    sourceData: data,
-    mountPoint,
-    errorObservable: this.hasInvalidLinks,
-  });
-
-  return this.externalLinks;
 };
 
 releaseEditor.autoOpenTheAddMediumDialog = function (release) {
@@ -522,6 +509,7 @@ releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
     !errorsExist() &&
+    !this.addingWithoutVisitingTracklist() &&
     !this.rootField.invalidEditNote() &&
     !(this.action === 'add' && this.rootField.missingEditNote()) &&
     this.allEdits().length > 0
@@ -529,5 +517,7 @@ releaseEditor.allowsSubmission = function () {
 };
 
 MB._releaseEditor = releaseEditor;
+// Export modules that userscripts may need access to.
+MB.tree = tree;
 
 $(confirmNavigationFallback);

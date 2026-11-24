@@ -2,97 +2,45 @@ use strict;
 use warnings;
 
 use DBDefs;
-use File::Spec;
-use File::Temp qw( tempdir );
-use String::ShellQuote;
+use lib 't/lib';
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
 use Test::Deep qw( cmp_deeply ignore );
-use MusicBrainz::Server::Test;
-use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
-use Sql;
 use utf8;
 
+use DBDefs;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Test;
+use Sql;
+use aliased 't::script::ReplicationTest';
+
 test all => sub {
-    my $master_c = MusicBrainz::Server::Context->create_script_context(
-        database => 'TEST_DBMIRROR2_MASTER',
-    );
+    my $test = ReplicationTest->new;
+    my $master_c = $test->master_c;
+    my $mirror_c = $test->mirror_c;
 
-    my $slave_c = MusicBrainz::Server::Context->create_script_context(
-        database => 'TEST_DBMIRROR2_SLAVE',
-    );
-
-    my $root = DBDefs->MB_SERVER_ROOT;
-    my $psql = File::Spec->catfile($root, 'admin/psql');
-
-    my $exec_sql = sub {
-        my ($raw_db_name, $raw_sql) = @_;
-
-        my $db_name = shell_quote($raw_db_name);
-        my $sql = shell_quote($raw_sql);
-
-        system 'sh', '-c' => "echo $sql | $psql $db_name";
-    };
-
-    my $system_db = Databases->get('SYSTEM');
-    my $master_db = Databases->get('TEST_DBMIRROR2_MASTER');
-    my $slave_db = Databases->get('TEST_DBMIRROR2_SLAVE');
-
-    $ENV{PGPASSWORD} = $master_db->password;
-
-    system 'dropdb',
-        '--if-exists',
-        '--host', $master_db->host,
-        '--port', $master_db->port,
-        '--username', $system_db->username,
-        $master_db->database;
-
-    system 'dropdb',
-        '--if-exists',
-        '--host', $slave_db->host,
-        '--port', $slave_db->port,
-        '--username', $system_db->username,
-        $slave_db->database;
-
-    system(
-        File::Spec->catfile($root, 'admin/InitDb.pl'),
-        '--createdb',
-        '--database', 'TEST_DBMIRROR2_MASTER',
-        '--clean',
-        '--reptype', '1',
-    );
-
-    system(
-        File::Spec->catfile($root, 'admin/InitDb.pl'),
-        '--createdb',
-        '--database', 'TEST_DBMIRROR2_SLAVE',
-        '--clean',
-        '--reptype', '2',
-    );
-
-    my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
-    my $replication_control_query = <<~"SQL";
+    my $create_schema_query = <<~"SQL";
         BEGIN;
-        UPDATE replication_control
-           SET current_schema_sequence = $schema_seq,
-               current_replication_sequence = 1,
-               last_replication_date = '2021-10-01 01:01:01.123456+00';
-        TRUNCATE dbmirror2.pending_keys CASCADE;
-        TRUNCATE dbmirror2.pending_data CASCADE;
-        TRUNCATE dbmirror2.pending_ts CASCADE;
         CREATE TABLE json_column_test (id SMALLINT, c1 JSON, c2 JSONB, c3 JSON[], c4 JSONB[]);
         ALTER TABLE json_column_test ADD CONSTRAINT json_column_test_pkey PRIMARY KEY (id);
+        -- Skip past special purpose artists.
+        SELECT setval('artist_id_seq', 3, FALSE);
         COMMIT;
         SQL
-    $exec_sql->('TEST_DBMIRROR2_MASTER', $replication_control_query);
-    $exec_sql->('TEST_DBMIRROR2_MASTER', <<~'SQL');
-        REFRESH MATERIALIZED VIEW dbmirror2.column_info;
+    $master_c->sql->auto_commit;
+    $master_c->sql->do($create_schema_query);
+
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
         CREATE TRIGGER reptg2_json_column_test
             AFTER INSERT OR DELETE OR UPDATE ON json_column_test
             FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
         SQL
-    $exec_sql->('TEST_DBMIRROR2_SLAVE', $replication_control_query);
+
+    $mirror_c->sql->auto_commit;
+    $mirror_c->sql->do($create_schema_query);
 
     my $new_artist;
     my $to_be_deleted_artist;
@@ -124,7 +72,7 @@ test all => sub {
         $master_c->model('CDTOC')->find_or_insert('1 2 157005 150 77950');
 
         # test json columns too
-        $exec_sql->('TEST_DBMIRROR2_MASTER', <<~'SQL');
+        $master_c->sql->do(<<~'SQL');
             INSERT INTO json_column_test
                  VALUES (1, '[1]', '[1]', '{"[1]"}'::JSON[], '{"[1]"}'::JSONB[]);
             UPDATE json_column_test
@@ -134,34 +82,21 @@ test all => sub {
                    c4 = '{{"{\"c4\":[1]}"},{"{\"c4\":[2]}"}}'::JSONB[]
              WHERE id = 1;
             SQL
+
+        # test that editor data is not replicated
+        $master_c->sql->do(<<~'SQL');
+            INSERT INTO editor (id, name, password, ha1)
+                 VALUES (909, 'ZZZ', '{CLEARTEXT}mb', '');
+            SQL
     }, $master_c->sql);
 
-    my $output_dir = tempdir('t-dbmirror2-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
+    $test->load_replication_changes;
 
-    my $export_all_tables = sub {
-        system (
-            File::Spec->catfile($root, 'admin/ExportAllTables'),
-            '--without-full-export',
-            '--with-replication',
-            '--output-dir', $output_dir,
-            '--database', 'TEST_DBMIRROR2_MASTER',
-            '--compress',
-        );
-    };
-
-    my $load_replication_tables = sub {
-        system (
-            File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
-            '--base-uri', 'file://' . $output_dir,
-            '--database', 'TEST_DBMIRROR2_SLAVE',
-            '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_DBMIRROR2_SLAVE',
-        );
-    };
-
-    $export_all_tables->();
-    $load_replication_tables->();
-
-    $new_artist = $slave_c->sql->select_single_row_hash(
+    $new_artist = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM artist WHERE id = ?',
         $new_artist->{id},
     );
@@ -188,7 +123,7 @@ test all => sub {
         type => undef,
     });
 
-    $to_be_deleted_artist = $slave_c->sql->select_single_row_hash(
+    $to_be_deleted_artist = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM artist WHERE id = ?',
         $to_be_deleted_artist->{id},
     );
@@ -215,7 +150,7 @@ test all => sub {
         type => undef,
     });
 
-    my $json_test_row = $slave_c->sql->select_single_row_hash(
+    my $json_test_row = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM json_column_test WHERE id = 1',
     );
     is($json_test_row->{c1}, '{"c1":[1]}');
@@ -223,25 +158,31 @@ test all => sub {
     cmp_deeply($json_test_row->{c3}, [['{"c3":[1]}'], ['{"c3":[2]}']]);
     cmp_deeply($json_test_row->{c4}, [['{"c4": [1]}'], ['{"c4": [2]}']]);
 
+    my $editor_row = $mirror_c->sql->select_single_row_hash('SELECT * FROM editor WHERE id = 909');
+    is($editor_row, undef, 'editor is not replicated');
+
     Sql::run_in_transaction(sub {
         $master_c->model('Artist')->delete($to_be_deleted_artist->{id});
 
         # test json columns too
-        $exec_sql->('TEST_DBMIRROR2_MASTER', <<~'SQL');
+        $master_c->sql->do(<<~'SQL');
             DELETE FROM json_column_test WHERE id = 1;
             SQL
     }, $master_c->sql);
 
-    $export_all_tables->();
-    $load_replication_tables->();
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
+    $test->load_replication_changes;
 
-    $to_be_deleted_artist = $slave_c->sql->select_single_row_hash(
+    $to_be_deleted_artist = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM artist WHERE id = ?',
         $to_be_deleted_artist->{id},
     );
     ok(!defined $to_be_deleted_artist);
 
-    $json_test_row = $slave_c->sql->select_single_row_hash(
+    $json_test_row = $mirror_c->sql->select_single_row_hash(
         'SELECT * FROM json_column_test WHERE id = 1',
     );
     ok(!defined $json_test_row);

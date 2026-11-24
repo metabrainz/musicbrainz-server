@@ -1,0 +1,13 @@
+\set ON_ERROR_STOP 1
+
+BEGIN;
+
+CREATE INDEX artist_lastmod_idx_id ON sitemaps.artist_lastmod (id);
+CREATE INDEX label_lastmod_idx_id ON sitemaps.label_lastmod (id);
+CREATE INDEX place_lastmod_idx_id ON sitemaps.place_lastmod (id);
+CREATE INDEX recording_lastmod_idx_id ON sitemaps.recording_lastmod (id);
+CREATE INDEX release_lastmod_idx_id ON sitemaps.release_lastmod (id);
+CREATE INDEX release_group_lastmod_idx_id ON sitemaps.release_group_lastmod (id);
+CREATE INDEX work_lastmod_idx_id ON sitemaps.work_lastmod (id);
+
+COMMIT;

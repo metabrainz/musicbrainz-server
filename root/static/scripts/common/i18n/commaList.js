@@ -9,7 +9,7 @@
 
 function _commaList<Input, Output>(
   l: ExpandLFunc<Input, Output>,
-  items: $ReadOnlyArray<Input>,
+  items: ReadonlyArray<Input>,
 ): Output | string {
   const count = items.length;
 
@@ -37,12 +37,12 @@ function _commaList<Input, Output>(
 }
 
 const commaList = (
-  items: $ReadOnlyArray<VarSubstArg>,
+  items: ReadonlyArray<VarSubstArg>,
 ): Expand2ReactOutput | string => {
   return _commaList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 };
 
-const commaListText = (items: $ReadOnlyArray<StrOrNum>): string => (
+const commaListText = (items: ReadonlyArray<StrOrNum>): string => (
   _commaList<StrOrNum, string>(texp.l, items)
 );
 

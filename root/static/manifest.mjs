@@ -30,7 +30,7 @@ let revManifest;
 let legacyRevManifest;
 
 function pathTo(manifest: string, legacyBrowser: boolean) {
-  let mapping: {+[manifest: string]: string};
+  let mapping: {readonly [manifest: string]: string};
 
   if (legacyBrowser) {
     if (legacyRevManifest == null) {
@@ -74,7 +74,9 @@ function pathTo(manifest: string, legacyBrowser: boolean) {
 const jsExt = /\.js(?:on)?$/;
 function manifest(
   manifest: string,
-  extraAttrs?: {+'async'?: boolean, +'data-args'?: string} | null = null,
+  extraAttrs?:
+    | {readonly 'async'?: boolean, readonly 'data-args'?: string}
+    | null = null,
 ): React.MixedElement {
   if (jsExt.test(manifest)) {
     throw new Error(

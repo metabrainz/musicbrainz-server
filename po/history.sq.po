@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-17 12:21+0000\n"
+"PO-Revision-Date: 2026-02-16 21:11+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/sq/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1059,7 +1059,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
-msgstr ""
+msgstr "Sugjerime votimi"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"

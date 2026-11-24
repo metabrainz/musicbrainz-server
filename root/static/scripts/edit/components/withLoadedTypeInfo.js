@@ -29,20 +29,17 @@ type LoadableEntityTypeT =
   | 'work_attribute_type_allowed_value'
   | 'work_type';
 
-export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
-  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
-  typeInfoToLoad: $ReadOnlySet<LoadableEntityTypeT>,
-): component(ref: React.RefSetter<Instance>, ...Config) {
-  const ComponentWrapper = React.forwardRef((
-    props: Config,
-    ref: React.RefSetter<Instance>,
-  ) => {
+export default function withLoadedTypeInfo<Config extends {...}>(
+  WrappedComponent: component(...Config),
+  typeInfoToLoad: ReadonlySet<LoadableEntityTypeT>,
+): component(...Config) {
+  const ComponentWrapper = (props: Config) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
 
     const [
       typeInfoLoadErrors,
       setTypeInfoLoadErrors,
-    ] = React.useState<$ReadOnlyArray<string>>([]);
+    ] = React.useState<ReadonlyArray<string>>([]);
 
     const loadingCanceledRef = React.useRef<boolean>(false);
 
@@ -62,7 +59,7 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
 
       const responseJson: {
         // $FlowFixMe[unclear-type]
-        +[listName: string]: Array<any>,
+        readonly [listName: string]: Array<any>,
       } = await response.json();
       const typeInfo = responseJson[typeName + '_list'];
 
@@ -141,21 +138,18 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
           </p>
         )
       ) : (
-        <WrappedComponent {...props} ref={ref} />
+        <WrappedComponent {...props} />
       )
     );
-  });
+  };
 
   return ComponentWrapper;
 }
 
-export function withLoadedTypeInfoForRelationshipEditor<
-  Config: {...},
-  Instance = mixed,
->(
-  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
-  extraTypeInfoToLoad?: $ReadOnlyArray<LoadableEntityTypeT> = [],
-): component(ref: React.RefSetter<Instance>, ...Config) {
+export function withLoadedTypeInfoForRelationshipEditor<Config extends {...}>(
+  WrappedComponent: component(...Config),
+  extraTypeInfoToLoad?: ReadonlyArray<LoadableEntityTypeT> = [],
+): component(...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,
     new Set([

@@ -130,7 +130,7 @@ export function reducer(
 
 component _BatchCreateWorksDialogContent(
   closeDialog: () => void,
-  initialFocusRef: {-current: HTMLElement | null},
+  initialFocusRef: {writeonly current: HTMLElement | null},
   sourceDispatch: (AcceptBatchCreateWorksDialogActionT) => void,
 ) {
   const [state, dispatch] = React.useReducer(
@@ -286,7 +286,7 @@ component _BatchCreateWorksButtonPopover(
 
   const buildPopoverContent = React.useCallback((
     closeDialog: () => void,
-    initialFocusRef: {-current: HTMLElement | null},
+    initialFocusRef: {writeonly current: HTMLElement | null},
   ) => (
     <BatchCreateWorksDialogContent
       closeDialog={closeDialog}

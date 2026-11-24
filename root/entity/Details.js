@@ -20,9 +20,9 @@ import {
 import formatUserDate from '../utility/formatUserDate.js';
 
 type EntityPropertiesT = {
-  +aliases?: {+[edit_type: string]: number},
-  +artist_credits?: boolean,
-  +url: string,
+  readonly aliases?: {readonly [edit_type: string]: number},
+  readonly artist_credits?: boolean,
+  readonly url: string,
   ...
 };
 

@@ -8,15 +8,15 @@
  */
 
 export type StatisticsEventFormT = FormT<{
-  +date: FieldT<string>,
-  +description: FieldT<string>,
-  +link: FieldT<string>,
-  +title: FieldT<string>,
+  readonly date: FieldT<string>,
+  readonly description: FieldT<string>,
+  readonly link: FieldT<string>,
+  readonly title: FieldT<string>,
 }>;
 
 export type StatisticsEventT = {
-  +date: string,
-  +description: string,
-  +link: string,
-  +title: string,
+  readonly date: string,
+  readonly description: string,
+  readonly link: string,
+  readonly title: string,
 };

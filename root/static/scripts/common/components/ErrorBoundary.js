@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 type Props = {
-  +children: React.Node,
+  readonly children: React.Node,
 };
 
 type State = {
@@ -19,7 +19,9 @@ type State = {
 };
 
 export default class ErrorBoundary extends React.Component<Props, State> {
-  static getDerivedStateFromError(error: Error): {+errorMessage: string} {
+  static getDerivedStateFromError(error: Error): {
+    readonly errorMessage: string,
+  } {
     return {errorMessage: error.message ?? String(error)};
   }
 

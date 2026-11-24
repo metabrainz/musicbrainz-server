@@ -13,7 +13,7 @@ import {
 } from '../../constants.js';
 
 function countVotes(
-  votes: $ReadOnlyArray<VoteT>,
+  votes: ReadonlyArray<VoteT>,
   voteValue: number,
 ): number {
   return votes.reduce(

@@ -78,7 +78,6 @@ test 'Adding a recording (including ISRC)' => sub {
                     id => $edits[0]->recording_id,
                     name => 'Name!',
                 },
-                source => 0,
             } ],
             client_version => JSON::null,
         },

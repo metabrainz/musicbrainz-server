@@ -29,11 +29,11 @@ type ReportReasonT =
   | 'voting';
 
 type ReportUserFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +message: FieldT<string>,
-  +reason: FieldT<ReportReasonT>,
-  +reveal_address: FieldT<boolean>,
-  +send_to_self: FieldT<boolean>,
+  readonly csrf_token: FieldT<string>,
+  readonly message: FieldT<string>,
+  readonly reason: FieldT<ReportReasonT>,
+  readonly reveal_address: FieldT<boolean>,
+  readonly send_to_self: FieldT<boolean>,
 }>;
 
 const reportReasonOptions = {

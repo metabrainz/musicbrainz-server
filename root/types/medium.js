@@ -9,61 +9,61 @@
 
 /* eslint-disable no-unused-vars */
 
-declare type CDTocT = $ReadOnly<{
+declare type CDTocT = Readonly<{
   ...EntityRoleT<'cdtoc'>,
-  +discid: string,
-  +freedb_id: string,
-  +leadout_offset: number,
-  +length: number,
-  +track_count: number,
-  +track_details: $ReadOnlyArray<{
-    +end_sectors: number,
-    +end_time: number,
-    +length_sectors: number,
-    +length_time: number,
-    +start_sectors: number,
-    +start_time: number,
+  readonly discid: string,
+  readonly freedb_id: string,
+  readonly leadout_offset: number,
+  readonly length: number,
+  readonly track_count: number,
+  readonly track_details: ReadonlyArray<{
+    readonly end_sectors: number,
+    readonly end_time: number,
+    readonly length_sectors: number,
+    readonly length_time: number,
+    readonly start_sectors: number,
+    readonly start_time: number,
   }>,
-  +track_offset: $ReadOnlyArray<number>,
+  readonly track_offset: ReadonlyArray<number>,
 }>;
 
-declare type MediumCDTocT = $ReadOnly<{
+declare type MediumCDTocT = Readonly<{
   ...EntityRoleT<'medium_cdtoc'>,
-  +cdtoc: CDTocT,
-  +editsPending: boolean,
-  +medium?: MediumT,
+  readonly cdtoc: CDTocT,
+  readonly editsPending: boolean,
+  readonly medium?: MediumT,
 }>;
 
 declare type MediumFormatT = {
   ...OptionTreeT<'medium_format'>,
-  +has_discids: boolean,
-  +year: ?number,
+  readonly has_discids: boolean,
+  readonly year: ?number,
 };
 
 // MusicBrainz::Server::Entity::Medium::TO_JSON
-declare type MediumT = $ReadOnly<{
+declare type MediumT = Readonly<{
   ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
-  +cdtoc_track_count: number | null,
-  +cdtoc_track_lengths?: $ReadOnlyArray<number | null>,
-  +cdtoc_tracks?: $ReadOnlyArray<TrackT>,
-  +cdtocs: $ReadOnlyArray<string>,
-  +data_track_lengths?: $ReadOnlyArray<number | null>,
-  +editsPending: boolean,
-  +format: MediumFormatT | null,
-  +format_id: number | null,
-  +gid: string,
-  +may_have_discids: boolean,
-  +name: string,
-  +position: number,
-  +pregap_length?: $ReadOnlyArray<number | null>,
-  +release_id: number,
-  +track_count: number | null,
-  +tracks?: $ReadOnlyArray<TrackT>,
-  +tracks_pager?: PagerT,
+  readonly cdtoc_track_count: number | null,
+  readonly cdtoc_track_lengths?: ReadonlyArray<number | null>,
+  readonly cdtoc_tracks?: ReadonlyArray<TrackT>,
+  readonly cdtocs: ReadonlyArray<string>,
+  readonly data_track_lengths?: ReadonlyArray<number | null>,
+  readonly editsPending: boolean,
+  readonly format: MediumFormatT | null,
+  readonly format_id: number | null,
+  readonly gid: string,
+  readonly may_have_discids: boolean,
+  readonly name: string,
+  readonly position: number,
+  readonly pregap_length?: ReadonlyArray<number | null>,
+  readonly release_id: number,
+  readonly track_count: number | null,
+  readonly tracks?: ReadonlyArray<TrackT>,
+  readonly tracks_pager?: PagerT,
 }>;
 
-declare type MediumWithRecordingsT = $ReadOnly<{
+declare type MediumWithRecordingsT = Readonly<{
   ...MediumT,
-  +tracks?: $ReadOnlyArray<TrackWithRecordingT>,
+  readonly tracks?: ReadonlyArray<TrackWithRecordingT>,
 }>;

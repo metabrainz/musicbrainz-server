@@ -16,11 +16,11 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT} from './types.js';
 
 export type ReportRecordingTrackT = {
-  +recording: ?RecordingT,
-  +recording_id: number,
-  +row_number: number,
-  +track: TrackT,
-  +track_id: number,
+  readonly recording: ?RecordingT,
+  readonly recording_id: number,
+  readonly row_number: number,
+  readonly track: TrackT,
+  readonly track_id: number,
 };
 
 component RecordingTrackDifferentName(...{

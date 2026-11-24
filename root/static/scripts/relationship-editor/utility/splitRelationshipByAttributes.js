@@ -54,7 +54,7 @@ const isSplittableAttribute = (linkAttribute: LinkAttrT): boolean => {
  */
 export default function splitRelationshipByAttributes(
   relationship: RelationshipStateT,
-): $ReadOnlyArray<RelationshipStateT> {
+): ReadonlyArray<RelationshipStateT> {
   const splitRelationships = [];
   const origRelationship = isDatabaseRowId(relationship.id)
     ? relationship._original

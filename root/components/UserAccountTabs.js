@@ -19,7 +19,7 @@ function buildTabs(
   $c: CatalystContextT,
   user: AccountLayoutUserT,
   page: string,
-): $ReadOnlyArray<React.MixedElement> {
+): ReadonlyArray<React.MixedElement> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
 
   const userName = encodeURIComponent(user.name);
@@ -85,12 +85,6 @@ function buildTabs(
     ));
     tabs.push(buildTab(
       page,
-      lp('Change password', 'header'),
-      '/account/change-password',
-      'change_password',
-    ));
-    tabs.push(buildTab(
-      page,
       l('Donation check'),
       '/account/donation',
       'donation',
@@ -104,24 +98,6 @@ function buildTabs(
       '/admin/user/edit/' + userName,
       'edit_user',
     ));
-  }
-
-  if (!user.deleted) {
-    if (viewingOwnProfile) {
-      tabs.push(buildTab(
-        page,
-        lp('Delete account', 'header'),
-        '/account/delete',
-        'delete',
-      ));
-    } else if (showAdmin) {
-      tabs.push(buildTab(
-        page,
-        l_admin('Delete account'),
-        '/admin/user/delete/' + userName,
-        'delete',
-      ));
-    }
   }
 
   return tabs;

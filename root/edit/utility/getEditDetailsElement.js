@@ -127,7 +127,7 @@ const editDetailsElementMap: {
   /* eslint-disable ft-flow/no-weak-types */
   /* eslint-disable-next-line ft-flow/no-flow-suppressions-in-strict-files */
   // $FlowFixMe[unclear-type]
-  +[edit_type: EditT['edit_type']]: component(edit: any),
+  readonly [edit_type: EditT['edit_type']]: component(edit: any),
   /* eslint-enable ft-flow/no-weak-types */
 } = {
   [EDIT_TYPES.EDIT_AREA_ADD_ANNOTATION]: AddAnnotation,

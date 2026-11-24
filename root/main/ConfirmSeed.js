@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
 import PostParameters, {
@@ -21,8 +20,8 @@ import ConfirmSeedButtons
 component ConfirmSeed(
   origin: string,
   postParameters: PostParametersT | null,
+  requestUri: string,
 ) {
-  const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Confirm form submission');
 
   /*
@@ -30,7 +29,7 @@ component ConfirmSeed(
    * used to seed fields rather than to create edits) was requested and the
    * client indicated that they want the form to be skipped. See MBS-13225.
    */
-  const url = new URL($c.req.uri);
+  const url = new URL(requestUri);
   const autoSubmit =
     url.pathname === '/release/add' &&
     url.searchParams.get('skip_confirmation') === '1';
@@ -43,7 +42,7 @@ component ConfirmSeed(
           `You are about to submit a request to {action}
            originating from {origin}. Continue?`,
           {
-            action: <strong>{$c.req.uri}</strong>,
+            action: <strong>{requestUri}</strong>,
             origin: <strong>{origin}</strong>,
           },
         )}
@@ -54,7 +53,7 @@ component ConfirmSeed(
             Below this line, you can review the data being sent and make any
             modifications if desired.`)}
       </p>
-      <form method="post">
+      <form action={requestUri} method="post">
         {postParameters ? <PostParameters params={postParameters} /> : null}
         <ConfirmSeedButtons autoSubmit={autoSubmit} />
       </form>

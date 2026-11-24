@@ -49,6 +49,7 @@ component SeriesResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<SeriesT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -65,6 +66,7 @@ component SeriesResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

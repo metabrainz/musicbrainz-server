@@ -11,13 +11,13 @@ import {useEffect} from 'react';
 
 type ActionFnT = ((Event) => void) | null;
 
-type TargetRefsT = Map<{+current: HTMLElement | null}, ActionFnT>;
+type TargetRefsT = Map<{readonly current: HTMLElement | null}, ActionFnT>;
 
 // Actions by event type name.
 const EVENTS = new Map<string, TargetRefsT>();
 
 function setupEventHandler(
-  eventType: FocusEventTypes | KeyboardEventTypes | MouseEventTypes,
+  eventType: keyof GlobalEventHandlersEventMap,
 ) {
   const cachedTargetActions = EVENTS.get(eventType);
   if (cachedTargetActions) {
@@ -60,8 +60,8 @@ function setupEventHandler(
   return targetActions;
 }
 
-export default function useEventTrap<T: HTMLElement>(
-  eventType: FocusEventTypes | KeyboardEventTypes | MouseEventTypes,
+export default function useEventTrap<T extends HTMLElement>(
+  eventType: keyof GlobalEventHandlersEventMap,
   targetRef: {current: T | null},
   action: ActionFnT,
   cleanup?: () => void,

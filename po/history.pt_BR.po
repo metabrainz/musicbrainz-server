@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-10 03:11+0000\n"
+"Last-Translator: DenilsonSama <denilsongomesdesouza1@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
+"projects/musicbrainz/history/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -967,6 +969,13 @@ msgid ""
 "votes, but they remain open for at least 48 hours to ensure people who "
 "oppose them have time to see them."
 msgstr ""
+"Agora é possível adicionar lançamentos sem nenhum meio, para casos em que a "
+"única informação disponível é, por exemplo, um título + data + gravadora + "
+"número de catálogo em um catálogo. Além disso, quaisquer edições "
+"destrutivas, como fusões e remoções de entidades, não são mais encerradas "
+"imediatamente ao receber 3 votos “Sim”, mas permanecem abertas por pelo "
+"menos 48 horas para garantir que as pessoas que se opõem a elas tenham tempo "
+"de visualizá-las."
 
 #. title:Editor account cleanup
 #: DB:statistics.statistic_event/description:2025-06-27

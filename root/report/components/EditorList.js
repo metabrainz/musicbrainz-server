@@ -60,7 +60,7 @@ const nameColumn = {
 };
 
 component EditorList(
-  items: $ReadOnlyArray<ReportEditorT>,
+  items: ReadonlyArray<ReportEditorT>,
   pager: PagerT,
 ) {
   const existingEditorItems = items.reduce((

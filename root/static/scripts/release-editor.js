@@ -4,6 +4,9 @@ require('./common/MB/Control/Autocomplete.js');
 
 require('./edit/forms.js');
 
+// eslint-disable-next-line @stylistic/max-len
+require('./external-links-editor/components/StandaloneExternalLinksEditor.js');
+
 // The order here is important!
 require('./release-editor/viewModel.js');
 require('./release-editor/utils.js');

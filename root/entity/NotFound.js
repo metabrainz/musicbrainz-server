@@ -15,10 +15,10 @@ const defaultSearchArgs: NotFoundPagesPropsT['args'] =
   {search_url: '/search'};
 
 type NotFoundPagesPropsT = {
-  +args: {genre_list?: string, search_url?: string},
-  +footer: React.Node | null,
-  +message: () => string,
-  +title: () => string,
+  readonly args: {genre_list?: string, search_url?: string},
+  readonly footer: React.Node | null,
+  readonly message: () => string,
+  readonly title: () => string,
 };
 
 /* eslint-disable sort-keys */
@@ -256,7 +256,7 @@ const notFoundPages: {[namespace: string]: NotFoundPagesPropsT} = {
 };
 /* eslint-enable sort-keys */
 
-component NotFound(namespace: $Keys<typeof notFoundPages>) {
+component NotFound(namespace: keyof typeof notFoundPages) {
   const parameters = notFoundPages[namespace];
   return (
     <NotFoundComponent title={parameters.title()}>

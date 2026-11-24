@@ -14,13 +14,13 @@ import coerceToError from '../utility/coerceToError.js';
 import {compareStrings} from '../utility/compare.mjs';
 
 type AcoustIdTrackT = {
-  +disabled?: boolean,
-  +id: string,
+  readonly disabled?: boolean,
+  readonly id: string,
 };
 
 type AcoustIdListResponseT = {
-  +status: string,
-  +tracks: Array<AcoustIdTrackT>,
+  readonly status: string,
+  readonly tracks: Array<AcoustIdTrackT>,
 };
 
 function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
@@ -35,7 +35,7 @@ function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
 
 component FingerprintTable(recording: RecordingT) {
   const [tracks, setTracks] =
-    React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
+    React.useState<ReadonlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
 
@@ -57,7 +57,7 @@ component FingerprintTable(recording: RecordingT) {
           setIsLoaded(true);
         },
       )
-      .catch((caughtError: mixed) => {
+      .catch((caughtError: unknown) => {
         console.error(caughtError);
         setError(coerceToError(caughtError));
       });
@@ -116,7 +116,7 @@ component FingerprintTable(recording: RecordingT) {
   );
 }
 
-export default (hydrate<React.PropsOf<FingerprintTable>>(
+export default hydrate<React.PropsOf<FingerprintTable>>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): component(...React.PropsOf<FingerprintTable>));
+) as component(...React.PropsOf<FingerprintTable>);

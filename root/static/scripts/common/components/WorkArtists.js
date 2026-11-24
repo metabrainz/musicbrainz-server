@@ -18,7 +18,7 @@ const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   );
 };
 
-component WorkArtists(artists: ?$ReadOnlyArray<ArtistCreditT>) {
+component WorkArtists(artists: ?ReadonlyArray<ArtistCreditT>) {
   return (
     <CollapsibleList
       ariaLabel={l('Work artists')}
@@ -33,7 +33,7 @@ component WorkArtists(artists: ?$ReadOnlyArray<ArtistCreditT>) {
   );
 }
 
-export default (hydrate<React.PropsOf<WorkArtists>>(
+export default hydrate<React.PropsOf<WorkArtists>>(
   'div.work-artists-container',
   WorkArtists,
-): component(...React.PropsOf<WorkArtists>));
+) as component(...React.PropsOf<WorkArtists>);

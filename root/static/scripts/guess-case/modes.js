@@ -129,7 +129,7 @@ function replaceMatch(
  */
 function runFixes(
   inputString: string,
-  fixes: $ReadOnlyArray<[RegExp, string]>,
+  fixes: ReadonlyArray<[RegExp, string]>,
 ): string {
   let output = inputString;
   fixes.forEach(function (fix) {

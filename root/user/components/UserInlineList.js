@@ -11,7 +11,7 @@
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList.js';
 
-component UserInlineList(editors: $ReadOnlyArray<EditorT>) {
+component UserInlineList(editors: ReadonlyArray<EditorT>) {
   return (
     <p>
       {editors.length ? (

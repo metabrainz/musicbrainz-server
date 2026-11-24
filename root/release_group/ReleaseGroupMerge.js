@@ -18,7 +18,7 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
 component ReleaseGroupMerge(
   form: MergeFormT,
-  toMerge: $ReadOnlyArray<ReleaseGroupT>,
+  toMerge: ReadonlyArray<ReleaseGroupT>,
 ) {
   return (
     <Layout fullWidth title={l('Merge release groups')}>

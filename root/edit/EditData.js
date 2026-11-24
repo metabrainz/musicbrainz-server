@@ -17,8 +17,8 @@ import {formatPluralEntityTypeName}
 import {getEditStatusName} from '../utility/edit.js';
 
 type RelatedEntitiesT = {
-  +[type: EditableEntityTypeT]: {
-    +[entityId: string]: EditableEntityT,
+  readonly [type: EditableEntityTypeT]: {
+    readonly [entityId: string]: EditableEntityT,
   },
 };
 

@@ -17,8 +17,8 @@ import {
 import type {ReportAnnotationRoleT} from '../types.js';
 
 function useAnnotationColumns<
-  D: $ReadOnly<{...ReportAnnotationRoleT, ...}>,
->(): $ReadOnlyArray<ColumnOptions<D, StrOrNum>> {
+  D extends Readonly<{...ReportAnnotationRoleT, ...}>,
+>(): ReadonlyArray<ColumnOptions<D, StrOrNum>> {
   const columns = React.useMemo(
     () => {
       const annotationColumn =

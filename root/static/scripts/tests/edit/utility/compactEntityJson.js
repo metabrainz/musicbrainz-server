@@ -19,7 +19,7 @@ test('compact/decompact', function (t) {
   t.plan(12);
 
   type CyclicObject = {
-    array: Array<mixed>,
+    array: Array<unknown>,
     boolean: boolean,
     cycle?: CyclicObject,
     null: null,
@@ -40,7 +40,7 @@ test('compact/decompact', function (t) {
   };
   object.cycle = object;
 
-  const strictEqual = (a: mixed, b: mixed) => Object.is(a, b);
+  const strictEqual = (a: unknown, b: unknown) => Object.is(a, b);
 
   function areCyclicObjectsEqual(
     a: CyclicObject,

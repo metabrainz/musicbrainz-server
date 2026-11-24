@@ -18,24 +18,24 @@ import {
 import {isSpammer} from '../../common/utility/privileges.js';
 
 type InexactUserT = {
-  +id: number,
-  +privileges: number,
+  readonly id: number,
+  readonly privileges: number,
   ...
 };
 
-export type ActionT<T: InexactUserT> = {
-  +state: StateT<T>,  /* Looks useless, but allows parent reducers to
+export type ActionT<T extends InexactUserT> = {
+  readonly state: StateT<T>,  /* Looks useless, but allows parent reducers to
                          determine which button triggered the action. */
-  +type: 'update',
-  +update: Partial<StateT<T>>,
+  readonly type: 'update',
+  readonly update: Partial<StateT<T>>,
   ...
 };
 
-export type StateT<T: InexactUserT> = {
-  +initialPrivileges: number,
-  +requestError: string,
-  +requestPending: boolean,
-  +user: T,
+export type StateT<T extends InexactUserT> = {
+  readonly initialPrivileges: number,
+  readonly requestError: string,
+  readonly requestPending: boolean,
+  readonly user: T,
 };
 
 const SPAMMER_PRIVILEGES = (
@@ -45,7 +45,7 @@ const SPAMMER_PRIVILEGES = (
   VOTING_DISABLED_FLAG
 );
 
-export function createInitialState<T: InexactUserT>(
+export function createInitialState<T extends InexactUserT>(
   user: T,
 ): StateT<T> {
   return {
@@ -56,7 +56,7 @@ export function createInitialState<T: InexactUserT>(
   };
 }
 
-export function reducer<T: InexactUserT>(
+export function reducer<T extends InexactUserT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {
@@ -67,7 +67,7 @@ export function reducer<T: InexactUserT>(
   }
 }
 
-component _SpammerButton<T: InexactUserT>(
+component _SpammerButton<T extends InexactUserT>(
   dispatch: (ActionT<T>) => void,
   state: StateT<T>,
 ) {
@@ -77,7 +77,7 @@ component _SpammerButton<T: InexactUserT>(
     dispatch({state, type: 'update', update});
   }, [dispatch, state]);
 
-  const setError = React.useCallback((error: mixed): void => {
+  const setError = React.useCallback((error: unknown): void => {
     doUpdate({requestError: String(error), requestPending: false});
   }, [doUpdate]);
 
@@ -141,7 +141,7 @@ const SpammerButton: typeof _SpammerButton =
 
 export default SpammerButton;
 
-component _StandaloneSpammerButton<T: InexactUserT>(
+component _StandaloneSpammerButton<T extends InexactUserT>(
   user: T,
 ) {
   const [state, dispatch] = React.useReducer(
@@ -153,7 +153,7 @@ component _StandaloneSpammerButton<T: InexactUserT>(
 }
 
 export const StandaloneSpammerButton =
-  (hydrate<React.PropsOf<_StandaloneSpammerButton<InexactUserT>>>(
+  hydrate<React.PropsOf<_StandaloneSpammerButton<InexactUserT>>>(
     'div.spammer-button',
     _StandaloneSpammerButton,
-  ): component(...React.PropsOf<_StandaloneSpammerButton<InexactUserT>>));
+  ) as component(...React.PropsOf<_StandaloneSpammerButton<InexactUserT>>);

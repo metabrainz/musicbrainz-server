@@ -18,7 +18,7 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
 
-component ArtistMerge(form: MergeFormT, toMerge: $ReadOnlyArray<ArtistT>) {
+component ArtistMerge(form: MergeFormT, toMerge: ReadonlyArray<ArtistT>) {
   return (
     <Layout fullWidth title={l('Merge artists')}>
       <div id="content">

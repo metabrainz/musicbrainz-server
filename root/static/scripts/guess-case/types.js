@@ -8,19 +8,19 @@
  */
 
 export type GuessCaseModeT = {
-  +description: string,
-  +doWord: () => boolean,
-  +fixVinylSizes: (string) => string,
-  +isLowerCaseWord: (string) => boolean,
-  +isRomanNumber: (string) => boolean,
-  +isSentenceCaps: () => boolean,
-  +isUpperCaseWord: (string) => boolean,
-  +name: string,
-  +prepExtraTitleInfo: (Array<string>) => Array<string>,
-  +preProcessTitles: (string) => string,
-  +runPostProcess: (string) => string,
-  +toLowerCase: (string) => string,
-  +toUpperCase: (string) => string,
+  readonly description: string,
+  readonly doWord: () => boolean,
+  readonly fixVinylSizes: (string) => string,
+  readonly isLowerCaseWord: (string) => boolean,
+  readonly isRomanNumber: (string) => boolean,
+  readonly isSentenceCaps: () => boolean,
+  readonly isUpperCaseWord: (string) => boolean,
+  readonly name: string,
+  readonly prepExtraTitleInfo: (Array<string>) => Array<string>,
+  readonly preProcessTitles: (string) => string,
+  readonly runPostProcess: (string) => string,
+  readonly toLowerCase: (string) => string,
+  readonly toUpperCase: (string) => string,
 };
 
 export type GuessCaseModeNameT =

@@ -13,9 +13,9 @@ component EntityTabLink(
   disabled: boolean = false,
   selected: boolean,
   ...linkProps: {
-    +content: string,
-    +entity: RelatableEntityT | CollectionT,
-    +subPath: string,
+    readonly content: string,
+    readonly entity: RelatableEntityT | CollectionT,
+    readonly subPath: string,
   }
 ) {
   return (

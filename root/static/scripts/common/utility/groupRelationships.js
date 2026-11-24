@@ -37,8 +37,8 @@ import {uniqueId} from './strings.js';
 const UNIT_SEP = '\x1F';
 
 export type DatedExtraAttributes = {
-  +attributes: Array<LinkAttrT>,
-  +datePeriods: Array<DatePeriodRoleT>,
+  readonly attributes: Array<LinkAttrT>,
+  readonly datePeriods: Array<DatePeriodRoleT>,
 };
 
 export type RelationshipTargetGroupT = {
@@ -54,7 +54,7 @@ export type RelationshipTargetGroupT = {
   tracks: Set<TrackT> | null,
 };
 
-type PhraseGroupLinkTypeInfoT = {
+export type PhraseGroupLinkTypeInfoT = {
   backward: boolean,
   editsPending: boolean,
   phrase: Expand2ReactOutput,
@@ -71,12 +71,12 @@ export type RelationshipPhraseGroupT = {
 };
 
 export type RelationshipTargetTypeGroupT = {
-  +relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
-  +targetType: RelatableEntityTypeT,
+  readonly relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
+  readonly targetType: RelatableEntityTypeT,
 };
 
 export function cmpTargetTypeGroups<
-  T: {+targetType: RelatableEntityTypeT, ...},
+  T extends {readonly targetType: RelatableEntityTypeT, ...},
 >(a: T, b: T): number {
   return compareStrings(a.targetType, b.targetType);
 }
@@ -86,14 +86,13 @@ const cmpPhraseGroupLinkTypeInfo = (
   b: PhraseGroupLinkTypeInfoT,
 ) => (
   (a.typeId - b.typeId) ||
-  compare(a.textPhrase, b.textPhrase) ||
-  ((a.backward ? 1 : 0) - (b.backward ? 1 : 0))
+  compare(a.textPhrase, b.textPhrase)
 );
 
-function cmpRelationshipPhraseGroups(
+export function cmpRelationshipPhraseGroups(
   a: RelationshipPhraseGroupT,
   b: RelationshipPhraseGroupT,
-) {
+): number {
   return cmpPhraseGroupLinkTypeInfo(a.linkTypeInfo[0], b.linkTypeInfo[0]);
 }
 
@@ -237,8 +236,8 @@ function isNotInstrumentOrVocal(attribute: LinkAttrT) {
 }
 
 function areAttributeListsMergeable(
-  attributeList1: $ReadOnlyArray<LinkAttrT>,
-  attributeList2: $ReadOnlyArray<LinkAttrT>,
+  attributeList1: ReadonlyArray<LinkAttrT>,
+  attributeList2: ReadonlyArray<LinkAttrT>,
 ) {
   /*
    * Two attribute lists are mergeable for display if all their non-
@@ -357,18 +356,18 @@ function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
 }
 
 export default function groupRelationships(
-  relationships: ?$ReadOnlyArray<RelationshipT>,
+  relationships: ?ReadonlyArray<RelationshipT>,
   args?: {
-    +filter?: (
+    readonly filter?: (
       RelationshipT,
       RelatableEntityT,
       RelatableEntityTypeT,
     ) => boolean,
-    +result?: Array<RelationshipTargetTypeGroupT>,
-    +trackMapping?: Map<string, Set<TrackT>>,
-    +types?: ?$ReadOnlyArray<RelatableEntityTypeT>,
+    readonly result?: Array<RelationshipTargetTypeGroupT>,
+    readonly trackMapping?: Map<string, Set<TrackT>>,
+    readonly types?: ?ReadonlyArray<RelatableEntityTypeT>,
   },
-): $ReadOnlyArray<RelationshipTargetTypeGroupT> {
+): ReadonlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {
     return [];
   }
@@ -403,10 +402,10 @@ export default function groupRelationships(
 
     const targetTypeGroup = sortedFindOrInsert(
       targetTypeGroups,
-      ({
+      {
         relationshipPhraseGroups: [],
         targetType,
-      }: RelationshipTargetTypeGroupT),
+      } as RelationshipTargetTypeGroupT,
       cmpTargetTypeGroups,
     );
 
@@ -476,7 +475,7 @@ export default function groupRelationships(
 
     const phraseGroup = sortedFindOrInsert(
       targetTypeGroup.relationshipPhraseGroups,
-      ({
+      {
         combinedPhrase: '',
         /*
          * linkTypeId shouldn't really be needed in the grouping key, since
@@ -494,7 +493,7 @@ export default function groupRelationships(
           typeId: linkType.id,
         }],
         targetGroups: [],
-      }: RelationshipPhraseGroupT),
+      } as RelationshipPhraseGroupT,
       cmpRelationshipPhraseGroups,
     );
 
@@ -525,7 +524,7 @@ export default function groupRelationships(
       tracks = trackMapping.get(relationshipId) || null;
     }
 
-    let targetGroup = ({
+    let targetGroup = {
       datedExtraAttributesList: [],
       earliestDatePeriod: datePeriod,
       editsPending: relationship.editsPending,
@@ -536,7 +535,7 @@ export default function groupRelationships(
       target,
       targetCredit,
       tracks,
-    }: RelationshipTargetGroupT);
+    } as RelationshipTargetGroupT;
 
     /*
      * Ensure we're not merging target groups across different tracks yet.

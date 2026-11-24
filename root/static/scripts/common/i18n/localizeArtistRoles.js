@@ -8,8 +8,8 @@
  */
 
 
-function localizeArtistRoles(roles: $ReadOnlyArray<string>):
-  $ReadOnlyArray<string> {
+function localizeArtistRoles(roles: ReadonlyArray<string>):
+  ReadonlyArray<string> {
   return roles.map(role => l_relationships(role));
 }
 

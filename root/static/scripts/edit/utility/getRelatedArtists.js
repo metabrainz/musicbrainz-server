@@ -13,7 +13,7 @@ import ko, {
 
 export default function getRelatedArtists(
   relationships: ?(
-    | $ReadOnlyArray<RelationshipT>
+    | ReadonlyArray<RelationshipT>
     | KnockoutObservableArray<RelationshipT>
   ),
 ): Array<ArtistT> {

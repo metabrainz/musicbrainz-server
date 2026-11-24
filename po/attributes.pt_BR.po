@@ -1,15 +1,20 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# DenilsonSama <denilsongomesdesouza1@gmail.com>, 2026.
+# joao_over9k <joaorspaiva@hotmail.com>, 2026.
+# Kolesteraw <leonaribas00@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-09-20 04:13+0000\n"
+"Last-Translator: Kolesteraw <leonaribas00@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
+"projects/musicbrainz/attributes/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -19,6 +24,9 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
+"\"Moteto\" é um termo que se aplica a diferentes tipos de obras corais "
+"(geralmente a capela). O que exatamente constitui um moteto depende bastante "
+"do período."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -27,107 +35,111 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
+"\"Sonata\" é um termo geral usado para descrever obras instrumentais de "
+"pequena escala (muitas vezes para instrumento solo ou solo acompanhado por "
+"teclado), inicialmente na música barroca."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" Acetato"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10\" Shellac"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr ""
+msgstr "10\" Vinil"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" Acetato"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12\" LaserDisc"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12\" Shellac"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12\" Vinil"
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr ""
+msgstr "3\" Vinil"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3.5\" Floppy Disk (disquete)"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25\" Floppy Disk (disquete)"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" Acetato"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "7\" Disco Flexível"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7\" Shellac"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "7\" Vinil"
 
 #: DB:medium_format/name:71
+#, fuzzy
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "8\" LaserDisc"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "Cartucho de 8 pistas"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "CD de 8 cm"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "CD+G de 8 cm"
 
 #: DB:medium_format/name:210
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr ""
+msgstr "CD-R de 8 cm"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "DVD de 8cm, muitas vezes usado para videoclipes."
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -136,6 +148,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"Discos de goma-laca de 90 rpm com gravação vertical, produzidos pelo selo "
+"Pathé entre 1906 e 1932."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -169,6 +183,37 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>Uma compilação, para os fins do banco de dados do MusicBrainz, abrange os "
+"seguintes tipos de lançamentos:</p>\n"
+"\n"
+"<ul>\n"
+"<li>uma coleção de gravações provenientes de várias fontes antigas (não "
+"necessariamente lançadas anteriormente) reunidas em um único produto. Por "
+"exemplo, um lançamento do tipo \"melhores momentos\" (best of), "
+"retrospectiva ou coletânea de raridades.</li>\n"
+"<li>uma coleção de músicas de vários artistas, geralmente baseada em um tema "
+"geral (\"Canções para Apaixonados\"), um período específico (\"Sucessos de "
+"1998\") ou outro tipo de agrupamento (\"Músicas de Filmes\", a série \"Café "
+"del Mar\", etc.).</li>\n"
+"</ul>\n"
+"\n"
+"<p>O projeto MusicBrainz geralmente não considera os seguintes itens como "
+"compilações:</p>\n"
+"\n"
+"<ul>\n"
+"<li>uma reedição de um álbum, mesmo que inclua faixas bônus.</li>\n"
+"<li>um lançamento de tributo contendo versões (covers) de músicas de outro "
+"artista.</li>\n"
+"<li>um lançamento de música clássica contendo novas gravações de obras de um "
+"compositor ou intérprete clássico.</li>\n"
+"<li>um lançamento compartilhado (split) contendo músicas inéditas de vários "
+"artistas.</li>\n"
+"</ul>\n"
+"\n"
+"<p>A classificação \"compilação\" deve ser usada em conjunto com outros "
+"tipos, e não em substituição a eles: por exemplo, uma trilha sonora com "
+"vários artistas que utilize músicas lançadas anteriormente deve ser marcada "
+"tanto como trilha sonora quanto como compilação.</p>"
 
 #. name:Single
 #: DB:release_group_primary_type/description:2
@@ -207,6 +252,39 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
+"<p>Um single possui definições diferentes dependendo do mercado para o qual "
+"é lançado.</p>\n"
+"\n"
+"<ul>\n"
+"<li>No mercado dos EUA, um single geralmente contém uma música principal e, "
+"possivelmente, algumas faixas adicionais ou remixes da faixa principal; o "
+"single costuma receber o nome da música principal e é lançado principalmente "
+"para obter execução nas rádios e promover as vendas do lançamento.</li>\n"
+"<li>O mercado do Reino Unido (assim como o da Austrália e da Europa) é "
+"semelhante ao dos EUA; no entanto, os singles são frequentemente lançados "
+"como um conjunto de dois discos, vendidos separadamente. Às vezes, existe "
+"também uma versão mais longa do single (muitas vezes combinando as faixas da "
+"versão de dois discos) — muito semelhante ao estilo de single dos EUA — "
+"chamada de \"maxi-single\". (Em alguns casos, o maxi-single é mais longo do "
+"que o lançamento original do qual o single foi extraído!)</li>\n"
+"<li>O mercado japonês é muito mais voltado para os singles. O fator "
+"determinante é, geralmente, a duração do single e o seu preço de venda. Até "
+"1995, era comum que esses singles fossem lançados no formato \"mini-CD\" — "
+"basicamente um CD bem menor, tipicamente com 8 cm de diâmetro. Por volta de "
+"1995, o single de 8 cm foi sendo descontinuado, tornando-se mais comum o "
+"single em CD padrão de 12 cm; geralmente, relançamentos de singles "
+"anteriores a 1995 são feitos no formato de 12 cm, mesmo que tenham sido "
+"lançados originalmente no formato de 8 cm. Os singles japoneses "
+"frequentemente incluem versões instrumentais das músicas e também contam com "
+"maxi-singles (assim como no Reino Unido) contendo versões remixadas das "
+"faixas. Às vezes, um maxi-single pode ter mais faixas do que um EP, mas, "
+"como todas são versões alternativas das mesmas 2 ou 3 músicas, ele ainda é "
+"classificado como um single.</li>\n"
+"</ul>\n"
+"\n"
+"<p>Existem outras variações de single, como o \"split single\", no qual "
+"músicas de dois artistas diferentes são lançadas em um único disco, "
+"geralmente de vinil.</p>"
 
 #. name:KiT Album
 #: DB:medium_format/description:95
@@ -216,6 +294,10 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"Um dispositivo de \"item colecionável digital\" — utilizado principalmente "
+"para música K-pop — que se conecta ao celular via Bluetooth ou entrada de "
+"fone de ouvido e desbloqueia o lançamento para audição em um aplicativo "
+"associado, por um período limitado."
 
 #. name:Park
 #: DB:place_type/description:9
@@ -224,6 +306,8 @@ msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
 msgstr ""
+"Um espaço (geralmente verde) mantido disponível para recreação em uma área "
+"que, de outra forma, seria edificada e povoada."
 
 #. name:CD-i
 #: DB:medium_format/description:209
@@ -233,6 +317,9 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
+"Um formato de CD que combina dados/vídeo e áudio, utilizado para diferentes "
+"finalidades na década de 1990, incluindo, em alguns casos, lançamentos "
+"musicais acompanhados de conteúdo em vídeo."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -242,6 +329,9 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"Um CD que contêm áudio e dados na mesma seção. Os dados normalmente estão na "
+"primeira faixa, que terá que ser pulado em vários reprodutores de áudio. "
+"Relativamente comum em CDs antigos de vídeo game."
 
 #. name:Enhanced CD
 #: DB:medium_format/description:42
@@ -251,6 +341,9 @@ msgid ""
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
 msgstr ""
+"Um CD que contêm duas seções, uma com áudio e uma com dados. Como eles são "
+"propriamente separados, reprodutores de áudio não irão tentar reproduzir a "
+"seção de dados e não fará parte do ID do disco do CD."
 
 #. name:DJ-mix
 #: DB:release_group_secondary_type/description:8
@@ -434,6 +527,15 @@ msgid ""
 "use by the artist."
 msgstr ""
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -597,6 +699,15 @@ msgid ""
 "artists."
 msgstr ""
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -725,6 +836,20 @@ msgstr ""
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
+msgstr ""
+
+#. name:Series award
+#: DB:series_type/description:17
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr ""
+
+#. name:Series series
+#: DB:series_type/description:16
+msgctxt "series_type"
+msgid "A series of series."
 msgstr ""
 
 #. name:Work award
@@ -1085,6 +1210,11 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr ""
 
+#: DB:work_attribute_type/name:216
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr ""
+
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -1127,6 +1257,12 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
+"Um EP é um lançamento chamado “Extended Play” e frequentemente contém as "
+"letras EP no título. Geralmente um EP é mais curto que um lançamento de "
+"duração completa (um LP ou “Long Play”) e as faixas normalmente são "
+"exclusivas do EP, ou seja, não vêm de um lançamento anteriormente publicado. "
+"EP é um termo relativamente difícil de definir; normalmente só se deve "
+"assumir que um lançamento é um EP se o próprio artista o definir assim."
 
 #. name:Album
 #: DB:release_group_primary_type/description:1
@@ -4481,6 +4617,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr ""
 
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr ""
+
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
@@ -5354,6 +5496,11 @@ msgstr ""
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:636
@@ -6730,6 +6877,19 @@ msgid ""
 "are distinct from demos in that they are designed for release directly to "
 "the public and fans; not to labels."
 msgstr ""
+"De natureza promocional (mas não necessariamente gratuita), mixtapes e "
+"street albums são frequentemente lançados por artistas para promover novos "
+"artistas ou álbuns de estúdio futuros de artistas consagrados. Eles também "
+"são usados às vezes para manter a atenção dos fãs entre lançamentos de "
+"estúdio e são mais comuns nos gêneros rap e hip hop. Muitas vezes não são "
+"aprovados pela gravadora do artista, podem não ter autorizações adequadas de "
+"samples ou músicas e variam amplamente em qualidade de produção e gravação. "
+"Enquanto as mixtapes geralmente são mixadas por DJs, elas se diferenciam das "
+"DJ-mixes comerciais (que geralmente são consideradas compilações) por "
+"conterem uma proporção significativa de material novo, incluindo produção "
+"original ou vocais originais sobre instrumentais de outros artistas. Diferem "
+"de demos porque são projetadas para lançamento direto ao público e aos fãs; "
+"não às gravadoras."
 
 #: DB:work_type/name:23
 msgctxt "work_type"
@@ -7499,6 +7659,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr ""
 
+#: DB:series_type/name:17
+msgctxt "series_type"
+msgid "Series award"
+msgstr ""
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7507,6 +7672,11 @@ msgstr ""
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
+msgstr ""
+
+#: DB:series_type/name:16
+msgctxt "series_type"
+msgid "Series series"
 msgstr ""
 
 #: DB:event_art_archive.art_type/name:3

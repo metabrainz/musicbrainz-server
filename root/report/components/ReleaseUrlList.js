@@ -17,7 +17,7 @@ import type {ReportReleaseUrlT} from '../types.js';
 import RemovedUrlRow from './RemovedUrlRow.js';
 
 component ReleaseUrlList(
-  items: $ReadOnlyArray<ReportReleaseUrlT>,
+  items: ReadonlyArray<ReportReleaseUrlT>,
   pager: PagerT,
 ) {
   let lastGID: string = '';

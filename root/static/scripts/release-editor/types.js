@@ -12,12 +12,12 @@ import type {
 } from 'knockout';
 
 export type ReleaseEditorTrackT = {
-  +artistCredit: KnockoutObservable<ArtistCreditT>,
-  +entityType: 'track',
-  +gid?: string,
-  +id?: number,
-  +name: KnockoutObservable<string>,
-  +next: () => ReleaseEditorTrackT | null,
-  +previous: () => ReleaseEditorTrackT | null,
+  readonly artistCredit: KnockoutObservable<ArtistCreditT>,
+  readonly entityType: 'track',
+  readonly gid?: string,
+  readonly id?: number,
+  readonly name: KnockoutObservable<string>,
+  readonly next: () => ReleaseEditorTrackT | null,
+  readonly previous: () => ReleaseEditorTrackT | null,
   ...
 };

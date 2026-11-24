@@ -9,7 +9,7 @@
 
 function _commaOnlyList<Input, Output>(
   l: ExpandLFunc<Input, Output>,
-  items: $ReadOnlyArray<Input>,
+  items: ReadonlyArray<Input>,
 ): Output | string {
   const length = items.length;
 
@@ -32,12 +32,12 @@ function _commaOnlyList<Input, Output>(
 }
 
 const commaOnlyList = (
-  items: $ReadOnlyArray<VarSubstArg>,
+  items: ReadonlyArray<VarSubstArg>,
 ): Expand2ReactOutput | string => {
   return _commaOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 };
 
-const commaOnlyListText = (items: $ReadOnlyArray<StrOrNum>): string => (
+const commaOnlyListText = (items: ReadonlyArray<StrOrNum>): string => (
   _commaOnlyList<StrOrNum, string>(texp.l, items)
 );
 

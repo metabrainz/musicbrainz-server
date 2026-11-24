@@ -14,24 +14,24 @@ import FormRow from './FormRow.js';
 type InputOnChange = (SyntheticInputEvent<HTMLInputElement>) => void;
 
 type InputProps = {
-  +autoComplete?: string,
-  +className?: string,
+  readonly autoComplete?: string,
+  readonly className?: string,
   defaultValue?: string,
-  +disabled: boolean,
-  +id: string,
-  +name: string,
+  readonly disabled: boolean,
+  readonly id: string,
+  readonly name: string,
   onChange?: InputOnChange,
-  +placeholder?: string,
-  +ref?: {-current: HTMLInputElement | null},
-  +required: boolean,
-  +size: ?number,
-  +type: string,
+  readonly placeholder?: string,
+  readonly ref?: {writeonly current: HTMLInputElement | null},
+  readonly required: boolean,
+  readonly size: ?number,
+  readonly type: string,
   value?: string,
 };
 
 type ControlledPropsT =
-  | $ReadOnly<{onChange: InputOnChange, uncontrolled?: false}>
-  | $ReadOnly<{uncontrolled: true}>;
+  | Readonly<{onChange: InputOnChange, uncontrolled?: false}>
+  | Readonly<{uncontrolled: true}>;
 
 component FormRowText(
   autoComplete?: string,
@@ -39,7 +39,7 @@ component FormRowText(
   className?: string,
   disabled: boolean = false,
   field: FieldT<?string>,
-  inputRef?: {-current: HTMLInputElement | null},
+  inputRef?: {writeonly current: HTMLInputElement | null},
   label: React.Node,
   placeholder?: string,
   preview?: string | null = null,

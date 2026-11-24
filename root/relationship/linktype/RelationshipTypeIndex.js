@@ -30,7 +30,7 @@ import {isRelationshipEditor}
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 
 component UsedAttributesList(
-  attributes?: $ReadOnlyArray<LinkAttrTypeT>,
+  attributes?: ReadonlyArray<LinkAttrTypeT>,
   relType: LinkTypeT,
 ) {
   return (

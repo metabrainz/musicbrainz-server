@@ -5,8 +5,9 @@ use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Controller';
 
+use builtin qw( refaddr );
 use HTTP::Status qw( :constants );
-use List::AllUtils qw( min max );
+use List::AllUtils qw( min max uniq_by );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -74,6 +75,7 @@ sub search : Path('')
                 pager => serialize_pager($stash->{pager}),
                 query => $stash->{query},
                 results => to_json_array($stash->{results}),
+                uncappedTotalHits => $stash->{uncapped_total_hits} // 0,
             );
 
             $c->stash(
@@ -116,10 +118,35 @@ sub direct : Private
 
     my $type   = $form->field('type')->value;
     my $query  = $form->field('query')->value;
+    my $limit  = $form->field('limit')->value;
+
+    if (defined DBDefs->MAX_SEARCH_RESULTS) {
+        my $page = looks_like_number($c->request->query_params->{page})
+            ? $c->request->query_params->{page} : 1;
+        $page = max(1, $page);
+        my $depth = $page * $limit;
+        if ($depth > DBDefs->MAX_SEARCH_RESULTS) {
+            my %props = (
+                form => $form->TO_JSON,
+                error => 'Must retrieve at most ' .
+                    DBDefs->MAX_SEARCH_RESULTS .
+                    " search results, not $depth.",
+                query => $query,
+                type => $type,
+            );
+            $c->stash(
+                component_path => 'search/error/Invalid',
+                component_props => \%props,
+                current_view => 'Node',
+            );
+            $c->response->status(HTTP_BAD_REQUEST);
+            $c->detach;
+        }
+    }
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    }, limit => $form->field('limit')->value);
+    }, limit => $limit);
 
     my @entities = map { $_->entity } @$results;
 
@@ -131,6 +158,9 @@ sub direct : Private
 
     if ($type eq 'artist') {
         $c->model('Artist')->load_related_info(@entities);
+        my @areas = uniq_by { refaddr $_ }
+            map { ($_->area, $_->begin_area, $_->end_area) } @entities;
+        $c->model('Area')->load_containment(@areas);
     }
     elsif ($type eq 'editor') {
         $c->model('Editor')->load_preferences(@entities);
@@ -210,6 +240,15 @@ sub direct : Private
         $c->model('ArtistCredit')->load(@entities);
     }
 
+    if (defined DBDefs->MAX_SEARCH_RESULTS) {
+        my $pager = $c->stash->{pager};
+        my $total_hits = $pager->total_entries;
+        if ($total_hits > DBDefs->MAX_SEARCH_RESULTS) {
+            $c->stash->{uncapped_total_hits} = $total_hits;
+            $pager->total_entries(DBDefs->MAX_SEARCH_RESULTS);
+        }
+    }
+
     $c->stash(
         query    => $query,
         results  => $results,
@@ -235,7 +274,8 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('method')->value eq 'advanced');
+                              advanced => $form->field('method')->value eq 'advanced',
+                              source_endpoint => '/search');
 }
 
 sub do_external_search {
@@ -252,13 +292,15 @@ sub do_external_search {
 
     my $query = $opts{query};
     my $type  = $opts{type};
+    my $source_endpoint = $opts{source_endpoint};
 
     my $search = $c->model('Search');
     my $ret = $search->external_search($type,
                                        $query,
                                        $limit,
                                        $page,
-                                       $advanced);
+                                       $advanced,
+                                       source_endpoint => $source_endpoint);
 
     if (exists $ret->{error})
     {
@@ -288,6 +330,8 @@ sub do_external_search {
             current_view => 'Node',
         );
 
+        $c->response->status($code);
+
         $c->detach;
     }
     else
@@ -296,6 +340,7 @@ sub do_external_search {
         $c->stash->{offset}   = $ret->{offset};
         $c->stash->{results}  = $ret->{results};
         $c->stash->{last_updated}  = $ret->{last_updated};
+        $c->stash->{uncapped_total_hits}  = $ret->{uncapped_total_hits};
     }
 }
 

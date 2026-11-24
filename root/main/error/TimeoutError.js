@@ -12,7 +12,7 @@ import ErrorInfo from './components/ErrorInfo.js';
 import ErrorLayout from './ErrorLayout.js';
 
 component TimeoutError(
-  formattedErrors?: $ReadOnlyArray<string>,
+  formattedErrors?: ReadonlyArray<string>,
   hostname?: string,
   useLanguages: boolean,
 ) {

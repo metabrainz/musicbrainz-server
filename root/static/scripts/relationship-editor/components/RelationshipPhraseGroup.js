@@ -94,7 +94,7 @@ component _RelationshipPhraseGroup(
           type: {gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
           typeID: 788,
           typeName: 'number',
-        },
+        } as LinkAttrT,
         compareLinkAttributeIds,
       );
       // Drop cancelled for event performers (often not applicable)
@@ -104,7 +104,7 @@ component _RelationshipPhraseGroup(
           type: {gid: 'efd89258-fb07-48e9-acf9-0a54ce03606d'},
           typeID: 921,
           typeName: 'cancelled',
-        },
+        } as LinkAttrT,
         compareLinkAttributeIds,
       );
       // Drop time for event performers (often not applicable)
@@ -114,7 +114,7 @@ component _RelationshipPhraseGroup(
           type: {gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d'},
           typeID: 830,
           typeName: 'time',
-        },
+        } as LinkAttrT,
         compareLinkAttributeIds,
       );
       newAttributesData = tree.union(

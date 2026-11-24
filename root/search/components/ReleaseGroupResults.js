@@ -59,6 +59,7 @@ component ReleaseGroupResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT< ReleaseGroupT >) {
   const $c = React.useContext(CatalystContext);
   const buildResult = getResultBuilder(
@@ -79,6 +80,7 @@ component ReleaseGroupResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

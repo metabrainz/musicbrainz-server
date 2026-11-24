@@ -423,6 +423,13 @@ msgstr "কেল্টিক ভাষা"
 msgid "Central American Indian languages"
 msgstr "মধ্য আমেরিকান ইন্ডিয়ান ভাষা"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "মধ্য ইউপিক"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -507,6 +514,13 @@ msgstr "চুকিজ"
 #: DB:language/name:84
 msgid "Chuvash"
 msgstr "চুভাস"
+
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+#, fuzzy
+#| msgid "Classical Newari"
+msgid "Classical Nahuatl"
+msgstr "ধ্রপদী নেয়ারি"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -663,6 +677,11 @@ msgstr "জংখা"
 msgid "Eastern Arrernte"
 msgstr "পূর্বাঞ্চলীয় অ্যারের্নটে"
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -682,6 +701,13 @@ msgstr "একজুক"
 #: DB:language/name:119
 msgid "Elamite"
 msgstr "এলামাইট"
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Friulian"
+msgid "Emilian"
+msgstr "ফ্রিউলীয়"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1098,6 +1124,11 @@ msgstr ""
 msgid "Interlingue"
 msgstr ""
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr ""
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1247,6 +1278,13 @@ msgstr ""
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "কাজাখ"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "মালয়"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1553,6 +1591,11 @@ msgstr "মালয়"
 msgid "Malayalam"
 msgstr "মালায়লাম"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1703,6 +1746,11 @@ msgstr ""
 msgid "Mongolian"
 msgstr ""
 
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr ""
+
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
@@ -1753,6 +1801,11 @@ msgstr ""
 msgid "Neapolitan"
 msgstr ""
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1762,6 +1815,11 @@ msgstr "নেপাল ভাষা"
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "নেপালী"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr ""
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1776,6 +1834,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
 msgstr ""
 
 #. frequency:0 iso_code_3:null
@@ -1923,6 +1986,11 @@ msgstr ""
 msgid "Papuan languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
 msgid "Persian"
@@ -1947,6 +2015,13 @@ msgstr ""
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
 msgstr ""
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "হাইতিয়ান ক্রেওল"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2322,6 +2397,11 @@ msgstr ""
 msgid "Southern Altai"
 msgstr ""
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+msgid "Southern East Cree"
+msgstr ""
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2672,6 +2752,11 @@ msgstr ""
 msgid "Welsh"
 msgstr ""
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2687,8 +2772,8 @@ msgstr ""
 msgid "Wolof"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

@@ -3,18 +3,24 @@ use utf8;
 use strict;
 use warnings;
 
+use Encode qw( encode_utf8 );
+use HTTP::Response;
 use HTTP::Status qw( :constants );
+use JSON;
+use LWP::UserAgent::Mockable;
 use Test::Routine;
 use Test::More;
 
 use URI;
 use URI::QueryParam;
 
+use MusicBrainz::Server::Test qw( build_json_response );
+
 with 't::Context', 't::Mechanize';
 
 =head1 DESCRIPTION
 
-This test checks OAuth authentication in the web service, by attempting
+This test checks OAuth/Digest authentication in the web service, by attempting
 to request data for a private collection.
 
 =cut
@@ -86,6 +92,214 @@ test 'Authenticate WS bearer' => sub {
     is($test->mech->status, HTTP_UNAUTHORIZED, 'Expired token is rejected');
     $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
     is($test->mech->status, HTTP_UNAUTHORIZED, 'Expired bearer is rejected');
+};
+
+test 'Authenticate WS bearer using a MetaBrainz (meba_) access token' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my $path = '/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7';
+    my $active = 1;
+    my @scope = ('profile', 'musicbrainz:collection');
+
+    LWP::UserAgent::Mockable->reset;
+    LWP::UserAgent::Mockable->set_record_pre_callback(sub {
+        my ($request) = @_;
+        my $request_path = $request->uri->path;
+        if ($request_path eq '/oauth2/introspect') {
+            my $issued_at = time - ($active ? 0 : 3600);
+            return build_json_response({
+                active => $active ? JSON::true : JSON::false,
+                client_id => 'client',
+                sub => 11,
+                username => 'editor1',
+                scope => [@scope],
+                token_type => 'Bearer',
+                issued_at => $issued_at,
+                expires_at => $issued_at + 3600,
+            });
+        }
+        return HTTP::Response->new(
+            HTTP_INTERNAL_SERVER_ERROR,
+            "unexpected request to $request_path",
+        );
+    });
+
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is(
+        $mech->status,
+        HTTP_OK,
+        'meba_ bearer with musicbrainz:collection scope is accepted',
+    );
+
+    @scope = ('profile');
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is(
+        $mech->status,
+        HTTP_UNAUTHORIZED,
+        'meba_ bearer without collection scope is rejected',
+    );
+
+    $active = 0;
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is($mech->status, HTTP_UNAUTHORIZED, 'inactive meba_ token is rejected');
+
+    $active = 1;
+    @scope = ('profile', 'musicbrainz:collection');
+    $mech->get($path, Authorization => 'Bearer mebr_ws_test_token');
+    is(
+        $mech->status,
+        HTTP_UNAUTHORIZED,
+        'mebr_ refresh token used as bearer token is rejected',
+    );
+
+    LWP::UserAgent::Mockable->finished;
+};
+
+test 'Digest authentication' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $path = '/ws/2/collection/906dddc8-91c8-4a1c-8237-31b6d24c988d';
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'GET with no auth is rejected');
+
+    my $username = 'æditorⅣ';
+    my $username_utf8 = encode_utf8($username);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get_ok($path, 'Account password is accepted');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'wrongpass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Wrong account password is rejected');
+
+    my $editor = $c->model('Editor')->get_by_name($username);
+    $c->model('Editor')->disable_digest_auth_token($editor->id);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after disabling digest auth');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, '');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Empty password is rejected after disabling digest auth');
+
+    # The `ha1` column is `CHAR(32)`, so an empty value will consist of 32 spaces.
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, ' ' x 32);
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Blank password is rejected after disabling digest auth');
+
+    my $token = $c->model('Editor')->reset_digest_auth_token($editor->id);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, $token);
+    $mech->get_ok($path, 'New digest auth token is accepted');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after setting new digest auth token');
+};
+
+test 'Caching is prevented for authenticated requests' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+             VALUES (100, 'd3121246-9507-44df-aea1-c860df871f69', 'Artist', 'Artist');
+        INSERT INTO tag (id, name)
+             VALUES (1, 'rock');
+        INSERT INTO artist_tag_raw (tag, artist, editor)
+             VALUES (1, 100, 11);
+        SQL
+
+    my $assert_caching_allowed = sub {
+        is(
+            $mech->response->header('Cache-Control'),
+            undef,
+            'Cache-Control header is unset',
+        );
+        is(
+            $mech->response->header('Expires'),
+            undef,
+            'Expires header is unset',
+        );
+        is(
+            $mech->response->header('Pragma'),
+            undef,
+            'Pragma header is unset',
+        );
+    };
+
+    my $assert_caching_prevented = sub {
+        is(
+            $mech->response->header('Cache-Control'),
+            'private, no-store',
+            'Cache-Control header prevents caching',
+        );
+        is(
+            $mech->response->header('Expires'),
+            '0',
+            'Expires header prevents caching',
+        );
+        is(
+            $mech->response->header('Pragma'),
+            'no-cache',
+            'Pragma header prevents caching',
+        );
+    };
+
+    # Fetching data, anonymously
+    $mech->get_ok(
+        '/ws/2/collection/933a199c-7121-4900-9beb-b42006a73f5d',
+        'Public collection is fetched, anonymously',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69',
+        'Artist is fetched, anonymously',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get('/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Private collection cannot be fetched, anonymously');
+    $assert_caching_prevented->();
+
+    $mech->get('/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69?inc=user-tags');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Artist with user-tags cannot be fetched, anonymously');
+    $assert_caching_prevented->();
+
+    # Fetching the same data, now authenticated, still the same caching policy though
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor1', 'pass');
+    $mech->get_ok(
+        '/ws/2/collection/933a199c-7121-4900-9beb-b42006a73f5d',
+        'Public collection is fetched, authenticated',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69',
+        'Artist is fetched, authenticated',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7',
+        'Private collection is fetched, authenticated',
+    );
+    $assert_caching_prevented->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69?inc=user-tags',
+        'Artist with user-tags is fetched, authenticated',
+    );
+    $assert_caching_prevented->();
 };
 
 1;

@@ -17,20 +17,20 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 component Index(
-  areaTypes: $ReadOnlyArray<AreaTypeT>,
+  areaTypes: ReadonlyArray<AreaTypeT>,
   dateCollected: string,
-  eventTypes: $ReadOnlyArray<EventTypeT>,
-  instrumentTypes: $ReadOnlyArray<InstrumentTypeT>,
-  labelTypes: $ReadOnlyArray<LabelTypeT>,
-  packagings: $ReadOnlyArray<ReleasePackagingT>,
-  placeTypes: $ReadOnlyArray<PlaceTypeT>,
-  primaryTypes: $ReadOnlyArray<ReleaseGroupTypeT>,
-  secondaryTypes: $ReadOnlyArray<ReleaseGroupSecondaryTypeT>,
-  seriesTypes: $ReadOnlyArray<SeriesTypeT>,
+  eventTypes: ReadonlyArray<EventTypeT>,
+  instrumentTypes: ReadonlyArray<InstrumentTypeT>,
+  labelTypes: ReadonlyArray<LabelTypeT>,
+  packagings: ReadonlyArray<ReleasePackagingT>,
+  placeTypes: ReadonlyArray<PlaceTypeT>,
+  primaryTypes: ReadonlyArray<ReleaseGroupTypeT>,
+  secondaryTypes: ReadonlyArray<ReleaseGroupSecondaryTypeT>,
+  seriesTypes: ReadonlyArray<SeriesTypeT>,
   stats: {[statName: string]: number},
-  statuses: $ReadOnlyArray<ReleaseStatusT>,
-  workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
-  workTypes: $ReadOnlyArray<WorkTypeT>,
+  statuses: ReadonlyArray<ReleaseStatusT>,
+  workAttributeTypes: ReadonlyArray<WorkAttributeTypeT>,
+  workTypes: ReadonlyArray<WorkTypeT>,
 ) {
   const $c = React.useContext(CatalystContext);
 

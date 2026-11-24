@@ -46,10 +46,10 @@ component _MpIcon(artistCredit: ArtistCreditT) {
   );
 }
 
-export const MpIcon = (hydrate<React.PropsOf<_MpIcon>>(
+export const MpIcon = hydrate<React.PropsOf<_MpIcon>>(
   'span.ac-mp',
   _MpIcon,
-): component(...React.PropsOf<_MpIcon>));
+) as component(...React.PropsOf<_MpIcon>);
 
 component ArtistCreditLink(
   artistCredit: ArtistCreditT,

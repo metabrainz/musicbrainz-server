@@ -2,7 +2,7 @@
 
 declare module '@sentry/browser' {
     declare export function captureException(
-        message: mixed,
+        message: unknown,
         severity?: Severity,
     ): void;
 
@@ -26,21 +26,21 @@ declare module '@sentry/browser' {
         | 'debug';
 
     declare export type User = {
-        [key: string]: mixed,
+        [key: string]: unknown,
         // At least one of these must be present, but there's no way to represent that in Flow without
         // enumerating every possible combination.
-        +id?: string | number,
-        +username?: string,
-        +email?: string,
-        +ip_address?: string,
+        readonly id?: string | number,
+        readonly username?: string,
+        readonly email?: string,
+        readonly ip_address?: string,
         ...
     };
 
     declare export type Options = {|
-        +dsn?: string,
-        +release?: string,
-        +environment?: string,
-        +denyUrls?: $ReadOnlyArray<string | RegExp>,
-        +allowUrls?: $ReadOnlyArray<string | RegExp>,
+        readonly dsn?: string,
+        readonly release?: string,
+        readonly environment?: string,
+        readonly denyUrls?: ReadonlyArray<string | RegExp>,
+        readonly allowUrls?: ReadonlyArray<string | RegExp>,
     |};
 }

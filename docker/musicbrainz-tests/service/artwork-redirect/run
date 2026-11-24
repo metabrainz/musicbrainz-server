@@ -4,5 +4,6 @@ cd /home/musicbrainz/artwork-redirect
 
 export HOME=/home/musicbrainz
 exec chpst -u musicbrainz:musicbrainz \
-    bash -c '. venv/bin/activate; exec python3 artwork_redirect_server.py' \
+    env PATH="/home/musicbrainz/.local/bin:$PATH" \
+    uv run python artwork_redirect_server.py \
     2>&1

@@ -144,7 +144,7 @@ const parseLinkSubst: Parser<
   if (args.has(name)) {
     let props = args.get(name);
     if (typeof props === 'string') {
-      props = ({href: props}: AnchorProps);
+      props = {href: props} as AnchorProps;
     }
     if (
       props == null ||
@@ -187,7 +187,7 @@ function pushChild<T>(
  */
 type MatchUpperBoundT = StrOrNum | {...};
 
-function concatArrayMatch<T: MatchUpperBoundT>(
+function concatArrayMatch<T extends MatchUpperBoundT>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
@@ -205,8 +205,8 @@ function concatArrayMatch<T: MatchUpperBoundT>(
   return matchedChildren;
 }
 
-function parseContinuousArray<T: MatchUpperBoundT, V>(
-  parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
+function parseContinuousArray<T extends MatchUpperBoundT, V>(
+  parsers: ReadonlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
   args: VarArgsClass<V>,
 ): Array<T> {
   return parseContinuous<Array<T> | T, Array<T>, V>(
@@ -308,7 +308,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
   );
   // $FlowExpectedError[unsafe-object-assign]
   const combinedAttributes = Object.assign(
-    ({}: HtmlAttrs),
+    {} as HtmlAttrs,
     ...attributes,
   );
 
@@ -359,7 +359,7 @@ const condSubstThenParsers = [
   parseHtmlTag,
 ];
 
-const condSubstElseParsers: $ReadOnlyArray<
+const condSubstElseParsers: ReadonlyArray<
   Parser<Output | NO_MATCH, Input>,
 > = [
   parseRootTextContent,
@@ -369,7 +369,7 @@ const condSubstElseParsers: $ReadOnlyArray<
   parseHtmlTag,
 ];
 
-const rootParsers: $ReadOnlyArray<
+const rootParsers: ReadonlyArray<
   Parser<Output | NO_MATCH, Input>,
 > = [
   parseRootTextContent,

@@ -21,6 +21,7 @@ component TagLookupArtistResults(...props: {
         pager={props.pager}
         query={props.query}
         results={props.results}
+        uncappedTotalHits={props.uncappedTotalHits}
       />
     </TagLookupResults>
   );

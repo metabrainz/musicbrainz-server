@@ -25,18 +25,23 @@ sub check_event_countries {
 sub throw_if_release_label_is_duplicate {
     my ($self, $release, $new_label_id, $new_catalog_number) = @_;
 
-    $new_label_id //= 0;
-    $new_catalog_number //= '';
+    my $is_duplicate = $self->c->sql->select_single_value(
+        <<~'SQL',
+        SELECT 1
+          FROM release_label
+         WHERE release = ?
+           AND label IS NOT DISTINCT FROM ?
+           AND catalog_number IS NOT DISTINCT FROM ?
+        SQL
+        $release->id,
+        $new_label_id,
+        $new_catalog_number,
+    );
 
-    for ($release->all_labels) {
-        my $label_id = $_->label_id // 0;
-        my $catalog_number = $_->catalog_number // '';
-
-        if ($label_id == $new_label_id && $catalog_number eq $new_catalog_number) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The label and catalog number in this edit already exist on the release.',
-            );
-        }
+    if ($is_duplicate) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The label and catalog number in this edit already exist on the release.',
+        );
     }
 }
 

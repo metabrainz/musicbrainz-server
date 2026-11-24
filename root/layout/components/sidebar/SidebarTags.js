@@ -21,7 +21,7 @@ import commaOnlyList
 
 component TagList(
   isGenreList: boolean = false,
-  tags: ?$ReadOnlyArray<AggregatedTagT>,
+  tags: ?ReadonlyArray<AggregatedTagT>,
 ) {
   const $c = React.useContext(CatalystContext);
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;

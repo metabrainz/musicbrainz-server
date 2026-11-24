@@ -16,12 +16,13 @@
 # liilliil <liilliil@liilliil.net>, 2024.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2025.
+# djtusa <djtusaofficial@gmail.com>, 2026.
+# Covium <jidiyping@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-17 20:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-08-13 11:12+0000\n"
+"Last-Translator: Covium <jidiyping@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ru/>\n"
 "Language: ru\n"
@@ -31,7 +32,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -229,7 +230,7 @@ msgstr "Мохан вина Радхики"
 
 #: DB:instrument/name:576
 msgid "Reactable"
-msgstr ""
+msgstr "Пригодный для повторного использования"
 
 #: DB:instrument/name:139
 msgctxt "Electric keyboard tuning fork idiophone"
@@ -327,9 +328,12 @@ msgstr "эолова арфа"
 #: DB:instrument/name:717
 msgctxt "Brazillian rattle-gourd"
 msgid "afoxé"
-msgstr ""
+msgstr "афоше"
 
 #: DB:instrument/name:487
+#, fuzzy
+#| msgid "agogô"
+msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr "агого"
 
@@ -410,6 +414,11 @@ msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr "анвил"
 
+#: DB:instrument/name:583
+msgctxt "Three-toned samba whistle"
+msgid "apito de samba"
+msgstr ""
+
 #: DB:instrument/name:507
 msgid "archlute"
 msgstr "архилют"
@@ -433,7 +442,10 @@ msgid "arrabel"
 msgstr "аррабель"
 
 #: DB:instrument/name:812
-msgctxt "cone shaped west african frame-drum"
+#, fuzzy
+#| msgctxt "cone shaped west african frame-drum"
+#| msgid "ashiko"
+msgctxt "West African cone shaped frame-drum"
 msgid "ashiko"
 msgstr "ашико"
 
@@ -646,6 +658,11 @@ msgstr "бассет-горн"
 msgid "bassoon"
 msgstr "фагот"
 
+#: DB:instrument/name:1218
+msgctxt "Brazilian samba drum ensemble"
+msgid "bateria"
+msgstr ""
+
 #: DB:instrument/name:483
 msgid "bawu"
 msgstr "баву"
@@ -820,11 +837,11 @@ msgstr "бузуки"
 
 #: DB:instrument/name:1017
 msgid "bowed lute"
-msgstr ""
+msgstr "арфовая лютня"
 
 #: DB:instrument/name:1018
 msgid "bowed lyre"
-msgstr ""
+msgstr "арфовая лира"
 
 #: DB:instrument/name:504
 msgid "bowed piano"
@@ -850,7 +867,7 @@ msgstr "брач"
 #: DB:instrument/name:800
 msgctxt "Bronze age natural brass"
 msgid "bronze lur"
-msgstr ""
+msgstr "бронзовый люр"
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -859,11 +876,11 @@ msgstr "кисти"
 #: DB:instrument/name:826
 msgctxt "kontra, Serbo-Croatian plucked string instrument"
 msgid "bugarija"
-msgstr ""
+msgstr "бугариха"
 
 #: DB:instrument/name:36
 msgid "bugle"
-msgstr ""
+msgstr "багл"
 
 #: DB:instrument/name:762
 msgid "buisine"
@@ -876,7 +893,7 @@ msgstr "бук"
 #: DB:instrument/name:528
 msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
-msgstr ""
+msgstr "булбул таранг"
 
 #: DB:instrument/name:153
 msgid "bullroarer"
@@ -906,7 +923,10 @@ msgid "cabrette"
 msgstr "карбет"
 
 #: DB:instrument/name:903
-msgctxt "Brazilian Samba snare-drum"
+#, fuzzy
+#| msgctxt "Brazilian Samba snare-drum"
+#| msgid "caixa"
+msgctxt "Brazilian deep samba snare-drum"
 msgid "caixa"
 msgstr "кайша"
 
@@ -938,7 +958,10 @@ msgid "castanets"
 msgstr "кастаньеты"
 
 #: DB:instrument/name:524
-msgctxt "Small four-stringed Portugesian lute"
+#, fuzzy
+#| msgctxt "Small four-stringed Portugesian lute"
+#| msgid "cavaquinho"
+msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr "кавакинью"
 
@@ -962,7 +985,7 @@ msgstr "чача"
 
 #: DB:instrument/name:627
 msgid "chakhe"
-msgstr ""
+msgstr "чахе"
 
 #: DB:instrument/name:436
 msgctxt "Baroque/classical predecessor of the clarinet"
@@ -980,7 +1003,7 @@ msgstr "шамберлин"
 
 #: DB:instrument/name:536
 msgid "chande"
-msgstr ""
+msgstr "чанде"
 
 #: DB:instrument/name:713
 msgid "chanzy"
@@ -1045,16 +1068,16 @@ msgstr ""
 #: DB:instrument/name:433
 msgctxt "Accordion with buttons arranged chromatically"
 msgid "chromatic button accordion"
-msgstr ""
+msgstr "аккордеон с хроматическими кнопками"
 
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
-msgstr ""
+msgstr "хроматическая гармоника"
 
 #: DB:instrument/name:906
 msgctxt "ancient predecessor of the Morin khuur"
 msgid "chuurqin"
-msgstr ""
+msgstr "чууркин"
 
 #: DB:instrument/name:256
 msgctxt "European hammered dulcimer"
@@ -1082,7 +1105,7 @@ msgstr ""
 #: DB:instrument/name:218
 msgctxt "large huqin"
 msgid "cizhonghu"
-msgstr ""
+msgstr "цижонху"
 
 #: DB:instrument/name:904
 msgctxt "Egyptian ancient clappers"
@@ -1188,7 +1211,7 @@ msgstr ""
 #: DB:instrument/name:446
 msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
-msgstr ""
+msgstr "саксофон-контрабас"
 
 #: DB:instrument/name:6
 msgid "contrabassoon"
@@ -1240,11 +1263,11 @@ msgstr "крумгорн"
 
 #: DB:instrument/name:74
 msgid "crwth"
-msgstr ""
+msgstr "crwth"
 
 #: DB:instrument/name:439
 msgid "cuatro"
-msgstr ""
+msgstr "куатро"
 
 #: DB:instrument/name:491
 msgctxt "Brazilian friction-drum"
@@ -1744,6 +1767,7 @@ msgid "gamelan"
 msgstr ""
 
 #: DB:instrument/name:383
+msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr ""
 
@@ -2791,8 +2815,9 @@ msgid "musical saw"
 msgstr "музыкальная пила"
 
 #: DB:instrument/name:684
+msgctxt "Korean straight brass horn"
 msgid "nabal"
-msgstr ""
+msgstr "набал"
 
 #: DB:instrument/name:738
 msgctxt "South Indian large double reed"
@@ -3425,10 +3450,6 @@ msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
 msgstr ""
 
-#: DB:instrument/name:583
-msgid "samba whistle"
-msgstr ""
-
 #: DB:instrument/name:830
 msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
@@ -3927,6 +3948,9 @@ msgid "talking drum"
 msgstr ""
 
 #: DB:instrument/name:723
+#, fuzzy
+#| msgid "tamborim"
+msgctxt "Brazilian samba framedrum"
 msgid "tamborim"
 msgstr "тамбурин"
 
@@ -3986,6 +4010,11 @@ msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"
+msgstr ""
+
+#: DB:instrument/name:1219
+msgctxt "Brazilian shallow samba snare-drum"
+msgid "tarol"
 msgstr ""
 
 #: DB:instrument/name:870

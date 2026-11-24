@@ -40,7 +40,10 @@ export const RECENT_ITEMS_HEADER: HeaderItemT = {
   disabled: true,
 };
 
-export const MENU_ITEMS: {+[name: string]: ActionItemT<empty>, ...} = {
+export const MENU_ITEMS: {
+  readonly [name: string]: ActionItemT<empty>,
+  ...
+} = {
   ERROR_TRY_AGAIN_DIRECT: {
     type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
@@ -105,7 +108,7 @@ export const MENU_ITEMS: {+[name: string]: ActionItemT<empty>, ...} = {
 export const PAGE_SIZE: number = 25;
 
 export const SEARCH_PLACEHOLDERS: {
-  +[type: SearchableTypeT]: () => string,
+  readonly [type: SearchableTypeT]: () => string,
   ...
 } = {
   area: N_l('Search for an area'),

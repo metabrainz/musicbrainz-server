@@ -2,14 +2,16 @@ package MusicBrainz::Server::Sitemap::Overall;
 
 use strict;
 use warnings;
+use feature 'state';
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
+use JSON::XS;
 use List::AllUtils qw( min );
 use Moose;
-use MusicBrainz::Server::Constants qw( entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Sitemap::Constants qw(
@@ -376,6 +378,8 @@ and then builds the main sitemaps and any suffix sitemaps.
 sub build_one_batch {
     my ($self, $c, $entity_type, $batch_info) = @_;
 
+    state $json = JSON::XS->new->utf8(0);
+
     my $entity_suffix_info = $SITEMAP_SUFFIX_INFO{$entity_type};
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
     my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
@@ -393,8 +397,28 @@ sub build_one_batch {
     }
     my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
     my $tables = $entity_type . $extra_sql{join};
+
+    if ($ENTITIES{$entity_type}{sitemaps_lastmod_table}) {
+        $tables .= <<~"SQL";
+             LEFT JOIN (
+                SELECT id,
+                       jsonb_object_agg(url, last_modified) AS url_lastmod_map
+                  FROM sitemaps.${entity_type}_lastmod
+              GROUP BY id
+             ) lm ON lm.id = ${entity_type}.id
+            SQL
+        $columns .= ', lm.url_lastmod_map';
+    }
+
     my $query = "SELECT $columns FROM $tables WHERE ceil($entity_type.id / ?::float) = any(?)";
     my $ids = $c->sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
+
+    for my $id_info (@$ids) {
+        my $url_lastmod_map = $id_info->{url_lastmod_map};
+        if (defined $url_lastmod_map) {
+            $id_info->{url_lastmod_map} = $json->decode($url_lastmod_map);
+        }
+    }
 
     for my $suffix (sort keys %{$entity_suffix_info}) {
         my %suffix_info = %{$entity_suffix_info->{$suffix}};

@@ -1,96 +1,97 @@
 // @flow strict
 
 declare module 'react-table' {
-  declare export type CellRenderProps<+D, +V> = {
-    +cell: Cell<V>,
-    +column: ColumnInstance,
-    +row: Row<D>,
+  declare export type CellRenderProps<out D, out V> = {
+    readonly cell: Cell<V>,
+    readonly column: ColumnInstance,
+    readonly row: Row<D>,
   };
 
-  declare export type HeaderProps<D> = $ReadOnly<{
+  declare export type HeaderProps<D> = Readonly<{
     ...UseTableInstance<D>,
-    +column: ColumnInstance,
+    readonly column: ColumnInstance,
   }>;
 
-  declare export type ColumnOptions<-D, V> = {
+  declare export type ColumnOptions<in D, V> = {
     /*
      * react-table also allows `accessor` to be a string, but we
      * intentionally require an accessor function. For one, it's more type-
-     * safe: a type like `$Keys<D>` has no relation to `V`, so there's no
+     * safe: a type like `keyof D` has no relation to `V`, so there's no
      * way to ensure that the given key provides `V`. The other reason is
-     * that `D` is invariant in `$Keys<D>`, so we wouldn't be able to make
+     * that `D` is invariant in `keyof D`, so we wouldn't be able to make
      * `D` contravariant above.
      */
-    +accessor?: (D) => V,
-    +Cell?: component(...CellRenderProps<D, V>),
-    +Header?: component() | React.Node,
-    +id?: string,
+    readonly accessor?: (D) => V,
+    readonly Cell?: component(...CellRenderProps<D, V>),
+    readonly Header?: component() | React.Node,
+    readonly id?: string,
     ...
   };
 
-  declare export type ColumnOptionsNoValue<-D> = {
-    +accessor?: (D) => mixed,
-    +Cell?: component(...CellRenderProps<D, empty>),
-    +Header?: component() | React.Node,
-    +id?: string,
+  declare export type ColumnOptionsNoValue<in D> = {
+    readonly accessor?: (D) => unknown,
+    readonly Cell?: component(...CellRenderProps<D, empty>),
+    readonly Header?: component() | React.Node,
+    readonly id?: string,
     ...
   };
 
   type ThElementProps =
-    Partial<$ReadOnly<{...ReactDOM$thProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$thProps, key?: string}>>;
 
   type TrElementProps =
-    Partial<$ReadOnly<{...ReactDOM$trProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$trProps, key?: string}>>;
 
   type TdElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tdProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tdProps, key?: string}>>;
 
   type TableElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tableProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tableProps, key?: string}>>;
 
   type TbodyElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tbodyProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tbodyProps, key?: string}>>;
 
   declare export type ColumnInstance = {
-    +cellProps?: TdElementProps,
-    +getCellProps: (props?: TdElementProps) => TdElementProps,
-    +getHeaderProps: (props?: ThElementProps) => ThElementProps,
+    readonly cellProps?: TdElementProps,
+    readonly getCellProps: (props?: TdElementProps) => TdElementProps,
+    readonly getHeaderProps: (props?: ThElementProps) => ThElementProps,
     // Not actually part of react-table but our own expansion of it
-    +headerProps?: ThElementProps,
-    +render: (type: 'Header' | string, props?: {...}) => React.Node,
+    readonly headerProps?: ThElementProps,
+    readonly render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
-  declare export type HeaderGroup = $ReadOnly<{
-    ...$ReadOnly<ColumnInstance>,
-    +getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
-    +headers: $ReadOnlyArray<ColumnInstance>,
+  declare export type HeaderGroup = Readonly<{
+    ...Readonly<ColumnInstance>,
+    readonly getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
+    readonly headers: ReadonlyArray<ColumnInstance>,
   }>;
 
-  declare export type Cell<+V> = {
-    +column: ColumnInstance,
-    +getCellProps: (props?: TdElementProps) => TdElementProps,
-    +render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
-    +value: V,
+  declare export type Cell<out V> = {
+    readonly column: ColumnInstance,
+    readonly getCellProps: (props?: TdElementProps) => TdElementProps,
+    readonly render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
+    readonly value: V,
   };
 
-  declare export type Row<+D> = {
-    +cells: $ReadOnlyArray<Cell<mixed>>,
-    +getRowProps: (props?: TrElementProps) => TrElementProps,
-    +index: number,
-    +original: D,
+  declare export type Row<out D> = {
+    readonly cells: ReadonlyArray<Cell<unknown>>,
+    readonly getRowProps: (props?: TrElementProps) => TrElementProps,
+    readonly index: number,
+    readonly original: D,
   };
 
   declare export type UseTableInstance<D> = {
-    +getTableBodyProps: (props?: TbodyElementProps) => TbodyElementProps,
-    +getTableProps: (props?: TableElementProps) => TableElementProps,
-    +headerGroups: $ReadOnlyArray<HeaderGroup>,
-    +prepareRow: (row: Row<D>) => void,
-    +rows: $ReadOnlyArray<Row<D>>,
+    readonly getTableBodyProps:
+      (props?: TbodyElementProps) => TbodyElementProps,
+    readonly getTableProps: (props?: TableElementProps) => TableElementProps,
+    readonly headerGroups: ReadonlyArray<HeaderGroup>,
+    readonly prepareRow: (row: Row<D>) => void,
+    readonly rows: ReadonlyArray<Row<D>>,
   };
 
   declare export type UseTableOptions<D> = {
-    +columns: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-    +data: $ReadOnlyArray<D>,
+    readonly columns: ReadonlyArray<ColumnOptionsNoValue<D>>,
+    readonly data: ReadonlyArray<D>,
   };
 
   /*

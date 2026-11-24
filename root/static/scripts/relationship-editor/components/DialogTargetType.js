@@ -18,7 +18,7 @@ import type {
 
 component _DialogTargetType(
   dispatch: (DialogActionT) => void,
-  initialFocusRef?: {-current: HTMLElement | null},
+  initialFocusRef?: {writeonly current: HTMLElement | null},
   options: ?TargetTypeOptionsT,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
@@ -27,7 +27,7 @@ component _DialogTargetType(
     dispatch({
       source,
       // $FlowFixMe[unclear-type]
-      targetType: (event.currentTarget.value: any),
+      targetType: event.currentTarget.value as any,
       type: 'update-target-type',
     });
   }

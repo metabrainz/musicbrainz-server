@@ -22,11 +22,12 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Joax <joan_acosta_1994@hotmail.com>, 2025.
 # Othon19 <othon19@gmail.com>, 2025.
+# syntariavoxmortem <voxmortemsyntaria@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-14 22:36+0000\n"
-"Last-Translator: Othon19 <othon19@gmail.com>\n"
+"PO-Revision-Date: 2026-08-12 05:12+0000\n"
+"Last-Translator: syntariavoxmortem <voxmortemsyntaria@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/es/>\n"
 "Language: es\n"
@@ -35,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -442,6 +443,13 @@ msgstr "Lenguas celtas"
 msgid "Central American Indian languages"
 msgstr "Lenguas indígenas de Centroamérica"
 
+#. frequency:1 iso_code_3:dtp
+#: DB:language/name:2109
+#, fuzzy
+#| msgid "Central Yupik"
+msgid "Central Dusun"
+msgstr "Yupik central"
+
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
@@ -526,6 +534,11 @@ msgstr "Chuukés"
 #: DB:language/name:84
 msgid "Chuvash"
 msgstr "Chuvasio"
+
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+msgid "Classical Nahuatl"
+msgstr "Náhuatl clásico"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -682,6 +695,11 @@ msgstr "Dzongkha (Butaní)"
 msgid "Eastern Arrernte"
 msgstr "Arrernte oriental"
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr "Ngad'a Oriental"
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -701,6 +719,11 @@ msgstr "Ekajuk"
 #: DB:language/name:119
 msgid "Elamite"
 msgstr "Elamita"
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+msgid "Emilian"
+msgstr "Emiliano"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1117,6 +1140,11 @@ msgstr "Interlingua"
 msgid "Interlingue"
 msgstr "Interlingue"
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr "Intereslavo"
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1267,6 +1295,11 @@ msgstr "Kawi"
 msgid "Kazakh"
 msgstr "Kazajo"
 
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+msgid "Kedah Malay"
+msgstr "Malayo de Kedah"
+
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
 msgid "Khanty"
@@ -1364,8 +1397,6 @@ msgstr "Kru, lenguas"
 
 #. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
-#, fuzzy
-#| msgid "Kuanyama"
 msgid "Kuanua"
 msgstr "Kuanyama"
 
@@ -1574,6 +1605,11 @@ msgstr "Malayo"
 msgid "Malayalam"
 msgstr "Malayalam"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -1724,6 +1760,11 @@ msgstr "Mongo"
 msgid "Mongolian"
 msgstr "Mongol"
 
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr "Criollo mauriciano"
+
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
@@ -1774,6 +1815,11 @@ msgstr "Ndonga"
 msgid "Neapolitan"
 msgstr "Napolitano"
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr "Malayo de Negeri Sembilan"
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1783,6 +1829,11 @@ msgstr "Nepal bhasa"
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "Nepalí"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr "Ngada"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1798,6 +1849,11 @@ msgstr "Nias"
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
 msgstr "Lenguas níger-cordofanas"
+
+#. frequency:1 iso_code_3:pcm
+#: DB:language/name:5322
+msgid "Nigerian Pidgin"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
@@ -1944,6 +2000,11 @@ msgstr "Papiamento"
 msgid "Papuan languages"
 msgstr "Lenguas papués"
 
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr "Malayo de Pattani"
+
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
 msgid "Persian"
@@ -1968,6 +2029,13 @@ msgstr "Fenicio"
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
 msgstr "Pitjantjatjara"
+
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "Criollo haitiano"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2182,7 +2250,7 @@ msgstr "Selkup"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
@@ -2337,6 +2405,13 @@ msgstr "Lenguas indígenas de Sudamérica"
 #. frequency:1 iso_code_3:alt
 #: DB:language/name:474
 msgid "Southern Altai"
+msgstr "Altai meridional"
+
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
 msgstr "Altai meridional"
 
 #. frequency:1 iso_code_3:kjd
@@ -2689,6 +2764,13 @@ msgstr "Washo"
 msgid "Welsh"
 msgstr "Galés"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "Venda"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2704,8 +2786,8 @@ msgstr "Welayta"
 msgid "Wolof"
 msgstr "Wólof"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "Hurón"
 
