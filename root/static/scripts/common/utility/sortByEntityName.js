@@ -11,12 +11,15 @@ import {compare} from '../i18n.js';
 
 import getSortName from './getSortName.js';
 
-function compareEntities(a: EditableEntityT, b: EditableEntityT): number {
+function compareEntities(
+  a: EditableEntityT,
+  b: EditableEntityT,
+): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
 }
 
 export default function sortByEntityName<T extends EditableEntityT>(
-  entities: ReadonlyArray<T>,
-): ReadonlyArray<T> {
-  return entities.slice(0).sort(compareEntities);
+  entities: Array<T>,
+): Array<T> {
+  return entities.sort(compareEntities);
 }

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::GIDEntityCache;
 
 use Moose::Role;
 use namespace::autoclean;
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 
 with 'MusicBrainz::Server::Data::Role::EntityCache';
 

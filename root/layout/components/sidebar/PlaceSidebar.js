@@ -127,13 +127,13 @@ component PlaceSidebar(place: PlaceT) {
           </a>
         </li>
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
 
         <AnnotationLinks entity={place} />
 
         <MergeLink entity={place} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <CollectionLinks entity={place} />

@@ -113,7 +113,7 @@ component AreaSidebar(area: AreaT) {
 
             <RemoveLink entity={area} />
 
-            <li className="separator" role="separator" />
+            <li aria-hidden="true" className="separator" />
           </>
         ) : null}
       </EditLinks>

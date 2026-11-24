@@ -197,7 +197,7 @@ sub initialize {
         unless @$relationship_order;
 
     my @relationships = map { $_->{relationship} } @$relationship_order;
-    $self->c->model('Relationship')->load_entities(@relationships);
+    $self->c->model('Relationship')->load_entities(\@relationships);
 
     my $unorderable_entity;
 

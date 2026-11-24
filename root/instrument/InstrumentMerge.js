@@ -18,7 +18,7 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
 component InstrumentMerge(
   form: MergeFormT,
-  toMerge: ReadonlyArray<InstrumentT>,
+  toMerge: Array<InstrumentT>,
 ) {
   return (
     <Layout fullWidth title="Merge instruments">
