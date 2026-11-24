@@ -11,54 +11,54 @@ import * as React from 'react';
 
 export type MultiInputActionT =
   | {
-      +type: 'add-value',
+      readonly type: 'add-value',
     }
   | {
-      +key: number,
-      +type: 'remove-value',
+      readonly key: number,
+      readonly type: 'remove-value',
     }
   | {
-      +key: number,
-      +type: 'update-value',
-      +value: string,
+      readonly key: number,
+      readonly type: 'update-value',
+      readonly value: string,
     };
 
 export type MultiInputValueStateT = {
-  +key: number,
-  +removed: boolean,
-  +value: string,
+  readonly key: number,
+  readonly removed:boolean,
+  readonly value: string,
   ...
 };
 
 export type MultiInputValuePropsT<
-  VS: MultiInputValueStateT,
+  VS extends MultiInputValueStateT,
 > = {
-  +buildExtraChildren?: (VS) => React.Node,
-  +dispatch: (MultiInputActionT) => void,
-  +state: VS,
+  readonly buildExtraChildren?: (VS) => React.Node,
+  readonly dispatch: (MultiInputActionT) => void,
+  readonly state: VS,
 };
 
-export type MultiInputStateT<VS: MultiInputValueStateT> = {
-  +max: number | null,
-  +values: $ReadOnlyArray<$Exact<VS>>,
+export type MultiInputStateT<VS extends MultiInputValueStateT> = {
+  readonly max: number | null,
+  readonly values: ReadonlyArray<$Exact<VS>>,
   ...
 };
 
 export function accumulateMultiInputValues(
-  values: $ReadOnlyArray<MultiInputValueStateT>,
-): $ReadOnlyArray<string> {
+  values: ReadonlyArray<MultiInputValueStateT>,
+): ReadonlyArray<string> {
   return values
     .filter(x => !x.removed)
     .map(x => x.value);
 }
 
 export function updateValue<
-  VS: MultiInputValueStateT,
+  VS extends MultiInputValueStateT,
 >(
-  values: $ReadOnlyArray<$Exact<VS>>,
+  values: ReadonlyArray<$Exact<VS>>,
   key: number,
   callback: ($Exact<VS>) => $Exact<VS>,
-): $ReadOnlyArray<$Exact<VS>> {
+): ReadonlyArray<$Exact<VS>> {
   return values.map((x) => {
     if (x.key === key) {
       return callback(x);
@@ -68,8 +68,8 @@ export function updateValue<
 }
 
 export function runReducer<
-  VS: MultiInputValueStateT,
-  S: MultiInputStateT<VS>,
+  VS extends MultiInputValueStateT,
+  S extends MultiInputStateT<VS>,
 >(
   newState: {...S, ...},
   action: MultiInputActionT,
@@ -101,7 +101,7 @@ export function runReducer<
 }
 
 component _MultiInputValue<
-  VS: MultiInputValueStateT,
+  VS extends MultiInputValueStateT,
 >(...props: MultiInputValuePropsT<VS>) {
   const {
     buildExtraChildren,
@@ -151,8 +151,8 @@ export const MultiInputValue: typeof _MultiInputValue =
   React.memo(_MultiInputValue);
 
 component _MultiInput<
-  VS: MultiInputValueStateT,
-  S: MultiInputStateT<VS>,
+  VS extends MultiInputValueStateT,
+  S extends MultiInputStateT<VS>,
 >(
   addLabel: string,
   buildExtraValueChildren?: (VS) => React.Node,

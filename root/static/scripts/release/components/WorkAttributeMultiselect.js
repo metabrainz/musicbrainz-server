@@ -36,11 +36,11 @@ import type {
   WorkAttributeMultiselectActionT,
 } from '../../relationship-editor/types/actions.js';
 
-function buildStaticItems<E, T: {...OptionTreeT<E>, ...}>(
-  options: $ReadOnlyArray<T>,
+function buildStaticItems<E, T extends {...OptionTreeT<E>, ...}>(
+  options: ReadonlyArray<T>,
   localizeName: (string) => string,
   getName: T => string = x => x.name,
-): $ReadOnlyArray<OptionItemT<T>> {
+): ReadonlyArray<OptionItemT<T>> {
   const optionsByParentId = groupBy(options, option => option.parent_id);
 
   const compareChildren = (a: T, b: T) => {
@@ -53,7 +53,7 @@ function buildStaticItems<E, T: {...OptionTreeT<E>, ...}>(
   const getOptionsByParentId = (
     parentId: number | null,
     level: number,
-  ): $ReadOnlyArray<OptionItemT<T>> => {
+  ): ReadonlyArray<OptionItemT<T>> => {
     const options = optionsByParentId.get(parentId);
     if (!options) {
       return [];
@@ -79,7 +79,7 @@ function buildStaticItems<E, T: {...OptionTreeT<E>, ...}>(
 }
 
 export function createInitialState(
-  initialWorkAttributes?: $ReadOnlyArray<WorkAttributeT>,
+  initialWorkAttributes?: ReadonlyArray<WorkAttributeT>,
 ): MultiselectWorkAttributeStateT {
   const workAttributeTypes =
     Object.values(linkedEntities.work_attribute_type);
@@ -92,7 +92,7 @@ export function createInitialState(
     staticTypeItems: buildStaticItems(workAttributeTypes, l),
     staticValueItems:
       buildStaticItems(workAttributeTypesAllowedValues, l, x => x.value),
-    values: ([]: Array<MultiselectWorkAttributeValueStateT>),
+    values: ([] as Array<MultiselectWorkAttributeValueStateT>),
   };
   if (initialWorkAttributes?.length) {
     for (const workAttribute of initialWorkAttributes) {
@@ -119,9 +119,9 @@ export function createInitialState(
 
 export function createSelectedWorkAttributeValue(
   staticTypeItems:
-    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
   staticValueItems:
-    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
   selectedWorkAttributeType?: WorkAttributeTypeT,
   selectedWorkAttributeValue?: string,
   selectedWorkAttributeAllowedValue?: WorkAttributeTypeAllowedValueT,
@@ -167,7 +167,7 @@ export function createSelectedWorkAttributeValue(
 }
 
 export function createEmptyWorkAttributeValue(
-  newState: $ReadOnly<{...MultiselectWorkAttributeStateT, ...}>,
+  newState: Readonly<{...MultiselectWorkAttributeStateT, ...}>,
 ): MultiselectWorkAttributeValueStateT {
   return createSelectedWorkAttributeValue(
     newState.staticTypeItems,

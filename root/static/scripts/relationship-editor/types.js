@@ -283,32 +283,32 @@ export type MultiselectLanguageStateT = {
 };
 
 export type MultiselectWorkAttributeValueStateT = {
-  +autocomplete: AutocompleteStateT<WorkAttributeTypeT>,
-  +autocompleteValue:
+  readonly autocomplete: AutocompleteStateT<WorkAttributeTypeT>,
+  readonly autocompleteValue:
     AutocompleteStateT<WorkAttributeTypeAllowedValueT> | null,
-  +key: number,
-  +removed: boolean,
-  +textValue: string | null,
+  readonly key: number,
+  readonly removed: boolean,
+  readonly textValue: string | null,
 };
 
 export type MultiselectWorkAttributeStateT = {
-  +max: number | null,
-  +staticTypeItems:
-    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
-  +staticValueItems:
-    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
-  +values: $ReadOnlyArray<MultiselectWorkAttributeValueStateT>,
+  readonly max: number | null,
+  readonly staticTypeItems:
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
+  readonly staticValueItems:
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
+  readonly values: ReadonlyArray<MultiselectWorkAttributeValueStateT>,
 };
 
 export type MultiInputISWCStateT = {
-  +max: number | null,
-  +values: $ReadOnlyArray<MultiInputISWCValueStateT>,
+  readonly max: number | null,
+  readonly values: ReadonlyArray<MultiInputISWCValueStateT>,
 };
 
 export type MultiInputISWCValueStateT = {
-  +key: number,
-  +removed: boolean,
-  +value: string,
+  readonly key: number,
+  readonly removed: boolean,
+  readonly value: string,
 };
 
 /*

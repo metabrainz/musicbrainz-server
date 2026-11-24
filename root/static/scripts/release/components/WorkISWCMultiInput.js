@@ -23,7 +23,7 @@ import {
 } from '../../relationship-editor/types.js';
 
 export function createInitialState(
-  initialISWCs: $ReadOnlyArray<IswcT>,
+  initialISWCs: ReadonlyArray<IswcT>,
 ): MultiInputISWCStateT {
   return {
     max: null,
@@ -60,9 +60,9 @@ export function runReducer(
 }
 
 export function accumulateValues(
-  values: $ReadOnlyArray<MultiInputISWCValueStateT>,
+  values: ReadonlyArray<MultiInputISWCValueStateT>,
   workId: number,
-): $ReadOnlyArray<IswcT> {
+): ReadonlyArray<IswcT> {
   return accumulateMultiInputValues(values).map(value => ({
     editsPending: false,
     entityType: 'iswc',
