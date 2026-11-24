@@ -6335,8 +6335,8 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(([^/]+\.)*(desktop|listen|stage|www)\.)?tidal\.com\/.*(album|artist|track|video)\//i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^/]+\.)*(?:desktop|listen|stage|www)\.)?tidal\.com\/(?:#!\/)?([\w/]+).*$/, 'https://tidal.com/$1');
-      url = url.replace(/^https:\/\/tidal\.com\/(?:[a-z]{2}\/)?(?:browse\/|store\/)?(?:[a-z]+\/\d+\/)?([a-z]+)\/(\d+)(?:\/[\w]*)?$/, 'https://tidal.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^/]+\.)*(?:desktop|listen|stage|www)\.)?tidal\.com\/(?:#!\/)?([\w/-]+).*$/, 'https://tidal.com/$1');
+      url = url.replace(/^https:\/\/tidal\.com\/(?:[a-z]{2}\/)?(?:browse\/|store\/)?(?:[a-z]+\/\d+\/)?([a-z]+)(?:\/[\w-]+)?\/(\d+)(?:\/[\w]*)?$/, 'https://tidal.com/$1/$2');
       return url;
     },
     validate(url, id) {
