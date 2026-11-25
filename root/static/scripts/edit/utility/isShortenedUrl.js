@@ -15,6 +15,7 @@ const URL_SHORTENERS = [
   'bitly.com',
   'cli.gs',
   'deck.ly',
+  'facebook.com/share',
   'g.co',
   'geni.us',
   'goo.gl',
