@@ -89,7 +89,7 @@ after initialize => sub {
 override allow_auto_edit => sub {
     my $self = shift;
     return 0 unless defined $self->data->{old}{url} && defined $self->data->{new}{url};
-    return ($self->data->{old}{url} =~ s/^http:/https:/r) eq $self->data->{new}{url};
+    return $self->is_https_change_only;
 };
 
 around accept => sub {
@@ -132,7 +132,7 @@ after insert => sub {
     if (my $new_url = $self->data->{new}{url}) {
         if ($self->c->model('URL')->get_by_url($new_url)) {
             $self->data->{is_merge} = 1;
-            $self->auto_edit(0);
+            $self->auto_edit($self->is_https_change_only);
         }
     }
 };
@@ -140,6 +140,11 @@ after insert => sub {
 sub current_instance {
     my $self = shift;
     $self->c->model('URL')->get_by_id($self->url_id);
+}
+
+sub is_https_change_only {
+    my $self = shift;
+    return ($self->data->{old}{url} =~ s/^http:/https:/r) eq $self->data->{new}{url} ? 1 : 0;
 }
 
 around extract_property => sub {
