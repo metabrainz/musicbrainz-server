@@ -25,7 +25,7 @@ export type MultiInputActionT =
 
 export type MultiInputValueStateT = {
   readonly key: number,
-  readonly removed:boolean,
+  readonly removed: boolean,
   readonly value: string,
   ...
 };
