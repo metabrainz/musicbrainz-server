@@ -139,4 +139,6 @@ export type EntityItemT =
   | LanguageT
   | LinkAttrTypeT
   | LinkTypeT
-  | NonUrlRelatableEntityT;
+  | NonUrlRelatableEntityT
+  | WorkAttributeTypeT
+  | WorkAttributeTypeAllowedValueT;

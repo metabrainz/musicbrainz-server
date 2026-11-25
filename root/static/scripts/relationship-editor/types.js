@@ -262,6 +262,9 @@ export type BatchCreateWorksDialogStateT = {
 };
 
 export type EditWorkDialogStateT = {
+  readonly attributes: MultiselectWorkAttributeStateT,
+  readonly comment: string,
+  readonly iswcs: MultiInputISWCStateT,
   readonly languages: MultiselectLanguageStateT,
   readonly name: string,
   readonly workType: number | null,
@@ -277,6 +280,35 @@ export type MultiselectLanguageStateT = {
   readonly max: number | null,
   readonly staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
   readonly values: ReadonlyArray<MultiselectLanguageValueStateT>,
+};
+
+export type MultiselectWorkAttributeValueStateT = {
+  readonly autocomplete: AutocompleteStateT<WorkAttributeTypeT>,
+  readonly autocompleteValue:
+    AutocompleteStateT<WorkAttributeTypeAllowedValueT> | null,
+  readonly key: number,
+  readonly removed: boolean,
+  readonly textValue: string | null,
+};
+
+export type MultiselectWorkAttributeStateT = {
+  readonly max: number | null,
+  readonly staticTypeItems:
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
+  readonly staticValueItems:
+    ReadonlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
+  readonly values: ReadonlyArray<MultiselectWorkAttributeValueStateT>,
+};
+
+export type MultiInputISWCStateT = {
+  readonly max: number | null,
+  readonly values: ReadonlyArray<MultiInputISWCValueStateT>,
+};
+
+export type MultiInputISWCValueStateT = {
+  readonly key: number,
+  readonly removed: boolean,
+  readonly value: string,
 };
 
 /*

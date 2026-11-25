@@ -78,11 +78,27 @@ declare type WsJsEditRelationshipsReorderT = {
 };
 
 declare type WsJsEditWorkCreateT = {
+  readonly attributes: ReadonlyArray<{
+    readonly attribute_text: string | null,
+    readonly attribute_type_id: number,
+    readonly attribute_value_id: number | null,
+  }>,
   readonly comment: string,
   readonly edit_type: EDIT_WORK_CREATE_T,
   readonly languages: ReadonlyArray<number>,
   readonly name: string,
   readonly type_id: number | null,
+};
+
+declare type WsJsEditAddISWCsT = {
+  readonly edit_type: EDIT_WORK_ADD_ISWCS_T,
+  readonly iswcs: ReadonlyArray<{
+    readonly iswc: string,
+    readonly work: {
+      id: number,
+      name: string,
+    },
+  }>,
 };
 
 declare type WS_EDIT_RESPONSE_OK_T = 1;
@@ -138,7 +154,8 @@ declare type WsJsEditResponseT = {
           | EDIT_RELEASE_EDIT_T
           | EDIT_RELEASE_EDITRELEASELABEL_T
           | EDIT_RELEASE_REORDER_MEDIUMS_T
-          | EDIT_RELEASEGROUP_EDIT_T,
+          | EDIT_RELEASEGROUP_EDIT_T
+          | EDIT_WORK_ADD_ISWCS_T,
         readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {readonly response: WS_EDIT_RESPONSE_NO_CHANGES_T}

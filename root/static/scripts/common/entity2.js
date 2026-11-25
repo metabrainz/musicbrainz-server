@@ -345,6 +345,9 @@ export function createWorkObject(
   props?: Readonly<{
     ...CommonPropsT,
     readonly _fromBatchCreateWorksDialog?: boolean,
+    readonly attributes?: ReadonlyArray<WorkAttributeT>,
+    readonly comment?: string,
+    readonly iswcs?: ReadonlyArray<IswcT>,
     readonly languages?: ReadonlyArray<WorkLanguageT>,
     readonly typeID?: number | null,
   }>,

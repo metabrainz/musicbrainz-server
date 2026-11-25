@@ -30,6 +30,7 @@ import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_RELATIONSHIP_EDIT,
   EDIT_RELATIONSHIPS_REORDER,
+  EDIT_WORK_ADD_ISWCS,
   EDIT_WORK_CREATE,
 } from '../../common/constants/editTypes.js';
 import {createWorkObject} from '../../common/entity2.js';
@@ -309,7 +310,8 @@ async function wsJsEditSubmission(
   state: ReleaseRelationshipEditorStateT,
   edits:
     | Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]>
-    | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>,
+    | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>
+    | Array<[Array<RelationshipStateT>, WsJsEditAddISWCsT]>,
 ): Promise<WsJsEditResponseT | null> {
   if (!edits.length) {
     return {edits: []};
@@ -405,7 +407,12 @@ async function submitWorkEdits(
         }
         seenWorks.add(work.id);
         const workEditData: WsJsEditWorkCreateT = {
-          comment: '',
+          attributes: work.attributes.map(x => ({
+            attribute_text: x.value_id == null ? x.value : null,
+            attribute_type_id: x.typeID,
+            attribute_value_id: x.value_id,
+          })),
+          comment: work.comment,
           edit_type: EDIT_WORK_CREATE,
           languages: work.languages.map(x => x.language.id),
           name: work.name,
@@ -416,9 +423,8 @@ async function submitWorkEdits(
     }
   }
 
-  const workEdits: Array<
-    [Array<RelationshipStateT>, WsJsEditWorkCreateT],
-  > = [];
+  const workEdits: Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]> =
+    [];
 
   for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
     for (const recordingState of tree.iterate(mediumState)) {
@@ -430,6 +436,81 @@ async function submitWorkEdits(
     await handlePromiseRejection(
       dispatch,
       wsJsEditSubmission(dispatch, state, workEdits),
+    );
+  }
+}
+
+
+async function submitAddISWCsEdits(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  state: ReleaseRelationshipEditorStateT,
+): Promise<void> {
+  const seenWorks = new Set<number>();
+
+  function getWorkEditsForEntity(
+    targetTypeGroups: RelationshipTargetTypeGroupsT,
+    edits: Array<[Array<RelationshipStateT>, WsJsEditAddISWCsT]>,
+  ): void {
+    const workTargetGroup = tree.find(
+      targetTypeGroups,
+      'work',
+      compareTargetTypeWithGroup,
+      null,
+    );
+    if (!workTargetGroup) {
+      return;
+    }
+    for (
+      const relationship of
+      iterateRelationshipsInTargetTypeGroup(workTargetGroup)
+    ) {
+      if (relationship._status !== REL_STATUS_ADD) {
+        continue;
+      }
+      const recording = relationship.entity0;
+      const work = relationship.entity1;
+      invariant(
+        recording.entityType === 'recording' &&
+        work.entityType === 'work',
+      );
+      if (
+        work._fromBatchCreateWorksDialog === true
+      ) {
+        invariant(isDatabaseRowId(work.id));
+        if (seenWorks.has(work.id)) {
+          continue;
+        }
+        seenWorks.add(work.id);
+        if (work.iswcs.length) {
+          const addISWCsEditData: WsJsEditAddISWCsT = {
+            edit_type: EDIT_WORK_ADD_ISWCS,
+            iswcs: work.iswcs.map(iswc => ({
+              iswc: iswc.iswc,
+              work: {
+                id: work.id,
+                name: work.name,
+              },
+            })),
+          };
+          edits.push([[relationship], addISWCsEditData]);
+        }
+      }
+    }
+  }
+
+  const addISWCsEdits: Array<[Array<RelationshipStateT>, WsJsEditAddISWCsT]> =
+    [];
+
+  for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
+    for (const recordingState of tree.iterate(mediumState)) {
+      getWorkEditsForEntity(recordingState.targetTypeGroups, addISWCsEdits);
+    }
+  }
+
+  if (addISWCsEdits.length) {
+    await handlePromiseRejection(
+      dispatch,
+      wsJsEditSubmission(dispatch, state, addISWCsEdits),
     );
   }
 }
@@ -824,6 +905,11 @@ async function submitEdits(
   await sleep(500);
   await handlePromiseRejection(
     syncDispatch,
+    submitAddISWCsEdits(syncDispatch, currentStateRef.current),
+  );
+  await sleep(500);
+  await handlePromiseRejection(
+    syncDispatch,
     submitRelationshipEdits(syncDispatch, currentStateRef.current),
   );
   dispatch({type: 'stop-submission'});
@@ -1051,7 +1137,10 @@ export const reducer: ((
       const oldWork = action.work;
       const newWork = createWorkObject({
         _fromBatchCreateWorksDialog: true,
+        attributes: action.attributes,
+        comment: clean(action.comment),
         id: uniqueNegativeId(),
+        iswcs: action.iswcs,
         languages: action.languages.map(language => ({language})),
         name: clean(action.name),
         typeID: action.workType,
@@ -1372,8 +1461,20 @@ export const reducer: ((
                * `relationship` is always recording-work here
                * (see `getWorkEditsForEntity`).
                */
+              invariant(relationship.entity1.entityType === 'work');
               const oldWork = relationship.entity1;
-              const newWork = response.entity;
+              /*
+               * preserve ISWCs to be submitted later
+               */
+              const newWork =
+                oldWork._fromBatchCreateWorksDialog === true
+                  ? {
+                    ...response.entity,
+                    _fromBatchCreateWorksDialog:
+                    oldWork._fromBatchCreateWorksDialog,
+                    iswcs: oldWork.iswcs,
+                  }
+                  : response.entity;
               updateRelationshipState(
                 relationship,
                 (newRelationship) => {
@@ -1421,7 +1522,8 @@ export const reducer: ((
             }
           }
           _ => {
-            invariant(response.edit_type === EDIT_RELATIONSHIP_DELETE);
+            invariant(response.edit_type === EDIT_RELATIONSHIP_DELETE ||
+              response.edit_type === EDIT_WORK_ADD_ISWCS);
           }
         }
       }
@@ -1905,7 +2007,12 @@ component _ReleaseRelationshipEditor() {
 const NonHydratedReleaseRelationshipEditor =
   withLoadedTypeInfoForRelationshipEditor<{}>(
     _ReleaseRelationshipEditor,
-    ['language', 'work_type'],
+    [
+      'language',
+      'work_type',
+      'work_attribute_type',
+      'work_attribute_type_allowed_value',
+    ],
   );
 
 const ReleaseRelationshipEditor = hydrate<{}>(

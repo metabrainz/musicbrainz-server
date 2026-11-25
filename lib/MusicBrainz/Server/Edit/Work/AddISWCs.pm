@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
 use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Edit::Types qw( EnteredFromEntity );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
@@ -12,7 +13,8 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities' => {
         -excludes => 'work_ids',
      },
      'MusicBrainz::Server::Edit::Work',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';
@@ -26,6 +28,7 @@ sub work_ids { map { $_->{work}{id} } @{ shift->data->{iswcs} } }
 
 has '+data' => (
     isa => Dict[
+        entered_from  => EnteredFromEntity,
         iswcs => ArrayRef[Dict[
             iswc      => Str,
             work => Dict[
@@ -40,12 +43,14 @@ sub initialize
 {
     my ($self, %opts) = @_;
     my @iswcs = $self->c->model('ISWC')->filter_additions(@{ $opts{iswcs} });
+    my $entered_from = delete $opts{entered_from};
 
     if (@iswcs == 0) {
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
     }
     else {
         $self->data({
+            (defined $entered_from ? (entered_from => $entered_from) : ()),
             iswcs => \@iswcs,
         });
     }
