@@ -3,13 +3,17 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( lp );
+use MusicBrainz::Server::Translation qw( l lp );
 extends 'MusicBrainz::Server::Form::Filter::Generic';
 
 has 'types' => (
     isa => 'ArrayRef[EventType]',
     is => 'ro',
     required => 1,
+);
+
+has_field 'cancelled' => (
+    type => 'Select',
 );
 
 has_field 'setlist' => (
@@ -22,7 +26,14 @@ has_field 'type_id' => (
 );
 
 sub filter_field_names {
-    return qw/ disambiguation name setlist type_id /;
+    return qw/ cancelled disambiguation name setlist type_id /;
+}
+
+sub options_cancelled {
+    return [
+        { value => 1, label => l('Cancelled only') },
+        { value => 2, label => l('Non-cancelled only') },
+    ];
 }
 
 sub options_type_id {
@@ -39,6 +50,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{options_type_id} = $self->options_type_id;
+    $json->{options_cancelled} = $self->options_cancelled;
     return $json;
 };
 
