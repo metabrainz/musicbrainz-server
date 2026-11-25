@@ -64,6 +64,7 @@
         type: 41,
         status: 2,
         data: {
+          attributes: [],
           comment: '',
           entered_from: {
             entity_type: 'release',
@@ -85,6 +86,7 @@
         type: 41,
         status: 2,
         data: {
+          attributes: [],
           comment: '',
           entered_from: {
             entity_type: 'release',
