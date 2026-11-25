@@ -683,7 +683,7 @@ CREATE UNIQUE INDEX url_idx_url ON url (url);
 
 CREATE INDEX vote_idx_edit ON vote (edit);
 CREATE INDEX vote_idx_editor_vote_time ON vote (editor, vote_time);
-CREATE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
+CREATE UNIQUE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);

@@ -90,7 +90,7 @@ test 'Edit queue correctly handles locked edits' => sub {
             SQL
     }, $other_dbh->sql);
 
-    my $c = $test->c->meta->clone_object($test->c, connector => $edit_queue_dbh);
+    my $c = $test->c->meta->clone_object($test->c, connector => $edit_queue_dbh, models => {});
 
     try {
         Sql::run_in_transaction(sub {
@@ -98,16 +98,24 @@ test 'Edit queue correctly handles locked edits' => sub {
             $other_dbh->sql->select_single_row_array('SELECT * FROM edit WHERE id=101 FOR UPDATE');
 
             Sql::run_in_transaction(sub {
-                # Try to apply an edit, but fail because it's being approved by
-                # somebody on the website
+                # Try to apply an edit, but time out because it's being
+                # approved by somebody on the website.
+                $edit_queue_dbh->sql->do('SAVEPOINT lock_test');
+                my @logged_errors;
+                my $log = Log::Dispatch->new(outputs => [[
+                    'Code',
+                    min_level => 'error',
+                    code => sub { my %p = @_; push @logged_errors, $p{message} },
+                ]]);
                 my $separate_queue = MusicBrainz::Server::EditQueue->new(
-                    c => $c, log => $test->null_logger );
+                    c => $c, log => $log, lock_timeout => '10ms' );
 
                 my $errors = $separate_queue->process_edits;
                 is($errors, 3, 'with errors');
-
-                my $edit = $c->model('Edit')->get_by_id(101);
-                is($edit->status, $STATUS_OPEN, 'still not changed');
+                is(scalar @logged_errors, 1, 'one error logged');
+                like($logged_errors[0], qr/Error while processing edit #101: .*lock timeout/s,
+                     'edit timed out waiting for the lock');
+                $edit_queue_dbh->sql->do('ROLLBACK TO SAVEPOINT lock_test');
             }, $edit_queue_dbh->sql);
         }, $other_dbh->sql);
     }
