@@ -137,6 +137,7 @@
                 ],
               },
               is_data_track: '0',
+              video: '0',
             },
             {
               id: null,
@@ -166,6 +167,7 @@
                 ],
               },
               is_data_track: '0',
+              video: '0',
             },
             {
               id: null,
@@ -195,6 +197,7 @@
                 ],
               },
               is_data_track: '0',
+              video: '0',
             },
           ],
         },
