@@ -3455,6 +3455,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: [],
   },
   {
+                     input_url: 'https://www.instagram.com/reels/DgIOR1EkmXE/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/p/DgIOR1EkmXE/',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://www.instagram.com/tv/B3Mew-Cl2Z9/?igshid=ekrqbty1ix6c',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
