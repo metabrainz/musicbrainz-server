@@ -314,14 +314,14 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
   t.deepEqual(mediumCreateEdits, [
     {
       edit_type: MBEdit.TYPES.EDIT_MEDIUM_CREATE,
-      hash: 'aca331e8e3448781852995b146feae853acbaa0e',
+      hash: '979e227cb2364fc3f1d0f6e7cd545ed90886bf1a',
       name: 'foo',
       position: 4,
       release: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     },
     {
       edit_type: MBEdit.TYPES.EDIT_MEDIUM_CREATE,
-      hash: 'd0f3777cede43eef81db632b671ca8da45085760',
+      hash: 'c0dc52c7dd17692f51ee17bbfbc540f946847f0c',
       name: 'bar',
       position: 2,
       release: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
