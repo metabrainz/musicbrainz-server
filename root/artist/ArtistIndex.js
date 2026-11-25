@@ -336,7 +336,12 @@ component ArtistIndex(
         entity={artist}
       />
 
-      <h2 className="discography">{l('Discography')}</h2>
+      <h2 className="discography">
+        {footerSwitchProps.showingTributeOnly
+          ? <RelatedEntitiesDisplay title={l('Tributes to')}>
+          <DescriptiveLink entity={artist} />
+            </RelatedEntitiesDisplay> : l('Discography')}
+      </h2>
 
       <Filter
         ajaxFormUrl={ajaxFilterFormUrl}
