@@ -90,8 +90,26 @@ sub find_by_entity {
     } $art_archive_model->art_archive_type_booleans);
 
     my $extra_conditions = '';
+    my $order_by = "$art_schema.index_listing.ordering";
+
     if ($opts{is_front}) {
-        $extra_conditions .= 'AND is_front = TRUE';
+        if ($entity_type eq 'event') {
+
+            my $types_column = "$art_schema.index_listing.types";
+
+            $extra_conditions .= ' AND ( ' .
+                ' is_front = TRUE' .
+                " OR 'Flyer' = ANY($types_column)" .
+                " OR 'Banner' = ANY($types_column)" .
+            ')';
+            $order_by = 'is_front DESC, ' .
+                "'Flyer' = ANY($types_column) DESC, " .
+                "'Banner' = ANY($types_column) DESC, " .
+                $order_by;
+
+        } else {
+            $extra_conditions .= ' AND is_front = TRUE';
+        }
     }
 
     my $query = <<~"SQL";
@@ -113,7 +131,7 @@ sub find_by_entity {
                     cover_art_archive.image_type.mime_type
            WHERE $art_schema.index_listing.$entity_type = any(?)
         $extra_conditions
-        ORDER BY $art_schema.index_listing.ordering
+        ORDER BY $order_by
         SQL
 
     my @artwork = $self->query_to_list($query, [\@ids]);
