@@ -235,6 +235,19 @@ const MB_LANGUAGES = shell.exec(
   return accum;
 }, []);
 
+/*
+ * The server can select these languages (see %SYSTEM_LOCALE_FOR in
+ * lib/MusicBrainz/Server/Translation.pm), but a language can have no .po
+ * files of its own: the Simplified Chinese ones are named zh, not zh_Hans.
+ * poFile.find then reads the files of the language without its script.
+ */
+const SCRIPT_LOCALES = ['zh_Hans', 'zh_Hant'];
+for (const lang of SCRIPT_LOCALES) {
+  if (!MB_LANGUAGES.includes(lang)) {
+    MB_LANGUAGES.push(lang);
+  }
+}
+
 MB_LANGUAGES.forEach(function (lang) {
   const langJedData = cloneObjectDeep(jedDataTemplate.en);
   const fileName = `jed-${lang}`;

@@ -391,7 +391,7 @@ sub with_translations {
     my $lang = Translation->instance->set_language($cookie_lang);
     $c->current_language($lang);
     $c->model('MB')->context->current_language($lang);
-    my $html_lang = $lang =~ s/_([A-Z0-9]{2,})/-\L$1/r;
+    my $html_lang = MusicBrainz::Server::Translation::bcp47_tag($lang);
 
     $c->stash(
         current_language => $lang,
@@ -920,7 +920,7 @@ sub TO_JSON {
         my @server_languages = map {
             my $lang = $_;
             { name => $lang->[0],
-              map { $_ => $lang->[1]->{$_} } qw( id native_language native_territory ) }
+              map { $_ => $lang->[1]->{$_} } qw( id native_language native_script native_territory ) }
         } @{$server_languages};
         $stash{server_languages} = \@server_languages;
     }
