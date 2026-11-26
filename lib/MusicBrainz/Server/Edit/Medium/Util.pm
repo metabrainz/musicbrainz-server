@@ -59,7 +59,6 @@ sub tracks_to_hash
         number => $_->number,
         length => $_->length,
         is_data_track => $_->is_data_track,
-        video => $_->video,
     }, @$tracks ];
 
     return $tmp;

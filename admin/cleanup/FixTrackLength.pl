@@ -240,8 +240,7 @@ for my $medium (@mediums)
                         artist_credit => $_->artist_credit,
                         recording_id => $_->recording_id,
                         position => $_->position,
-                        is_data_track => $_->is_data_track,
-                        video => $_->video,
+                        is_data_track => $_->is_data_track
                     )
                 } @tracks;
 
