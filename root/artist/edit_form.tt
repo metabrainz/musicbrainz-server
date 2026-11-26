@@ -21,6 +21,7 @@
           label => add_colon(l('Area')),
           field => form_to_json(form.field('area')),
           idField => form_to_json(form.field('area_id')),
+          smallAreaWarningFor => 'artist',
         }) %]
         [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('ipi_codes')),

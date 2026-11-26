@@ -13,6 +13,7 @@ import {last} from '../../common/utility/arrays.js';
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
+import SmallAreaWarning from './SmallAreaWarning.js';
 
 component FormRowArea(
   children?: React.Node,
@@ -20,6 +21,7 @@ component FormRowArea(
   idField: FieldT<string>,
   label: React.Node,
   required: boolean = false,
+  smallAreaWarningFor?: 'artist' | 'label',
 ) {
   const subfields = field.field;
 
@@ -59,6 +61,9 @@ component FormRowArea(
       </span>
       {children}
       <FieldErrors field={field} />
+      {smallAreaWarningFor ? (
+        <SmallAreaWarning entityType={smallAreaWarningFor} />
+      ) : null}
     </FormRow>
   );
 }

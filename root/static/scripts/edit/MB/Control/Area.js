@@ -10,6 +10,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
+import isAreaSmallerThanCountry
+  from '../../utility/isAreaSmallerThanCountry.js';
 
 import {BubbleDoc} from './Bubble.js';
 
@@ -23,5 +25,16 @@ export default function initializeArea(spanSelector, bubbleSelector) {
     ko.applyBindingsToNode(
       name, {controlsBubble: bubble}, {area: ac.currentSelection},
     );
+
+    // Only rendered for the artist and label areas (see FormRowArea).
+    const smallAreaWarning = $(this).closest('.row')
+      .find('.small-area-warning')[0];
+    if (smallAreaWarning) {
+      ko.applyBindingsToNode(smallAreaWarning, {
+        visible: ko.computed(
+          () => isAreaSmallerThanCountry(ac.currentSelection()),
+        ),
+      });
+    }
   });
 }
