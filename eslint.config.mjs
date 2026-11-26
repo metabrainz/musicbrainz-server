@@ -1079,6 +1079,7 @@ export default [
       'root/static/scripts/release/components/WorkLanguageMultiselect.js',
       'root/static/scripts/series/components/SeriesRelationshipEditor.js',
       'root/static/scripts/tests/relationship-editor.js',
+      'root/static/scripts/url/components/UrlRelationshipEditor.js',
       'root/static/scripts/url/edit.js',
       'root/user/UserProfile.js',
       'root/utility/tableColumns.js',

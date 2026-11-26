@@ -46,9 +46,11 @@ component _UrlRelationshipEditor(...props: PropsT) {
       this.value = getUnicodeUrl(this.value);
     }
 
+    // $FlowFixMe[incompatible-type]
     urlControl?.addEventListener('change', handleUrlChange);
 
     return () => {
+      // $FlowFixMe[incompatible-type]
       urlControl?.removeEventListener('change', handleUrlChange);
     };
   }, []);

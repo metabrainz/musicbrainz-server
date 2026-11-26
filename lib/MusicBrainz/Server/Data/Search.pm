@@ -71,6 +71,7 @@ use DateTime::Format::ISO8601;
 use Readonly;
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::SearchRequestHeaders';
 
 use Sub::Exporter -setup => {
     exports => [qw( escape_query )],
@@ -823,7 +824,7 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv) = @_;
+    my ($self, $type, $query, $limit, $page, $adv, %tags) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
@@ -866,8 +867,10 @@ sub external_search
                                  $offset,
                                  $limit);
 
-    # Dispatch the search request.
-    my $response = get_chunked_with_retry($self->c->lwp, $search_url);
+    # Build HTTP X-MB-* headers from key/value pair tags.
+    my @headers = $self->build_search_request_headers(%tags);
+    # Dispatch the search request, tagged with X-MB-* headers.
+    my $response = get_chunked_with_retry($self->c->lwp, $search_url, @headers);
     if (!defined $response) {
         return { code => HTTP_INTERNAL_SERVER_ERROR, error => 'We could not fetch the document from the search server. Please try again.' };
     }

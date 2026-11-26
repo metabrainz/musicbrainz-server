@@ -20,7 +20,7 @@
  */
 
 const functionToString: () => string =
-  // $FlowFixMe[method-unbinding]
+  // $FlowFixMe[incompatible-type]
   Function.prototype.toString;
 const objectCtorString: string = functionToString.call(Object);
 

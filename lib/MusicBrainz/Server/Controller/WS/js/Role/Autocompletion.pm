@@ -94,6 +94,7 @@ sub _indexed_search {
         $limit,
         $page,
         $advanced,
+        source_endpoint => '/ws/js',
     );
     my (@output, $pager);
 

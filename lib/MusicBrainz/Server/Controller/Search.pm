@@ -270,7 +270,8 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('method')->value eq 'advanced');
+                              advanced => $form->field('method')->value eq 'advanced',
+                              source_endpoint => '/search');
 }
 
 sub do_external_search {
@@ -287,13 +288,15 @@ sub do_external_search {
 
     my $query = $opts{query};
     my $type  = $opts{type};
+    my $source_endpoint = $opts{source_endpoint};
 
     my $search = $c->model('Search');
     my $ret = $search->external_search($type,
                                        $query,
                                        $limit,
                                        $page,
-                                       $advanced);
+                                       $advanced,
+                                       source_endpoint => $source_endpoint);
 
     if (exists $ret->{error})
     {

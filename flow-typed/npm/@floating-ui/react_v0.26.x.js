@@ -273,7 +273,7 @@ declare module '@floating-ui/react' {
    */
   declare export function useMergeRefs<Instance>(
     refs: ReadonlyArray<{writeonly current: Instance} | void>,
-  ): ((Instance | null) => unknown);
+  ): ((Instance | null) => void);
 
   /*
    * FloatingArrow
