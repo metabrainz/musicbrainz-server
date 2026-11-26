@@ -21,6 +21,9 @@
             [% r.text(area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'area.name') %]
+          [% React.embed(c, 'static/scripts/edit/components/SmallAreaWarning', {
+            entityType => 'label',
+          }) %]
         [% END %]
         [% WRAPPER form_row %]
             [%- r.label('label_code', add_colon(l('Label code'))) %]
