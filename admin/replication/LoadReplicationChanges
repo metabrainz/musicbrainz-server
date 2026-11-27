@@ -353,7 +353,7 @@ system "$FindBin::Bin/ImportReplicationChanges",
     '--tmp-dir', $tmpdir,
     '--',
     @pending_file_paths;
-exit $CHILD_ERROR if $CHILD_ERROR;
+exit($CHILD_ERROR >> 8 || 1) if $CHILD_ERROR;
 
 # Wipe the temporary directory
 print localtime() . " : Removing $mydir\n";
@@ -370,12 +370,12 @@ if (defined $aborted_sequence && $known_broken_sequences{$aborted_sequence}) {
 # Apply the changes (ProcessReplicationChanges)
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts,
     ($dbmirror2 ? '--dbmirror2' : '--nodbmirror2');
-exit $CHILD_ERROR if $CHILD_ERROR;
+exit($CHILD_ERROR >> 8 || 1) if $CHILD_ERROR;
 
 if (-x "$FindBin::Bin/hooks/post-process") {
     print localtime() . " : Running post-process hook\n";
     system "$FindBin::Bin/hooks/post-process";
-    exit $CHILD_ERROR if $CHILD_ERROR;
+    exit($CHILD_ERROR >> 8 || 1) if $CHILD_ERROR;
 }
 
 # Check that current_replication_sequence has gone up by one

@@ -29,7 +29,7 @@ sub decompress_packet {
     my $tar = `which tar`;
     chomp $tar;
     system $tar, '-C', $output_dir, '--bzip2', '-xvf', $local_file;
-    exit $CHILD_ERROR if $CHILD_ERROR;
+    exit($CHILD_ERROR >> 8 || 1) if $CHILD_ERROR;
 
     unlink $local_file or warn "unlink $local_file: $OS_ERROR\n";
     return $output_dir;

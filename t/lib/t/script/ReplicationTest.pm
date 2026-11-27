@@ -105,7 +105,7 @@ sub export_all_tables {
 
 sub load_replication_changes {
     my ($self, @args) = @_;
-    system (
+    return system (
         File::Spec->catfile(
             DBDefs->MB_SERVER_ROOT,
             'admin/replication/LoadReplicationChanges',
