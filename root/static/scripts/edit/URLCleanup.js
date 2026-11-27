@@ -1944,18 +1944,31 @@ export const CLEANUPS: CleanupEntries = {
       LINK_TYPES.mailorder,
     ],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)(?:www\.)?boomkat\.com\/([a-z]+)\/([^/#?]+).*$/, 'https://boomkat.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)(?:www\.)?boomkat\.com\//, 'https://boomkat.com/');
+      // Handle bare artist/label entries and old product (release) pages
+      url = url.replace(/^https:\/\/boomkat\.com\/(artists|labels|products)\/([\w-]+)(?:[^/]+)?(?:\/)?$/, 'https://boomkat.com/$1/$2');
+      // Handle new style release and track pages
+      url = url.replace(/^https:\/\/boomkat\.com\/artists\/([\w-]+)\/(releases\/[\w]+\/[\w-]+)(\/tracks\/[\w]+\/[\w-]+)(?:[^/]+)?(?:\/)?$/, 'https://boomkat.com/artists/$1/$2$3');
+      // Drop extra (search) filters from artist/label pages
+      url = url.replace(/^https:\/\/boomkat\.com\/(artists|labels)\/([\w-]+)\/search\/.*$/, 'https://boomkat.com/$1/$2');
       return url;
     },
     validate(url, id) {
       const m = /^https:\/\/boomkat\.com\/([a-z]+)\/.*$/.exec(url);
       if (m) {
         const prefix = m[1];
+        const isTrack = prefix === 'artists'
+          ? /^https:\/\/boomkat\.com\/artists\/[\w-]+\/releases\/[\w]+\/[\w-]+\/tracks\/[\w]+\/[\w-]+$/.test(url)
+          : false;
+        const isRelease = prefix === 'artists'
+          ? /^https:\/\/boomkat\.com\/artists\/[\w-]+\/releases\/[\w]+\/[\w-]+$/.test(url)
+          : false;
+
         switch (id) {
           case LINK_TYPES.downloadpurchase.artist:
           case LINK_TYPES.mailorder.artist:
             return {
-              result: prefix === 'artists',
+              result: prefix === 'artists' && !(isRelease || isTrack),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.label:
@@ -1964,10 +1977,15 @@ export const CLEANUPS: CleanupEntries = {
               result: prefix === 'labels',
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.downloadpurchase.recording:
+            return {
+              result: isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            };
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.mailorder.release:
             return {
-              result: prefix === 'products',
+              result: prefix === 'products' || isRelease,
               target: ERROR_TARGETS.ENTITY,
             };
         }
