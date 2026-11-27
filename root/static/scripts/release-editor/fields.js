@@ -192,6 +192,20 @@ class Track {
       this.hasNewRecording(false);
     }
 
+    this.video = ko.computed({
+      read: () => this.recording().video,
+      write: value => {
+        this.recording().video = value;
+        // `video` is a plain property, need to notify manually
+        this.recordingValue.valueHasMutated();
+      },
+      owner: this,
+    });
+
+    if (data.video) {
+      this.video(Boolean(data.video));
+    }
+
     recordingAssociation.track(this);
 
     this.uniqueID = this.id || uniqueId('new-');
