@@ -859,6 +859,7 @@ Readonly our @DERIVED_TABLE_LIST => qw(
     event_annotation
     event_meta
     event_tag
+    genre_annotation
     instrument_annotation
     instrument_tag
     label_annotation
