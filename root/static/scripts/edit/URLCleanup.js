@@ -3486,7 +3486,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?instagram\.com\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?instagram\.com\/(?:p|tv)\/([^/?#]+).*$/, 'https://www.instagram.com/p/$1/');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?instagram\.com\/(?:p|reels|tv)\/([^/?#]+).*$/, 'https://www.instagram.com/p/$1/');
       // Ignore explore URLs since we'll block them anyway
       if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
         // Point /stories/ sections to the main user profile instead
@@ -3559,7 +3559,7 @@ export const CLEANUPS: CleanupEntries = {
             };
           }
           return {
-            result: /^(?!(?:explore|p|stories|tv)$)/.test(prefix) &&
+            result: /^(?!(?:explore|p|reels|stories|tv)$)/.test(prefix) &&
               target === undefined,
             target: ERROR_TARGETS.RELATIONSHIP,
           };
