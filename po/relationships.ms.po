@@ -1142,6 +1142,19 @@ msgstr ""
 "Memautkan keluaran dengan kawasan sebagai tempat pemotongan sampang. Hanya "
 "digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pemotongan sampang. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1227,6 +1240,13 @@ msgstr "Memautkan keluaran dengan tempat cakera induk dibuat."
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "Memautkan keluaran dengan tempat pemotongan sampang."
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "Memautkan keluaran dengan tempat pemotongan sampang."
 
 #. name:launch event
@@ -3010,6 +3030,13 @@ msgstr ""
 #. name:named after work
 #: DB:link_type/description:1278
 msgid "This indicates the work that inspired this work's name."
+msgstr ""
+
+#. name:composed for
+#: DB:link_type/description:1312
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
 msgstr ""
 
 #. name:podcast feed
@@ -5787,6 +5814,12 @@ msgstr ""
 msgid "composed at"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+msgid "composed for"
+msgstr "Penggubah"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr ""
@@ -8530,6 +8563,25 @@ msgstr ""
 msgid "picture of"
 msgstr ""
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+msgid "plated  in"
+msgstr ""
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+msgid "plated at"
+msgstr ""
+
+#: DB:link_type/name:1314
+msgid "plated in"
+msgstr ""
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+msgid "plating location for"
+msgstr ""
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -10044,6 +10096,11 @@ msgstr ""
 msgid "works as an engineer at"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+msgid "works composed for artist"
+msgstr ""
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -11157,6 +11214,13 @@ msgstr ""
 msgid "{entity1} was available at {entity0}"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "The score for {entity1} can be downloaded for free at {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "Skor {entity1} boleh dimuat turun secara percuma di {entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
@@ -11206,6 +11270,24 @@ msgstr ""
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr ""
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid ""
+#| "The libretto for {entity1} was {additional:additionally} written at "
+#| "{entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "Libreto {entity1} dikarang di {entity0} {additional:secara tambahan}"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid ""
+#| "The libretto for {entity1} was {additional:additionally} written in "
+#| "{entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "Libreto {entity1} dikarang di {entity0} {additional:secara tambahan}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

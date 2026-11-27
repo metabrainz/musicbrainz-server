@@ -5,10 +5,10 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: yue_Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. frequency:1 iso_code_3:abk
@@ -651,6 +651,11 @@ msgstr ""
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr ""
 
+#. frequency:1 iso_code_3:dws
+#: DB:language/name:2141
+msgid "Dutton World Speedwords"
+msgstr ""
+
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
 msgid "Dyula"
@@ -1101,6 +1106,11 @@ msgstr ""
 msgid "Innu"
 msgstr ""
 
+#. frequency:1 iso_code_3:igs
+#: DB:language/name:2859
+msgid "Interglossa"
+msgstr ""
+
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
 msgid "Interlingua"
@@ -1356,6 +1366,11 @@ msgstr ""
 msgid "Kosraean"
 msgstr ""
 
+#. frequency:1 iso_code_3:avk
+#: DB:language/name:909
+msgid "Kotava"
+msgstr ""
+
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
@@ -1469,6 +1484,11 @@ msgstr ""
 #. frequency:1 iso_code_3:lin
 #: DB:language/name:242
 msgid "Lingala"
+msgstr ""
+
+#. frequency:1 iso_code_3:lfn
+#: DB:language/name:3815
+msgid "Lingua Franca Nova"
 msgstr ""
 
 #. frequency:1 iso_code_3:lit
@@ -1869,6 +1889,11 @@ msgstr ""
 #. frequency:1 iso_code_3:nno
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
+msgstr ""
+
+#. frequency:1 iso_code_3:nov
+#: DB:language/name:4962
+msgid "Novial"
 msgstr ""
 
 #. frequency:0 iso_code_3:null

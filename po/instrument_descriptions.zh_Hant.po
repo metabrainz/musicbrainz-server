@@ -40,17 +40,17 @@ msgid ""
 "<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
-"「Rebab（雷貝琴）」（及其他變體拼寫）是主要指這三種類型的拉/彈撥弦樂器家族"
-"：<br /> <ul> <li>大型、短頸、舟形的「sarinda（沙林達琴）」類型，在這裡是喀布"
-"爾雷貝琴（kabuli rebab）。</li> <li>小型、長頸的柱形提琴「huqyin（胡琴）」類"
+"「Rebab（雷貝琴）」（及其他變體拼寫）是主要指這三種類型的拉/彈撥弦樂器家族："
+"<br /> <ul> <li>大型、短頸、舟形的「sarinda（沙林達琴）」類型，在這裡是喀布爾"
+"雷貝琴（kabuli rebab）。</li> <li>小型、長頸的柱形提琴「huqyin（胡琴）」類"
 "型，在這裡是印尼雷貝琴（Indonesian rebab）。</li> <li>各種大小，頸長不同，梨"
 "形的「Cretan lyra（里拉琴）」類型，在這裡是弓奏魯特琴（bowed lutes）。</li> "
 "</ul> <br /> <br />由於名稱的交叉，它們在大多數來源中彼此混淆。有趣的是，這種"
 "交叉混淆還延伸到相關但名稱分開或類似的樂器，例如<a href=\"/instrument/"
 "0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克</a>（柱形提琴）和<a href=\"/"
-"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">蓋查克琴</a>（舟形琴）"
-"。<br />目前還不清楚，這三種類型之間具有什麼關係。<br /> <br />有關甘美朗（"
-"gamelan）中使用的柱形提琴（spike fiddle），請參見<a href=\"/instrument/"
+"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">蓋查克琴</a>（舟形琴）。"
+"<br />目前還不清楚，這三種類型之間具有什麼關係。<br /> <br />有關甘美朗"
+"（gamelan）中使用的柱形提琴（spike fiddle），請參見<a href=\"/instrument/"
 "3dbbb5ff-103b-4260-8cf6-679a73a7c552\">印尼雷貝琴</a>。<br />關於彈撥的、舟形"
 "的阿富汗樂器，又稱為喀布爾雷貝琴（kabuli rebab），請參見<a href=\"/"
 "instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">魯巴布琴</a>。<br /> 關於中"
@@ -71,12 +71,12 @@ msgid ""
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
 "南印度13世紀或更早時期的無品滑指魯特琴，用於卡納提克音樂。空心的琴身由波羅蜜"
-"木製成，配有一個中空的葫蘆狀次級共鳴器，有6根主弦、3根持續音弦和11-12根共鳴弦"
-"，和一塊硬木製的滑動塊，可變換音高。齊特拉維納琴與<a href=\"/instrument/"
+"木製成，配有一個中空的葫蘆狀次級共鳴器，有6根主弦、3根持續音弦和11-12根共鳴"
+"弦，和一塊硬木製的滑動塊，可變換音高。齊特拉維納琴與<a href=\"/instrument/"
 "41761936-5dbc-433f-b558-a7ef14fe9b08\">娑羅室伐底維納琴</a>的關係，就像北印度"
-"的<a href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">維齊特拉維納"
-"琴</a>與<a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">樓陀羅維"
-"納琴</a>的關係一樣。"
+"的<a href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">維齊特拉維納琴"
+"</a>與<a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">樓陀羅維納"
+"琴</a>的關係一樣。"
 
 #. name:kös
 #: DB:instrument/description:739
@@ -239,7 +239,8 @@ msgid ""
 "A prepared piano is a piano that has had its sound altered by placing "
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
-msgstr "預置鋼琴是透過在琴弦、擊弦機或制音器上加裝物件（預置物）以改變聲音的鋼琴。"
+msgstr ""
+"預置鋼琴是透過在琴弦、擊弦機或制音器上加裝物件（預置物）以改變聲音的鋼琴。"
 
 #. name:pūpakapaka
 #: DB:instrument/description:861
@@ -285,13 +286,6 @@ msgstr "話音器是能使音樂家調節樂器音色的效果器。"
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr "塔爾鼓是一種北非和中東的單面框鼓。"
-
-#. name:tom-tom
-#: DB:instrument/description:462
-msgid ""
-"A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
-"in a standard drum set."
-msgstr "筒鼓（或簡稱 tom）是不帶響弦的圓柱形鼓，通常在標準爵士鼓中可以找到。"
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -399,8 +393,8 @@ msgid ""
 "Akete drums."
 msgstr ""
 "又稱 kette 或 keteh，是體積最小、音高最高的鼓。此鼓具有緊繃的山羊鼓皮，用指尖"
-"擊打。在牙買加的布魯音樂和拉斯塔法里運動中起重要作用，屬於尼亞賓吉/阿克特鼓類"
-"。"
+"擊打。在牙買加的布魯音樂和拉斯塔法里運動中起重要作用，屬於尼亞賓吉/阿克特鼓"
+"類。"
 
 #. name:slide whistle
 #: DB:instrument/description:198
@@ -463,9 +457,9 @@ msgid ""
 "e139-44a9-8a48-7963eb693dd1\">indung</a>, dual child drums are divided into "
 "the katipung (\"besar\" or larger) and the kutiplak (\"kecil\" or smaller)."
 msgstr ""
-"總是和<a href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">印尼母手"
-"鼓</a>同時使用，兩個鼓分別稱為卡蒂彭（「besar」，較大）和庫提普拉克（「kecil"
-"」，較小）。"
+"總是和<a href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">印尼母手鼓"
+"</a>同時使用，兩個鼓分別稱為卡蒂彭（「besar」，較大）和庫提普拉克"
+"（「kecil」，較小）。"
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -497,14 +491,16 @@ msgstr "一種愛爾蘭/蘇格蘭豎琴。"
 msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
-msgstr "拱面吉他是面板呈獨特拱形的鋼弦木吉他或半空心吉他，尤其在爵士樂手中流行。"
+msgstr ""
+"拱面吉他是面板呈獨特拱形的鋼弦木吉他或半空心吉他，尤其在爵士樂手中流行。"
 
 #. name:clavioline
 #: DB:instrument/description:815
 msgid ""
 "An early analogue synthesizer, it had a vacuum tube oscillator and high/low "
 "pass filtering to produce vibrato."
-msgstr "一種早期的類比合成器，它具有真空管振盪器和高低通濾波器，用於產生顫音效果。"
+msgstr ""
+"一種早期的類比合成器，它具有真空管振盪器和高低通濾波器，用於產生顫音效果。"
 
 #. name:gizmo
 #: DB:instrument/description:796
@@ -667,7 +663,8 @@ msgstr "中國阮族的低音種類。"
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. It has four thick metal strings."
-msgstr "塞爾維亞克羅埃西亞坦布里卡樂團的低音部，類似於低音提琴。它有四根粗金屬弦。"
+msgstr ""
+"塞爾維亞克羅埃西亞坦布里卡樂團的低音部，類似於低音提琴。它有四根粗金屬弦。"
 
 #. name:segunda
 #: DB:instrument/description:757
@@ -682,9 +679,9 @@ msgid ""
 "for the acoustic one, use <a href=\"/instrument/15861569-249d-4b24-8ce4-"
 "d0b001b1f978\">acoustic bass guitar</a>."
 msgstr ""
-"吉他族的低音成員。對於電子版本，參閱<a href=\"/instrument/0b9d87fa-93fa-4956-"
-"8b6a-a419566cc915\">電貝斯吉他</a>；對於木製版本，參閱<a href=\"/instrument/"
-"15861569-249d-4b24-8ce4-d0b001b1f978\">木貝斯吉他</a>。"
+"吉他族的低音成員。對於電子版本，參閱<a href=\"/instrument/"
+"0b9d87fa-93fa-4956-8b6a-a419566cc915\">電貝斯吉他</a>；對於木製版本，參閱<a "
+"href=\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">木貝斯吉他</a>。"
 
 #. name:bicycle bell
 #: DB:instrument/description:743
@@ -891,10 +888,10 @@ msgid ""
 "bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 "常見而流行的鐵琴，通常為安放在木質共鳴箱的一排金屬鍵或者板條。<br />對於鐘樓"
-"上懸掛的樂器，參見<a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-"
-"4145d7794082\">排鐘琴</a>。<br />對於在部分語言中稱為樂團鈴的樂器，參見<a "
-"href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">管鐘（tubular bells"
-"）</a>。"
+"上懸掛的樂器，參見<a href=\"/instrument/0d14d4e0-9ac9-4a96-"
+"a595-4145d7794082\">排鐘琴</a>。<br />對於在部分語言中稱為樂團鈴的樂器，參見"
+"<a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">管鐘（tubular "
+"bells）</a>。"
 
 #. name:keyed box zither
 #: DB:instrument/description:1028
@@ -999,8 +996,8 @@ msgid ""
 "Constructed as the uttermost largest member of the violin family, it is up "
 "towards 4 meters and has three strings operated by levers and pedals."
 msgstr ""
-"以作為提琴族最大的成員為目標製作，高達近4公尺，具有3根使用槓桿和踏板操縱的弦"
-"。"
+"以作為提琴族最大的成員為目標製作，高達近4公尺，具有3根使用槓桿和踏板操縱的"
+"弦。"
 
 #. name:portative
 #: DB:instrument/description:1021
@@ -1115,9 +1112,9 @@ msgid ""
 "instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
 msgstr ""
 "儘管名字如此，此樂器並非管鐘（chimes），而是由單一共鳴箱上安裝的多根定調的金"
-"屬棒構成。<br />這與鐘琴類似。<br />對於稱為 <em>bar chimes</em> 的樂器，參"
-"見<a href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">管鐘（chimes"
-"）</a>。"
+"屬棒構成。<br />這與鐘琴類似。<br />對於稱為 <em>bar chimes</em> 的樂器，參見"
+"<a href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">管鐘（chimes）</"
+"a>。"
 
 #. name:theorbo
 #: DB:instrument/description:395
@@ -1210,10 +1207,10 @@ msgid ""
 "the violoncello). Occasionally Octobass is also included as a member."
 msgstr ""
 "於16世紀發展而成，這類臂式提琴（viola da braccio）有別於古大提琴（viola da "
-"gamba，腿式提琴）族。<br />現代成員包括：<ul><li>小提琴（小的中提琴）</li>"
-"<li>中提琴</li><li>大提琴（小型大的中提琴）</li><li>低音提琴（取代了維奧隆尼"
-"（大的中提琴））</li></ul>過去的成員包括維奧隆尼（現在認為是維奧爾琴的一種）"
-"和低音維奧爾琴（大提琴的前身）。倍低音提琴也被認為是成員之一。"
+"gamba，腿式提琴）族。<br />現代成員包括：<ul><li>小提琴（小的中提琴）</"
+"li><li>中提琴</li><li>大提琴（小型大的中提琴）</li><li>低音提琴（取代了維奧隆"
+"尼（大的中提琴））</li></ul>過去的成員包括維奧隆尼（現在認為是維奧爾琴的一"
+"種）和低音維奧爾琴（大提琴的前身）。倍低音提琴也被認為是成員之一。"
 
 #. name:taishogoto
 #: DB:instrument/description:555
@@ -1294,7 +1291,8 @@ msgstr "墩恩鼓是一類西非柱形鼓。"
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr "電子吹管（EWI，electric wind instrument 的縮寫）是 Akai 的吹管控制器名稱。"
+msgstr ""
+"電子吹管（EWI，electric wind instrument 的縮寫）是 Akai 的吹管控制器名稱。"
 
 #. name:cornet
 #: DB:instrument/description:25
@@ -1310,8 +1308,8 @@ msgid ""
 "a239-8578723db09c\">diatonic accordion</a>, it was similar to the German "
 "concertina and had 4 fold bellows and brass reeds."
 msgstr ""
-"這是<a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">全音階手風"
-"琴</a>的早期前身，它與德國六角手風琴相似，擁有四折風箱和黃銅簧片。"
+"這是<a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">全音階手風琴"
+"</a>的早期前身，它與德國六角手風琴相似，擁有四折風箱和黃銅簧片。"
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -1385,9 +1383,9 @@ msgid ""
 "Not to be confused with \"cembalo\" which is another name for <a href=\"/"
 "instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>."
 msgstr ""
-"這是一種配備不鏽鋼簧片和放大拾音器的機電式鋼琴。請勿與「cembalo」混淆，後者"
-"是<a href=\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">大鍵琴</a>的另"
-"一個名稱。"
+"這是一種配備不鏽鋼簧片和放大拾音器的機電式鋼琴。請勿與「cembalo」混淆，後者是"
+"<a href=\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">大鍵琴</a>的另一"
+"個名稱。"
 
 #. name:tubon
 #: DB:instrument/description:775
@@ -1467,8 +1465,8 @@ msgid ""
 msgstr ""
 "這是一種端吹式的木管笛家族，具有拇指孔和七個指孔，它是西方古典傳統中最常見的"
 "笛類。<br />該家族包括多種不同的尺寸：<br /> <ul> <li>加克萊因直笛（Garklein "
-"Recorder）</li> <li>最高音直笛（Sopranino Recorder）</li> <li>高音直笛（"
-"Soprano Recorder，又稱 Descant）</li> <li>中音直笛（Alto Recorder，又稱 "
+"Recorder）</li> <li>最高音直笛（Sopranino Recorder）</li> <li>高音直笛"
+"（Soprano Recorder，又稱 Descant）</li> <li>中音直笛（Alto Recorder，又稱 "
 "Treble）</li> <li>次中音直笛（Tenor Recorder）</li> <li>低音直笛（Bass "
 "Recorder）</li> <li>大低音直笛（Great Bass Recorder，又稱 C-Bass）</li> <li>"
 "倍低音直笛（Contrabass Recorder）</li> <li>次倍低音直笛（Subcontrabass "
@@ -1563,8 +1561,8 @@ msgid ""
 msgstr ""
 "以小刷子敲擊的巴西框鼓，請參見<a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
 "a03ac232db98\">巴西手鼓</a>。<br /> 舊時法國音調低沉的中音鼓「tambourin」，請"
-"參見<a href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">塔博爾鼓</a>"
-"。<br />"
+"參見<a href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">塔博爾鼓</"
+"a>。<br />"
 
 #. name:cornamuse
 #: DB:instrument/description:510
@@ -1590,9 +1588,9 @@ msgid ""
 "zampona, traditional Andean panpipe has two rows of pipes tied together with "
 "colourful bands."
 msgstr ""
-"義大利風笛，請參見<a href=\"/instrument/7186ac40-8154-49d0-8d24-"
-"33efd8c2a41e\">贊波尼亞風笛</a>。<br />也被稱為贊蓬納（Zampona），是一種安地"
-"斯山脈地區的傳統雙排排笛，兩排管子用彩帶綁在一起。"
+"義大利風笛，請參見<a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">贊波尼亞風笛</a>。<br />也被稱為贊蓬納"
+"（Zampona），是一種安地斯山脈地區的傳統雙排排笛，兩排管子用彩帶綁在一起。"
 
 #. name:chalumeau
 #: DB:instrument/description:436
@@ -1673,11 +1671,11 @@ msgid ""
 "metal, plastic or wood jangle-less frame is strung with nylon and beaten "
 "with brush or stick called Baqueta."
 msgstr ""
-"常見的帶鈴片框鼓，請參見<a href=\"/instrument/4431f7b0-69a4-49ee-b84f-"
-"15dda19fb70c\">鈴鼓</a>。<br /> 舊時法國的中音鼓「tambourin」，請參見<a "
-"href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">塔博爾鼓</a>"
-"。<br /> 用於巴西森巴音樂，其金屬、塑膠或木製的鼓框不帶鈴片，繃上尼龍鼓皮，以"
-"刷子或稱為「baqueta」的鼓棒敲擊。"
+"常見的帶鈴片框鼓，請參見<a href=\"/instrument/4431f7b0-69a4-49ee-"
+"b84f-15dda19fb70c\">鈴鼓</a>。<br /> 舊時法國的中音鼓「tambourin」，請參見<a "
+"href=\"/instrument/2a2dec1a-e7a7-41d6-8b99-316c244a52fd\">塔博爾鼓</a>。<br /"
+"> 用於巴西森巴音樂，其金屬、塑膠或木製的鼓框不帶鈴片，繃上尼龍鼓皮，以刷子或"
+"稱為「baqueta」的鼓棒敲擊。"
 
 #. name:musette de cour
 #: DB:instrument/description:735
@@ -1704,9 +1702,28 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 "在義大利被稱為「flicorno」的樂器，請參見「薩氏號」（Saxhorn）。<br />在西班牙"
-"被稱為「fliscorno」的樂器，請參見<a href=\"/instrument/fd016966-658e-40db-"
-"8fe1-f2235fe1e9a3\">富魯格號</a>。<br /><br />起源於德語系的波爾卡樂團，如今"
-"在加泰隆尼亞的科布拉樂團也有使用。"
+"被稱為「fliscorno」的樂器，請參見<a href=\"/instrument/"
+"fd016966-658e-40db-8fe1-f2235fe1e9a3\">富魯格號</a>。<br /><br />起源於德語系"
+"的波爾卡樂團，如今在加泰隆尼亞的科布拉樂團也有使用。"
+
+#. name:tom-tom
+#: DB:instrument/description:462
+msgid ""
+"For the large cylindrical drum used in samba sometimes known as tom-tom, see "
+"<a href=\"/instrument/1beac43b-c346-4b5a-99fe-8db1236b64d8\">tantã</a>.<br /"
+"> Used primarly in drum-sets, they are large cylindrical bass drums played "
+"with sticks."
+msgstr ""
+
+#. name:surdo
+#: DB:instrument/description:379
+msgid ""
+"For the large floor tom also refered to as surdo, see <a href=\"/instrument/"
+"80eb5b78-b3eb-401a-b774-6a922cfee238\">tom-tom</a>.<br /> With its largest & "
+"deepest pitch, it is used primarily in Brazilian samba school baterias and "
+"military marching bands. Its long double-membraned metal or wood frame can "
+"vary from 30 to 70 cm in diameter."
+msgstr ""
 
 #. name:VM Bhatt's Mohan veena
 #: DB:instrument/description:1212
@@ -1717,9 +1734,9 @@ msgid ""
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
 "有關 Radhika Mohan Maitra 於 1940 年代製作的改良版沙洛琴，請參閱<a href=\"/"
-"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">拉迪卡的莫漢維納琴</a>"
-"。<br />此樂器由夏威夷吉他（Hawaiian guitar）或膝上鋼吉他（lap steel guitar）"
-"改良而成，配有 19 至 21 根琴弦，並在琴頸上加裝葫蘆共鳴箱。"
+"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">拉迪卡的莫漢維納琴</a>。"
+"<br />此樂器由夏威夷吉他（Hawaiian guitar）或膝上鋼吉他（lap steel guitar）改"
+"良而成，配有 19 至 21 根琴弦，並在琴頸上加裝葫蘆共鳴箱。"
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1731,10 +1748,10 @@ msgid ""
 "(like veena) and the fretboard from the sarod."
 msgstr ""
 "關於由 Vishwa Mohan Bhatt 於 1990 年代創製的改良式滑音吉他，請參閱 <a "
-"href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt 的莫漢維納"
-"琴</a>。<br />此樂器由 Radhika Maitra 於 1940 年代以改良式沙洛琴創製，具有木"
-"製共鳴箱面板（類似西塔琴）、額外的琴頸共鳴器（類似維納琴），以及源自沙洛琴的"
-"指板。"
+"href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt 的莫漢維納琴"
+"</a>。<br />此樂器由 Radhika Maitra 於 1940 年代以改良式沙洛琴創製，具有木製"
+"共鳴箱面板（類似西塔琴）、額外的琴頸共鳴器（類似維納琴），以及源自沙洛琴的指"
+"板。"
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1744,9 +1761,9 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
-"關於又稱為 ektar/ektara 的單弦鼓齊特琴，請參閱<a href=\"/instrument/ba30c0de-"
-"373c-44e4-ac28-594c4f316ab0\">高皮昌德</a>。<br />此樂器用於旁遮普民間音樂與"
-"虔敬音樂，具有一根琴弦，橫跨穿過覆有皮膜的小型共鳴箱的長木製琴頸。"
+"關於又稱為 ektar/ektara 的單弦鼓齊特琴，請參閱<a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">高皮昌德</a>。<br />此樂器用於旁遮普民"
+"間音樂與虔敬音樂，具有一根琴弦，橫跨穿過覆有皮膜的小型共鳴箱的長木製琴頸。"
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1775,11 +1792,11 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
-"關於單弦雙支桿鼓齊特琴，請參閱<a href=\"/instrument/ba30c0de-373c-44e4-ac28-"
-"594c4f316ab0\">高皮昌德</a>。<br /> 關於旁遮普單弦魯特琴，請參閱<a href=\"/"
-"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">通比琴</a>。<br /> 此樂器"
-"為 Bhil、Kukna 與 Worli 等部族所使用，具有圓柱形共鳴箱，一根金屬弦穿過共鳴箱"
-"，連接支桿狀琴頸與底部的膜面。"
+"關於單弦雙支桿鼓齊特琴，請參閱<a href=\"/instrument/ba30c0de-373c-44e4-"
+"ac28-594c4f316ab0\">高皮昌德</a>。<br /> 關於旁遮普單弦魯特琴，請參閱<a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">通比琴</a>。<br /> "
+"此樂器為 Bhil、Kukna 與 Worli 等部族所使用，具有圓柱形共鳴箱，一根金屬弦穿過"
+"共鳴箱，連接支桿狀琴頸與底部的膜面。"
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1802,9 +1819,9 @@ msgid ""
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made of goatskin, "
 "it has two chanters and no drones. Its name is a reborrowing of the Italian."
 msgstr ""
-"同名的義大利風笛，請參見<a href=\"/instrument/7186ac40-8154-49d0-8d24-"
-"33efd8c2a41e\">贊波尼亞風笛</a>。<br />由山羊皮製成，有兩個旋律管，沒有持續音"
-"管。名稱是從義大利語重新借用的。"
+"同名的義大利風笛，請參見<a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">贊波尼亞風笛</a>。<br />由山羊皮製成，"
+"有兩個旋律管，沒有持續音管。名稱是從義大利語重新借用的。"
 
 #. name:charumera
 #: DB:instrument/description:1150
@@ -1849,15 +1866,15 @@ msgid ""
 "made of skin and it has one chanter with usually 3 drones, but of these "
 "usually one is real and the others are only decorative."
 msgstr ""
-"伊比薩島上使用的無袋雙管樂器，請參見<a href=\"/instrument/1464f316-aca0-4690-"
-"9115-28805720f846\">reclam de xeremies</a>。<br />拉美雙簧管，請參見<a "
-"href=\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">拉丁雙簧管</a>"
-"。<br />中世紀木管樂器，請參見<a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
-"bae28572ca13\">蕭姆管</a>。<br />加泰隆尼亞的蕭姆管，又稱為 Xaramita 或 "
+"伊比薩島上使用的無袋雙管樂器，請參見<a href=\"/instrument/1464f316-"
+"aca0-4690-9115-28805720f846\">reclam de xeremies</a>。<br />拉美雙簧管，請參"
+"見<a href=\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">拉丁雙簧管</"
+"a>。<br />中世紀木管樂器，請參見<a href=\"/instrument/b4f112c3-d666-47f2-"
+"bb85-bae28572ca13\">蕭姆管</a>。<br />加泰隆尼亞的蕭姆管，又稱為 Xaramita 或 "
 "Xirimita，請參見<a href=\"/instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">"
 "格拉拉管</a>。<br /><br />自中世紀歷史以來曾在伊比利亞群島使用，其風袋由皮製"
-"成，有一個旋律管，通常有3個音管，但其中通常只有一個是真的，其他的只是裝飾性的"
-"。"
+"成，有一個旋律管，通常有3個音管，但其中通常只有一個是真的，其他的只是裝飾性"
+"的。"
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -1868,11 +1885,11 @@ msgid ""
 "abd3-52ba7487c2de\">lyre</a>.<br /> For the bowed lute, see Cretan <a "
 "href=\"/instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">lyra</a>."
 msgstr ""
-"對於同樣叫「里拉」的輪弓樂器，參見<a href=\"/instrument/303d4f1a-f799-4c42-"
-"9bac-dbedd9139e91\">搖弦琴</a>。<br />對於類似於豎琴的樂器，參見<a href=\"/"
-"instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">里拉琴</a>。<br />對於拉弦"
-"魯特琴，參見<a href=\"/instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">克里"
-"特里拉琴</a>。"
+"對於同樣叫「里拉」的輪弓樂器，參見<a href=\"/instrument/303d4f1a-"
+"f799-4c42-9bac-dbedd9139e91\">搖弦琴</a>。<br />對於類似於豎琴的樂器，參見<a "
+"href=\"/instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">里拉琴</a>。<br />"
+"對於拉弦魯特琴，參見<a href=\"/instrument/4fe225a3-6939-4fab-a416-"
+"d0cd38c96cb9\">克里特里拉琴</a>。"
 
 #. name:jeli ngɔni
 #: DB:instrument/description:854
@@ -2240,7 +2257,8 @@ msgstr ""
 msgid ""
 "Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
 "Cretan lyra with the violin."
-msgstr "在1920年由小提琴啟發，希臘製琴師將古克里特里拉琴和小提琴的部件結合起來。"
+msgstr ""
+"在1920年由小提琴啟發，希臘製琴師將古克里特里拉琴和小提琴的部件結合起來。"
 
 #. name:kacapi siter
 #: DB:instrument/description:1000
@@ -2447,8 +2465,8 @@ msgid ""
 "pitched member of the modern violin family and a principal member of the "
 "symphony orchestra."
 msgstr ""
-"又稱倍大提琴或立式貝斯，是現代提琴族最大且音高最低的成員，交響樂團的主要成員"
-"。"
+"又稱倍大提琴或立式貝斯，是現代提琴族最大且音高最低的成員，交響樂團的主要成"
+"員。"
 
 #. name:kacapi indung
 #: DB:instrument/description:1001
@@ -2586,8 +2604,8 @@ msgid ""
 "skin membrane and is hit with a padded mallet. Important in the Jamaican "
 "Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
 msgstr ""
-"大型低音鼓，又稱雷霆或者教皇衝擊者，具有雙層山羊皮鼓皮，用包有墊料的小錘擊打"
-"。在牙買加的布魯音樂和拉斯塔法里運動中起重要作用，屬於尼亞賓吉/阿克特鼓類。"
+"大型低音鼓，又稱雷霆或者教皇衝擊者，具有雙層山羊皮鼓皮，用包有墊料的小錘擊"
+"打。在牙買加的布魯音樂和拉斯塔法里運動中起重要作用，屬於尼亞賓吉/阿克特鼓類。"
 
 #. name:tubular bells
 #: DB:instrument/description:168
@@ -2634,8 +2652,9 @@ msgid ""
 "instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> In Sunda "
 "it is known as kendhang gedé."
 msgstr ""
-"印尼手鼓中最大的，又稱「ageng」，但是仍然比<a href=\"/instrument/9063d25e-"
-"87e4-4adc-81d4-8fdee23bd26f\">貝都格鼓</a>小。<br />在巽他稱 kendhang gedé。"
+"印尼手鼓中最大的，又稱「ageng」，但是仍然比<a href=\"/instrument/"
+"9063d25e-87e4-4adc-81d4-8fdee23bd26f\">貝都格鼓</a>小。<br />在巽他稱 "
+"kendhang gedé。"
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
@@ -2753,7 +2772,8 @@ msgid ""
 "Made of bamboo, it has from 4 to 6 finger-holes and a small wedge-shaped "
 "fipple. There are many varieties all around Southeast Asia, it is also used "
 "in gamelan."
-msgstr "竹製，有4-6個指孔和一個小楔形哨口。在東南亞有多個種類，在甘美朗中也有使用。"
+msgstr ""
+"竹製，有4-6個指孔和一個小楔形哨口。在東南亞有多個種類，在甘美朗中也有使用。"
 
 #. name:bones
 #: DB:instrument/description:357
@@ -2798,7 +2818,8 @@ msgstr "由葫蘆或木材製造，在拉丁美洲音樂中作為刮奏樂器使
 msgid ""
 "Made of hollowed out wood or bamboo, it has incisions or slits as "
 "soundholes. Slit drums are among the most ancient and earliest instruments."
-msgstr "由掏空的木料或竹子製成，具有作為音孔的縫隙或切口。木縫鼓是最古老的樂器之一。"
+msgstr ""
+"由掏空的木料或竹子製成，具有作為音孔的縫隙或切口。木縫鼓是最古老的樂器之一。"
 
 #. name:güira
 #: DB:instrument/description:937
@@ -2818,8 +2839,8 @@ msgid ""
 msgstr ""
 "由多根豎直懸掛、切去部分以發出不同音高的竹管構成。可懸掛演奏，或像木琴一樣置"
 "於竹架上演奏。<br />對於有時被稱為 chalung 或 calung 的峇里銅片琴，參見<a "
-"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">峇里低音銅片琴</a>"
-"。"
+"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">峇里低音銅片琴</"
+"a>。"
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -2889,8 +2910,8 @@ msgid ""
 "hole with a fipple like European flutes but finger holes in the style of the "
 "traditional pōrutu."
 msgstr ""
-"由紐西蘭黑松和紐西蘭馬桑一類木料製成，這種長笛具有橫向吹孔與類似歐洲笛的哨口"
-"，但指孔具有坡魯圖笛的風格。"
+"由紐西蘭黑松和紐西蘭馬桑一類木料製成，這種長笛具有橫向吹孔與類似歐洲笛的哨"
+"口，但指孔具有坡魯圖笛的風格。"
 
 #. name:clapper
 #: DB:instrument/description:904
@@ -3176,6 +3197,73 @@ msgstr ""
 "b12e-a03ac232db98\">巴西手鼓</a>。<br /> 側鼓，通常有一個或多個響圈，由一個人"
 "佩戴並用一隻手敲打，常與塔博爾笛搭配使用。"
 
+#. name:tantã
+#: DB:instrument/description:1224
+msgid ""
+"Not to be confused with the <a href=\"/instrument/80eb5b78-b3eb-401a-"
+"b774-6a922cfee238\">tom-tom</a>.<br /> Used in Brazilian samba, pagode and "
+"bossa nova, its 1 meter long aluminium or wood cylindrical frame is strung "
+"with a single nylon membrane and played with the hands."
+msgstr ""
+
+#. name:pandero
+#: DB:instrument/description:1221
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ae969978-699b-4d87-"
+"a3c2-5057a4a7e941\">pandeiro</a>.<br /> Not to be confused with the <a "
+"href=\"/instrument/05f8be39-84ff-4e95-b3be-519866a21314\">pandeirão</a>.<br /"
+"> For the instrument known as pande(i)reta in Iberian languages, see <a "
+"href=\"/instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>."
+"<br /> For the instrument known as pandeiro in Galicia see <a href=\"/"
+"instrument/20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Known "
+"since the 16th century, it is used in traditional Iberian and Basque music. "
+"Larger than the tambourine, it has no jingles but may occasionally contain "
+"pebbles or seeds."
+msgstr ""
+
+#. name:pandeiro
+#: DB:instrument/description:1220
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/05f8be39-84ff-4e95-b3be-519866a21314\">pandeirão</a>.<br /> For "
+"the instrument known as pande(i)reta in Iberian languages, see <a href=\"/"
+"instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For "
+"the instrument known as pandeiro in Galicia see <a href=\"/instrument/"
+"20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Larger than its "
+"relative the tambourine, it has a wooden frame 25 to 30 cm in diameter, with "
+"a goatskin membrane and different cupped jingles."
+msgstr ""
+
+#. name:pandeirão
+#: DB:instrument/description:1223
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/ae969978-699b-4d87-a3c2-5057a4a7e941\">pandeiro</a>.<br /> For "
+"the instrument known as pande(i)reta in Iberian languages, see <a href=\"/"
+"instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For "
+"the instrument known as pandeiro in Galicia, see <a href=\"/instrument/"
+"20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Used in the Bumba-"
+"meu-boi festival, its large wooden frame has no jingles or tuning pegs and "
+"is strung with goatskin."
+msgstr ""
+
+#. name:adufe
+#: DB:instrument/description:1222
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/ae969978-699b-4d87-a3c2-5057a4a7e941\">pandeiro</a>.<br /> Not to "
+"be confused with the <a href=\"/instrument/05f8be39-84ff-4e95-"
+"b3be-519866a21314\">pandeirão</a>.<br /> For the instrument known as "
+"pande(i)reta in Iberian languages, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> Traditionally "
+"used religiously and in festivals across Iberia, it has a thin pinewood "
+"square frame strung with goatskin, with gut snares and sometimes pebbles or "
+"seeds inside."
+msgstr ""
+
 #. name:bazooka
 #: DB:instrument/description:741
 msgid ""
@@ -3251,10 +3339,11 @@ msgid ""
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
 msgstr ""
-"請勿與傳統風箱驅動的<a href=\"/instrument/e6b016f0-61bf-4c5b-99c4-"
-"8f8724ad12b5\">施魯蒂盒</a>或弦樂器<a href=\"/instrument/a19ae157-702a-40c6-"
-"892f-9bcb97328b7b\">坦普拉琴</a>混淆。<br /> 此電子合成器由 G. Raj Narayan 先"
-"生於 1979 年發明。到了 1990 年代，相關型號已採用錄音取樣技術。"
+"請勿與傳統風箱驅動的<a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">施魯蒂盒</a>或弦樂器<a href=\"/"
+"instrument/a19ae157-702a-40c6-892f-9bcb97328b7b\">坦普拉琴</a>混淆。<br /> 此"
+"電子合成器由 G. Raj Narayan 先生於 1979 年發明。到了 1990 年代，相關型號已採"
+"用錄音取樣技術。"
 
 #. name:khamak
 #: DB:instrument/description:1215
@@ -3270,8 +3359,8 @@ msgid ""
 msgstr ""
 "請勿與雙叉式的<a href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">高"
 "皮昌德</a>、概念相似的<a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
-"ca5725b2b9f4\">吞圖納鼓</a>、類似 dotara 的 tokari 或 pulluvan kudam 混淆"
-"。<br />此樂器用於孟加拉、奧迪沙及印度東北部的民間音樂，其共鳴箱為鼓狀木製圓"
+"ca5725b2b9f4\">吞圖納鼓</a>、類似 dotara 的 tokari 或 pulluvan kudam 混淆。"
+"<br />此樂器用於孟加拉、奧迪沙及印度東北部的民間音樂，其共鳴箱為鼓狀木製圓"
 "筒，一端覆有膜面並夾於手臂下方；連接於膜面的是一根單弦，以撥片彈奏。它有許多"
 "不同的名稱。"
 
@@ -3295,14 +3384,14 @@ msgid ""
 msgstr ""
 "請勿與 zummara 或其他名稱相似的雙管單簧管混淆。<br /> 對於1880年創造的多孔自"
 "由簧，請參見 Martinshorn。<br /> 對於名稱相似的單簧木管樂器，請參見<a "
-"href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">夏呂莫管</a>"
-"。<br /> 對於從葡萄牙語命名的日本後裔，請參見<a href=\"/instrument/07b91470-"
+"href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">夏呂莫管</a>。<br /"
+"> 對於從葡萄牙語命名的日本後裔，請參見<a href=\"/instrument/07b91470-"
 "b63e-41e4-88e6-11c4acac064f\">日本嗩吶</a>。<br /> 對於加泰隆尼亞的蕭姆管，請"
 "參見<a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">迪勒雙簧管</"
-"a>。<br /> 對於義大利的 ciaramella，請參見<a href=\"/instrument/814816db-"
-"3368-4889-a8cd-aa34bd1043f0\">皮費洛笛</a>。<br /> 對於風笛，請參見<a "
-"href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\">xeremies</a>"
-"。<br /><br /> 歐洲中世紀和文藝復興時期的圓錐形雙簧木管樂器，有兩種類型演變而"
+"a>。<br /> 對於義大利的 ciaramella，請參見<a href=\"/instrument/"
+"814816db-3368-4889-a8cd-aa34bd1043f0\">皮費洛笛</a>。<br /> 對於風笛，請參見"
+"<a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\">xeremies</a>。"
+"<br /><br /> 歐洲中世紀和文藝復興時期的圓錐形雙簧木管樂器，有兩種類型演變而"
 "來；一種來自中東樂器，另一種來自風笛的旋律管。兩者的結合用於發展現代雙簧管。"
 
 #. name:oboe
@@ -3597,7 +3686,8 @@ msgstr ""
 msgid ""
 "Particular type of fiddle, long neck, often few strings and usually with a "
 "rather small soundbox, it has a spike at the end."
-msgstr "拉弦樂器的特定種類，琴桿長，弦數通常不多，共鳴箱通常相當小，末端有一尖刺。"
+msgstr ""
+"拉弦樂器的特定種類，琴桿長，弦數通常不多，共鳴箱通常相當小，末端有一尖刺。"
 
 #. name:ti bwa
 #: DB:instrument/description:332
@@ -3704,8 +3794,8 @@ msgid ""
 "Please help move wrongly credited relationships from this, most if not "
 "almost all should probably just be \"guitar\" with credit (guitars)."
 msgstr ""
-"請協助將錯誤署名至此的關聯移走；其中大多數（若非幾乎全部）應該直接使用「吉他"
-"」並署名為 guitars。"
+"請協助將錯誤署名至此的關聯移走；其中大多數（若非幾乎全部）應該直接使用「吉"
+"他」並署名為 guitars。"
 
 #. name:viol family
 #: DB:instrument/description:899
@@ -3718,8 +3808,8 @@ msgid ""
 msgstr ""
 "對於「維奧爾琴」一詞使用的一般/未指定情況，請使用<a href=\"/instrument/"
 "be34e4e5-6e77-46f5-ab56-c9641d3da213\">古大提琴</a>，而非此樂器。在15世紀由開"
-"始使用弓的比維拉琴演奏者發展出來，維奧爾琴具有品，平面狀的琴背、斜坡狀的琴肩"
-"、C形的音孔，以及四度調音。"
+"始使用弓的比維拉琴演奏者發展出來，維奧爾琴具有品，平面狀的琴背、斜坡狀的琴"
+"肩、C形的音孔，以及四度調音。"
 
 #. name:mouth harp
 #: DB:instrument/description:80
@@ -3757,8 +3847,8 @@ msgid ""
 "257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
 "在1500年至1650年期間流行，也被稱為 zink，八角形管身，有七個指孔如笛，但吹口如"
-"小號。<br /> 對於現代的銅管樂器，請參見<a href=\"/instrument/257dad59-02e6-"
-"47d9-958a-659843737827\">短號</a>。"
+"小號。<br /> 對於現代的銅管樂器，請參見<a href=\"/instrument/"
+"257dad59-02e6-47d9-958a-659843737827\">短號</a>。"
 
 #. name:claviorganum
 #: DB:instrument/description:912
@@ -4016,7 +4106,8 @@ msgstr ""
 msgid ""
 "Shaken idiophone or rattle. Sound is produced by moving or shaking, usually "
 "contains small concussing parts."
-msgstr "搖奏體鳴樂器或稱搖響器。藉由移動或搖晃發聲，通常內含會相互碰撞的小零件。"
+msgstr ""
+"搖奏體鳴樂器或稱搖響器。藉由移動或搖晃發聲，通常內含會相互碰撞的小零件。"
 
 #. name:Otamatone
 #: DB:instrument/description:890
@@ -4055,8 +4146,8 @@ msgid ""
 "wooden body with button accordion like keys which plays the melody and sets "
 "chords."
 msgstr ""
-"類似於日本的大正琴，具有一個拉長的淚珠形木製琴身，以及類似按鈕式手風琴的按鍵"
-"，用於演奏旋律和設定和弦。"
+"類似於日本的大正琴，具有一個拉長的淚珠形木製琴身，以及類似按鈕式手風琴的按"
+"鍵，用於演奏旋律和設定和弦。"
 
 #. name:nadaswaram
 #: DB:instrument/description:738
@@ -4075,7 +4166,8 @@ msgstr ""
 msgid ""
 "Simple six-holed fipple flute, originally made of metal; it used to cost a "
 "penny, giving it the alternate name “penny whistle”."
-msgstr "簡單的六孔哨口笛，最初由金屬製成；曾經只需一便士，因此有「便士笛」的別名。"
+msgstr ""
+"簡單的六孔哨口笛，最初由金屬製成；曾經只需一便士，因此有「便士笛」的別名。"
 
 #. name:whistle
 #: DB:instrument/description:274
@@ -4122,7 +4214,8 @@ msgstr ""
 msgid ""
 "Sixteenth century predecessor of the violoncello, it was fretless with f-"
 "holes and had at first three, then later four, strings tuned in fifths."
-msgstr "大提琴在十六世紀的前身，無品，具有F形音孔和最初三根，後來四根弦，按五度調音。"
+msgstr ""
+"大提琴在十六世紀的前身，無品，具有F形音孔和最初三根，後來四根弦，按五度調音。"
 
 #. name:slide brass instruments
 #: DB:instrument/description:202
@@ -4187,7 +4280,8 @@ msgstr ""
 msgid ""
 "Small fretted hybrid instrument with a banjo body and a ukulele neck, "
 "popular in the 1920-30."
-msgstr "小型有品混合樂器，具有班究琴的琴身和烏克麗麗的琴頸，在1920至30年間流行。"
+msgstr ""
+"小型有品混合樂器，具有班究琴的琴身和烏克麗麗的琴頸，在1920至30年間流行。"
 
 #. name:piano spinet
 #: DB:instrument/description:798
@@ -4263,8 +4357,8 @@ msgid ""
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
 "由實心金屬棒（通常為鋁製）懸掛於橫桿上組成，並調校為非諧和音高。<br /> 請勿與"
-"獨立式、類似鐘琴的<a href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-"
-"83e17bde9816\">鐘音條</a>混淆。"
+"獨立式、類似鐘琴的<a href=\"/instrument/ddc0d7a5-cadb-4598-"
+"ac8d-83e17bde9816\">鐘音條</a>混淆。"
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4278,7 +4372,8 @@ msgstr "索皮卡笛（一般）指的是烏克蘭傳統音樂中使用的一種
 msgid ""
 "Sound chip from various video game consoles, computers and similar, used for "
 "music, chiefly in bitunes and chiptunes."
-msgstr "遊戲機、電腦和類似裝置上使用的音效晶片，主要用於 8 位元音樂和晶片音樂。"
+msgstr ""
+"遊戲機、電腦和類似裝置上使用的音效晶片，主要用於 8 位元音樂和晶片音樂。"
 
 #. name:sitar
 #: DB:instrument/description:88
@@ -4431,7 +4526,8 @@ msgstr "瑞士手風琴是瑞士民間音樂中使用的自然音階按鈕手風
 msgid ""
 "The Vietnamese guitar is similar to a normal guitar, but with scalloped "
 "fingerboard resulting in elevated frets similar to the đàn nguyệt."
-msgstr "越南吉他類似於普通吉他，但是指板呈扇貝狀凹陷，使得品像越南月琴一樣抬升。"
+msgstr ""
+"越南吉他類似於普通吉他，但是指板呈扇貝狀凹陷，使得品像越南月琴一樣抬升。"
 
 #. name:Wurlitzer electric piano
 #: DB:instrument/description:468
@@ -4687,8 +4783,8 @@ msgid ""
 "The frame is usually made of hardwood with many metal ringlets attached and "
 "the membrane is usually goatskin."
 msgstr ""
-"達夫鼓是用於流行和古典音樂的大型波斯框鼓。鼓框通常為硬木製，附有許多小金屬圈"
-"，鼓皮通常是山羊皮。"
+"達夫鼓是用於流行和古典音樂的大型波斯框鼓。鼓框通常為硬木製，附有許多小金屬"
+"圈，鼓皮通常是山羊皮。"
 
 #. name:cizhonghu
 #: DB:instrument/description:218
@@ -4858,8 +4954,8 @@ msgid ""
 "viol</a>."
 msgstr ""
 "維奧爾琴族的一般成員，用於「維奧爾琴」一詞出現的場合，多數情況下古大提琴指的"
-"是<a href=\"https://beta.musicbrainz.org/instrument/7cbd040f-6217-48d0-ac43-"
-"3e8ecb4b4b0b/\">低音維奧爾琴</a>。"
+"是<a href=\"https://beta.musicbrainz.org/instrument/7cbd040f-6217-48d0-"
+"ac43-3e8ecb4b4b0b/\">低音維奧爾琴</a>。"
 
 #. name:geomungo
 #: DB:instrument/description:76
@@ -4905,8 +5001,8 @@ msgid ""
 "The guzheng or zheng is a Chinese plucked zither, with 18 to 23 or more "
 "strings and movable bridges."
 msgstr ""
-"古箏，或稱箏，是中國的彈撥齊特琴類樂器，有18至23根或更多的弦以及可移動的雁柱"
-"。"
+"古箏，或稱箏，是中國的彈撥齊特琴類樂器，有18至23根或更多的弦以及可移動的雁"
+"柱。"
 
 #. name:harp guitar
 #: DB:instrument/description:681
@@ -5064,7 +5160,8 @@ msgstr "科特霍特管是文藝復興時期流行的木管樂器。"
 msgid ""
 "The koto is a traditional Japanese string instrument with 13 strings that "
 "are strung over 13 movable bridges along the width of the instrument."
-msgstr "日本箏是一種日本傳統弦樂器，有13根弦，架在沿樂器寬度排列的13個可移動的柱上。"
+msgstr ""
+"日本箏是一種日本傳統弦樂器，有13根弦，架在沿樂器寬度排列的13個可移動的柱上。"
 
 #. name:kotsuzumi
 #: DB:instrument/description:557
@@ -5090,8 +5187,8 @@ msgid ""
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
 msgstr ""
-"kèn lá 是越南少數民族苗族使用的樂器，包括一片捲曲並放在口中的樹葉，吹氣時振動"
-"。"
+"kèn lá 是越南少數民族苗族使用的樂器，包括一片捲曲並放在口中的樹葉，吹氣時振"
+"動。"
 
 #. name:kendang wadon
 #: DB:instrument/description:995
@@ -5176,7 +5273,8 @@ msgstr "迷你鋼琴是一種發聲裝置安放在鍵盤下方的鋼琴，以節
 msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
-msgstr "最常見、也最貼近原始設計的一種，其第五根弦比其他弦短，形成不均勻的音高排列。"
+msgstr ""
+"最常見、也最貼近原始設計的一種，其第五根弦比其他弦短，形成不均勻的音高排列。"
 
 #. name:alto saxophone
 #: DB:instrument/description:21
@@ -5196,7 +5294,8 @@ msgid ""
 "The most famous member of the violin family, it is actually the \"small "
 "viol\". Its register is soprano and it's a principal member of the symphony "
 "orchestra."
-msgstr "提琴族最著名的成員，原意「小維奧爾琴」。音域為高音，是交響樂團的主要成員。"
+msgstr ""
+"提琴族最著名的成員，原意「小維奧爾琴」。音域為高音，是交響樂團的主要成員。"
 
 #. name:mridangam
 #: DB:instrument/description:475
@@ -5338,11 +5437,6 @@ msgstr ""
 "泰式低音木琴是一種泰國木琴，由18根以繩子懸掛在船形槽式共鳴箱上的木條組成。與"
 "泰式高音木琴類似，但音高較低。"
 
-#. name:repinique
-#: DB:instrument/description:722
-msgid "The repinique is a cylindrical drum from Brazil."
-msgstr "雷皮尼克鼓是巴西的一種圓柱形鼓。"
-
 #. name:riq
 #: DB:instrument/description:329
 msgid ""
@@ -5399,7 +5493,8 @@ msgstr "泰式三弦提琴是一種三弦泰國拉弦樂器。"
 msgid ""
 "The saw u is a Thai bowed string instrument which has a soundbox made from a "
 "coconut shell with a cowskin resonator."
-msgstr "泰式低音二弦是一種泰國拉弦樂器，有一個椰子殼製的共鳴箱和一個牛皮共鳴器。"
+msgstr ""
+"泰式低音二弦是一種泰國拉弦樂器，有一個椰子殼製的共鳴箱和一個牛皮共鳴器。"
 
 #. name:saz
 #: DB:instrument/description:472
@@ -5472,18 +5567,13 @@ msgstr ""
 msgid ""
 "The spilåpipa is a Swedish fipple flute with eight finger-holes on the top, "
 "but no thumb-holes. It has a modal tuning."
-msgstr "瑞典木笛是一種瑞典的哨口笛，上方有八個指孔，但沒有拇指孔。採用調式調音。"
+msgstr ""
+"瑞典木笛是一種瑞典的哨口笛，上方有八個指孔，但沒有拇指孔。採用調式調音。"
 
 #. name:suka
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
 msgstr "蘇卡琴是波蘭一種曾經失傳的提琴。"
-
-#. name:surdo
-#: DB:instrument/description:379
-msgid ""
-"The surdo is a large bass drum used in Brazilian music, most notably samba."
-msgstr "巴西桶鼓是巴西音樂（尤其是森巴）中使用的一種大型低音鼓。"
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -5523,7 +5613,8 @@ msgstr ""
 msgid ""
 "The taepyeongso is a Korean double reed wind instrument which has a conical "
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
-msgstr "太平簫是朝鮮半島雙簧管樂器，具有錐形木質管身、金屬吹口和杯形金屬喇叭口。"
+msgstr ""
+"太平簫是朝鮮半島雙簧管樂器，具有錐形木質管身、金屬吹口和杯形金屬喇叭口。"
 
 #. name:talharpa
 #: DB:instrument/description:544
@@ -5684,7 +5775,8 @@ msgstr "中胡是一種中國拉弦樂器，由二胡發展而來，調音低四
 msgid ""
 "The đàn nguyệt or đàn kìm is a two-stringed Vietnamese lute with a long neck "
 "and a circular, flat body."
-msgstr "越南月琴，又稱 đàn kìm，是一種二弦越南魯特琴，具有長頸和圓形扁平的琴身。"
+msgstr ""
+"越南月琴，又稱 đàn kìm，是一種二弦越南魯特琴，具有長頸和圓形扁平的琴身。"
 
 #. name:đàn nhị
 #: DB:instrument/description:225
@@ -5694,8 +5786,8 @@ msgid ""
 "strings and the instrument has no frets. This instrument is of Chinese "
 "descent but has relatives all over Asia."
 msgstr ""
-"越南二胡是一種越南弦樂器，具有小型圓柱形琴身，一端蒙有蛇皮。弓穿過兩根弦之間"
-"，為無品樂器。此樂器源自中國，但亞洲各地均有相關樂器。"
+"越南二胡是一種越南弦樂器，具有小型圓柱形琴身，一端蒙有蛇皮。弓穿過兩根弦之"
+"間，為無品樂器。此樂器源自中國，但亞洲各地均有相關樂器。"
 
 #. name:đàn tam
 #: DB:instrument/description:337
@@ -5725,7 +5817,8 @@ msgid ""
 "The đàn tỳ bà is a four-stringed Vietnamese lute with a pear-shaped body. "
 "Like the Chinese pipa from which is derived, it has greatly elevated frets "
 "at the neck."
-msgstr "越南琵琶是一種四弦梨形越南魯特琴。如同其所源自的中國琵琶，琴頸上有很高的品。"
+msgstr ""
+"越南琵琶是一種四弦梨形越南魯特琴。如同其所源自的中國琵琶，琴頸上有很高的品。"
 
 #. name:ģīga
 #: DB:instrument/description:696
@@ -5785,8 +5878,8 @@ msgid ""
 "This is the specific instrument, for other, \"lute-like\" instruments, see "
 "<a href=\"/instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">lute family</a>."
 msgstr ""
-"這是指特定的樂器，對於其他「類魯特」樂器，參見<a href=\"/instrument/1a28f232-"
-"38ee-4293-9f4c-e0daed92b926\">魯特琴族</a>。"
+"這是指特定的樂器，對於其他「類魯特」樂器，參見<a href=\"/instrument/"
+"1a28f232-38ee-4293-9f4c-e0daed92b926\">魯特琴族</a>。"
 
 #. name:akete
 #: DB:instrument/description:747
@@ -5797,10 +5890,11 @@ msgid ""
 "30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly used in Burru and "
 "Nyabinghi musics."
 msgstr ""
-"由三部分組成的鼓組（<a href=\"/instrument/ed1628bd-8541-4874-b8ca-"
-"2cec8b4c5140\">班杜鼓</a>，<a href=\"/instrument/81b68590-5c82-47a3-9790-"
-"1570ca60f711\">豐代鼓</a>和<a href=\"/instrument/30aeef52-3ebf-405e-9baa-"
-"ef6c6f3ef6d5\">凱特鼓</a>），常用於布魯和尼亞賓吉音樂。"
+"由三部分組成的鼓組（<a href=\"/instrument/ed1628bd-8541-4874-"
+"b8ca-2cec8b4c5140\">班杜鼓</a>，<a href=\"/instrument/"
+"81b68590-5c82-47a3-9790-1570ca60f711\">豐代鼓</a>和<a href=\"/instrument/"
+"30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">凱特鼓</a>），常用於布魯和尼亞賓吉音"
+"樂。"
 
 #. name:timpani
 #: DB:instrument/description:167
@@ -5865,7 +5959,8 @@ msgstr ""
 msgid ""
 "Traditionally made of willow, it has four strings and a small, pear-shaped "
 "body. Played with a pick, it has a higher pitch than the pipa."
-msgstr "傳統上由柳木製成，具有四根弦和小的梨形琴身。使用撥子演奏，音高高於琵琶。"
+msgstr ""
+"傳統上由柳木製成，具有四根弦和小的梨形琴身。使用撥子演奏，音高高於琵琶。"
 
 #. name:piva
 #: DB:instrument/description:1197
@@ -5875,9 +5970,9 @@ msgid ""
 "leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
 "holes."
 msgstr ""
-"傳統上與<a href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">皮費洛"
-"笛</a>在民間樂團中演奏，風袋通常由小山羊皮製成，配有2個持續音管：一個低音和一"
-"個次中音，以及一個有7-8個指孔的旋律管。"
+"傳統上與<a href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">皮費洛笛"
+"</a>在民間樂團中演奏，風袋通常由小山羊皮製成，配有2個持續音管：一個低音和一個"
+"次中音，以及一個有7-8個指孔的旋律管。"
 
 #. name:caixa
 #: DB:instrument/description:903
@@ -6124,7 +6219,8 @@ msgid ""
 "Used for elaborate and complex parts, it has thinner but wider metal bars "
 "suspended above resonator rods, it is the middle-pitched member of the "
 "gendèr family."
-msgstr "用於複雜樂段，在共鳴管上方懸有較薄但較寬的金屬鍵，屬於筒排琴族的中音成員。"
+msgstr ""
+"用於複雜樂段，在共鳴管上方懸有較薄但較寬的金屬鍵，屬於筒排琴族的中音成員。"
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
@@ -6178,7 +6274,8 @@ msgstr ""
 msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
-msgstr "用於印度斯坦的德魯帕德音樂，這種雙面桶鼓調音方式類似於由其衍生的塔布拉鼓。"
+msgstr ""
+"用於印度斯坦的德魯帕德音樂，這種雙面桶鼓調音方式類似於由其衍生的塔布拉鼓。"
 
 #. name:tritantri veena
 #: DB:instrument/description:945
@@ -6325,8 +6422,8 @@ msgid ""
 "straight sided drums, both heads same size. </li> </ul>"
 msgstr ""
 "用於多個東南亞國家，鼓身由波羅蜜木或椰木製成，鼓面則為水牛和山羊皮。<br />有2"
-"個主要體系：<br /><ul><li>爪哇/巽他體系有3至4個側面呈弧形且鼓面大小不一的鼓"
-"。</li><li>峇里具有兩對側面為直筒狀的鼓，每一對鼓面大小相同。</li></ul>"
+"個主要體系：<br /><ul><li>爪哇/巽他體系有3至4個側面呈弧形且鼓面大小不一的鼓。"
+"</li><li>峇里具有兩對側面為直筒狀的鼓，每一對鼓面大小相同。</li></ul>"
 
 #. name:tarol
 #: DB:instrument/description:1219
@@ -6365,8 +6462,8 @@ msgid ""
 "which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)."
 msgstr ""
-"用於神聖的儀式中，由金屬或陶製的搖響器主體和搖晃時叮噹作響的金屬圓片構成"
-"。<br/>請勿與西非葫蘆搖響器或圓片搖響器（恩戈索姆巴拉）混淆。"
+"用於神聖的儀式中，由金屬或陶製的搖響器主體和搖晃時叮噹作響的金屬圓片構成。"
+"<br/>請勿與西非葫蘆搖響器或圓片搖響器（恩戈索姆巴拉）混淆。"
 
 #. name:ganzá
 #: DB:instrument/description:644
@@ -6376,6 +6473,14 @@ msgid ""
 msgstr ""
 "用於森巴音樂，是一種金屬或編織材質的小筒，裡面裝有珠子、穀物、小石子或類似物"
 "品。"
+
+#. name:repinique
+#: DB:instrument/description:722
+msgid ""
+"Used in samba schools of Rio de Janeiro and São Paulo baterias, its metal "
+"body is strung with a very tight nylon membrane, traditionally beaten with "
+"one stick and one hand."
+msgstr ""
 
 #. name:saron wayang
 #: DB:instrument/description:1010
@@ -6435,8 +6540,8 @@ msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's "
 "perform creating sound."
 msgstr ""
-"用於唱盤主義（turntablism），黑膠唱片並非單純播放，而是由 DJ 藉以表演創造聲音"
-"。"
+"用於唱盤主義（turntablism），黑膠唱片並非單純播放，而是由 DJ 藉以表演創造聲"
+"音。"
 
 #. name:kepyak
 #: DB:instrument/description:998
@@ -6615,11 +6720,11 @@ msgid ""
 "href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
 "necessary."
 msgstr ""
-"廣泛的類別，透過直接敲擊來演奏，即<a href=\"/instrument/06266b6a-2fb8-4c71-"
-"9894-186edbac5dff\">體鳴樂器</a>和<a href=\"/instrument/3bccb7eb-cbca-42cd-"
-"b0ac-a5e959df7221\">膜鳴樂器</a>（從鼓到木琴）。請盡量以最接近的樂器作為署名"
-"；若找不到更合適的，則以打擊樂加上署名，並在必要時<a href=\"/doc/"
-"How_to_Add_Instruments\">建立樂器請求</a>。"
+"廣泛的類別，透過直接敲擊來演奏，即<a href=\"/instrument/"
+"06266b6a-2fb8-4c71-9894-186edbac5dff\">體鳴樂器</a>和<a href=\"/instrument/"
+"3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">膜鳴樂器</a>（從鼓到木琴）。請盡量以最"
+"接近的樂器作為署名；若找不到更合適的，則以打擊樂加上署名，並在必要時<a "
+"href=\"/doc/How_to_Add_Instruments\">建立樂器請求</a>。"
 
 #. name:violone
 #: DB:instrument/description:420
@@ -6648,7 +6753,8 @@ msgstr "西洋音樂會長笛是長笛最常見的種類，常簡稱為「長笛
 msgid ""
 "While also known as English horn, it is neither a horn nor English, but a "
 "transposing member of the oboe family, pitched at F."
-msgstr "儘管叫英國管，但是既非號角也非英國樂器，而是雙簧管族的移調成員，定為F調。"
+msgstr ""
+"儘管叫英國管，但是既非號角也非英國樂器，而是雙簧管族的移調成員，定為F調。"
 
 #. name:viola d'amore
 #: DB:instrument/description:94
@@ -6704,8 +6810,8 @@ msgid ""
 "cone-shaped with cow/pigskin nailed to the larger convex end which has a "
 "small hole (guxin)."
 msgstr ""
-"廣泛用於民間音樂、戲曲和樂團中，可以是圓形或錐形，較大的凸面一側釘有牛皮/豬皮"
-"，帶一小孔（鼓心）。"
+"廣泛用於民間音樂、戲曲和樂團中，可以是圓形或錐形，較大的凸面一側釘有牛皮/豬"
+"皮，帶一小孔（鼓心）。"
 
 #. name:wind synthesizer
 #: DB:instrument/description:560
@@ -6721,8 +6827,8 @@ msgid ""
 "and 1-2 drones, it was attested at least from the 14th century. It survived "
 "in coastal regions until its recent revival."
 msgstr ""
-"風袋由海豹胃製成，旋律管為刺柏、松木或白蠟木製，有5–6個孔，另有1–2個持續音管"
-"，至少可追溯至14世紀。它在沿海地區留存下來，直到近年復興。"
+"風袋由海豹胃製成，旋律管為刺柏、松木或白蠟木製，有5–6個孔，另有1–2個持續音"
+"管，至少可追溯至14世紀。它在沿海地區留存下來，直到近年復興。"
 
 #. name:rebec
 #: DB:instrument/description:206
@@ -6775,6 +6881,20 @@ msgstr "saó ôi（芒族笛）"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly "
+#~ "found in a standard drum set."
+#~ msgstr ""
+#~ "筒鼓（或簡稱 tom）是不帶響弦的圓柱形鼓，通常在標準爵士鼓中可以找到。"
+
+#~ msgid "The repinique is a cylindrical drum from Brazil."
+#~ msgstr "雷皮尼克鼓是巴西的一種圓柱形鼓。"
+
+#~ msgid ""
+#~ "The surdo is a large bass drum used in Brazilian music, most notably "
+#~ "samba."
+#~ msgstr "巴西桶鼓是巴西音樂（尤其是森巴）中使用的一種大型低音鼓。"
 
 #~ msgid "The tamborim is a small frame drum from Brazil."
 #~ msgstr "巴西手鼓是巴西一種小型手鼓。"

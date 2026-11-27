@@ -8,8 +8,8 @@ msgstr ""
 "PO-Revision-Date: 2026-09-20 19:14+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
-"\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
+">\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1041,6 +1041,17 @@ msgid ""
 "when the place is unknown!"
 msgstr "將發行品連結到刻紋工作所在地區。僅在具體地點未知時使用！"
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr "將發行品連結到刻紋工作所在地區。僅在具體地點未知時使用！"
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1120,6 +1131,13 @@ msgstr "將發行品連結到玻璃母盤處理工作所在地點。這和母帶
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "將發行品連結到刻紋工作所在地點。"
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "將發行品連結到刻紋工作所在地點。"
 
 #. name:launch event
@@ -2978,6 +2996,19 @@ msgstr "表示某個作品啟發了這個發行組的名稱。"
 msgid "This indicates the work that inspired this work's name."
 msgstr "表示某個作品啟發了這個作品的名稱。"
 
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific artist. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"表示該作品獻給某位特定的創作者。最常見於古典作品，但在其他流派中也或多或少存"
+"在。"
+
 #. name:podcast feed
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -4537,11 +4568,11 @@ msgid ""
 "for release groups</a>."
 msgstr ""
 "這個關聯已被棄用，因為幾乎總是被誤用。要指定此發行品上的錄音包含從電影、節目"
-"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取樣"
-"，請在註解中指出。\n"
+"或遊戲中取樣的內容，請使用錄音 - 網址關聯。如果您不知道使用了哪些錄音作為取"
+"樣，請在註解中指出。\n"
 "<br/><br/>\n"
-"要說明該發行品是原聲帶，請使用<a href=\"/relationship/85b0a010-3237-47c7-"
-"8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
+"要說明該發行品是原聲帶，請使用<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">發行組的 IMDb 關聯類型</a>。"
 
 #. name:publishing
 #: DB:link_type/description:206
@@ -6020,6 +6051,13 @@ msgstr "選曲者"
 #: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "作曲於"
+
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "composer"
+msgid "composed for"
+msgstr "作曲者"
 
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
@@ -8745,6 +8783,33 @@ msgstr "圖片"
 msgid "picture of"
 msgstr "圖片，關於"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated  in"
+msgstr "印刷於"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "related to"
+msgid "plated at"
+msgstr "相關"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated in"
+msgstr "印刷於"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "printing location for"
+msgid "plating location for"
+msgstr "印刷地點"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -10251,6 +10316,13 @@ msgstr "擔任錄音工程師於"
 msgid "works as an engineer at"
 msgstr "擔任工程師於"
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+#, fuzzy
+#| msgid "is named after artist"
+msgid "works composed for artist"
+msgstr "以創作者命名"
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -11379,6 +11451,13 @@ msgstr "{entity1} 為 {entity0} 編曲"
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} 曾於 {entity0} 提供"
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1} 為 {entity0} 混音"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
@@ -11428,6 +11507,20 @@ msgstr "{entity1} 為 {entity0} 進行母帶後製"
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr "{entity1} 為 {entity0} 混音"
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1} 於 {entity0} 舉行"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1} 印刷於 {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

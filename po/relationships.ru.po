@@ -1173,6 +1173,19 @@ msgstr ""
 "Указывает на область, где была произведена лаковая травка релиза. "
 "Используйте только в тех случаях, когда конкретное место неизвестно!"
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"Указывает на область, где была произведена лаковая травка релиза. "
+"Используйте только в тех случаях, когда конкретное место неизвестно!"
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1258,6 +1271,13 @@ msgstr ""
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "Связывает релиз с местом, где была произведена его лаковая травка."
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "Связывает релиз с местом, где была произведена его лаковая травка."
 
 #. name:launch event
@@ -3315,6 +3335,20 @@ msgstr "Указывает на работу, которая вдохновил�
 #: DB:link_type/description:1278
 msgid "This indicates the work that inspired this work's name."
 msgstr "Указывает на работу, которая вдохновила имя этой работы."
+
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific artist. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"Указывает, что работа посвящена определенному исполнителю. Это наиболее "
+"характерно для классических произведений, но в той или иной степени "
+"встречается и в других жанрах."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6380,6 +6414,13 @@ msgstr ""
 msgid "composed at"
 msgstr "место композиции"
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "composer"
+msgid "composed for"
+msgstr "композитор"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr "место композиции"
@@ -9113,6 +9154,33 @@ msgstr "фотография"
 msgid "picture of"
 msgstr "фотография для"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "translated in"
+msgid "plated  in"
+msgstr "переведено на"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "related to"
+msgid "plated at"
+msgstr "имеет связи с"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "translated in"
+msgid "plated in"
+msgstr "переведено на"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "printing location for"
+msgid "plating location for"
+msgstr "место печати для"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -10624,6 +10692,13 @@ msgstr "работает звукорежиссером"
 msgid "works as an engineer at"
 msgstr "работает техником"
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+#, fuzzy
+#| msgid "is named after artist"
+msgid "works composed for artist"
+msgstr "назван в честь исполнителя"
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -11781,6 +11856,13 @@ msgstr "{entity1} было организовано для {entity0}"
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} было доступно в {entity0}"
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1} был миксован для {entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
@@ -11830,6 +11912,20 @@ msgstr "{entity1} был отмастерён для {entity0}"
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr "{entity1} был миксован для {entity0}"
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1} проводилось на {entity0}"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1} был напечатан в {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

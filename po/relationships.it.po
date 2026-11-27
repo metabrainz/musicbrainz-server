@@ -1175,6 +1175,19 @@ msgstr ""
 "Collega una pubblicazione all'area in cui è stata effettuata l'incisione "
 "della lacca o acetato. Da usare solo quando il posto è sconosciuto!"
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"Collega una pubblicazione all'area in cui è stata effettuata l'incisione "
+"della lacca o acetato. Da usare solo quando il posto è sconosciuto!"
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1261,6 +1274,15 @@ msgstr ""
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr ""
+"Collega una pubblicazione al posto in cui è stata effettuata l'incisione "
+"della lacca o acetato."
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr ""
 "Collega una pubblicazione al posto in cui è stata effettuata l'incisione "
 "della lacca o acetato."
@@ -3406,6 +3428,19 @@ msgstr ""
 #: DB:link_type/description:1278
 msgid "This indicates the work that inspired this work's name."
 msgstr "Indica l'opera che ha ispirato il nome di quest'opera."
+
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific artist. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"Indica che l'opera è dedicata a un artista specifico. Ciò è più comune per "
+"opere di musica classica, ma talvolta può avvenire anche in altri generi."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6812,6 +6847,13 @@ msgstr "compilatore"
 msgid "composed at"
 msgstr "composta presso"
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "composer"
+msgid "composed for"
+msgstr "compositore"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr "composta a"
@@ -9548,6 +9590,33 @@ msgstr "foto"
 msgid "picture of"
 msgstr "foto di"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated  in"
+msgstr "stampata a"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "related to"
+msgid "plated at"
+msgstr "imparentato con"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated in"
+msgstr "stampata a"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "printing location for"
+msgid "plating location for"
+msgstr "luogo di stampa per"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -11059,6 +11128,13 @@ msgstr "lavora come tecnico di registrazione presso"
 msgid "works as an engineer at"
 msgstr "lavora come tecnico presso"
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+#, fuzzy
+#| msgid "is named after artist"
+msgid "works composed for artist"
+msgstr "prende il nome dall'artista"
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -12260,6 +12336,13 @@ msgstr "{entity1} è stata arrangiata per {entity0}"
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} è stata disponibile su {entity0}"
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1} è stata mixata per {entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
@@ -12309,6 +12392,20 @@ msgstr "{entity1} è stata masterizzata per {entity0}"
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr "{entity1} è stata mixata per {entity0}"
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1} si è tenuto presso {entity0}"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1} è stata stampata a {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

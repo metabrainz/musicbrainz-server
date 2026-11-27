@@ -1158,6 +1158,19 @@ msgstr ""
 "Susieja leidinį su teritorija, kurioje buvo pjaunamas lakas. Naudoti tik "
 "tada, kai vieta nežinoma."
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"Susieja leidinį su teritorija, kurioje buvo pjaunamas lakas. Naudoti tik "
+"tada, kai vieta nežinoma."
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1245,6 +1258,13 @@ msgstr ""
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "Susieja leidinį su vieta, kurioje buvo pjaustomas lakas."
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "Susieja leidinį su vieta, kurioje buvo pjaustomas lakas."
 
 #. name:launch event
@@ -3332,6 +3352,21 @@ msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 #| msgid "This indicates the artist was the owner of this label."
 msgid "This indicates the work that inspired this work's name."
 msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
+
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates that (most commonly) a festival commissioned the work. "
+#| "This is most common for classical works, but also exists in other genres "
+#| "to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"Tai nurodo, kad (dažniausiai) kūrinį užsakė festivalis. Tai dažniausiai "
+"pasitaiko klasikinės muzikos kūriniams, bet tam tikra prasme pasitaiko ir "
+"kituose žanruose."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6236,6 +6271,13 @@ msgstr ""
 msgid "composed at"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "poster for"
+msgid "composed for"
+msgstr "plakatas, skirtas"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr ""
@@ -9019,6 +9061,33 @@ msgstr "nuotrauka"
 msgid "picture of"
 msgstr "nuotrauka"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "edited in"
+msgid "plated  in"
+msgstr "redaguota teritorijoje"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "related to"
+msgid "plated at"
+msgstr "susiję su"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "edited in"
+msgid "plated in"
+msgstr "redaguota teritorijoje"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "glass mastering location for"
+msgid "plating location for"
+msgstr "stiklo meistravimo vieta"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -10548,6 +10617,13 @@ msgstr ""
 msgid "works as an engineer at"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+#, fuzzy
+#| msgid "named after"
+msgid "works composed for artist"
+msgstr "pavadintas pagal"
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -11720,6 +11796,13 @@ msgstr ""
 msgid "{entity1} was available at {entity0}"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} is headquartered in {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1} būstinė yra {entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 #, fuzzy
@@ -11771,6 +11854,20 @@ msgstr ""
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr ""
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} is headquartered in {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1} būstinė yra {entity0}"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} is headquartered in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1} būstinė yra {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

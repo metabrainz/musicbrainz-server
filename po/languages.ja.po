@@ -672,6 +672,11 @@ msgstr "オランダ語"
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "中世オランダ語（1050年頃 - 1350年頃）"
 
+#. frequency:1 iso_code_3:dws
+#: DB:language/name:2141
+msgid "Dutton World Speedwords"
+msgstr ""
+
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
 msgid "Dyula"
@@ -1124,6 +1129,13 @@ msgstr "イングーシ語"
 msgid "Innu"
 msgstr "モンタニェ語"
 
+#. frequency:1 iso_code_3:igs
+#: DB:language/name:2859
+#, fuzzy
+#| msgid "Interlingua"
+msgid "Interglossa"
+msgstr "インターリングア"
+
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
 msgid "Interlingua"
@@ -1381,6 +1393,11 @@ msgstr "朝鮮文字"
 msgid "Kosraean"
 msgstr "コスラエ語"
 
+#. frequency:1 iso_code_3:avk
+#: DB:language/name:909
+msgid "Kotava"
+msgstr ""
+
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
@@ -1495,6 +1512,11 @@ msgstr "リンブルフ語"
 #: DB:language/name:242
 msgid "Lingala"
 msgstr "リンガラ語"
+
+#. frequency:1 iso_code_3:lfn
+#: DB:language/name:3815
+msgid "Lingua Franca Nova"
+msgstr ""
 
 #. frequency:1 iso_code_3:lit
 #: DB:language/name:243
@@ -1895,6 +1917,11 @@ msgstr "ブークモール（ノルウェー語）"
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
 msgstr "ニーノシュク（ノルウェー語）"
+
+#. frequency:1 iso_code_3:nov
+#: DB:language/name:4962
+msgid "Novial"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:311

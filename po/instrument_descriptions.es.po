@@ -375,15 +375,6 @@ msgstr ""
 "Un tar es un instrumento de percusión de un solo parche, del norte de África "
 "y Oriente Medio."
 
-#. name:tom-tom
-#: DB:instrument/description:462
-msgid ""
-"A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
-"in a standard drum set."
-msgstr ""
-"Un tom-tom (o solo tom) es un tambor cilíndrico que no tiene caja, "
-"comúnmente encontrado en una batería estándar."
-
 #. name:tromba marina
 #: DB:instrument/description:698
 msgid ""
@@ -1573,6 +1564,25 @@ msgid ""
 "instrument known in Spain as fliscorno see <a href=\"/instrument/"
 "fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /><br /> "
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
+msgstr ""
+
+#. name:tom-tom
+#: DB:instrument/description:462
+msgid ""
+"For the large cylindrical drum used in samba sometimes known as tom-tom, see "
+"<a href=\"/instrument/1beac43b-c346-4b5a-99fe-8db1236b64d8\">tantã</a>.<br /"
+"> Used primarly in drum-sets, they are large cylindrical bass drums played "
+"with sticks."
+msgstr ""
+
+#. name:surdo
+#: DB:instrument/description:379
+msgid ""
+"For the large floor tom also refered to as surdo, see <a href=\"/instrument/"
+"80eb5b78-b3eb-401a-b774-6a922cfee238\">tom-tom</a>.<br /> With its largest & "
+"deepest pitch, it is used primarily in Brazilian samba school baterias and "
+"military marching bands. Its long double-membraned metal or wood frame can "
+"vary from 30 to 70 cm in diameter."
 msgstr ""
 
 #. name:VM Bhatt's Mohan veena
@@ -2812,6 +2822,73 @@ msgid ""
 "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
+msgstr ""
+
+#. name:tantã
+#: DB:instrument/description:1224
+msgid ""
+"Not to be confused with the <a href=\"/instrument/80eb5b78-b3eb-401a-"
+"b774-6a922cfee238\">tom-tom</a>.<br /> Used in Brazilian samba, pagode and "
+"bossa nova, its 1 meter long aluminium or wood cylindrical frame is strung "
+"with a single nylon membrane and played with the hands."
+msgstr ""
+
+#. name:pandero
+#: DB:instrument/description:1221
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ae969978-699b-4d87-"
+"a3c2-5057a4a7e941\">pandeiro</a>.<br /> Not to be confused with the <a "
+"href=\"/instrument/05f8be39-84ff-4e95-b3be-519866a21314\">pandeirão</a>.<br /"
+"> For the instrument known as pande(i)reta in Iberian languages, see <a "
+"href=\"/instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>."
+"<br /> For the instrument known as pandeiro in Galicia see <a href=\"/"
+"instrument/20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Known "
+"since the 16th century, it is used in traditional Iberian and Basque music. "
+"Larger than the tambourine, it has no jingles but may occasionally contain "
+"pebbles or seeds."
+msgstr ""
+
+#. name:pandeiro
+#: DB:instrument/description:1220
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/05f8be39-84ff-4e95-b3be-519866a21314\">pandeirão</a>.<br /> For "
+"the instrument known as pande(i)reta in Iberian languages, see <a href=\"/"
+"instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For "
+"the instrument known as pandeiro in Galicia see <a href=\"/instrument/"
+"20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Larger than its "
+"relative the tambourine, it has a wooden frame 25 to 30 cm in diameter, with "
+"a goatskin membrane and different cupped jingles."
+msgstr ""
+
+#. name:pandeirão
+#: DB:instrument/description:1223
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/ae969978-699b-4d87-a3c2-5057a4a7e941\">pandeiro</a>.<br /> For "
+"the instrument known as pande(i)reta in Iberian languages, see <a href=\"/"
+"instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> For "
+"the instrument known as pandeiro in Galicia, see <a href=\"/instrument/"
+"20b3884a-738f-4bfd-b4b9-bb942655d0ee\">adufe</a>.<br /> Used in the Bumba-"
+"meu-boi festival, its large wooden frame has no jingles or tuning pegs and "
+"is strung with goatskin."
+msgstr ""
+
+#. name:adufe
+#: DB:instrument/description:1222
+msgid ""
+"Not to be confused with the <a href=\"/instrument/ed222f0e-85bc-4974-a8b7-"
+"a1a6333bc9b0\">pandero</a>.<br /> Not to be confused with the <a href=\"/"
+"instrument/ae969978-699b-4d87-a3c2-5057a4a7e941\">pandeiro</a>.<br /> Not to "
+"be confused with the <a href=\"/instrument/05f8be39-84ff-4e95-"
+"b3be-519866a21314\">pandeirão</a>.<br /> For the instrument known as "
+"pande(i)reta in Iberian languages, see <a href=\"/instrument/"
+"4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tambourine</a>.<br /> Traditionally "
+"used religiously and in festivals across Iberia, it has a thin pinewood "
+"square frame strung with goatskin, with gut snares and sometimes pebbles or "
+"seeds inside."
 msgstr ""
 
 #. name:bazooka
@@ -4722,11 +4799,6 @@ msgid ""
 "ranat ek but lower in pitch."
 msgstr ""
 
-#. name:repinique
-#: DB:instrument/description:722
-msgid "The repinique is a cylindrical drum from Brazil."
-msgstr ""
-
 #. name:riq
 #: DB:instrument/description:329
 msgid ""
@@ -4854,12 +4926,6 @@ msgstr ""
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
 msgstr "La suka es un extinto violín de Polonia."
-
-#. name:surdo
-#: DB:instrument/description:379
-msgid ""
-"The surdo is a large bass drum used in Brazilian music, most notably samba."
-msgstr ""
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -5641,6 +5707,14 @@ msgid ""
 "filled with beads, grains, pebbles or the like."
 msgstr ""
 
+#. name:repinique
+#: DB:instrument/description:722
+msgid ""
+"Used in samba schools of Rio de Janeiro and São Paulo baterias, its metal "
+"body is strung with a very tight nylon membrane, traditionally beaten with "
+"one stick and one hand."
+msgstr ""
+
 #. name:saron wayang
 #: DB:instrument/description:1010
 msgid ""
@@ -5992,6 +6066,13 @@ msgstr "sao oi (flauta de los Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly "
+#~ "found in a standard drum set."
+#~ msgstr ""
+#~ "Un tom-tom (o solo tom) es un tambor cilíndrico que no tiene caja, "
+#~ "comúnmente encontrado en una batería estándar."
 
 #~ msgid ""
 #~ "The samba whistle is a tri-tone whistle used in samba music and other "

@@ -306,6 +306,11 @@ msgstr "גיטרה פרטלס (נטול סריגים) אקוסטית"
 msgid "acoustic guitar"
 msgstr "גיטרה אקוסטית"
 
+#: DB:instrument/name:1222
+msgctxt "Portuguese and Galician square frame drum"
+msgid "adufe"
+msgstr ""
+
 #: DB:instrument/name:65
 msgid "aeolian harp"
 msgstr "נבל אאולי"
@@ -406,7 +411,7 @@ msgstr "אנויל"
 #, fuzzy
 #| msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
 #| msgid "viola da gamba"
-msgctxt "Three-toned samba whistle"
+msgctxt "Brazilian samba three-toned whistle"
 msgid "apito de samba"
 msgstr "כּוֹנֶרֶת בֶּרֶךְ"
 
@@ -3067,6 +3072,23 @@ msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
 msgstr "חליל צד פאן"
 
+#: DB:instrument/name:1220
+msgctxt "Brazilian samba frame drum with jingles"
+msgid "pandeiro"
+msgstr ""
+
+#: DB:instrument/name:1223
+msgctxt "Bódran-like north-Brazilian frame drum"
+msgid "pandeirão"
+msgstr ""
+
+#: DB:instrument/name:1221
+#, fuzzy
+#| msgid "chande"
+msgctxt "Traditional Iberian and Basque frame drum"
+msgid "pandero"
+msgstr "צ'אנדה"
+
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
 msgstr "פאנג גו ליי הו המונג"
@@ -3418,6 +3440,9 @@ msgid "repeater"
 msgstr "מהדר"
 
 #: DB:instrument/name:722
+#, fuzzy
+#| msgid "repinique"
+msgctxt "Brazilian high tuned samba drum"
 msgid "repinique"
 msgstr "רפיניק"
 
@@ -3908,6 +3933,9 @@ msgid "surbahar"
 msgstr "סורבאהר"
 
 #: DB:instrument/name:379
+#, fuzzy
+#| msgid "surdo"
+msgctxt "Brazilian samba large drum"
 msgid "surdo"
 msgstr "סורדו"
 
@@ -4010,7 +4038,7 @@ msgstr "תוף מדבר"
 #: DB:instrument/name:723
 #, fuzzy
 #| msgid "tamborim"
-msgctxt "Brazilian samba framedrum"
+msgctxt "Brazilian samba frame drum"
 msgid "tamborim"
 msgstr "טמבורים"
 
@@ -4040,6 +4068,11 @@ msgstr "פסנתר טנג'נט"
 msgctxt "Indian drone long-necked frettless gourdlute"
 msgid "tanpura"
 msgstr "טאנפורה"
+
+#: DB:instrument/name:1224
+msgctxt "Large Brazilian cylindrical samba drum"
+msgid "tantã"
+msgstr ""
 
 #: DB:instrument/name:781
 msgctxt "Māori traditional instrument ensemble"
@@ -4215,6 +4248,9 @@ msgid "tololoche"
 msgstr "טולולוצ'ה"
 
 #: DB:instrument/name:462
+#, fuzzy
+#| msgid "tom-tom"
+msgctxt "Large bass drums used in drum-kits"
 msgid "tom-tom"
 msgstr "טאם טאם"
 

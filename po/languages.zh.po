@@ -679,6 +679,11 @@ msgstr "荷兰语"
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "中古荷兰语"
 
+#. frequency:1 iso_code_3:dws
+#: DB:language/name:2141
+msgid "Dutton World Speedwords"
+msgstr ""
+
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
 msgid "Dyula"
@@ -1129,6 +1134,13 @@ msgstr "印古什语"
 msgid "Innu"
 msgstr "因纽语"
 
+#. frequency:1 iso_code_3:igs
+#: DB:language/name:2859
+#, fuzzy
+#| msgid "Interlingua"
+msgid "Interglossa"
+msgstr "国际语"
+
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
 msgid "Interlingua"
@@ -1384,6 +1396,11 @@ msgstr "朝鲜文"
 msgid "Kosraean"
 msgstr "科斯拉伊语"
 
+#. frequency:1 iso_code_3:avk
+#: DB:language/name:909
+msgid "Kotava"
+msgstr ""
+
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
@@ -1498,6 +1515,11 @@ msgstr "林堡语"
 #: DB:language/name:242
 msgid "Lingala"
 msgstr "林加拉语"
+
+#. frequency:1 iso_code_3:lfn
+#: DB:language/name:3815
+msgid "Lingua Franca Nova"
+msgstr ""
 
 #. frequency:1 iso_code_3:lit
 #: DB:language/name:243
@@ -1898,6 +1920,11 @@ msgstr "书面挪威语"
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
 msgstr "新挪威语"
+
+#. frequency:1 iso_code_3:nov
+#: DB:language/name:4962
+msgid "Novial"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:311

@@ -1180,6 +1180,19 @@ msgstr ""
 "（アナログ盤の）カッティングが行われたエリアにリンクする。 場所が不明な場合の"
 "み使用！"
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"（アナログ盤の）カッティングが行われたエリアにリンクする。 場所が不明な場合の"
+"み使用！"
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1270,6 +1283,13 @@ msgstr ""
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "(アナログ盤の)カッティングが行われれたリリース場所へリンクする。"
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "(アナログ盤の)カッティングが行われれたリリース場所へリンクする。"
 
 #. name:launch event
@@ -3359,6 +3379,19 @@ msgstr "これは、この場所の名前に影響を与えたアーティスト
 #| msgid "This indicates the work that inspired this artist’s name."
 msgid "This indicates the work that inspired this work's name."
 msgstr "これは、このアーティストの名前に影響を与えた作品を示しています。"
+
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"これは、作品が特定の領域に特化していることを示す。 これはクラシック作品で一般"
+"的ですが、ある程度他のジャンルにも存在する。"
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6694,6 +6727,13 @@ msgstr "編集者"
 msgid "composed at"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "composer"
+msgid "composed for"
+msgstr "作曲者"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr ""
@@ -9465,6 +9505,33 @@ msgstr "画像"
 msgid "picture of"
 msgstr "次の画像"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated  in"
+msgstr "印刷された地域"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "programming"
+msgid "plated at"
+msgstr "プログラミング"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated in"
+msgstr "印刷された地域"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "printing location for"
+msgid "plating location for"
+msgstr "この地域で印刷されたリリース"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -11004,6 +11071,11 @@ msgstr "がレコーディングエンジニアとして仕事した場所は"
 msgid "works as an engineer at"
 msgstr "がエンジニアとして仕事した場所は"
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+msgid "works composed for artist"
+msgstr ""
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -12190,6 +12262,13 @@ msgstr ""
 msgid "{entity1} was available at {entity0}"
 msgstr ""
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1}をミックスしたのは{entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 #, fuzzy
@@ -12241,6 +12320,20 @@ msgstr ""
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr "{entity1}をミックスしたのは{entity0}"
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} was pressed at {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1}は{entity0}でプレスされました"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1}は{entity0}で生産されました"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716

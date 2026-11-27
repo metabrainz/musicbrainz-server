@@ -306,6 +306,11 @@ msgstr "astmetraatideta (krihvideta) akustiline kitarr"
 msgid "acoustic guitar"
 msgstr "akustiline kitarr"
 
+#: DB:instrument/name:1222
+msgctxt "Portuguese and Galician square frame drum"
+msgid "adufe"
+msgstr ""
+
 #: DB:instrument/name:65
 msgid "aeolian harp"
 msgstr "tuulekannel"
@@ -402,7 +407,7 @@ msgstr ""
 #: DB:instrument/name:583
 #, fuzzy
 #| msgid "viola organista"
-msgctxt "Three-toned samba whistle"
+msgctxt "Brazilian samba three-toned whistle"
 msgid "apito de samba"
 msgstr "viola organista"
 
@@ -3012,6 +3017,23 @@ msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
 msgstr ""
 
+#: DB:instrument/name:1220
+msgctxt "Brazilian samba frame drum with jingles"
+msgid "pandeiro"
+msgstr ""
+
+#: DB:instrument/name:1223
+msgctxt "Bódran-like north-Brazilian frame drum"
+msgid "pandeirão"
+msgstr ""
+
+#: DB:instrument/name:1221
+#, fuzzy
+#| msgid "chande"
+msgctxt "Traditional Iberian and Basque frame drum"
+msgid "pandero"
+msgstr "chande"
+
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
 msgstr "pang gu ly hu hmông"
@@ -3359,6 +3381,7 @@ msgid "repeater"
 msgstr ""
 
 #: DB:instrument/name:722
+msgctxt "Brazilian high tuned samba drum"
 msgid "repinique"
 msgstr ""
 
@@ -3846,6 +3869,9 @@ msgid "surbahar"
 msgstr ""
 
 #: DB:instrument/name:379
+#, fuzzy
+#| msgid "surdo"
+msgctxt "Brazilian samba large drum"
 msgid "surdo"
 msgstr "surdo"
 
@@ -3948,7 +3974,7 @@ msgstr "kõnelev trumm"
 #: DB:instrument/name:723
 #, fuzzy
 #| msgid "tambourine"
-msgctxt "Brazilian samba framedrum"
+msgctxt "Brazilian samba frame drum"
 msgid "tamborim"
 msgstr "tamburiin"
 
@@ -3977,6 +4003,11 @@ msgstr "tangentklaver"
 #: DB:instrument/name:829
 msgctxt "Indian drone long-necked frettless gourdlute"
 msgid "tanpura"
+msgstr ""
+
+#: DB:instrument/name:1224
+msgctxt "Large Brazilian cylindrical samba drum"
+msgid "tantã"
 msgstr ""
 
 #: DB:instrument/name:781
@@ -4147,6 +4178,9 @@ msgid "tololoche"
 msgstr ""
 
 #: DB:instrument/name:462
+#, fuzzy
+#| msgid "tom-tom"
+msgctxt "Large bass drums used in drum-kits"
 msgid "tom-tom"
 msgstr "tom-tom"
 

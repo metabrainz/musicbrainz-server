@@ -310,6 +310,11 @@ msgstr "otenauhaton akustinen kitara"
 msgid "acoustic guitar"
 msgstr "akustinen kitara"
 
+#: DB:instrument/name:1222
+msgctxt "Portuguese and Galician square frame drum"
+msgid "adufe"
+msgstr ""
+
 #: DB:instrument/name:65
 msgid "aeolian harp"
 msgstr "tuulikannel"
@@ -409,7 +414,7 @@ msgstr "alasin"
 #: DB:instrument/name:583
 #, fuzzy
 #| msgid "viola organista"
-msgctxt "Three-toned samba whistle"
+msgctxt "Brazilian samba three-toned whistle"
 msgid "apito de samba"
 msgstr "viola organista"
 
@@ -3031,6 +3036,21 @@ msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
 msgstr ""
 
+#: DB:instrument/name:1220
+msgctxt "Brazilian samba frame drum with jingles"
+msgid "pandeiro"
+msgstr ""
+
+#: DB:instrument/name:1223
+msgctxt "Bódran-like north-Brazilian frame drum"
+msgid "pandeirão"
+msgstr ""
+
+#: DB:instrument/name:1221
+msgctxt "Traditional Iberian and Basque frame drum"
+msgid "pandero"
+msgstr ""
+
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
 msgstr ""
@@ -3382,6 +3402,7 @@ msgid "repeater"
 msgstr ""
 
 #: DB:instrument/name:722
+msgctxt "Brazilian high tuned samba drum"
 msgid "repinique"
 msgstr ""
 
@@ -3865,6 +3886,7 @@ msgid "surbahar"
 msgstr ""
 
 #: DB:instrument/name:379
+msgctxt "Brazilian samba large drum"
 msgid "surdo"
 msgstr ""
 
@@ -3965,7 +3987,7 @@ msgstr ""
 #: DB:instrument/name:723
 #, fuzzy
 #| msgid "tambourine"
-msgctxt "Brazilian samba framedrum"
+msgctxt "Brazilian samba frame drum"
 msgid "tamborim"
 msgstr "tamburiini"
 
@@ -3994,6 +4016,11 @@ msgstr ""
 #: DB:instrument/name:829
 msgctxt "Indian drone long-necked frettless gourdlute"
 msgid "tanpura"
+msgstr ""
+
+#: DB:instrument/name:1224
+msgctxt "Large Brazilian cylindrical samba drum"
+msgid "tantã"
 msgstr ""
 
 #: DB:instrument/name:781
@@ -4167,6 +4194,9 @@ msgid "tololoche"
 msgstr ""
 
 #: DB:instrument/name:462
+#, fuzzy
+#| msgid "tom-tom"
+msgctxt "Large bass drums used in drum-kits"
 msgid "tom-tom"
 msgstr "pienet tomit"
 

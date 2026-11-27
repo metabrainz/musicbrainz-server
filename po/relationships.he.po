@@ -1117,6 +1117,18 @@ msgid ""
 msgstr ""
 "קישור ההוצאה לאזור בו בוצעה חיתוך הלכה. נא להשתמש רק כאשר המקום לא ידוע."
 
+#. name:plated in
+#: DB:link_type/description:1314
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area where the lacquer cutting took place. Use "
+#| "only when the place is unknown!"
+msgid ""
+"Links a release to the area where the plating took place. Use only when the "
+"place is unknown!"
+msgstr ""
+"קישור ההוצאה לאזור בו בוצעה חיתוך הלכה. נא להשתמש רק כאשר המקום לא ידוע."
+
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -1202,6 +1214,13 @@ msgstr "קישור ההוצאה למקום בו בוצעה תבנית הזכוכ
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "קישור ההוצאה מקום בו בוצעה חיתוך הלכה."
+
+#. name:plated at
+#: DB:link_type/description:1313
+#, fuzzy
+#| msgid "Links a release to the place where the lacquer cutting took place."
+msgid "Links a release to the place where the plating took place."
 msgstr "קישור ההוצאה מקום בו בוצעה חיתוך הלכה."
 
 #. name:launch event
@@ -3248,6 +3267,19 @@ msgstr "ציון האמן שבהשראתו כונה כך המקום."
 #| msgid "This indicates the work that inspired this artist’s name."
 msgid "This indicates the work that inspired this work's name."
 msgstr "ציון יצירה שבהשראתה כונה כך האמן."
+
+#. name:composed for
+#: DB:link_type/description:1312
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work was originally composed for a specific artist, and "
+"is mostly relevant for classical works."
+msgstr ""
+"ציון שהיצירה מוקדשת לאזור מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, במידה "
+"מסוימת, גם בסוגות אחרות."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6524,6 +6556,13 @@ msgstr "מַהְדֵר"
 msgid "composed at"
 msgstr "הולחן ב־"
 
+#. name:composed for
+#: DB:link_type/name:1312 DB:link_type/reverse_link_phrase:1312
+#, fuzzy
+#| msgid "composer"
+msgid "composed for"
+msgstr "מלחין"
+
 #: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr "הולחן ב־"
@@ -9345,6 +9384,33 @@ msgstr "תמונה"
 msgid "picture of"
 msgstr "תמונה של"
 
+#. name:plated in
+#: DB:link_type/reverse_link_phrase:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated  in"
+msgstr "הודפס ב־"
+
+#. name:plated at
+#: DB:link_type/name:1313 DB:link_type/reverse_link_phrase:1313
+#, fuzzy
+#| msgid "related to"
+msgid "plated at"
+msgstr "קשור ל־"
+
+#: DB:link_type/name:1314
+#, fuzzy
+#| msgid "printed in"
+msgid "plated in"
+msgstr "הודפס ב־"
+
+#. name:plated at, name:plated in
+#: DB:link_type/link_phrase:1313 DB:link_type/link_phrase:1314
+#, fuzzy
+#| msgid "printing location for"
+msgid "plating location for"
+msgstr "אתר הדפסה ל־"
+
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
@@ -10903,6 +10969,13 @@ msgstr "מועסק/ת כמהנדס הקלטה ב־"
 msgid "works as an engineer at"
 msgstr "מועסק/ת כמהנדס ב־"
 
+#. name:composed for
+#: DB:link_type/link_phrase:1312
+#, fuzzy
+#| msgid "is named after"
+msgid "works composed for artist"
+msgstr "קרוי על שם"
+
 #. name:premiere
 #: DB:link_type/link_phrase:956
 msgid "works premiered"
@@ -12081,6 +12154,13 @@ msgstr "{entity1} עובד ל־{entity0}"
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} היה זמין ב־{entity0}"
 
+#. name:composed for
+#: DB:link_type/long_link_phrase:1312
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was composed for {entity0}"
+msgstr "{entity1} עורבל עבור {entity0}"
+
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 #, fuzzy
@@ -12132,6 +12212,20 @@ msgstr ""
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr "{entity1} עורבל עבור {entity0}"
+
+#. name:plated at
+#: DB:link_type/long_link_phrase:1313
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was plated at {entity0}"
+msgstr "{entity1} התקיים ב־{entity0}"
+
+#. name:plated in
+#: DB:link_type/long_link_phrase:1314
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} was plated in {entity0}"
+msgstr "{entity1} הודפס ב־{entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
