@@ -18,22 +18,23 @@
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
+# Akira Holm <apekattquest_monkeypython@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-16 15:10-0500\n"
-"PO-Revision-Date: 2024-07-29 00:42+0000\n"
-"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<monkeypython+inst@yepmail.net>\n"
+"PO-Revision-Date: 2026-11-23 04:13+0000\n"
+"Last-Translator: Akira Holm "
+"<apekattquest_monkeypython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
-"projects/musicbrainz/server/nb_NO/>\n"
+"projects/musicbrainz/server/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -147,32 +148,24 @@ msgid "Accept"
 msgstr "Akseptere"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "IPI kode"
+msgstr "Legg til IPI kode"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "ISNI kode"
+msgstr "Legg til ISNI kode"
 
 #: ../root/recording/edit_form.tt:44
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
-msgstr "Legg til ISRCer"
+msgstr "Legg til ISRC"
 
 #: ../root/work/edit_form.tt:15
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISWC"
-msgstr "Legg til ISRCer"
+msgstr "Legg til ISWC"
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -199,25 +192,19 @@ msgid "Add a new release group"
 msgstr ""
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
-#, fuzzy
-#| msgid "Add area"
 msgctxt "header"
 msgid "Add area"
 msgstr "Legg til område"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Legg til artist"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, header"
 msgid "Add cover art"
-msgstr "Legg til plateomslag"
+msgstr "Legg til omslagsbilde"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
@@ -227,15 +214,11 @@ msgid "Add event art"
 msgstr "Legg til arrangement"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
-#, fuzzy
-#| msgid "Add Instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Legg til instrument"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
-#, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "Legg til plateselskap"
@@ -243,22 +226,16 @@ msgstr "Legg til plateselskap"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
-#, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Legg til plateselskap"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
-#, fuzzy
-#| msgid "Add medium"
 msgctxt "interactive"
 msgid "Add medium"
-msgstr "Legg til medium"
+msgstr "Legg til medie"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
-#, fuzzy
-#| msgid "Add Place"
 msgctxt "header"
 msgid "Add place"
 msgstr "Legg til sted"
@@ -266,38 +243,27 @@ msgstr "Legg til sted"
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:277
 #: ../root/static/scripts/release-editor/init.js:278
-#, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Legg til utgivelse"
 
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "Legg til utgivelsearrangement"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Legg til utgivelsesgruppe"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
-#, fuzzy
-#| msgid "Add Series"
 msgctxt "header, singular"
 msgid "Add series"
-msgstr "Legg til serier"
+msgstr "Legg til serie"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
-#, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "Legg til frittstående innspilling"
@@ -307,19 +273,14 @@ msgid "Add track(s)"
 msgstr ""
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
-#, fuzzy
-#| msgid "Add work"
 msgctxt "header"
 msgid "Add work"
 msgstr "Legg til åndsverk"
 
 #: ../root/work/edit_form.tt:85
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
-msgstr "Legg til åndsverksegenskap"
+msgstr "Legg til åndsverksattributt"
 
 #: ../root/release/edit/tracklist.tt:592
 msgid "Add {num} track(s)"
@@ -421,10 +382,8 @@ msgid "Area"
 msgstr "Område"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "User type:"
 msgid "Area type"
-msgstr "Brukertype:"
+msgstr "Områdetype"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -496,22 +455,16 @@ msgid "Artist"
 msgstr "Artist"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
 msgstr "Artistområde"
 
 #: ../root/artist/edit_form.tt:12
-#, fuzzy
-#| msgid "Alias Details"
 msgid "Artist details"
-msgstr "Detaljer om alias"
+msgstr "Artistdetaljer"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Artist Area"
 msgid "Artist type"
-msgstr "Artistområde"
+msgstr "Artisttype"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -530,14 +483,10 @@ msgid "Attach CD TOC"
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
-#, fuzzy
-#| msgid "Add disc ID"
 msgid "Attach disc ID"
-msgstr "Legg til diskid"
+msgstr "Legg ved disk-ID"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:79
-#, fuzzy
-#| msgid "Auto-editor"
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Autoredaktør"
@@ -675,10 +624,8 @@ msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "Merge release groups"
 msgid "Checking existing release groups…"
-msgstr "Sammenslå utgivelsesgrupper"
+msgstr "Sjekker eksisterende utgivelsesgrupper…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -775,8 +722,6 @@ msgstr "DD"
 #: ../root/medium/tracklist.tt:16 ../root/release/edit/tracklist.tt:526
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
-#, fuzzy
-#| msgid "Data Tracks"
 msgid "Data tracks"
 msgstr "Dataspor"
 
@@ -903,11 +848,9 @@ msgstr "Endre"
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:78
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:38
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
-msgstr "Endre"
+msgstr "Redigere"
 
 #: ../root/release/edit/recordings.tt:73
 #: ../root/account/applications/ApplicationList.js:36
@@ -919,60 +862,44 @@ msgstr "Endre"
 #: ../root/release/CoverArt.js:82
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:531
 #: ../root/user/UserCollections.js:121
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
-msgstr "Endre"
+msgstr "Redigere"
 
 #: ../root/url/edit_form.tt:1
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
-msgstr "Endre URL"
+msgstr "Redigér nettadresse"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #: ../root/artist/EditArtistCredit.js:26
-#, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit artist credit"
-msgstr "Endre artist"
+msgstr "Redigér artistkreditering"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit cover art"
-msgstr "Endre plateomslag"
+msgstr "Endre omslagsbilde"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Endre plateomslag"
+msgstr "Endre arrangementomslagsbilde"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
-#, fuzzy
-#| msgid "Edit area"
 msgctxt "noun"
 msgid "Edit note"
-msgstr "Endre område"
+msgstr "Endringsnotis"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Edit cover art"
 msgid "Edit note authors"
-msgstr "Endre plateomslag"
+msgstr "Hvem skrev endringsmerknaden"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Edit Not Found"
 msgid "Edit note content"
-msgstr "Endring ikke funnet"
+msgstr "Innholdet i endringsmerknad"
 
 #: ../root/components/forms.tt:29
 #: ../root/static/scripts/edit/components/EnterEditNote.js:69
@@ -982,8 +909,6 @@ msgstr ""
 #: ../root/doc/edit_type.tt:18 ../root/doc/EditTypeList.js:35
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
 #: ../root/layout/components/BottomMenu.js:320
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "Endringstyper"
@@ -1001,10 +926,8 @@ msgid "Editor"
 msgstr "Redaktør"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Editor"
 msgid "Editor flag"
-msgstr "Redaktør"
+msgstr "Redaktørens anmerkninger"
 
 #: ../root/release/edit/tracklist.tt:45
 msgid "Enable vinyl track numbers"
@@ -1073,10 +996,8 @@ msgid "Event"
 msgstr "Arrangement"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Event"
 msgid "Event type"
-msgstr "Arrangement"
+msgstr "Arrangementtype"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1090,10 +1011,8 @@ msgid "Existing medium"
 msgstr ""
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgid "Edit release group"
 msgid "Existing release groups with similar names"
-msgstr "Endre utgivelsesgruppe"
+msgstr "Eksisterende utgivelsesgrupper med lignende navn"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -1322,10 +1241,10 @@ msgid "Guess sort name"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr "Jeg bekrefter at dette er strekkoden som vises på utgivelsen."
+msgstr ""
+"Jeg bekrefter at dette er en bevisst bruk av store/små bokstaver på disse "
+"titlene."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
@@ -1340,20 +1259,18 @@ msgid "I confirm this is a correct medium format/packaging combination."
 msgstr "Jeg bekrefter at dette er riktig mediums-format og emballasje-kombo."
 
 #: ../root/release/edit/tracklist.tt:413
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid "I confirm this is an intentional use of Various Artists for tracks."
 msgstr ""
-"Jeg bekrefter at det er meningen å bruke \"diverse artister\" på enkeltspor."
+"Jeg bekrefter at dette er en bevisst bruk av «diverse artister» på "
+"enkeltspor."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid ""
 "I confirm this is an intentional use of featured artists in track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
-"Jeg bekrefter at det er meningen å bruke \"diverse artister\" på enkeltspor."
+"Jeg bekrefter at dette er en bevisst bruk av gjesteartister i sportitlene, "
+"eller at de egentlig ikke er gjesteartister."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1450,10 +1367,6 @@ msgid "If you don’t know the code for this entity, just leave the field blank.
 msgstr "La feltet være blank hvis du ikke vet hva denne sakens kode er."
 
 #: ../root/release/edit/information.tt:515
-#, fuzzy
-#| msgid ""
-#| "If you do not know whether the release has a barcode or not, just leave "
-#| "this blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
@@ -1527,8 +1440,6 @@ msgid "Image not available, please try again later."
 msgstr "Bilde ikke tilgjengelig, vennligst prøv igjen senere."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
-#, fuzzy
-#| msgid "Import CD stub"
 msgctxt "interactive"
 msgid "Import CD stub"
 msgstr "Importér CD stump"
@@ -1550,10 +1461,8 @@ msgid "Instrument"
 msgstr "Instrument"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument type"
-msgstr "Instrumentliste"
+msgstr "Instrumenttype"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1628,10 +1537,8 @@ msgid "Label"
 msgstr "Plateselskap"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Label"
 msgid "Label area"
-msgstr "Plateselskap"
+msgstr "Plateselskapsområde"
 
 #: ../root/label/edit_form.tt:26 ../root/edit/details/AddLabel.js:89
 #: ../root/edit/details/EditLabel.js:81
@@ -1640,16 +1547,12 @@ msgid "Label code"
 msgstr ""
 
 #: ../root/label/edit_form.tt:8
-#, fuzzy
-#| msgid "View details"
 msgid "Label details"
-msgstr "Se detaljene"
+msgstr "Plateselskapsdetaljer"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Label"
 msgid "Label type"
-msgstr "Plateselskap"
+msgstr "Plateselskapstype"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -1699,17 +1602,13 @@ msgid "Lines start with a track number"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:114
-#, fuzzy
-#| msgid "Location"
 msgctxt "user type"
 msgid "Location editor"
-msgstr "Sted"
+msgstr "Stedsredaktør"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
-#, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Logg inn"
@@ -1857,10 +1756,8 @@ msgstr "Navn"
 
 #: ../root/artist/edit_credit.tt:16
 #: ../root/static/scripts/artist/components/EditArtistCreditForm.js:92
-#, fuzzy
-#| msgid "Artist as credited:"
 msgid "New artist credit"
-msgstr "Artist som:"
+msgstr "Ny artistkreditering"
 
 #: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
@@ -1957,10 +1854,8 @@ msgstr "Alternativer"
 #: ../root/series/edit_form.tt:15 ../root/edit/details/AddSeries.js:48
 #: ../root/edit/details/EditSeries.js:62
 #: ../root/layout/components/sidebar/SeriesSidebar.js:59
-#, fuzzy
-#| msgid "User type:"
 msgid "Ordering type"
-msgstr "Brukertype:"
+msgstr "Sorteringstype"
 
 #: ../root/components/common-macros.tt:64
 #: ../root/static/scripts/common/components/Artwork.js:69
@@ -1976,10 +1871,8 @@ msgid "Packaging"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:238
-#, fuzzy
-#| msgid "Data Tracks"
 msgid "Parse tracks"
-msgstr "Dataspor"
+msgstr "Tolk spor"
 
 #: ../root/edit/search_macros.tt:480 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
@@ -1995,16 +1888,12 @@ msgid "Place"
 msgstr "Sted"
 
 #: ../root/place/edit_form.tt:12
-#, fuzzy
-#| msgid "View details"
 msgid "Place details"
-msgstr "Se detaljene"
+msgstr "Stedsdetaljer"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Place"
 msgid "Place type"
-msgstr "Sted"
+msgstr "Stedstype"
 
 #: ../root/edit/search_macros.tt:478
 msgid "Please choose a condition"
@@ -2072,10 +1961,8 @@ msgid "Position"
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:32
-#, fuzzy
-#| msgid "Remove medium"
 msgid "Possible mediums"
-msgstr "Fjern medium"
+msgstr "Mulige medier"
 
 #: ../root/components/paginator.tt:6 ../root/components/paginator.tt:8
 #: ../root/release/edit/macros.tt:52 ../root/components/Paginator.js:65
@@ -2113,10 +2000,8 @@ msgid "Recording"
 msgstr "Innspilling"
 
 #: ../root/recording/edit_form.tt:23
-#, fuzzy
-#| msgid "Recordings"
 msgid "Recording details"
-msgstr "Innspilling"
+msgstr "Opptaksdetaljer"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
@@ -2143,11 +2028,9 @@ msgid "Reject"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
-#, fuzzy
-#| msgid "Relationship"
 msgctxt "user type"
 msgid "Relationship editor"
-msgstr "Relasjon"
+msgstr "Relasjonsredaktør"
 
 #: ../root/edit/search_macros.tt:480
 #: ../root/edit/details/AddRelationshipType.js:48
@@ -2194,22 +2077,16 @@ msgid "Release"
 msgstr "Utgivelse"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "Utgivelsesland"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release data quality"
-msgstr "Utgivelsesland"
+msgstr "Utgivelsesdatakvalitet"
 
 #: ../root/release/edit/layout.tt:14
-#, fuzzy
-#| msgid "Release Group"
 msgid "Release duplicates"
-msgstr "Utgivelsesgruppe"
+msgstr "Duplikater av utgivelsen"
 
 #: ../root/release/edit/information.tt:167
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
@@ -2244,28 +2121,20 @@ msgid "Release group"
 msgstr "Utgivelsesgruppe"
 
 #: ../root/release_group/edit_form.tt:10
-#, fuzzy
-#| msgid "Release group"
 msgid "Release group details"
-msgstr "Utgivelsesgruppe"
+msgstr "Utgivelsesgruppedetaljer"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group"
 msgid "Release group primary type"
-msgstr "Utgivelsesgruppe"
+msgstr "Primærtype for utgivelsesgruppe"
 
 #: ../root/release/edit/information.tt:67
-#, fuzzy
-#| msgid "Release group"
 msgid "Release group search error"
-msgstr "Utgivelsesgruppe"
+msgstr "Søkefeil for utgivelsesgruppe"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group"
 msgid "Release group secondary type"
-msgstr "Utgivelsesgruppe"
+msgstr "Sekundær type utgivelsesgruppe"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2283,10 +2152,8 @@ msgid "Release information"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "(reset language)"
 msgid "Release language"
-msgstr "(tilbakestill språkvalg)"
+msgstr "Ugivelsesspråk"
 
 #: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/AttachCDTocToRelease.js:75
 msgid "Release title or MBID"
@@ -2313,40 +2180,30 @@ msgid "Remove"
 msgstr ""
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "IPI kode"
+msgstr "Fjern IPI kode"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "ISNI kode"
+msgstr "Fjern ISNI kode"
 
 #: ../root/recording/edit_form.tt:44
-#, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Fjern ISRC"
 
 #: ../root/work/edit_form.tt:15
-#, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISWC"
-msgstr "Fjern ISRC"
+msgstr "Fjern ISWC"
 
 #: ../root/work/edit_form.tt:68
 msgid "Remove attribute"
 msgstr ""
 
 #: ../root/release/edit/information.tt:242
-#, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "Fjern plateselskap"
@@ -2356,10 +2213,8 @@ msgid "Remove medium"
 msgstr "Fjern medium"
 
 #: ../root/release/edit/information.tt:202
-#, fuzzy
-#| msgid "Remove release"
 msgid "Remove release event"
-msgstr "Fjern utgivelse"
+msgstr "Fjern utgivelseshendelse"
 
 #: ../root/release/edit/tracklist.tt:227
 msgid "Remove track"
@@ -2367,18 +2222,14 @@ msgstr "Fjern spor"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, header"
 msgid "Reorder cover art"
-msgstr "Fjern plateomslag"
+msgstr "Fjern omslagsbilde"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr "Fjern plateomslag"
+msgstr "Fjern arrangementomslagsbilde"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
@@ -2506,16 +2357,12 @@ msgid "Series"
 msgstr "Serie"
 
 #: ../root/series/edit_form.tt:8
-#, fuzzy
-#| msgid "View details"
 msgid "Series details"
-msgstr "Se detaljene"
+msgstr "Seriedetaljer"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Series"
 msgid "Series type"
-msgstr "Serie"
+msgstr "Serietype"
 
 #: ../root/cdtoc/list.tt:54
 #: ../root/static/scripts/common/components/CDTocEditColumn.js:28
@@ -2580,8 +2427,6 @@ msgstr "Status"
 #: ../root/search/components/ReleaseResults.js:129
 #: ../root/static/scripts/common/components/FilterForm.js:303
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
-#, fuzzy
-#| msgid "Status"
 msgctxt "release"
 msgid "Status"
 msgstr "Status"
@@ -2757,12 +2602,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/edit_form.tt:44
-#, fuzzy
-#| msgid "This artist only has unofficial release groups."
 msgid ""
 "The {doc|artist} should usually match the earliest official release in the "
 "release group."
-msgstr "Denne artisten har bare uoffisielle utgivelsegrupper."
+msgstr ""
+"{doc|Artisten} bør generelt være den samme som den tidligste offisielle "
+"utgivelsen i utgivelsesgruppen."
 
 #: ../root/release/edit/information.tt:507
 msgid ""
@@ -3206,10 +3051,8 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
-#, fuzzy
-#| msgid "Tracks"
 msgid "Track parser"
-msgstr "Spor"
+msgstr "Sportolker"
 
 #: ../root/cdstub/index.tt:7 ../root/release/edit/layout.tt:16
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
@@ -3312,10 +3155,8 @@ msgstr "Type"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Type"
 msgid "Types"
-msgstr "Type"
+msgstr "Typer"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -3489,10 +3330,8 @@ msgid ""
 msgstr ""
 
 #: ../root/work/edit_form.tt:10
-#, fuzzy
-#| msgid "View details"
 msgid "Work details"
-msgstr "Se detaljene"
+msgstr "Åndsverksdetaljer"
 
 #: ../root/edit/search_macros.tt:480 ../root/edit/details/EditWork.js:69
 #: ../root/static/scripts/release/components/WorkTypeSelect.js:51
@@ -3601,11 +3440,9 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
-#, fuzzy
-#| msgid "Remove medium"
 msgctxt "generic entity"
 msgid "[removed]"
-msgstr "Fjern medium"
+msgstr "[fjernet]"
 
 #: ../root/edit/search_macros.tt:194
 msgid "after"
@@ -3647,11 +3484,9 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
-#, fuzzy
-#| msgid "Cancel"
 msgctxt "event"
 msgid "cancelled"
-msgstr "Avbryt"
+msgstr "avbrutt"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
@@ -4203,16 +4038,12 @@ msgid "Too many login attempts. Please try again in a few minutes."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgid "Cancel"
 msgid "Login cancelled."
-msgstr "Avbryt"
+msgstr "Innlogging avbrutt."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:179
-#, fuzzy
-#| msgid "Image not available, please try again later."
 msgid "Login failed. Please try again."
-msgstr "Bilde ikke tilgjengelig, vennligst prøv igjen senere."
+msgstr "Innlogging mislyktes. Prøv på nytt."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4268,12 +4099,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:226
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
-#, fuzzy
-#| msgctxt "medium format"
-#| msgid "(unknown)"
 msgctxt "generic entity"
 msgid "[unknown]"
-msgstr "(ukjent)"
+msgstr "[ukjent]"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
 msgid "The provided relationship type ID is not valid."
@@ -4311,8 +4139,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:297
 #: ../lib/MusicBrainz/Server/Controller/User.pm:312
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
-#, fuzzy
-#| msgid "Send Email"
 msgctxt "header"
 msgid "Send email"
 msgstr "Send e-post"
@@ -4488,123 +4314,89 @@ msgid "({text})"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
-#, fuzzy
-#| msgid "Edit area alias"
 msgctxt "edit type"
 msgid "Add area alias"
-msgstr "Endre områdealias"
+msgstr "Legg til områdealias"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add release annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
-msgstr "Legg til utgivelseanmerkning"
+msgstr "Legg til områdeanmerkning"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
-#, fuzzy
-#| msgid "Add area"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Legg til område"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
-#, fuzzy
-#| msgid "Remove area"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "Fjern område"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove area alias"
-msgstr "Fjern artistalias"
+msgstr "Fjern områdealias"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
-#, fuzzy
-#| msgid "Edit area"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Endre område"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit area alias"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "Endre områdealias"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
-#, fuzzy
-#| msgid "Merge areas"
 msgctxt "edit type"
 msgid "Merge areas"
-msgstr "Flett områder"
+msgstr "Slå sammen områder"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "Legg til artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add artist annotation"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Legg til artistanmerkning"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Legg til artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
-#, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "Fjern artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Fjern artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
-#, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Endre artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "Endre artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
-#, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "Endre artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
-#, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge artists"
-msgstr "Flett artister"
+msgstr "Slå sammen artister"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:72
 #, perl-brace-format
@@ -4623,29 +4415,21 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "Legg til alias"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add release annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
-msgstr "Legg til utgivelseanmerkning"
+msgstr "Legg til arrangementsanmerkning"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
-#, fuzzy
-#| msgid "Add Event"
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "Legg til arrangement"
+msgstr "Legg til arrangementsomslagsbilde"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
-#, fuzzy
-#| msgid "Add Event"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Legg til arrangement"
@@ -5311,39 +5095,29 @@ msgid "Remove release alias"
 msgstr "Fjern utgivelse"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
-#, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release label"
-msgstr "Fjern utgivelse"
+msgstr "Fjern utgivelsens plateselskap"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit area alias"
 msgctxt "edit type"
 msgid "Edit release alias"
-msgstr "Endre områdealias"
+msgstr "Endre utgivelsealias"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
-#, fuzzy
-#| msgid "Edit barcodes"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Endre strekkoder"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
-msgstr "Endre plateomslag"
+msgstr "Endre omslagsbilde"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
-#, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release label"
-msgstr "Endre utgivelse"
+msgstr "Endre utgivelsens plateselskap"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
@@ -5358,43 +5132,31 @@ msgid "These releases could not be merged: {reason}"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
-msgstr "Fjern plateomslag"
+msgstr "Fjern omslagsbilde"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
-msgstr "Fjern plateomslag"
+msgstr "Omorganisér omslagsbilde"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
-#, fuzzy
-#| msgid "Remove medium"
 msgctxt "edit type"
 msgid "Reorder mediums"
-msgstr "Fjern medium"
+msgstr "Omorganisér medier"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group alias"
-msgstr "Legg til utgivelsesgruppe"
+msgstr "Legg til utgivelsesgruppealias"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add release group annotation"
 msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Legg til utgivelsesgruppeanmerkning"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Legg til utgivelsesgruppe"
@@ -5590,11 +5352,9 @@ msgid "No votes"
 msgstr "Neistemmer"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:42
-#, fuzzy
-#| msgid "Cancel"
 msgctxt "edit status"
 msgid "Cancelled"
-msgstr "Avbryt"
+msgstr "Avbrutt"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
@@ -6939,11 +6699,9 @@ msgid "Changelog:"
 msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:84
-#, fuzzy
-#| msgid "Preview:"
 msgctxt "interactive"
 msgid "Preview"
-msgstr "Forhåndsvisning:"
+msgstr "Forhåndsvisning"
 
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
@@ -7032,7 +6790,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:27
 msgid "Events"
-msgstr "Arrangementer:"
+msgstr "Arrangementer"
 
 #: ../root/area/AreaEvents.js:50 ../root/artist/ArtistEvents.js:62
 #: ../root/place/PlaceEvents.js:49
@@ -7457,10 +7215,8 @@ msgstr ""
 #: ../root/search/components/ArtistResults.js:59
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:91
-#, fuzzy
-#| msgid "Begin area:"
 msgid "Begin area"
-msgstr "Startområde:"
+msgstr "Startområde"
 
 #: ../root/artist/utils.js:21
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:69
@@ -7509,10 +7265,8 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:100
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:93
-#, fuzzy
-#| msgid "End area:"
 msgid "End area"
-msgstr "Sluttområde:"
+msgstr "Endeområde"
 
 #: ../root/artist/utils.js:41
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:70
@@ -8047,11 +7801,9 @@ msgstr ""
 
 #: ../root/collection/CreateCollection.js:24
 #: ../root/collection/CreateCollection.js:27
-#, fuzzy
-#| msgid "Add a new recording"
 msgctxt "header"
 msgid "Add a new collection"
-msgstr "Legg til en ny innspilling"
+msgstr "Lag en ny samling"
 
 #: ../root/collection/DeleteCollection.js:23
 #: ../root/collection/DeleteCollection.js:29
@@ -8101,7 +7853,7 @@ msgstr ""
 #: ../root/components/Aliases/index.js:45 ../root/components/EntityTabs.js:137
 #: ../root/entity/Aliases.js:23
 msgid "Aliases"
-msgstr "Alias:"
+msgstr "Aliaser"
 
 #: ../root/components/Aliases/index.js:48
 #: ../root/static/scripts/alias/AliasEditForm.js:280
@@ -8393,7 +8145,7 @@ msgstr[1] "Se alle {num} steder"
 #: ../root/components/TagEntitiesList.js:155
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
-msgstr[0] ""
+msgstr[0] "Se alle {num} artistene"
 msgstr[1] "Se alle {num} artister"
 
 #: ../root/components/TagEntitiesList.js:159
@@ -8866,10 +8618,8 @@ msgid "ModBot notes"
 msgstr "Endringstyper"
 
 #: ../root/edit/NotesReceived.js:57
-#, fuzzy
-#| msgid "Show less..."
 msgid "Show all notes"
-msgstr "Vis mindre..."
+msgstr "Vis alle merknader"
 
 #: ../root/edit/NotesReceived.js:58
 msgid "Show only notes by ModBot"
@@ -9485,10 +9235,8 @@ msgstr "ISWC"
 #: ../root/search/components/WorkResults.js:61
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:119
 #: ../root/static/scripts/work/edit.js:343
-#, fuzzy
-#| msgid "Languages:"
 msgid "Lyrics languages"
-msgstr "Språk:"
+msgstr "Sangtekstspråk"
 
 #: ../root/edit/details/BetaOnlyEdit.js:33
 msgid "This edit can currently only be viewed on the {beta|beta server}."
@@ -9806,11 +9554,9 @@ msgid "New order"
 msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:33
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular"
 msgid "Old cover art:"
-msgstr "Legg til plateomslag"
+msgstr "Gammelt omslagsbilde:"
 
 #: ../root/edit/details/SetCoverArt.js:54
 msgid ""
@@ -9877,10 +9623,8 @@ msgid "Type: {type}, status: {status}"
 msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
-#, fuzzy
-#| msgid "User type:"
 msgid "New type:"
-msgstr "Brukertype:"
+msgstr "Ny type:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
 #, fuzzy
@@ -10838,10 +10582,8 @@ msgstr[1] ""
 #: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:57
 #: ../root/utility/tableColumns.js:815
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
-msgstr "Innspilling av {artist}"
+msgstr "Innspillingsartister"
 
 #: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
@@ -11267,10 +11009,8 @@ msgid "Edits by subscribed editors"
 msgstr "Redigeringer av abonnerte redaktører"
 
 #: ../root/layout/components/TopMenu.js:106
-#, fuzzy
-#| msgid "Vote on all edits:"
 msgid "Notes left on my edits"
-msgstr "Stem på alle endringene:"
+msgstr "Merknader på mine redigeringer"
 
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
@@ -11312,11 +11052,9 @@ msgid "Add recording"
 msgstr "Endre innspilling"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:44
-#, fuzzy
-#| msgid "Added:"
 msgctxt "CD stub"
 msgid "Added"
-msgstr "Lagt til:"
+msgstr "Lagt til"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:52
 #, fuzzy
@@ -11350,10 +11088,8 @@ msgid "You have no event collections!"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "Add a new recording"
 msgid "You have no genre collections!"
-msgstr "Legg til en ny innspilling"
+msgstr "Du har ingen sjangersamlinger!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -11675,10 +11411,8 @@ msgid ""
 msgstr ""
 
 #: ../root/main/ImageEditingUnavailable.js:14
-#, fuzzy
-#| msgid "No images available."
 msgid "Image editing unavailable"
-msgstr "Ingen bilder tilgjengelig."
+msgstr "Bilderedigering er ikke tilgjengelig"
 
 #: ../root/main/ImageEditingUnavailable.js:17
 msgid "Image editing is currently unavailable."
@@ -12371,10 +12105,8 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:41
-#, fuzzy
-#| msgid "Edit relationship type"
 msgid "This pair has no relationship types."
-msgstr "Endre relasjontype"
+msgstr "Dette paret har ingen relasjonstyper."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
@@ -12501,10 +12233,8 @@ msgid ""
 msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
-#, fuzzy
-#| msgid "Merge release groups"
 msgid "Also merge the associated release groups"
-msgstr "Sammenslå utgivelsesgrupper"
+msgstr "Slå sammen de relevante utgivelsesgruppene også"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
@@ -14060,10 +13790,8 @@ msgid "Duplicate entity"
 msgstr ""
 
 #: ../root/report/SeriesContainingDuplicates.js:29
-#, fuzzy
-#| msgid "ISO number"
 msgid "Number"
-msgstr "ISO nummer"
+msgstr "Nummer"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
 msgid ""
@@ -14376,10 +14104,8 @@ msgid "Last updated: {date}"
 msgstr "Sist oppdatert: {date}"
 
 #: ../root/search/components/SearchError.js:20
-#, fuzzy
-#| msgid "Search method:"
 msgid "Search error"
-msgstr "Søkemetode:"
+msgstr "Søkefeil"
 
 #: ../root/search/components/SearchError.js:24
 msgid ""
@@ -15285,11 +15011,9 @@ msgid "Tags with a score of zero or below are hidden."
 msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:583
-#, fuzzy
-#| msgid "Show less..."
 msgctxt "folksonomy"
 msgid "Show all tags."
-msgstr "Vis mindre..."
+msgstr "Vis alle tagger."
 
 #: ../root/static/scripts/common/components/TagEditor.js:592
 msgctxt "folksonomy"
@@ -16604,12 +16328,10 @@ msgstr[0] "Ett åndsverk valgt"
 msgstr[1] "{n} åndsverk valgt"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "Add release"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "Legg til utgivelse"
-msgstr[1] "Legg til utgivelse"
+msgstr[0] "{num} utgivelse"
+msgstr[1] "{num} utgivelser"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -16843,10 +16565,8 @@ msgid "Display credits at bottom"
 msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "Innspilling av {artist}"
+msgstr "Opptaksalias: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
@@ -17580,11 +17300,9 @@ msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
 #: ../root/user/UserCollections.js:215
-#, fuzzy
-#| msgid "Add a new recording"
 msgctxt "interactive"
 msgid "Add a new collection"
-msgstr "Legg til en ny innspilling"
+msgstr "Lag en ny samling"
 
 #: ../root/user/UserEdits.js:33 ../root/user/UserEdits.js:34
 msgid "Votes by {name}"
@@ -17902,10 +17620,8 @@ msgid "Report this user for bad behavior"
 msgstr ""
 
 #: ../root/user/UserProfile.js:988
-#, fuzzy
-#| msgid "Vote on all edits:"
 msgid "View other users’ notes on my edits"
-msgstr "Stem på alle endringene:"
+msgstr "Se andres merknader på mine redigeringer"
 
 #: ../root/user/UserProfile.js:989
 msgid "View my notes on this user’s edits"
@@ -17964,10 +17680,8 @@ msgid "Editor subscriptions"
 msgstr "Redaktørsabonnementer"
 
 #: ../root/user/UserSubscriptions.js:26
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Label subscriptions"
-msgstr "Abonnementer  "
+msgstr "Plateselskapsabonnementer"
 
 #: ../root/user/UserSubscriptions.js:27
 msgid "Series subscriptions"
@@ -18188,22 +17902,18 @@ msgid "Relationship type"
 msgstr "Relasjoner"
 
 #: ../root/utility/tableColumns.js:778
-#, fuzzy
-#| msgid "User type:"
 msgctxt "header"
 msgid "Ordering type"
-msgstr "Brukertype:"
+msgstr "Sorteringstype"
 
 #: ../root/utility/tableColumns.js:786
 msgid "Subscribed"
 msgstr ""
 
 #: ../root/utility/tableColumns.js:834
-#, fuzzy
-#| msgid "Languages:"
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "Språk:"
+msgstr "Sangtekstenes språk"
 
 #: ../root/vote/VotingIndex.js:88
 msgid "…related to artists in my subscriptions"
