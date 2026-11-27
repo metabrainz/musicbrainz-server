@@ -201,6 +201,11 @@ has 'cover_art_presence' => (
     is => 'rw',
 );
 
+has 'noindex' => (
+    is => 'rw',
+    isa => 'Maybe[Bool]',
+);
+
 =head2 has_no_tracks
 
 Returns true if the release has no tracks at all, or false

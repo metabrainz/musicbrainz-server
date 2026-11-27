@@ -9,20 +9,15 @@ use List::AllUtils qw( sort_by );
 
 extends 'MusicBrainz::Server::Controller';
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'ISWC',
-};
-
-sub base : Chained('/') PathPart('iswc') CaptureArgs(0) { }
-
-sub _load : Chained('/') PathPart('iswc') CaptureArgs(1)
+sub load : Chained('/') PathPart('iswc') CaptureArgs(1)
 {
     my ($self, $c, $iswc) = @_;
     $iswc = format_iswc($iswc);
-    return unless (is_valid_iswc($iswc));
 
-    my @iswcs = $c->model('ISWC')->find_by_iswc($iswc)
-        or return;
+    $c->detach('not_found') unless is_valid_iswc($iswc);
+
+    my @iswcs = $c->model('ISWC')->find_by_iswc($iswc);
+    $c->detach('not_found') unless @iswcs;
 
     $c->stash(
         iswcs => \@iswcs,

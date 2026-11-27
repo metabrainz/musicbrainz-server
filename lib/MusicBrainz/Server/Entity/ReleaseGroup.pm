@@ -86,6 +86,11 @@ has 'has_cover_art' => (
 # Cannot set cover art if none of the associated releases has cover art.
 sub can_set_cover_art { return shift->has_loaded_cover_art; }
 
+has 'noindex' => (
+    is => 'rw',
+    isa => 'Maybe[Bool]',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
