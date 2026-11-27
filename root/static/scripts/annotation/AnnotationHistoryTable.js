@@ -68,7 +68,7 @@ component AnnotationHistoryTable(
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
     dispatch({
-      index: parseInteger(event.currentTarget.dataset.index),
+      index: parseInteger(event.currentTarget.dataset.index ?? ''),
       type: 'update-new',
     });
   }, [dispatch]);
@@ -77,7 +77,7 @@ component AnnotationHistoryTable(
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
     dispatch({
-      index: parseInteger(event.currentTarget.dataset.index),
+      index: parseInteger(event.currentTarget.dataset.index ?? ''),
       type: 'update-old',
     });
   }, [dispatch]);

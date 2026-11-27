@@ -76,6 +76,7 @@ component _SetCoverArtFormImage(
       return;
     }
     const gid = event.currentTarget.dataset.gid;
+    invariant(nonEmpty(gid), 'Expected a gid');
     setSelectedRelease(gid);
   };
 

@@ -268,7 +268,8 @@ language-pack-fi
 language-pack-he
 language-pack-ja
 language-pack-ru
-language-pack-sq')
+language-pack-sq
+language-pack-zh-hans')
 m4_ifelse(with_test_translations, 1, `m4_dnl
 language-pack-da
 language-pack-eo
@@ -278,7 +279,6 @@ language-pack-oc
 language-pack-pl
 language-pack-sv
 language-pack-tr
-language-pack-zh-hans
 language-pack-zh-hant')
 make
 ')

@@ -131,6 +131,7 @@ $(function () {
     },
     privileges: LOCATION_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG,
   };
+  // $FlowFixMe[incompatible-use]
   window[GLOBAL_JS_NAMESPACE] = {
     $c: {
       stash: {

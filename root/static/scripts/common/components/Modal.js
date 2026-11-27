@@ -74,7 +74,7 @@ component Modal(
       return;
     }
     let container = expect(
-      floatingDiv.querySelector('.dialog-content'),
+      floatingDiv.querySelector<HTMLDivElement>('.dialog-content'),
       '.dialog-content node',
     );
     /*:: invariant(container instanceof HTMLElement); */

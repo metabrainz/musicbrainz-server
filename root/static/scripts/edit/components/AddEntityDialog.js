@@ -44,13 +44,20 @@ component AddEntityDialog(
   const [isLoading, setLoading] = React.useState(true);
 
   const handlePageLoad = (event: SyntheticEvent<HTMLIFrameElement>) => {
-    const contentWindow: WindowProxy = event.currentTarget.contentWindow;
+    const contentWindow = expect(
+      event.currentTarget.contentWindow,
+      'iframe content window',
+    );
 
-    if (contentWindow.dialogResult) {
-      callback(contentWindow.dialogResult);
+    const dialogResult: NonUrlRelatableEntityT | void =
+      // $FlowFixMe[prop-missing]
+      contentWindow.dialogResult;
+    if (dialogResult) {
+      callback(dialogResult);
       return;
     }
 
+    // $FlowFixMe[prop-missing]
     contentWindow.containingDialog = instanceRef;
 
     flushSync(() => {
@@ -58,7 +65,7 @@ component AddEntityDialog(
     });
 
     const iframeBody = expect(
-      iframeRef.current?.contentDocument.body,
+      iframeRef.current?.contentDocument?.body,
       'iframe document body',
     );
     findFirstTabbableElement(iframeBody, /* skipAnchors = */ true)?.focus();

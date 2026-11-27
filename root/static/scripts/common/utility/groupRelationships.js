@@ -54,7 +54,7 @@ export type RelationshipTargetGroupT = {
   tracks: Set<TrackT> | null,
 };
 
-type PhraseGroupLinkTypeInfoT = {
+export type PhraseGroupLinkTypeInfoT = {
   backward: boolean,
   editsPending: boolean,
   phrase: Expand2ReactOutput,
@@ -86,14 +86,13 @@ const cmpPhraseGroupLinkTypeInfo = (
   b: PhraseGroupLinkTypeInfoT,
 ) => (
   (a.typeId - b.typeId) ||
-  compare(a.textPhrase, b.textPhrase) ||
-  ((a.backward ? 1 : 0) - (b.backward ? 1 : 0))
+  compare(a.textPhrase, b.textPhrase)
 );
 
-function cmpRelationshipPhraseGroups(
+export function cmpRelationshipPhraseGroups(
   a: RelationshipPhraseGroupT,
   b: RelationshipPhraseGroupT,
-) {
+): number {
   return cmpPhraseGroupLinkTypeInfo(a.linkTypeInfo[0], b.linkTypeInfo[0]);
 }
 

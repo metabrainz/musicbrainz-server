@@ -8518,7 +8518,7 @@ msgstr ""
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr ""
 
-#. frequency:0 iso_code_3:dws
+#. frequency:1 iso_code_3:dws
 #: DB:language/name:2141
 msgid "Dutton World Speedwords"
 msgstr ""
@@ -12793,7 +12793,7 @@ msgstr ""
 msgid "Inpui Naga"
 msgstr ""
 
-#. frequency:0 iso_code_3:igs
+#. frequency:1 iso_code_3:igs
 #: DB:language/name:2859
 msgid "Interglossa"
 msgstr ""
@@ -16553,7 +16553,7 @@ msgstr ""
 msgid "Kotafon Gbe"
 msgstr ""
 
-#. frequency:0 iso_code_3:avk
+#. frequency:1 iso_code_3:avk
 #: DB:language/name:909
 msgid "Kotava"
 msgstr ""
@@ -18708,7 +18708,7 @@ msgstr ""
 msgid "Lingua Franca"
 msgstr ""
 
-#. frequency:0 iso_code_3:lfn
+#. frequency:1 iso_code_3:lfn
 #: DB:language/name:3815
 msgid "Lingua Franca Nova"
 msgstr ""
@@ -25373,7 +25373,7 @@ msgstr ""
 msgid "Nottoway-Meherrin"
 msgstr ""
 
-#. frequency:0 iso_code_3:nov
+#. frequency:1 iso_code_3:nov
 #: DB:language/name:4962
 msgid "Novial"
 msgstr ""

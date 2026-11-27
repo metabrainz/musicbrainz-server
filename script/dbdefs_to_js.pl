@@ -159,6 +159,12 @@ my $browser_code = <<'EOF';
 
 const DBDefs = window[GLOBAL_JS_NAMESPACE].DBDefs;
 EOF
+my $browser_type_code = <<'EOF';
+// @flow strict
+
+// Automatically generated, do not edit.
+declare type GlobalJsDBDefsT = {
+EOF
 
 for my $conversion (@conversions) {
     my ($defs, $convert, $flowtype) = @{$conversion}{qw(defs convert flowtype)};
@@ -172,14 +178,17 @@ for my $conversion (@conversions) {
             $client_code .= $line;
             my $browser_line  = "export const $def = DBDefs.$def;\n";
             $browser_code .= $browser_line;
+            $browser_type_code .= "  readonly $def: $flowtype,\n";
         }
     }
 }
+$browser_type_code .= "};\n";
 
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
 my $server_js_path = "$common_dir/DBDefs.mjs";
 my $client_js_path = "$common_dir/DBDefs-client.mjs";
 my $browser_js_path = "$common_dir/DBDefs-client-browser.mjs";
+my $browser_type_js_path = "$FindBin::Bin/../root/types/global_js_dbdefs.js";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;
@@ -191,4 +200,8 @@ close $fh;
 
 open($fh, '>', $browser_js_path);
 print $fh $browser_code;
+close $fh;
+
+open($fh, '>', $browser_type_js_path);
+print $fh $browser_type_code;
 close $fh;

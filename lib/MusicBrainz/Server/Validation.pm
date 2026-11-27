@@ -269,6 +269,7 @@ sub is_valid_isrc
     return $isrc =~ /^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$/;
 }
 
+# Converted to JavaScript at root/static/scripts/edit/utility/isValidTime.js
 sub is_valid_time
 {
     my $time = shift;

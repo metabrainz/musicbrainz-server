@@ -1416,6 +1416,15 @@ msgid ""
 "MusicBrainz seeder, is released by Kellnerd."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2026-10-01
+msgid "majkinetor userscripts"
+msgstr ""
+
+#. title:majkinetor userscripts
+#: DB:statistics.statistic_event/description:2026-10-01
+msgid "majkinetor userscripts come into heavy/mainstream usage"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
 msgstr ""

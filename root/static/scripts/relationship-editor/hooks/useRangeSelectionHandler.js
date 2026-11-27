@@ -36,8 +36,7 @@ export default function useRangeSelectionHandler(
         lastClicked.current !== target &&
         event.shiftKey
       ) {
-        const checkboxes = container.querySelectorAll<'input'>(
-          // $FlowExpectedError[incompatible-type]
+        const checkboxes = container.querySelectorAll<HTMLInputElement>(
           'input.' + className,
         );
         const isTargetChecked = target.checked;

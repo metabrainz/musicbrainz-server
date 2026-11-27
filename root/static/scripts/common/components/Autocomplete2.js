@@ -233,7 +233,7 @@ export function createInitialState<T extends EntityItemT>(
   return state;
 }
 
-component _AutocompleteItem<T extends EntityItemT>(
+component AutocompleteItem<T extends EntityItemT>(
   autocompleteId: string,
   dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
@@ -292,8 +292,6 @@ component _AutocompleteItem<T extends EntityItemT>(
   );
 }
 
-const AutocompleteItem = React.memo(_AutocompleteItem);
-
 component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
   const {dispatch, state} = props;
 
@@ -321,7 +319,7 @@ component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const inputRefCallback = useMergeRefs([inputRef, externalInputRef]);
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
-  const inputTimeout = React.useRef<TimeoutID | null>(null);
+  const inputTimeout = React.useRef<number | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const prevIsOpen = React.useRef<boolean>(false);
   const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
@@ -331,7 +329,7 @@ component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
     : null;
 
   function clearInputTimeout() {
-    if (inputTimeout.current) {
+    if (inputTimeout.current != null) {
       clearTimeout(inputTimeout.current);
       inputTimeout.current = null;
     }
@@ -653,7 +651,7 @@ component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
     if (
       !staticItems &&
       nonEmpty(pendingSearch) &&
-      !inputTimeout.current &&
+      inputTimeout.current == null &&
       !xhr.current
     ) {
       inputTimeout.current = setTimeout(() => {

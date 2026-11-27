@@ -70,7 +70,7 @@ declare module 'react-dom_shared-types' {
     source: NonNullable<unknown>,
   ) => MutableSourceVersion;
 
-  declare type MutableSource<Source: NonNullable<unknown>> = {|
+  declare type MutableSource<Source extends NonNullable<unknown>> = {|
     _source: Source,
 
     _getVersion: MutableSourceGetVersionFn,

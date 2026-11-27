@@ -16,6 +16,14 @@
 
 declare var __webpack_public_path__: string;
 declare var __DEV__: boolean;
+declare var __MB__: {
+  readonly $c: SanitizedCatalystContextT,
+  readonly DBDefs: GlobalJsDBDefsT,
+  readonly jedData?: {
+    readonly locale: string,
+    readonly [locale: string]: InstanceType<$Exports<'jed'>>['options'],
+  },
+};
 declare var GLOBAL_JS_NAMESPACE: '__MB__';
 declare var MUSICBRAINZ_RUNNING_TESTS: boolean;
 
@@ -26,7 +34,7 @@ declare var addQuotesText: (variable: StrOrNum) => string;
 
 declare var hydrate: (
   <
-    Config: {...},
+    Config extends {...},
     SanitizedConfig = Config,
   >(
     containerSelector: string,
@@ -182,4 +190,4 @@ declare var texp: {
 };
 
 // root/utility/invariant.js
-declare var invariant: (cond: unknown, msg?: string) => empty;
+declare var invariant: (cond: unknown, msg?: string) => asserts cond;

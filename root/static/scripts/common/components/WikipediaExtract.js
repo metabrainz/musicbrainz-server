@@ -50,7 +50,7 @@ function loadWikipediaExtract(
         Sentry.captureException(error);
       }
     })
-    .catch(console.error);
+    .catch(error => console.error(error));
 }
 
 component WikipediaExtract(

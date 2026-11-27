@@ -253,7 +253,7 @@
     </div>
 [%- END -%]
 
-[%- MACRO type_bubble(form, types) BLOCK -%]
+[%- MACRO type_bubble(form, types, guidelines_link) BLOCK -%]
     <div class="bubble" id="type-bubble">
       <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>
         [%- l('Select any type from the list to see its description. If the entity
@@ -269,6 +269,13 @@
            [% END %]
          </span>
       [% END %]
+
+      [% IF guidelines_link %]
+        <p>
+          [% l('Please see the {doc|style guidelines} for more information.',
+              { doc => { href => doc_link(guidelines_link), target => '_blank' } }) %]
+        </p>
+      [%- END -%]
     </div>
 [%- END -%]
 

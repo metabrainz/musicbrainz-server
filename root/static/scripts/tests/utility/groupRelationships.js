@@ -9,7 +9,11 @@
 
 import test from 'tape';
 
-import groupRelationships from '../../common/utility/groupRelationships.js';
+import groupRelationships, {
+  type PhraseGroupLinkTypeInfoT,
+  type RelationshipPhraseGroupT,
+  cmpRelationshipPhraseGroups,
+} from '../../common/utility/groupRelationships.js';
 import {
   exportLinkAttributeTypeInfo,
   exportLinkTypeInfo,
@@ -111,5 +115,47 @@ test('MBS-13588: Phrase groups are highlighted for pending edits regardless of r
   t.ok(
     groups2[0].relationshipPhraseGroups[0].linkTypeInfo[0].editsPending,
     'editsPending is true for order relationship2, relationship1',
+  );
+});
+
+test('MBS-14536: Relationships with the same type and link phrase on both sides (directionless) are grouped', function (t) {
+  t.plan(1);
+
+  const phraseGroupType1: PhraseGroupLinkTypeInfoT = {
+    backward: true,
+    editsPending: false,
+    phrase: 'siblings',
+    rootTypeId: 113,
+    textPhrase: 'siblings',
+    typeId: 110,
+  };
+
+  const phraseGroup1: RelationshipPhraseGroupT = {
+    combinedPhrase: 'siblings',
+    key: 'key1',
+    linkTypeInfo: [phraseGroupType1],
+    targetGroups: [],
+  };
+
+  const phraseGroupType2: PhraseGroupLinkTypeInfoT = {
+    backward: false,
+    editsPending: false,
+    phrase: 'siblings',
+    rootTypeId: 113,
+    textPhrase: 'siblings',
+    typeId: 110,
+  };
+
+  const phraseGroup2: RelationshipPhraseGroupT = {
+    combinedPhrase: 'siblings',
+    key: 'key2',
+    linkTypeInfo: [phraseGroupType2],
+    targetGroups: [],
+  };
+
+  t.is(
+    cmpRelationshipPhraseGroups(phraseGroup1, phraseGroup2),
+    0,
+    'Directionless phrase groups are grouped together',
   );
 });
