@@ -1703,6 +1703,18 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://boomkat.com/artists/eric-wubbels/search/genre_avant-garde-experimental_date_quarter',
+             input_entity_type: 'artist',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/artists/eric-wubbels',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://boomkat.com/products/around-the-sun-pt-2',
              input_entity_type: 'release',
        input_relationship_type: 'downloadpurchase',
@@ -1725,6 +1737,24 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'https://boomkat.com/artists/mo-boma/releases/1r3l5n54/jijimuge-interdiffusion-of-particulars',
+             input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/artists/mo-boma/releases/1r3l5n54/jijimuge-interdiffusion-of-particulars',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://boomkat.com/artists/gabriel-ferrandini/releases/npcydeek/romance/tracks/wnonxuln/green-ray',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://boomkat.com/artists/gabriel-ferrandini/releases/npcydeek/romance/tracks/wnonxuln/green-ray',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'http://www.boomkat.com/labels/alleviated-records?testing',
              input_entity_type: 'label',
        input_relationship_type: 'downloadpurchase',
@@ -1738,6 +1768,18 @@ limited_link_type_combinations: [
   },
   {
                      input_url: 'https://boomkat.com/labels/cultivated-electronics?q[format]=Download',
+             input_entity_type: 'label',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/labels/cultivated-electronics',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://boomkat.com/labels/cultivated-electronics/search/genre_electro',
              input_entity_type: 'label',
        input_relationship_type: 'mailorder',
 limited_link_type_combinations: [
