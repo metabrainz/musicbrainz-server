@@ -24,6 +24,7 @@ my $ws_defs = Data::OptList::mkopt([
      work => {
                          action   => '/ws/2/work/lookup',
                          method   => 'GET',
+                         # Keep in sync with iswc inc options
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt) ],
