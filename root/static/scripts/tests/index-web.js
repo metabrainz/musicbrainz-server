@@ -66,6 +66,7 @@ require('./utility/natatime.js');
 require('./utility/parseDate.js');
 require('./utility/primaryAreaCode.js');
 require('./utility/relationshipDateText.js');
+require('./utility/rememberHeaderSearchType.js');
 require('./utility/sanitizedEditor.js');
 require('./utility/sortByEntityName.js');
 require('./utility/strings.js');

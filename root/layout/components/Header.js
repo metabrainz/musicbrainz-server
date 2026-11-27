@@ -24,6 +24,7 @@ component Header() {
         <BottomMenu />
       </div>
       {manifest('common/MB/Control/Menu', {async: true})}
+      {manifest('common/headerSearch', {async: true})}
     </div>
   );
 }
