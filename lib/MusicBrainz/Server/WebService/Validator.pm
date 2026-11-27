@@ -71,9 +71,6 @@ our %extra_inc = (
     'release-group-rels' => {
         generic => [ qw( artist-credits ) ],
     },
-    'works' => {
-        generic => [ qw( artist-credits ) ],
-    },
 );
 
 
