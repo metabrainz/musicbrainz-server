@@ -20,6 +20,7 @@ import request from '../common/utility/request.js';
 import deferFocus from '../edit/utility/deferFocus.js';
 import guessFeat from '../edit/utility/guessFeat.js';
 import GuessCase from '../guess-case/MB/GuessCase/Main.js';
+import guessPunctuation from '../guess-punctuation.js';
 
 import fields from './fields.js';
 import utils from './utils.js';
@@ -264,6 +265,32 @@ const actions = {
     }
   },
 
+  /*
+   * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
+   * Otherwise, updates the current name.
+   */
+  guessPunctuationMediumName(medium, event) {
+    const name = medium.name.peek();
+    if (!name) {
+      return;
+    }
+
+    switch (event.type) {
+      case 'mouseenter':
+        if (event.buttons === 0) {
+          medium.previewName(guessPunctuation(name));
+        }
+        break;
+      case 'mouseleave':
+        medium.previewName(null);
+        break;
+      default:
+        medium.name(medium.previewName() ?? guessPunctuation(name));
+        medium.nameModified(medium.name() !== name);
+        medium.previewName(null);
+    }
+  },
+
   moveTrackUp(track) {
     var previous = track.previous();
 
@@ -424,6 +451,30 @@ const actions = {
         track.name(
           track.previewName() ?? GuessCase.entities.track.guess(origName),
         );
+        track.nameModified(track.name() !== origName);
+        track.previewName(null);
+        break;
+      }
+    }
+  },
+
+  /*
+   * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
+   * Otherwise, updates the current name.
+   */
+  guessPunctuationTrackName(track, event) {
+    switch (event.type) {
+      case 'mouseenter':
+        if (event.buttons === 0) {
+          track.previewName(guessPunctuation(track.name.peek()));
+        }
+        break;
+      case 'mouseleave':
+        track.previewName(null);
+        break;
+      default: {
+        const origName = track.name.peek();
+        track.name(track.previewName() ?? guessPunctuation(origName));
         track.nameModified(track.name() !== origName);
         track.previewName(null);
         break;

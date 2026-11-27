@@ -116,7 +116,10 @@ class Track {
       owner: this,
     });
 
-    // True after the name has been modified by the "guess case" button.
+    /*
+     * True after the name has been modified by a guessing button
+     * ("guess case" or "guess punctuation").
+     */
     this.nameModified = ko.observable(false);
 
     this.length = ko.observable(data.length);
@@ -440,7 +443,10 @@ class Medium {
       write: this.name,
       owner: this,
     });
-    // True after the name has been modified by the "guess case" button.
+    /*
+     * True after the name has been modified by a guessing button
+     * ("guess case" or "guess punctuation").
+     */
     this.nameModified = ko.observable(false);
     this.position = ko.observable(data.position || 1);
     this.formatID = ko.observable(data.format_id);

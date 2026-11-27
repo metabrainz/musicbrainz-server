@@ -305,7 +305,11 @@ table.row-form {
    __________________________________ */
 
 button.guesscase-title, button.guesscase-sortname {
-    background-image: data-uri('../images/icons/guesscase.png');
+    background-image: data-uri('../images/icons/guess-case.png');
+}
+
+button.guess-punctuation {
+    background-image: data-uri('../images/icons/guess-punctuation.png');
 }
 
 button.sortname-copy {
@@ -317,7 +321,7 @@ button.guesscase-options {
 }
 
 button.guessfeat {
-    background-image: data-uri('../images/icons/guessfeat.png');
+    background-image: data-uri('../images/icons/guess-feat.png');
     background-size: @form-icon-size @form-icon-size;
 }
 
@@ -438,11 +442,11 @@ div.half-width fieldset {
     }
 
     input.with-guesscase {
-        width: @form-input-width - (@form-icon-size * 2) - 6 !important;
+        width: @form-input-width - (@form-icon-size * 3) - 9 !important;
     }
 
     input.with-guesscase-guessfeat {
-        width: @form-input-width - (@form-icon-size * 3) - 9 !important;
+        width: @form-input-width - (@form-icon-size * 4) - 13 !important;
     }
 }
 

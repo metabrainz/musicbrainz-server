@@ -188,8 +188,6 @@ Images:
     icons/collapse.png
     icons/down.png
     icons/expand.png
-    icons/guesscase.32x32.png
-    icons/guesscase.png
     icons/help.png
     icons/up.png
 
