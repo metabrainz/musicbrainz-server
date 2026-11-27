@@ -3355,6 +3355,42 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'idagio': {
+    hostname: 'app.idagio.com',
+    match: [/^(https?:\/\/)?app\.idagio\.com\/([a-z]{2}\/)?(albums|profiles|recordings)\//i],
+    restrict: [LINK_TYPES.streamingfree, LINK_TYPES.streamingpaid],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?app\.idagio\.com\/(?:[a-z]{2}\/)?(albums|profiles|recordings)\/([^/?#]+).*$/, 'https://app.idagio.com/$1/$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/app\.idagio\.com\/(albums|profiles|recordings)\/[^/?#]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'profiles',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'recordings',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'albums',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'idref': {
     hostname: 'idref.fr',
     match: [/^(https?:\/\/)?(www\.)?idref\.fr\//i],

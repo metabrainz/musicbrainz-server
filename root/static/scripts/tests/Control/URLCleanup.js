@@ -3335,6 +3335,39 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
   },
+  // IDAGIO
+  {
+                     input_url: 'http://app.idagio.com/profiles/wolfgang-amadeus-mozart/about',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://app.idagio.com/profiles/wolfgang-amadeus-mozart',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://app.idagio.com/es/albums/paganini-violin-concerto-no-1-sonata-napoleone-i-palpiti-perpetuela',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://app.idagio.com/albums/paganini-violin-concerto-no-1-sonata-napoleone-i-palpiti-perpetuela',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'app.idagio.com/albums/mozart-requiem-in-d-minor-k-626-robert-d-levin-edition?trackId=123#top',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://app.idagio.com/albums/mozart-requiem-in-d-minor-k-626-robert-d-levin-edition',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://app.idagio.com/recordings/35264288',
+             input_entity_type: 'recording',
+       input_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://app.idagio.com/recordings/35264288',
+       only_valid_entity_types: ['recording'],
+  },
   // IdRef
   {
                      input_url: 'http://idref.fr/172248248/id',

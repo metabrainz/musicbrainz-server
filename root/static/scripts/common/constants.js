@@ -137,6 +137,7 @@ export const FAVICON_CLASSES: {
   'hoerspielforscher.de': 'hoerspielforscher',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',
+  'idagio.com': 'idagio',
   'idref.fr': 'idref',
   'imdb.com': 'imdb',
   'imslp.org': 'imslp',
