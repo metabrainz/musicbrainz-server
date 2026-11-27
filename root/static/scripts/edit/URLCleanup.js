@@ -7269,6 +7269,45 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'volumo': {
+    hostname: 'volumo.com',
+    match: [/^(https?:\/\/)?(www\.)?volumo\.com/i],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?volumo\.com(?:\/[a-z]{2})?\/(artist|label|track|album)\/([0-9]+).*$/, 'https://volumo.com/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/volumo\.com\/([a-z]+)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+            return {
+              result: prefix === 'label',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+            return {
+              result: prefix === 'track',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'weibo': {
     hostname: 'weibo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?weibo\.com\//i],
