@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import guessCaseIconUrl from '../../../images/icons/guesscase.32x32.png';
+import guessCaseIconUrl from '../../../images/icons/guess-case-32.png';
 
 const style = {float: 'left', margin: '1em'};
 
