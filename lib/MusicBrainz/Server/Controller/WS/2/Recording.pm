@@ -34,6 +34,7 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          action   => '/ws/2/recording/lookup',
                          method   => 'GET',
+                         # Keep in sync with isrc inc options
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags genres user-genres ratings user-ratings
                                           release-groups work-level-rels annotation) ],

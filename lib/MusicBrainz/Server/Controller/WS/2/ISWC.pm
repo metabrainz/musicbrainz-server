@@ -11,8 +11,9 @@ use MusicBrainz::Server::Validation qw( is_valid_iswc );
 my $ws_defs = Data::OptList::mkopt([
      iswc => {
                          method   => 'GET',
-                         inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         # Keep in sync with work inc options
+                         inc      => [ qw(aliases annotation _relations
+                                          tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw( fmt ) ],
      },
 ]);
