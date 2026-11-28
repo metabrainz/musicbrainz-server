@@ -29,6 +29,7 @@ const URL_AGGREGATORS = [
   'biglink.to',
   'bio.link',
   'backl.ink',
+  'bnds.us',
   'bruit.app',
   'bstlnk.to',
   'distrokid.com',
