@@ -18,7 +18,10 @@ import {
 } from 'weight-balanced-tree/update';
 
 import {expect} from '../../../utility/invariant.js';
-import {VIDEO_ATTRIBUTE_GID} from '../common/constants.js';
+import {
+  VIDEO_ATTRIBUTE_GID,
+  VIDEO_ATTRIBUTE_ID,
+} from '../common/constants.js';
 import {compare} from '../common/i18n.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import {
@@ -72,6 +75,7 @@ import {
 type SeededUrlShapeT = {
   link_type_id?: string,
   text?: string,
+  video?: string,
 };
 
 export function createInitialState(
@@ -278,12 +282,15 @@ function getInitialLinks(
   const pushSeededUrl = (
     rawUrl: string,
     linkTypeId: number | null,
+    video: boolean = false,
   ) => {
     const unicodeUrl = getUnicodeUrl(rawUrl);
     const cleanUrl = URLCleanup.cleanURL(unicodeUrl);
+    const effectiveVideo = video && supportsVideoAttribute(linkTypeId);
     const seededRelationship = createLinkRelationshipState({
       linkTypeID: linkTypeId,
       url: cleanUrl,
+      video: effectiveVideo,
     });
 
     const existingLink = (
@@ -320,7 +327,7 @@ function getInitialLinks(
        */
       const newLinkCtx = mutate(newLink);
       newLinkCtx.dangerouslySetAsMutable();
-      guessNewUrlType(source, newLinkCtx, cleanUrl);
+      guessNewUrlType(source, newLinkCtx, cleanUrl, video);
       newLinkCtx.final();
       if (!areLinkRelationshipsEmpty(newLink)) {
         newLink.isSubmitted = true;
@@ -340,7 +347,7 @@ function getInitialLinks(
         const name = data.target?.name ?? '';
         const linkTypeId = data.linkTypeID ?? null;
         if (nonEmpty(name) || nonEmpty(linkTypeId)) {
-          pushSeededUrl(name, linkTypeId);
+          pushSeededUrl(name, linkTypeId, Boolean(data.video));
         }
       }
     }
@@ -354,7 +361,7 @@ function getInitialLinks(
     const seededSourceType = source.entityType.replace('_', '-');
     const seededLinkRegex = new RegExp(
       '(?:\\?|&)edit-' + seededSourceType +
-        '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
+        '\\.url\\.([0-9]+)\\.(text|link_type_id|video)=([^&]+)',
       'g',
     );
     const urls: {[index: string]: SeededUrlShapeT} = {};
@@ -365,15 +372,18 @@ function getInitialLinks(
       switch (key) {
         case 'link_type_id':
         case 'text':
+        case 'video':
           (urls[index] ||= {})[key] = decodeURIComponent(value);
           break;
       }
     }
 
     for (const data of Object.values(urls)) {
+      const rawVideo = data.video?.trim().toLowerCase();
       pushSeededUrl(
         data.text ?? '',
         parseInt(data.link_type_id, 10) || null,
+        rawVideo === '1' || rawVideo === 'true',
       );
     }
   }
@@ -386,10 +396,22 @@ export function getSubmittedLinksKey(source: RelatableEntityT): string {
   return `submittedLinks_${source.entityType}_${sourceId}`;
 }
 
+function supportsVideoAttribute(linkTypeId: number | null): boolean {
+  if (linkTypeId == null) {
+    return false;
+  }
+  const linkType = linkedEntities.link_type[linkTypeId];
+  return Boolean(
+    linkType &&
+    Object.hasOwn(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)),
+  );
+}
+
 function guessNewUrlType(
   source: RelatableEntityT,
   linkCtx: CowContext<LinkStateT>,
   newUrl: string,
+  video: boolean = false,
 ): void {
   const relationshipsCtx = linkCtx.get('relationships');
   const checker = getLinkChecker(source.entityType, linkCtx.read());
@@ -426,6 +448,7 @@ function guessNewUrlType(
           createLinkRelationshipState({
             linkTypeID,
             url: newUrl,
+            video: video && supportsVideoAttribute(linkTypeID),
           }),
         );
       }

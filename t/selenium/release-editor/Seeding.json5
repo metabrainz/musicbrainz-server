@@ -440,5 +440,37 @@
       target: 'id=name',
       value: '0',
     },
+    // MBS-14540: seeding url video attribute
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/url_video.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr.relationship-item input[type=checkbox]')).map(x => x.checked).join(',')",
+      value: 'true,false,true,false,false,true',
+    },
+    // MBS-14540: invalid url video value produces a seed error
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/url_video_invalid.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid urls.0.video: “invalid”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
   ],
 }

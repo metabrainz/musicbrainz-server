@@ -979,5 +979,16 @@
       target: '',
       value: '',
     },
+    // MBS-14540: seeding recording url video attribute
+    {
+      command: 'open',
+      target: '/recording/create?edit-recording.url.0.text=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F123&edit-recording.url.0.link_type_id=268&edit-recording.url.0.video=1&edit-recording.url.1.text=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F456&edit-recording.url.1.link_type_id=268&edit-recording.url.1.video=0&edit-recording.url.2.text=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F789&edit-recording.url.2.link_type_id=268&edit-recording.url.2.video=true&edit-recording.url.3.text=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F101&edit-recording.url.3.link_type_id=268&edit-recording.url.3.video=false&edit-recording.url.4.text=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F102&edit-recording.url.4.link_type_id=268',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr.relationship-item input[type=checkbox]')).map(x => x.checked).join(',')",
+      value: 'true,false,true,false,false',
+    },
   ],
 }
