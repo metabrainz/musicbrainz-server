@@ -439,6 +439,7 @@ export default {
   'static/scripts/edit/components/FormRowNameWithGuessCase': (): Promise<unknown> => import('../static/scripts/edit/components/FormRowNameWithGuessCase.js'),
   'static/scripts/edit/components/FormRowTextList': (): Promise<unknown> => import('../static/scripts/edit/components/FormRowTextList.js'),
   'static/scripts/edit/components/FormRowTextListSimple': (): Promise<unknown> => import('../static/scripts/edit/components/FormRowTextListSimple.js'),
+  'static/scripts/edit/components/SmallAreaWarning': (): Promise<unknown> => import('../static/scripts/edit/components/SmallAreaWarning.js'),
   'static/scripts/edit/components/GuessCaseIcon': (): Promise<unknown> => import('../static/scripts/edit/components/GuessCaseIcon.js'),
   'static/scripts/edit/components/HydratedArtistDateRangeFieldset': (): Promise<unknown> => import('../static/scripts/edit/components/HydratedArtistDateRangeFieldset.js'),
   'static/scripts/edit/components/HydratedDateRangeFieldset': (): Promise<unknown> => import('../static/scripts/edit/components/HydratedDateRangeFieldset.js'),
