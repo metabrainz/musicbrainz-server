@@ -3346,6 +3346,42 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'hoopla': {
+    hostname: 'hoopladigital.com',
+    match: [/^(?:https?:\/\/)?(?:www\.)?hoopladigital\.com\//i],
+    restrict: [LINK_TYPES.streamingfree],
+    clean(url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?hoopladigital\.com\/(artist|music|publisher)\/(?:[^?#/]+\/)?(\d+)(?:\/titles)?\/?(?:[?#].*)?$/i,
+        'https://www.hoopladigital.com/$1/$2',
+      );
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.hoopladigital\.com\/(artist|music|publisher)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'music',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.label:
+            return {
+              result: prefix === 'publisher',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'ibdb': {
     hostname: 'ibdb.com',
     match: [/^(https?:\/\/)?(www\.)?ibdb\.com\//i],
